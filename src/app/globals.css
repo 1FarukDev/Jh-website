@@ -246,3 +246,31 @@
   font-style: italic;
   font-display: swap;
 }
+
+@keyframes navDropdownIn {
+  from {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-navDropdownIn {
+  animation: navDropdownIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes navDropdownOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+.animate-navDropdownOut {
+  animation: navDropdownOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

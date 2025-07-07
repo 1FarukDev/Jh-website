@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import NavBar from '../components/nav-bar'
 import localFont from 'next/font/local'
+import Footer from '@/components/footer'
+import NavDropdownProviderWrapper from '@/wrapper/nav-wrapper'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -52,11 +54,12 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang='en'>
-      <body
-        className={`${satoshi.variable}  antialiased`}
-      >
-        <NavBar />
-        {children}
+      <body className={`${satoshi.variable}  antialiased`}>
+        <NavDropdownProviderWrapper>
+          <NavBar />
+          {children}
+          <Footer />
+        </NavDropdownProviderWrapper>
       </body>
     </html>
   )
