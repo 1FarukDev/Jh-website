@@ -86,7 +86,7 @@ function ClientWork () {
             <div
               key={i}
               className={`w-3 h-1 transition-all ${
-                currentIndex === i ? 'bg-[#1C1B0B] w-[50px] rounded-2xl' : 'bg-gray-300 w-[10px] rounded-full'
+                currentIndex === i ? 'bg-[#1C1B0B] w-[50px] rounded-4xl' : 'bg-gray-300 w-[10px] rounded-full'
               }`}
             ></div>
           ))}
