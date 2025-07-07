@@ -24,7 +24,7 @@ function NavBar () {
   return (
     <section
       className={`py-4 px-3 font-satoshi fixed z-100 w-full transition-colors duration-300 ${
-        scrolled && !isOpen ? 'bg-white shadow-lg' : ''
+        scrolled && !isOpen ? 'bg-white shadow-sm' : ''
       }`}
     >
       <div className='grid grid-cols-3 items-center'>

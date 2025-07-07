@@ -11,7 +11,7 @@ function FeaturedPrints () {
       <p className='text-[60px] font-normal text-center leading-[40px]'>
         Featured Prints
       </p>
-      <p className='text-xl font-satoshi font-normal text-center mt-2 '>
+      <p className='text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 '>
         Curated works handpicked from J.H Textiles collection.
       </p>
 
