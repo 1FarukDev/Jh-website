@@ -10,6 +10,7 @@ import { useNavDropdown } from '@/context/nav-context'
 import cartwhite from '@/app/assets/svg/shopping-cart-white.svg'
 import Modal from './modal'
 import SignUp from './auth/sign-up'
+import Login from './auth/login'
 
 function NavBar () {
   const { isOpen, toggleDropdown } = useNavDropdown()
@@ -90,15 +91,22 @@ function NavBar () {
             </p>
           </div>
 
-          <Button
-            className={`shadow-none ${
-              isOpen
-                ? 'bg-white text-black rounded-3xl'
-                : 'bg-black text-white rounded-none'
-            }   font-normal px-[28px]`}
+          <Modal
+            className='!w-[700] !max-w-[70vw] no-scrollbar'
+            trigger={
+              <Button
+                className={`shadow-none ${
+                  isOpen
+                    ? 'bg-white text-black rounded-3xl'
+                    : 'bg-black text-white rounded-none'
+                }   font-normal px-[28px]`}
+              >
+                Login
+              </Button>
+            }
           >
-            Login
-          </Button>
+            <Login />
+          </Modal>
 
           <Modal
             className='!w-[700] !max-w-[70vw] no-scrollbar'
