@@ -11,6 +11,7 @@ import cartwhite from '@/app/assets/svg/shopping-cart-white.svg'
 import Modal from './modal'
 import SignUp from './auth/sign-up'
 import Login from './auth/login'
+import Link from 'next/link'
 
 function NavBar () {
   const { isOpen, toggleDropdown } = useNavDropdown()
@@ -76,7 +77,7 @@ function NavBar () {
               Search
             </p>
           </div>
-          <div className='flex items-center gap-1'>
+          <Link href={'/cart'} className='flex items-center gap-1 cursor-pointer'>
             {isOpen ? (
               <Image src={cartwhite} alt='Cart' className='w-[24px] h-[24px]' />
             ) : (
@@ -89,7 +90,7 @@ function NavBar () {
             >
               Carts
             </p>
-          </div>
+          </Link>
 
           <Modal
             className='!w-[700] !max-w-[70vw] no-scrollbar'
