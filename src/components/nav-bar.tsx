@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import NavDropdown from './nav-dropdown'
 import { useNavDropdown } from '@/context/nav-context'
 import cartwhite from '@/app/assets/svg/shopping-cart-white.svg'
+import Modal from './modal'
+import SignUp from './auth/sign-up'
 
 function NavBar () {
   const { isOpen, toggleDropdown } = useNavDropdown()
@@ -23,7 +25,7 @@ function NavBar () {
 
   return (
     <section
-      className={`py-4 px-3 font-satoshi fixed z-100 w-full transition-colors duration-300 ${
+      className={`py-4 px-3 font-satoshi fixed z-10 w-full transition-colors duration-300 ${
         scrolled && !isOpen ? 'bg-white shadow-sm' : ''
       }`}
     >
@@ -98,15 +100,22 @@ function NavBar () {
             Login
           </Button>
 
-          <Button
-            className={`shadow-none bg-transparent  ${
-              isOpen
-                ? 'text-white border-white rounded-3xl'
-                : 'text-black border-black rounded-none'
-            } border   font-normal px-[28px]`}
+          <Modal
+            className='!w-[700] !max-w-[70vw] no-scrollbar'
+            trigger={
+              <Button
+                className={`shadow-none bg-transparent  ${
+                  isOpen
+                    ? 'text-white border-white rounded-3xl'
+                    : 'text-black border-black rounded-none'
+                } border   font-normal px-[28px]`}
+              >
+                Sign Up
+              </Button>
+            }
           >
-            Sign Up
-          </Button>
+            <SignUp />
+          </Modal>
         </div>
       </div>
     </section>

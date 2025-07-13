@@ -176,6 +176,14 @@
   font-family: var(--satoshi-font);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @font-face {
   font-family: 'Satoshi';
   src: url('/Fonts/Satoshi-Light.otf') format('opentype');
