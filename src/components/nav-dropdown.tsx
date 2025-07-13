@@ -30,7 +30,7 @@ function NavDropdown () {
     },
     {
       text: 'Shop',
-      href: '/about'
+      href: '/shop'
     },
     {
       text: 'Our Clients',
