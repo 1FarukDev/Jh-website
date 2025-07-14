@@ -31,8 +31,8 @@ const CartCard: React.FC<CartCardProps> = ({
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
 
   return (
-    <section className='items-start border-b pb-8'>
-      <div className='flex gap-4 items-start'>
+    <section className='items-start border-b pb-8 w-full'>
+      <div className='flex gap-4 items-start w-full'>
         <Image src={image} alt='Print Image' width={200} height={300} />
 
         <div className='flex items-start justify-between w-full'>
@@ -42,7 +42,7 @@ const CartCard: React.FC<CartCardProps> = ({
               <p className='text-[30px] font-medium'>{title}</p>
             </div>
 
-            <div className='flex gap-6 flex-wrap'>
+            <div className='flex flex-wrap gap-6 w-full'>
               <div className='font-satoshi'>
                 <p className='font-light mb-2'>Exclusivity</p>
                 <p className='font-normal border border-black px-4 py-2 text-center'>
