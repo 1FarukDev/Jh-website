@@ -28,8 +28,8 @@ function OrderSummaryCard ({
       <Image
         src={image}
         alt={title}
-        width={90}
-        height={90}
+        width={100}
+        height={100}
         className='object-cover'
       />
 
@@ -89,9 +89,10 @@ interface Order {
 
 interface OrderSummaryListProps {
   orders: Order[]
+  onClick: () => void
 }
 
-function OrderSummaryList ({ orders }: OrderSummaryListProps) {
+function OrderSummaryList ({ orders, onClick }: OrderSummaryListProps) {
   return (
     <section className='bg-[#E8E7D7] p-8 mx-auto'>
       <h2 className='font-bold text-[#1C1B0B] text-[24px] text-center pb-6 uppercase'>
@@ -109,11 +110,14 @@ function OrderSummaryList ({ orders }: OrderSummaryListProps) {
         <p>NGN 150.000</p>
       </div>
 
-      <button className='w-full bg-[#1C1B0B] text-white py-3 text-center text-[16px] font-medium flex justify-center items-center gap-2'>
-        Proceed to checkout  <MoveRight strokeWidth={1} />
+      <button
+        className='w-full bg-[#1C1B0B] text-white py-3 text-center text-[16px] font-medium flex justify-center items-center gap-2'
+        onClick={onClick}
+      >
+        Proceed to checkout <MoveRight strokeWidth={1} />
       </button>
     </section>
   )
 }
 
-export default OrderSummaryList
+export  {OrderSummaryList, OrderSummaryCard}

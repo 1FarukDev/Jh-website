@@ -124,13 +124,13 @@ function SignUp () {
           </div>
 
           <div className='flex gap-4 items-center  w-full'>
-            <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2'>
+            <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2 cursor-pointer'>
               <Icon icon='flat-color-icons:google' width='20' height='20' />
               <p className='font-satoshi font-normal text-olive'>
                 Sign up with Google
               </p>
             </div>
-            <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2'>
+            <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2 cursor-pointer'>
               <Icon icon='logos:facebook' width='20' height='20' />
               <p className='font-satoshi font-normal text-olive'>
                 Sign up with Facebook
