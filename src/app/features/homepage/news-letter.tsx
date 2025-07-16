@@ -9,7 +9,7 @@ import Information from '@/app/assets/svg/information.svg'
 
 export default function NewsletterSignup () {
   return (
-    <section className='relative min-h-[60vh] flex items-center justify-center my-[50px]'>
+    <section className='relative min-h-[60vh] flex items-center justify-center mt-[50px]'>
       <Image
         src={NewsLetter}
         alt='Colorful traditional textiles and rugs background'
