@@ -16,7 +16,7 @@ type FormData = {
   home_address: string
 }
 
-function BuyersInfo ({
+function CardDetails ({
   handleNext,
   handlePrevious
 }: {
@@ -72,41 +72,41 @@ function BuyersInfo ({
               className='flex flex-col justify-center items-start mt-[30px] gap-6'
             >
               <p className='font-satoshi text-black text-[24px]'>
-                Personal Details
+                Credit card details
               </p>
               <div className='w-full  flex flex-col gap-4'>
+                <FormInput
+                  name='card_number'
+                  type='text'
+                  placeholder='Enter your card number'
+                  className='h-[52px]'
+                />
+                <FormInput
+                  name='card_holder'
+                  type='text'
+                  placeholder='Enter your name '
+                  className='h-[52px]'
+                />
                 <div className='flex gap-3 items-center'>
                   <FormInput
-                    name='first_name'
+                    name='expiry_date'
                     type='text'
-                    placeholder='Enter your first name'
+                    placeholder='Enter your expiry date '
                     className='h-[52px]'
                   />
                   <FormInput
-                    name='last_name'
+                    name='cvv'
                     type='text'
-                    placeholder='Enter your last name'
+                    placeholder='Enter your cvv'
                     className='h-[52px]'
                   />
                 </div>
-                <FormInput
-                  name='email'
-                  type='email'
-                  placeholder='Enter your email'
-                  className='h-[52px]'
-                />
-                <FormInput
-                  name='phone_number'
-                  type='text'
-                  placeholder='Enter your phone number'
-                  className='h-[52px]'
-                />
               </div>
 
               <div className='w-full h-[1px] bg-gray-300' />
 
               <p className='font-satoshi text-black text-[24px]'>
-                Delivery Address
+                Billing address
               </p>
               <div className='w-full  flex flex-col gap-4'>
                 <div className='flex gap-3 items-center'>
@@ -194,4 +194,4 @@ function BuyersInfo ({
   )
 }
 
-export default BuyersInfo
+export default CardDetails

@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
-import CartCard from '@/components/cart-card'
+import React, { useState } from 'react'
 import PrintImage from '@public/assets/png/print.png'
-import OrderSummaryCard from '@/components/order-summary-card'
-import OrderSummaryList from '@/components/order-summary-card'
+import { Button } from '@/components/ui/button'
+import CartList from './cart-list'
+import BuyersInfo from './buyers-info'
+import CardDetails from './card-details'
 
 function CartItems () {
   const steps = [
@@ -13,7 +14,19 @@ function CartItems () {
     { label: 'Payment', number: 3 }
   ]
 
-  const currentStep = 1
+  const [currentStep, setCurrentStep] = useState(1)
+
+  const handleNext = () => {
+    if (currentStep < steps.length) {
+      setCurrentStep(prev => prev + 1)
+    }
+  }
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(prev => prev - 1)
+    }
+  }
 
   const products = [
     {
@@ -61,8 +74,25 @@ function CartItems () {
     }
   ]
 
+  const renderContent = () => {
+    switch (currentStep) {
+      case 1:
+        return <CartList handleNext={handleNext} />
+      case 2:
+        return (
+          <BuyersInfo handleNext={handleNext} handlePrevious={handleBack} />
+        )
+      case 3:
+        return (
+          <CardDetails handleNext={handleNext} handlePrevious={handleBack} />
+        )
+      default:
+        return null
+    }
+  }
+
   return (
-    <section className='px-4 py-6  mx-auto flex flex-col w-full'>
+    <section className='px-4 py-6 mx-auto flex flex-col w-full'>
       <h1 className='text-[50px] text-center'>Your bag</h1>
       <p className='text-[#4E5157] text-lg font-normal font-satoshi text-center'>
         Review your selected prints and prepare to check out.
@@ -70,59 +100,52 @@ function CartItems () {
 
       {/* Stepper */}
       <div className='flex items-center justify-between w-full relative mt-10 font-satoshi'>
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className='flex-1 flex flex-col items-center relative'
-          >
+        {steps.map((step, index) => {
+          const isActive = currentStep === step.number
+          const isCompleted = step.number < currentStep
+
+          return (
             <div
-              className={`w-8 h-8 rounded-none border text-sm flex items-center justify-center z-10 ${
-                currentStep === step.number
-                  ? 'bg-black text-white border-black'
-                  : 'bg-white text-gray-500 border-gray-300'
-              }`}
+              key={index}
+              className='flex-1 flex flex-col items-center relative'
             >
-              {step.number}
+              {/* Step Circle */}
+              <div
+                className={`w-8 h-8 rounded-none border text-sm flex items-center justify-center z-10 ${
+                  isActive || isCompleted
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-gray-500 border-gray-300'
+                }`}
+              >
+                {step.number}
+              </div>
+
+              {/* Step Label */}
+              <span
+                className={`mt-2 text-sm ${
+                  isActive || isCompleted
+                    ? 'text-black font-medium'
+                    : 'text-gray-400'
+                }`}
+              >
+                {step.label}
+              </span>
+
+              {/* Connecting Line */}
+              {index < steps.length - 1 && (
+                <div
+                  className={`absolute top-4 left-1/2 w-full h-px z-0 ${
+                    currentStep > step.number ? 'bg-black' : 'bg-gray-300'
+                  }`}
+                />
+              )}
             </div>
-            <span
-              className={`mt-2 text-sm ${
-                currentStep === step.number
-                  ? 'text-black font-medium'
-                  : 'text-gray-400'
-              }`}
-            >
-              {step.label}
-            </span>
-            {index < steps.length - 1 && (
-              <div className='absolute top-4 left-1/2 w-full h-px bg-gray-300 z-0' />
-            )}
-          </div>
-        ))}
+          )
+        })}
       </div>
-      <div className='flex items-start gap-4 w-full mt-20'>
-        <div className='border-r  w-[80%] pr-4 border-black'>
-          <div className='items-start mt-20 flex flex-col gap-12'>
-            {products.map(product => (
-              <CartCard
-                key={product.id}
-                image={product.image}
-                title={product.title}
-                exclusivity={product.exclusivity}
-                colorLabel={product.colorLabel}
-                colorCode={product.colorCode}
-                size={product.size}
-                price={product.price}
-                onRemove={() =>
-                  console.log(`Remove item with id ${product.id}`)
-                }
-              />
-            ))}
-          </div>
-        </div>
-        <div className='w-[40%]'>
-          <OrderSummaryList orders={orderData} />
-        </div>
-      </div>
+
+      {/* Step Content */}
+      {renderContent()}
     </section>
   )
 }
