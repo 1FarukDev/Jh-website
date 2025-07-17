@@ -19,7 +19,7 @@ function Client () {
             From J.H Textile studios to large-scale spaces, we bring textile
             ideas to life.
           </p>
-          <Button className='bg-black rounded-none flex justify-center items-center mt-4 h-10'>
+          <Button className='bg-black font-satoshi rounded-none flex justify-center items-center mt-4 h-10'>
             View Collections
           </Button>
         </div>
