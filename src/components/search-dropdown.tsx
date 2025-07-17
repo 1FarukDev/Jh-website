@@ -33,7 +33,6 @@ function SearchDropdown ({ onClose }: Props) {
         <div className='max-w-2xl mx-auto'>
           <button
             onClick={onClose}
-            // className='absolute right-10 top-16 text-gray-700 hover:text-black transition'
             className='w-6 h-6 flex absolute right-10 top-16 text-gray-700  transition items-center justify-center border border-gray-300 rounded-full  '
           >
             <X className='w-5 h-5' />
