@@ -12,10 +12,13 @@ import Modal from './modal'
 import SignUp from './auth/sign-up'
 import Login from './auth/login'
 import Link from 'next/link'
+import SearchDropdown from './search-dropdown'
+import { AnimatePresence } from 'framer-motion'
 
 function NavBar () {
   const { isOpen, toggleDropdown } = useNavDropdown()
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState<boolean>(false)
+  const [showSearch, setShowSearch] = useState<boolean>(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,11 +30,11 @@ function NavBar () {
 
   return (
     <section
-      className={`py-4 px-3 font-satoshi fixed z-10 w-full transition-colors duration-300 ${
+      className={`py-4  font-satoshi fixed z-10 w-full transition-colors duration-300 ${
         scrolled && !isOpen ? 'bg-white shadow-sm' : ''
       }`}
     >
-      <div className='grid grid-cols-3 items-center'>
+      <div className='grid grid-cols-3 items-center px-3'>
         <div className='flex items-center gap-2 justify-start'>
           <div
             className='flex flex-col items-center justify-center gap-1'
@@ -55,13 +58,16 @@ function NavBar () {
             Menu
           </h1>
         </div>
-        <div className='flex justify-center items-center gap-1'>
+        <Link href={'/'} className='flex justify-center items-center gap-1'>
           <Image src={NavLogo} alt='Nav Logo' className='' />
           <h2 className={`font-rose ${isOpen ? 'text-white' : ' text-black'}`}>
             J.H TEXTILES
           </h2>
-        </div>
-        <div className='flex items-center gap-4 justify-end'>
+        </Link>
+        <div
+          className='flex items-center gap-4 justify-end'
+          onClick={() => setShowSearch(prev => !prev)}
+        >
           <div className='flex items-center gap-1'>
             <Search
               strokeWidth={1.5}
@@ -77,7 +83,10 @@ function NavBar () {
               Search
             </p>
           </div>
-          <Link href={'/cart'} className='flex items-center gap-1 cursor-pointer'>
+          <Link
+            href={'/cart'}
+            className='flex items-center gap-1 cursor-pointer'
+          >
             {isOpen ? (
               <Image src={cartwhite} alt='Cart' className='w-[24px] h-[24px]' />
             ) : (
@@ -127,6 +136,9 @@ function NavBar () {
           </Modal>
         </div>
       </div>
+      <AnimatePresence>
+        {showSearch && <SearchDropdown onClose={() => setShowSearch(false)} />}
+      </AnimatePresence>
     </section>
   )
 }
