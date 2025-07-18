@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 interface FormCheckboxProps
   extends React.ComponentPropsWithoutRef<typeof Checkbox> {
   name: string
-  label?: string
+  label?: React.ReactNode
   wrapperClassName?: string
 }
 
@@ -23,7 +23,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
     register,
     formState: { errors },
     setValue,
-    getValues
+    getValues,
   } = useFormContext()
 
   const error = errors[name]?.message as string | undefined
@@ -38,7 +38,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
 
   return (
     <div className={cn('flex flex-col gap-1', wrapperClassName)}>
-      <label className="flex items-center space-x-2 text-sm text-foreground font-satoshi">
+      <label className="flex items-start space-x-2 text-sm text-foreground font-satoshi">
         <Checkbox
           className={className}
           checked={!!value}
