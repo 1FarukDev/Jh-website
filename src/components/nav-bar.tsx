@@ -30,8 +30,8 @@ function NavBar () {
 
   return (
     <section
-      className={`py-4  font-satoshi fixed z-10 w-full transition-colors duration-300 ${
-        scrolled && !isOpen ? 'bg-white shadow-sm' : ''
+      className={`py-4 font-satoshi fixed w-full transition-colors duration-300 ${
+        scrolled && !isOpen ? 'bg-white shadow-sm z-10' : isOpen ? 'z-[60]' : 'z-10'
       }`}
     >
       <div className='grid grid-cols-3 items-center px-3'>
