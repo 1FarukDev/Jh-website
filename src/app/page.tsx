@@ -4,7 +4,6 @@ import ClientWork from './features/homepage/client-works'
 import FeaturedPrints from './features/homepage/featured-prints'
 import Studio from './features/homepage/studio'
 import NewsletterSignup from './features/homepage/news-letter'
-import NavDropdown from '@/components/nav-dropdown'
 
 export default function Home () {
   return (
@@ -14,7 +13,6 @@ export default function Home () {
       <FeaturedPrints />
       <Studio />
       <NewsletterSignup />
-      <NavDropdown />
     </section>
   )
 }

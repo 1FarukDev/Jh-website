@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import HeroImage from '../../../../public/assets/png/hero.png'
 import { Button } from '@/components/ui/button'
-import NavDropdown from '@/components/nav-dropdown'
 
 function Hero () {
   return (

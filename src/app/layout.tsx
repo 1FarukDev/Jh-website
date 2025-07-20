@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import NavBar from '../components/nav-bar'
+import NavDropdown from '../components/nav-dropdown'
 import localFont from 'next/font/local'
 import Footer from '@/components/footer'
 import NavDropdownProviderWrapper from '@/wrapper/nav-wrapper'
@@ -57,6 +58,7 @@ export default function RootLayout ({
       <body className={`${satoshi.variable}  antialiased`}>
         <NavDropdownProviderWrapper>
           <NavBar />
+          <NavDropdown />
           {children}
           <Footer />
         </NavDropdownProviderWrapper>
