@@ -7,7 +7,7 @@ import NewsletterSignup from './features/homepage/news-letter'
 
 export default function Home () {
   return (
-    <section className=''>
+    <section className='pb-15'>
       <Hero />
       <ClientWork />
       <FeaturedPrints />

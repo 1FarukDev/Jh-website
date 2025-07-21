@@ -17,18 +17,18 @@ export default function NewsletterSignup () {
         className='object-cover'
         priority
       />
-      <div className='relative z-10 text-center max-w-3xl mx-auto px-6'>
+      <div className='relative  text-center max-w-3xl mx-auto px-6'>
         <h2 className='text-4xl lg:text-5xl font-light text-white mb-4 tracking-wide'>
-          GET ART UPDATES &<br />
+          GET ART UPDATES & {''}<br className='md:block hidden'/>
           STUDIO STORIES
         </h2>
 
-        <p className='text-white/90 text-lg mb-8 font-light font-satoshi'>
+        <p className='text-white/90 text-sm md:text-lg mb-8 font-light font-satoshi'>
           Be the first to see new releases and studio moments.
         </p>
 
         <div className='max-w-md mx-auto'>
-          <div className='flex flex-col sm:flex-row gap-3 border p-1'>
+          <div className='flex flex-row gap-3 border p-1'>
             <div className='relative flex-1'>
               <Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5' />
               <Input

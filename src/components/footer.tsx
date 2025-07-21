@@ -191,7 +191,7 @@ export default function Footer () {
                 Information about products, events, stores and news await you!
               </p>
 
-              <div className='flex flex-col sm:flex-row gap-3 mb-15 border p-1'>
+              <div className='flex flex-row gap-3 mb-15 border p-1'>
                 <div className='relative flex-1'>
                   <Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5' />
                   <Input
