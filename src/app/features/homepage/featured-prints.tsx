@@ -9,20 +9,20 @@ function FeaturedPrints () {
     id: i + 1,
     image: PrintImage,
     label: 'Print',
-    title: `Green Gradient ${i + 1}`,
+    title: `Green ${i + 1}`,
     price: 25000
   }))
 
   return (
     <section className='my-[100px] px-4'>
-      <p className='text-[60px] font-normal text-center leading-[40px]'>
+      <p className='md:text-[60px] text-[30px] font-bold md:font-normal text-center leading-[20px] md:leading-[40px]'>
         Featured Prints
       </p>
-      <p className='text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2'>
+      <p className='md:text-xl text-sm font-satoshi font-normal text-[#4E5157] text-center mt-2'>
         Curated works handpicked from J.H Textiles collection.
       </p>
 
-      <div className='mt-[45px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+      <div className='mt-[45px] grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 gap-y-8 md:gap-6'>
         {featuredPrints.map((item) => (
           <PrintCard
             key={item.id}

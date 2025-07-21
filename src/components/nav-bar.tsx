@@ -54,7 +54,7 @@ function NavBar () {
           : 'z-10'
       }`}
     >
-      <div className='grid grid-cols-3 items-center px-3'>
+      <div className='md:grid flex  justify-between md:grid-cols-3 items-center px-3'>
         <div className='flex items-center gap-2 justify-start'>
           <div
             className='flex flex-col items-center justify-center gap-1'
@@ -74,7 +74,7 @@ function NavBar () {
               }`}
             ></div>
           </div>
-          <h1 className={`text-lg  ${isOpen ? 'text-white' : 'text-black'}`}>
+          <h1 className={`text-lg hidden md:block ${isOpen ? 'text-white' : 'text-black'}`}>
             Menu
           </h1>
         </div>
@@ -96,7 +96,7 @@ function NavBar () {
               }`}
             />
             <p
-              className={`font-normal text-[14px] ${
+              className={`font-normal hidden md:block text-[14px] ${
                 isOpen ? 'text-white' : 'text-black'
               }`}
             >
@@ -113,7 +113,7 @@ function NavBar () {
               <Image src={cart} alt='Cart' className='w-[24px] h-[24px]' />
             )}
             <p
-              className={`font-normal text-[14px] ${
+              className={`font-normal hidden md:block text-[14px] ${
                 isOpen ? 'text-white' : 'text-black'
               }`}
             >
@@ -121,7 +121,7 @@ function NavBar () {
             </p>
           </Link>
 
-          <div className='relative' ref={userDropdownRef}>
+          <div className='relative hidden md:block' ref={userDropdownRef}>
             <div
               className='flex items-center gap-2 cursor-pointer'
               onClick={e => {

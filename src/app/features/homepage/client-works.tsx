@@ -47,20 +47,20 @@ function ClientWork () {
 
   return (
     <section className='my-[100px]'>
-      <p className='text-[60px] font-light text-center leading-[40px]'>
+      <p className='md:text-[60px] text-[28px] font-light text-center leading-[40px]'>
         Client Work Highlights
       </p>
-      <p className='text-lg font-satoshi font-normal text-center text-[#4E5157] leading-[40px]'>
+      <p className='md:text-lg text-sm font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]'>
         A creative textile studio crafting meaningful prints, rooted in texture,
         tradition, and storytelling.
       </p>
 
-      <div className='flex flex-col md:flex-row items-center mt-8 overflow-hidden bg-[#5C3B00] text-white transition-all duration-500'>
+      <div className='flex flex-col-reverse md:flex-row items-center mt-8 overflow-hidden bg-[#5C3B00] text-white transition-all duration-500'>
         <div className='flex flex-col items-center justify-center gap-4 w-full md:w-1/2 py-[80px] px-6'>
-          <p className='text-[32px] md:text-[44px] leading-[48px] tracking-tighter text-center'>
+          <p className='text-[20px] md:text-[44px] leading-[48px] tracking-tighter text-center'>
             {work.text}
           </p>
-          <p className='text-lg font-satoshi text-center -mt-2'>{work.subText}</p>
+          <p className='md:text-lg text-sm font-satoshi text-center -mt-4 md:-mt-2'>{work.subText}</p>
           <Button className='bg-white text-black font-satoshi rounded-none px-6'>
             View Project
           </Button>
