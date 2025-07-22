@@ -32,9 +32,9 @@ function NavDropdown () {
   const nav: NavLink[] = [
     { text: 'Home', href: '/' },
     { text: 'Shop', href: '/shop' },
-    { text: 'Our Clients', href: '/contact' },
-    { text: 'About', href: '/contact' },
-    { text: 'BLOG & Press', href: '/contact' },
+    { text: 'Our Clients', href: '/client' },
+    { text: 'About', href: '/about' },
+    { text: 'BLOG & Press', href: '/blog' },
     { text: 'Contact', href: '/contact' }
   ]
 

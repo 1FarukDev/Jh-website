@@ -30,22 +30,22 @@ function Contact () {
   return (
     <section className='py-26 pt-40'>
       <div className='flex flex-col items-center justify-center max-w-4xl mx-auto'>
-        <h1 className='text-[64px] font-normal text-center leading-[62px] text-[#230D06]'>
+        <h1 className='text-[32px]  md:text-[64px] font-normal text-center leading-[32px] md:leading-[62px] text-[#230D06]'>
           Let’s Connect
         </h1>
-        <div className='font-satoshi font-light mt-3 text-center'>
+        <div className='font-satoshi font-light mt-3 text-center px-4 md:px-0 md:text-base text-sm'>
           <p>
             Got a question, project idea, or just want to say hi? Fill out the{' '}
-            <br />
+            <br className='md:block hidden'/>
             form and I’ll get back to you soon.
           </p>
         </div>
       </div>
 
       {/* Image and Form Section */}
-      <div className='flex gap-8 my-20 items-stretch px-4'>
+      <div className='flex flex-col md:flex-row gap-8 my-20 items-stretch '>
         {/* Image Block */}
-        <div className='w-1/2 h-full'>
+        <div className='md:w-1/2 w-full h-full'>
           <Image
             src={ConnectImage}
             alt='Story Image'
@@ -54,14 +54,14 @@ function Contact () {
         </div>
 
         {/* Form Block */}
-        <div className='w-1/2 h-full'>
+        <div className='md:w-1/2 w-full px-4 h-full'>
           <FormProvider {...methods}>
-            <section className='p-6 pt-0 w-full h-full'>
+            <section className='md:p-6 pt-0 w-full h-full'>
               <form
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className='flex flex-col justify-start items-start gap-6 h-full'
               >
-                <div className='w-full flex gap-4'>
+                <div className='w-full flex-col md:flex-row flex gap-4'>
                   <FormInput
                     name='first_name'
                     type='text'
@@ -76,7 +76,7 @@ function Contact () {
                   />
                 </div>
 
-                <div className='w-full flex gap-4'>
+                <div className='w-full flex flex-col md:flex-row gap-4'>
                   <FormInput
                     name='email'
                     type='email'

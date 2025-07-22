@@ -19,15 +19,15 @@ function BlogCard ({ title, description, image, onClick }: BlogCardProps) {
         <Image
           src={image}
           alt='Blog image'
-          className='w-full h-auto object-cover'
+          className='w-full h-[700px] md:h-auto object-cover'
         />
         <div className='absolute inset-0 bg-gradient-to-b from-[#2A140700] to-[#2A1407]' />
-        <div className='absolute bottom-10 left-10 text-white'>
-          <h1 className='text-[40px] font-normal'>{title}</h1>
-          <p className='font-satoshi text-lg'>{description}</p>
+        <div className='absolute bottom-5 md:bottom-10 left-5 md:left-10 text-white'>
+          <h1 className='text-[20px] md:text-[40px] font-normal'>{title}</h1>
+          <p className='font-satoshi text-sm md:text-lg'>{description}</p>
           <Button
             onClick={onClick}
-            className='mt-10 bg-transparent border rounded-none text-white font-light shadow-none hover:bg-black hover:text-white transition-colors font-satoshi !px-8'
+            className='md:mt-10 mt-5 bg-transparent border rounded-none text-white font-light shadow-none hover:bg-black hover:text-white transition-colors font-satoshi !px-8'
           >
             Read More
             <MoveRight strokeWidth={0.5} />

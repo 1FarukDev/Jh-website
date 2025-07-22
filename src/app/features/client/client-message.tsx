@@ -16,12 +16,12 @@ function ClientMessage () {
         className='object-cover'
         priority
       />
-      <div className='relative z-10 text-center max-w-2xl mx-auto px-6'>
-        <h2 className='text-6xl lg:text-5xl font-light text-white mb-4 tracking-wide'>
+      <div className='relative z-5 text-center max-w-2xl mx-auto px-6'>
+        <h2 className='text-[30px] md:text-6xl lg:text-5xl font-light text-white mb-4 tracking-wide'>
           Have a textile vision? Let’s bring it to life
         </h2>
 
-        <p className='text-white/90 text-lg mb-4 font-light font-satoshi md:text-nowrap'>
+        <p className='text-white/90 text-sm md:text-lg mb-4 font-light font-satoshi md:text-nowrap'>
           We take on custom work, collaborative design projects, and large-scale
           commissions.
         </p>
