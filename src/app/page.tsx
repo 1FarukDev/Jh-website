@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Hero from './features/homepage/hero-section'
 import ClientWork from './features/homepage/client-works'

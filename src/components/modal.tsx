@@ -29,7 +29,7 @@ const Modal: React.FC<CustomModalProps> = ({
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent
-        className={`${className} [&>button[data-dialog-close]]:hidden rounded-none !p-0 m-0`}
+        className={`${className} [&>button[data-dialog-close]]:hidden  rounded-none !p-0 m-0`}
       >
         <DialogHeader>
           {title && <DialogTitle>{title}</DialogTitle>}

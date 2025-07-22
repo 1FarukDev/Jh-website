@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import ClientImage from '@/app/assets/png/client-image.png'
 import ClientImage2 from '@/app/assets/png/client-image2.png'
@@ -5,8 +7,10 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import ClientWork from '../features/homepage/client-works'
 import ClientMessage from '../features/client/client-message'
+import { useRouter } from 'next/navigation'
 
 function Client () {
+  const router = useRouter();
   return (
     <section className='py-26'>
       <main className='flex items-start justify-between mt-10'>
@@ -19,7 +23,7 @@ function Client () {
             From J.H Textile studios to large-scale spaces, we bring textile
             ideas to life.
           </p>
-          <Button className='bg-black font-satoshi rounded-none flex justify-center items-center mt-4 h-10'>
+          <Button className='bg-black font-satoshi rounded-none flex justify-center items-center mt-4 h-10' onClick={() => router.push('/shop')}>
             View Collections
           </Button>
         </div>

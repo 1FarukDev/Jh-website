@@ -1,8 +1,9 @@
+'use client'
+
 import CartCard from '@/components/cart-card'
 import React from 'react'
 import PrintImage from '@public/assets/png/print.png'
 import { OrderSummaryList } from '@/components/order-summary-card'
-
 
 function CartList ({ handleNext }: { handleNext: () => void }) {
   const products = [
@@ -52,9 +53,9 @@ function CartList ({ handleNext }: { handleNext: () => void }) {
   ]
 
   return (
-    <div className='flex items-start gap-4 w-full mt-20'>
-      <div className='border-r w-[60%] pr-10 border-black'>
-        <div className='items-start mt-20 flex flex-col gap-12'>
+    <div className='flex flex-col md:flex-row items-start gap-4 w-full mt-6 md:mt-20 px-2 md:px-0'>
+      <div className='w-full md:border-r md:w-[60%] md:pr-10 md:border-black'>
+        <div className='items-start mt-4 md:mt-20 flex flex-col gap-6 md:gap-12'>
           {products.map(product => (
             <CartCard
               key={product.id}
@@ -71,7 +72,7 @@ function CartList ({ handleNext }: { handleNext: () => void }) {
         </div>
       </div>
 
-      <div className='w-[40%]'>
+      <div className='w-full md:w-[40%] mt-6 md:mt-0'>
         <OrderSummaryList orders={orderData} onClick={handleNext} />
       </div>
     </div>

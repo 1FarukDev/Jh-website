@@ -1,4 +1,4 @@
-
+'use client'
 
 import React from 'react'
 import Image, { StaticImageData } from 'next/image'
@@ -12,7 +12,7 @@ interface BlogCardProps {
   onClick?: () => void
 }
 
-function BlogCard({ title, description, image, onClick }: BlogCardProps) {
+function BlogCard ({ title, description, image, onClick }: BlogCardProps) {
   return (
     <section className='relative w-full h-auto'>
       <div className='relative w-full'>

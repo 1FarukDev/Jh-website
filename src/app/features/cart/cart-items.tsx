@@ -93,12 +93,11 @@ function CartItems () {
 
   return (
     <section className='px-4 py-6 mx-auto flex flex-col w-full'>
-      <h1 className='text-[50px] text-center'>Your bag</h1>
-      <p className='text-[#4E5157] text-lg font-normal font-satoshi text-center'>
+      <h1 className='text-[28px] md:text-[50px] text-center'>Your bag</h1>
+      <p className='text-[#4E5157] text-sm md:text-lg font-normal font-satoshi text-center'>
         Review your selected prints and prepare to check out.
       </p>
 
-      {/* Stepper */}
       <div className='flex items-center justify-between w-full relative mt-10 font-satoshi'>
         {steps.map((step, index) => {
           const isActive = currentStep === step.number
@@ -109,9 +108,8 @@ function CartItems () {
               key={index}
               className='flex-1 flex flex-col items-center relative'
             >
-              {/* Step Circle */}
               <div
-                className={`w-8 h-8 rounded-none border text-sm flex items-center justify-center z-10 ${
+                className={`w-8 h-8 rounded-none border text-sm flex items-center justify-center z-5 ${
                   isActive || isCompleted
                     ? 'bg-black text-white border-black'
                     : 'bg-white text-gray-500 border-gray-300'
@@ -120,7 +118,6 @@ function CartItems () {
                 {step.number}
               </div>
 
-              {/* Step Label */}
               <span
                 className={`mt-2 text-sm ${
                   isActive || isCompleted
@@ -131,7 +128,6 @@ function CartItems () {
                 {step.label}
               </span>
 
-              {/* Connecting Line */}
               {index < steps.length - 1 && (
                 <div
                   className={`absolute top-4 left-1/2 w-full h-px z-0 ${
@@ -144,7 +140,6 @@ function CartItems () {
         })}
       </div>
 
-      {/* Step Content */}
       {renderContent()}
     </section>
   )

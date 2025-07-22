@@ -44,7 +44,7 @@ function Login () {
 
   return (
     <FormProvider {...methods}>
-      <section className='p-6   w-full'>
+      <section className='md:p-6 p-3   w-full'>
         {showForgotPassword ? (
           <ForgotPassword onBackToLogin={handleBackToLogin} />
         ) : (
@@ -53,8 +53,8 @@ function Login () {
               <div></div>
 
               <div className='flex justify-center items-center gap-1'>
-                <Image src={NavLogo} alt='Nav Logo' />
-                <h2 className='font-rose text-black'>J.H TEXTILES</h2>
+                <Image src={NavLogo} alt='Nav Logo' width={50}/>
+                <h2 className='font-rose text-black md:text-base text-sm'>J.H TEXTILES</h2>
               </div>
 
               <DialogClose asChild>
@@ -73,8 +73,8 @@ function Login () {
               className='flex flex-col justify-center items-center mt-[30px] gap-6'
             >
               <div className='text-center'>
-                <h1 className='text-[40px] text-[#1C1B0B]'>Welcome back</h1>
-                <p className='text-[#4E5157] font-satoshi text-lg'>
+                <h1 className='md:text-[40px] text-[24px] text-[#1C1B0B]'>Welcome back</h1>
+                <p className='text-[#4E5157] font-satoshi text-xs md:text-lg'>
                   Log in to access your account and discover new pieces.
                 </p>
               </div>
@@ -122,13 +122,13 @@ function Login () {
               <div className='flex gap-4 items-center  w-full'>
                 <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2'>
                   <Icon icon='flat-color-icons:google' width='20' height='20' />
-                  <p className='font-satoshi font-normal text-olive'>
+                  <p className='font-satoshi md:text-base text-xs font-normal text-olive'>
                     Sign up with Google
                   </p>
                 </div>
                 <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2'>
                   <Icon icon='logos:facebook' width='20' height='20' />
-                  <p className='font-satoshi font-normal text-olive'>
+                  <p className='font-satoshi md:text-base text-xs font-normal text-olive'>
                     Sign up with Facebook
                   </p>
                 </div>

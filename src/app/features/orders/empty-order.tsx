@@ -18,15 +18,15 @@ function EmptyOrder () {
         width={300}
         height={300}
       />
-      <h1 className='text-[50px]'>No Orders Yet</h1>
-      <p className='text-lg font-normal font-satoshi'>
+      <h1 className='text-[28px] md:text-[50px]'>No Orders Yet</h1>
+      <p className='text-sm md:text-lg font-normal font-satoshi'>
         Looks like you haven’t purchased anything yet.
       </p>
-      <Button className='bg-black rounded-none shadow-none h-12 !px-16 mt-8 font-satoshi flex gap-2' onClick={() => router.push('/shop')}>
+      <Button className='bg-black rounded-none shadow-none h-12 w-full md:w-max !px-16 mt-8 font-satoshi flex gap-2' onClick={() => router.push('/shop')}>
         Start Shopping
         <MoveRight strokeWidth={1} />
       </Button>
-      <Likes />
+      {/* <Likes /> */}
     </div>
   )
 }

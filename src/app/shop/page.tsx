@@ -18,22 +18,22 @@ function page () {
 
   return (
     <section>
-      <div className='py-26 px-[30px]'>
+      <div className='py-26 px-4 md:px-[30px]'>
         <div className='pt-10'>
-          <h1 className='text-center font-normal text-[80px]'>
+          <h1 className='text-center font-normal text-[28px] md:text-[80px]'>
             Shop Prints & Textiles
           </h1>
-          <p className='font-satoshi font-normal text-2xl text-center'>
+          <p className='font-satoshi font-normal md:text-2xl text-base text-[#4E5157] text-center'>
             Each piece is a story—told through texture, tone, and timeless
             print.
           </p>
         </div>
         <div className='mt-10'>
-          <Filters />
+          {/* <Filters /> */}
         </div>
 
         <section>
-          <div className='mt-[45px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+          <div className='mt-[45px] grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
             {featuredPrints.map(item => (
               <PrintCard
                 key={item.id}
