@@ -4,6 +4,7 @@ import ClientImage from '@public/assets/png/clientimage.png'
 import Image, { StaticImageData } from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@iconify/react'
+import { useRouter } from 'next/navigation'
 
 interface ClientWorkProps {
   text: string
@@ -12,6 +13,7 @@ interface ClientWorkProps {
 }
 
 function ClientWork () {
+  const router = useRouter();
   const clientWorks: ClientWorkProps[] = [
     {
       text: 'GRAPES PATTERN BANK',
@@ -61,7 +63,7 @@ function ClientWork () {
             {work.text}
           </p>
           <p className='md:text-lg text-sm font-satoshi text-center -mt-4 md:-mt-2'>{work.subText}</p>
-          <Button className='bg-white text-black font-satoshi rounded-none px-6'>
+          <Button className='bg-white text-black font-satoshi rounded-none px-6' onClick={() => router.push('/client')}>
             View Project
           </Button>
         </div>

@@ -17,7 +17,7 @@ import { AnimatePresence } from 'framer-motion'
 import { motion } from 'framer-motion'
 
 function NavBar () {
-  const { isOpen, toggleDropdown } = useNavDropdown()
+  const { isOpen, toggleDropdown, setExtraRefs } = useNavDropdown()
   const [scrolled, setScrolled] = useState<boolean>(false)
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [userDropdownOpen, setUserDropdownOpen] = useState<boolean>(false)
@@ -43,6 +43,12 @@ function NavBar () {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  useEffect(() => {
+    if (setExtraRefs) {
+      setExtraRefs([userDropdownRef])
+    }
+  }, [setExtraRefs, userDropdownRef, isOpen])
 
   return (
     <section
@@ -74,7 +80,11 @@ function NavBar () {
               }`}
             ></div>
           </div>
-          <h1 className={`text-lg hidden md:block ${isOpen ? 'text-white' : 'text-black'}`}>
+          <h1
+            className={`text-lg hidden md:block ${
+              isOpen ? 'text-white' : 'text-black'
+            }`}
+          >
             Menu
           </h1>
         </div>
@@ -84,11 +94,18 @@ function NavBar () {
             J.H TEXTILES
           </h2>
         </Link>
+
         <div
-          className='flex items-center gap-4 justify-end'
-          onClick={() => setShowSearch(prev => !prev)}
+          className={`items-center gap-4 justify-end ${
+            isOpen ? 'hidden md:flex' : 'flex'
+          } md:flex`}
+          style={{ display: 'flex' }}
         >
-          <div className='flex items-center gap-1 cursor-pointer'>
+          <div
+            className={`flex items-center gap-1 cursor-pointer${
+              isOpen ? ' hidden md:flex' : ''
+            }`}
+          >
             <Search
               strokeWidth={1.5}
               className={`w-[24px] h-[24px] ${
@@ -105,7 +122,9 @@ function NavBar () {
           </div>
           <Link
             href={'/cart'}
-            className='flex items-center gap-1 cursor-pointer'
+            className={`flex items-center gap-1 cursor-pointer${
+              isOpen ? ' hidden md:flex' : ''
+            }`}
           >
             {isOpen ? (
               <Image src={cartwhite} alt='Cart' className='w-[24px] h-[24px]' />
@@ -121,7 +140,10 @@ function NavBar () {
             </p>
           </Link>
 
-          <div className='relative hidden md:block' ref={userDropdownRef}>
+          <div
+            className={`${isOpen ? 'flex' : 'hidden'} md:flex relative`}
+            ref={userDropdownRef}
+          >
             <div
               className='flex items-center gap-2 cursor-pointer'
               onClick={e => {
@@ -132,18 +154,27 @@ function NavBar () {
               <p
                 className={`${
                   isOpen ? 'bg-white text-black' : 'bg-black text-white'
-                } p-2 px-[9px]  rounded-full text-xs font-normal`}
+                } p-2 px-[9px] rounded-full text-xs font-normal`}
               >
                 JD
               </p>
+
               <div
-                className={`flex items-center gap-1 ${
-                  isOpen ? 'text-white' : 'text-black'
-                }`}
+                className={`items-center gap-1 ${
+                  isOpen ? 'hidden' : 'flex'
+                } md:flex ${isOpen ? 'text-white' : 'text-black'}`}
               >
                 <p className='text-xs font-normal'>John Doe</p>
                 <ChevronDown size={16} strokeWidth={1} />
               </div>
+
+              {isOpen && (
+                <ChevronDown
+                  size={16}
+                  strokeWidth={1}
+                  className='text-white md:hidden'
+                />
+              )}
             </div>
             <AnimatePresence>
               {userDropdownOpen && (
@@ -168,8 +199,9 @@ function NavBar () {
               )}
             </AnimatePresence>
           </div>
+        </div>
 
-          {/* <Modal
+        {/* <Modal
                 className='!w-[700] !max-w-[70vw] no-scrollbar'
                 trigger={
                 <Button
@@ -202,7 +234,6 @@ function NavBar () {
             >
                 <SignUp />
             </Modal> */}
-        </div>
       </div>
       <AnimatePresence>
         {showSearch && <SearchDropdown onClose={() => setShowSearch(false)} />}

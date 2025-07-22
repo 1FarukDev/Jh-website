@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import SuccessfulCheck from '@/app/assets/svg/successful-check.svg'
 import Image from 'next/image'
@@ -5,8 +7,10 @@ import { OrderSummaryCard } from '@/components/order-summary-card'
 import PrintImage from '@public/assets/png/print.png'
 import { Button } from '@/components/ui/button'
 import NewsletterSignup from '@/app/features/homepage/news-letter'
+import { useRouter } from 'next/navigation'
 
 function PaymentSuccessful () {
+  const router = useRouter()
   const orderData = [
     {
       title: 'Simpler Times',
@@ -34,15 +38,15 @@ function PaymentSuccessful () {
       <div className='px-4 flex flex-col gap-6 justify-center items-center'>
         <div className='flex flex-col items-center justify-center'>
           <Image src={SuccessfulCheck} alt='successful check' width={70} />
-          <h2 className='text-[#230D06] font-normal text-[50px]'>
+          <h2 className='text-[#230D06] font-normal text-center text-[28px] md:text-[50px]'>
             Thank You for Your Purchase!
           </h2>
-          <p className='font-satoshi font-normal text-[20px] text-[#4E5157]'>
+          <p className='font-satoshi font-normal text-xs text-center md:-[20px] text-[#4E5157]'>
             We’ve received your payment. An order confirmation has been sent to
             your email
           </p>
         </div>
-        <section className='bg-[#E8E7D7] p-8 mx-auto w-[40%]'>
+        <section className='bg-[#E8E7D7] md:p-8 p-4 pt-8 mx-auto w-full md:w-[40%] md:mt-0 mt-5'>
           <h2 className='font-bold text-[#1C1B0B] text-[24px] text-center pb-6 uppercase'>
             Order Summary
           </h2>
@@ -53,11 +57,11 @@ function PaymentSuccessful () {
             ))}
           </div>
           <div className='py-8 flex flex-col gap-3 font-satoshi'>
-            <div className='flex justify-between   text-[20px] font-medium text-[#1C1B0B]'>
+            <div className='flex justify-between text-[20px] font-medium text-[#1C1B0B]'>
               <p className='font-light'>Subtotal</p>
               <p>NGN 150.000</p>
             </div>
-            <div className='flex justify-between  text-[20px] font-medium text-[#1C1B0B]'>
+            <div className='flex justify-between text-[20px] font-medium text-[#1C1B0B]'>
               <p className='font-light'>Shipping</p>
               <p>NGN 150.000</p>
             </div>
@@ -68,18 +72,18 @@ function PaymentSuccessful () {
             <p>NGN 150.000</p>
           </div>
         </section>
-        <div className='flex gap-4 items-center w-1/2 justify-center '>
+        <div className='flex md:flex-row flex-col gap-0 md:gap-4 items-center w-full md:w-1/2 justify-center '>
           <button
-            type='submit'
-            className='mt-4 bg-white text-black border border-black h-13 px-6 py-3  text-sm  w-1/2 rounded-none font-satoshi font-normal'
-            // onClick={handlePrevious}
+            type='button'
+            className='mt-4 bg-white text-black border border-black h-13 px-6 py-3  text-sm w-full md:w-1/2 rounded-none font-satoshi font-normal'
+            onClick={() => router.push('/orders')}
           >
             View my orders
           </button>
           <button
-            type='submit'
-            className='mt-4 bg-black text-white px-6 py-3 h-13 text-sm  w-1/2 rounded-none font-satoshi font-normal'
-            // onClick={handleNext}
+            type='button'
+            className='mt-4 bg-black text-white px-6 py-3 h-13 text-sm w-full md:w-1/2 rounded-none font-satoshi font-normal'
+            onClick={() => router.push('/shop')}
           >
             Continue shopping
           </button>

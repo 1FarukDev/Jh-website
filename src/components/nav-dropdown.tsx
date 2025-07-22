@@ -2,6 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import { useNavDropdown } from '@/context/nav-context'
 import { Button } from './ui/button'
+import Modal from './modal'
+import Login from './auth/login'
+import SignUp from './auth/sign-up'
+import { ChevronDown, CircleUserRound, LogOut } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface NavLink {
   text: string
@@ -42,7 +47,6 @@ function NavDropdown () {
         animate === 'in' ? 'animate-navDropdownIn' : 'animate-navDropdownOut'
       }`}
     >
-      {/* Navigation Links */}
       <div className='flex-1 flex flex-col items-center justify-center space-y-8'>
         {nav.map((link, index) => (
           <a
@@ -57,10 +61,26 @@ function NavDropdown () {
 
       <div className='w-full px-6 pb-10 md:hidden'>
         <div className='flex flex-col gap-4'>
-          <Button className='w-full bg-white text-black rounded-none h-12'>Login</Button>
-          <Button className='w-full bg-transparent border border-white h-12 rounded-none' >
-            Sign Up
-          </Button>
+          <Modal
+            className='!w-[90%] md:!max-w-[70vw] no-scrollbar'
+            trigger={
+              <Button className='w-full bg-white text-black rounded-none h-12'>
+                Login
+              </Button>
+            }
+          >
+            <Login />
+          </Modal>
+          <Modal
+            className='!w-[80%]  md:!max-w-[70vw] no-scrollbar'
+            trigger={
+              <Button className='w-full bg-transparent border border-white h-12 rounded-none'>
+                Signup
+              </Button>
+            }
+          >
+            <SignUp />
+          </Modal>
         </div>
       </div>
     </section>

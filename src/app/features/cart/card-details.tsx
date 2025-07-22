@@ -1,3 +1,5 @@
+'use client'
+
 import { FormInput } from '@/components/input'
 import { OrderSummaryCard } from '@/components/order-summary-card'
 import React from 'react'
@@ -63,15 +65,15 @@ function CardDetails ({
   }
 
   return (
-    <section className='flex gap-4 items-center mt-20'>
-      <div className='w-[60%] border-r border-black pr-6'>
+    <section className='flex md:flex-row flex-col gap-4 items-center mt-10 md:mt-20'>
+      <div className='md:w-[60%] md:border-r border-black md:pr-6'>
         <FormProvider {...methods}>
-          <section className='p-6 pt-0 w-full'>
+          <section className='md:p-6 pt-0 w-full'>
             <form
               onSubmit={methods.handleSubmit(onSubmit)}
               className='flex flex-col justify-center items-start mt-[30px] gap-6'
             >
-              <p className='font-satoshi text-black text-[24px]'>
+              <p className='font-satoshi text-black text-lg md:text-[24px]'>
                 Credit card details
               </p>
               <div className='w-full  flex flex-col gap-4'>
@@ -105,7 +107,7 @@ function CardDetails ({
 
               <div className='w-full h-[1px] bg-gray-300' />
 
-              <p className='font-satoshi text-black text-[24px]'>
+              <p className='font-satoshi text-black text-lg md:text-[24px]'>
                 Billing address
               </p>
               <div className='w-full  flex flex-col gap-4'>
@@ -144,7 +146,7 @@ function CardDetails ({
                   className='h-[52px]'
                 />
               </div>
-              <div className='flex gap-4 items-center w-full'>
+              <div className='md:flex hidden gap-4 items-center w-full'>
                 <button
                   type='submit'
                   className='mt-4 bg-white text-black border border-black h-16 px-6 py-3  text-sm  w-full rounded-none font-satoshi font-normal'
@@ -164,7 +166,7 @@ function CardDetails ({
           </section>
         </FormProvider>
       </div>
-      <section className='bg-[#E8E7D7] p-8 mx-auto w-[40%]'>
+      <section className='bg-[#E8E7D7] md:p-8 p-4 pt-8 mx-auto w-full md:w-[40%] md:mt-0 mt-5'>
         <h2 className='font-bold text-[#1C1B0B] text-[24px] text-center pb-6 uppercase'>
           Order Summary
         </h2>
@@ -175,11 +177,11 @@ function CardDetails ({
           ))}
         </div>
         <div className='py-8 flex flex-col gap-3 font-satoshi'>
-          <div className='flex justify-between   text-[20px] font-medium text-[#1C1B0B]'>
+          <div className='flex justify-between text-[20px] font-medium text-[#1C1B0B]'>
             <p className='font-light'>Subtotal</p>
             <p>NGN 150.000</p>
           </div>
-          <div className='flex justify-between  text-[20px] font-medium text-[#1C1B0B]'>
+          <div className='flex justify-between text-[20px] font-medium text-[#1C1B0B]'>
             <p className='font-light'>Shipping</p>
             <p>NGN 150.000</p>
           </div>
@@ -190,6 +192,22 @@ function CardDetails ({
           <p>NGN 150.000</p>
         </div>
       </section>
+      <div className='md:hidden block gap-4 items-center w-full'>
+        <button
+          type='submit'
+          className='mt-4 bg-white text-black border border-black h-13 px-6 py-3  text-sm  w-full rounded-none font-satoshi font-normal'
+          onClick={handlePrevious}
+        >
+          Previous
+        </button>
+        <button
+          type='submit'
+          className='mt-4 bg-black text-white px-6 py-3 h-13 text-sm  w-full rounded-none font-satoshi font-normal'
+          onClick={handleNext}
+        >
+          Next
+        </button>
+      </div>
     </section>
   )
 }

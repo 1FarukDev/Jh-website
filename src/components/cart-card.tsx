@@ -31,74 +31,95 @@ const CartCard: React.FC<CartCardProps> = ({
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
 
   return (
-    <section className='items-start border-b pb-8 w-full'>
-      <div className='flex gap-4 items-start w-full'>
-        <Image src={image} alt='Print Image' width={200} height={300} />
+    <section className='relative items-start border-b pb-4 md:pb-8 w-full bg-white'>
+      <div className='md:hidden'>
+        <div
+          onClick={onRemove}
+          className='absolute top-3 right-3 w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer bg-white z-10'
+        >
+          <Image src={CloseIcon} alt='Close icon' width={12} height={12} />
+        </div>
+      </div>
+      <div className='flex flex-col  md:flex-row gap-3 md:gap-4 items-start w-full'>
+        <Image
+          src={image}
+          alt='Print Image'
+          width={320}
+          height={240}
+          className='w-full md:w-[200px] h-auto border object-cover  mb-2 md:mb-0'
+        />
 
-        <div className='flex items-start justify-between w-full'>
-          <div className='flex flex-col gap-4'>
+        <div className='flex flex-col w-full mt-2 md:mt-0'>
+          <div className='flex flex-row justify-between items-start w-full'>
             <div>
-              <p className='font-satoshi'>Print</p>
-              <p className='text-[30px] font-medium'>{title}</p>
+              <p className='font-satoshi text-xs md:text-base'>Print</p>
+              <p className='text-lg md:text-[30px] font-medium'>{title}</p>
             </div>
-
-            <div className='flex flex-wrap gap-6 w-full'>
-              <div className='font-satoshi'>
-                <p className='font-light mb-2'>Exclusivity</p>
-                <p className='font-normal border border-black px-4 py-2 text-center'>
-                  {exclusivity}
-                </p>
-              </div>
-
-              <div className='font-satoshi'>
-                <p className='font-light mb-2'>{`Color: ${colorLabel}`}</p>
-                <div
-                  className='h-10 w-10 border border-black rounded'
-                  style={{ backgroundColor: colorCode }}
+            <div className='hidden md:flex'>
+              <div
+                onClick={onRemove}
+                className='w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer bg-white ml-4 mt-1'
+              >
+                <Image
+                  src={CloseIcon}
+                  alt='Close icon'
+                  width={12}
+                  height={12}
                 />
               </div>
-
-              <div className='font-satoshi'>
-                <p className='font-light mb-2'>Quantity</p>
-                <div className='flex items-center border border-black px-2 w-fit'>
-                  <button
-                    onClick={handleDecrease}
-                    className='px-3 text-xl font-bold hover:opacity-70'
-                  >
-                    −
-                  </button>
-                  <span className='px-4 py-2 bg-black text-white'>
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={handleIncrease}
-                    className='px-3 text-xl font-bold hover:opacity-70'
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              <div className='font-satoshi'>
-                <p className='font-light mb-2'>Size</p>
-                <p className='font-normal border border-black px-4 py-2 text-center'>
-                  {size}
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <hr />
-              <p className='font-satoshi mt-4'>Price</p>
-              <p className='font-bold text-[30px]'>{price}</p>
             </div>
           </div>
-
-          <div
-            onClick={onRemove}
-            className='w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer'
-          >
-            <Image src={CloseIcon} alt='Close icon' width={12} height={12} />
+          <div className='grid grid-cols-2 md:flex md:flex-wrap gap-3 md:gap-6 w-full'>
+            <div className='font-satoshi'>
+              <p className='font-light mb-1 md:mb-2 text-xs md:text-sm'>
+                Exclusivity
+              </p>
+              <p className='font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base'>
+                {exclusivity}
+              </p>
+            </div>
+            <div className='font-satoshi'>
+              <p className='font-light mb-1 md:mb-2 text-xs md:text-sm'>{`Color: ${colorLabel}`}</p>
+              <div
+                className='h-7 w-7 md:h-10 md:w-10 border border-black rounded'
+                style={{ backgroundColor: colorCode }}
+              />
+            </div>
+            <div className='font-satoshi'>
+              <p className='font-light mb-1 md:mb-2 text-xs md:text-sm'>
+                Quantity
+              </p>
+              <div className='flex items-center border border-black px-1 md:px-2 w-fit'>
+                <button
+                  onClick={handleDecrease}
+                  className='px-2 md:px-3 text-base md:text-xl font-bold hover:opacity-70'
+                >
+                  −
+                </button>
+                <span className='px-2 md:px-4 py-1 md:py-2 bg-black text-white text-xs md:text-base'>
+                  {quantity}
+                </span>
+                <button
+                  onClick={handleIncrease}
+                  className='px-2 md:px-3 text-base md:text-xl font-bold hover:opacity-70'
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div className='font-satoshi'>
+              <p className='font-light mb-1 md:mb-2 text-xs md:text-sm'>Size</p>
+              <p className='font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base'>
+                {size}
+              </p>
+            </div>
+          </div>
+          <div>
+            <hr className='md:mt-0 my-5'/>
+            <p className='font-satoshi mt-2 md:mt-4 text-xs md:text-base'>
+              Price
+            </p>
+            <p className='font-bold text-lg md:text-[30px]'>{price}</p>
           </div>
         </div>
       </div>

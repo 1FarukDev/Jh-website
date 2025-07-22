@@ -6,7 +6,7 @@ import CartItems from '../features/cart/cart-items'
 function Page() {
   return (
     <section>
-        <div className='py-26 px-4'>
+        <div className='py-26 '>
             {/* <EmptyCart /> */}
             <CartItems />
         </div>

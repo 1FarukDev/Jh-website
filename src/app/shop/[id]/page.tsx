@@ -27,15 +27,15 @@ function Page () {
   return (
     <section>
       <div className='py-26 px-4'>
-        <div className='flex gap-1 items-center cursor-pointer' onClick={() => router.push('/shop')}> 
+        <div className='flex  gap-1 items-center cursor-pointer' onClick={() => router.push('/shop')}> 
           <MoveLeft strokeWidth={1} />
           <p className='font-satoshi text-xs' >
             Back to Shop
           </p>
         </div>
-        <div className='flex gap-3'>
-          <div className='w-1/2'>f</div>
-          <div className='w-1/2'>
+        <div className='flex md:flex-row flex-col gap-3'>
+          <div className='md:w-1/2 w-full min-h-[50vh]'>f</div>
+          <div className='md:w-1/2 w-full'>
             <p className='font-satoshi text-[#4E5157] text-lg'>Print</p>
             <p className='text-[40px] text-[#230D06]'>These Days</p>
 
@@ -102,18 +102,18 @@ function Page () {
               <p className='font-satoshi text-[#4E5157]'>Price</p>
               <p className='text-[40px] font-bold'>NGN 150,000</p>
             </div>
-            <div className='font-satoshi font-light w-full flex gap-3 mt-6'>
-              <Button className='bg-black text-white rounded-none shadow-none w-1/2 h-12 hover:bg-opacity-90 transition'>
+            <div className='font-satoshi font-light w-full md:flex-row flex-col flex gap-3 mt-6'>
+              <Button className='bg-black text-white rounded-none shadow-none md:w-1/2 h-12 hover:bg-opacity-90 transition'>
                 Buy Now
               </Button>
-              <Button className='bg-white text-black border border-black rounded-none shadow-none w-1/2 h-12 hover:bg-gray-100 transition'>
+              <Button className='bg-white text-black border border-black rounded-none shadow-none md:w-1/2 h-12 hover:bg-gray-100 transition'>
                 Add to Cart
               </Button>
             </div>
           </div>
         </div>
 
-       <Likes />
+       {/* <Likes /> */}
       </div>
     </section>
   )

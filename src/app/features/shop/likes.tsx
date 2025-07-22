@@ -12,25 +12,28 @@ function Likes () {
   }))
   return (
     <section className='flex flex-col justify-center items-center mt-20'>
-      <h1 className='text-[40px] '>You might also like</h1>
-      <p className='font-satoshi text-[#4E5157]'>
+      <h1 className='text-[28px] md:text-[40px] '>You might also like</h1>
+      <p className='font-satoshi text-[#4E5157] md:text-base text-sm'>
         Curated works handpicked from J.H Textiles collection.
       </p>
       <section className=''>
-        <div className='mt-[45px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-          {featuredPrints.map(item => (
-            <PrintCard
-              key={item.id}
-              image={item.image}
-              label={item.label}
-              title={item.title}
-              price={item.price}
-              onAddToCart={() => console.log(`Added ${item.title} to cart`)}
-              onViewDetails={() =>
-                console.log(`Viewing details of ${item.title}`)
-              }
-            />
-          ))}
+        <div className='mt-[45px] overflow-x-auto'>
+          <div className='flex gap-6 flex-nowrap'>
+            {featuredPrints.map(item => (
+              <div key={item.id} className='min-w-[250px] flex-shrink-0'>
+                <PrintCard
+                  image={item.image}
+                  label={item.label}
+                  title={item.title}
+                  price={item.price}
+                  onAddToCart={() => console.log(`Added ${item.title} to cart`)}
+                  onViewDetails={() =>
+                    console.log(`Viewing details of ${item.title}`)
+                  }
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </section>

@@ -38,7 +38,7 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
 
   return (
     <div className={cn('flex flex-col gap-1', wrapperClassName)}>
-      <label className="flex items-start space-x-2 text-sm text-foreground font-satoshi">
+      <label className="flex items-start space-x-2 text-[10px] md:text-sm font-normal text-foreground font-satoshi">
         <Checkbox
           className={className}
           checked={!!value}
