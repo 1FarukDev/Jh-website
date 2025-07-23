@@ -31,10 +31,12 @@ function PasswordSuccess ({ onContinue }: PasswordSuccessProps) {
       </div>
 
       <div className='flex flex-col justify-center items-center mt-[30px] gap-6'>
-        <Image src={SuccessfulCheck} alt='Success Icon' width={130} />
+        <div className='w-[80px] md:w-[130px]'>
+            <Image src={SuccessfulCheck} alt='Success Icon'  />
+        </div>
 
         <div className='text-center'>
-          <h1 className='text-[35px] text-[#1C1B0B] font-rose'>
+          <h1 className='text-[20px] md:text-[35px] text-[#1C1B0B] font-rose'>
             PASSWORD RESET SUCCESSFUL
           </h1>
           <p className='text-[#4E5157] font-satoshi text-lg'>

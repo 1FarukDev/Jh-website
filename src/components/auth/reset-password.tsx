@@ -57,7 +57,7 @@ function ResetPassword ({ onPasswordUpdated }: ResetPasswordProps) {
           className='flex flex-col justify-center items-center mt-[30px] gap-6'
         >
           <div className='text-center'>
-            <h1 className='text-[40px] text-[#1C1B0B] font-rose'>
+            <h1 className='text-[28px] md:text-[40px] text-[#1C1B0B] font-rose'>
               CHOOSE A NEW PASSWORD
             </h1>
           </div>
