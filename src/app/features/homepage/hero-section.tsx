@@ -2,8 +2,6 @@
 
 import React from 'react'
 import Image from 'next/image'
-// import HeroImage from '../../../../public/assets/png/hero.png'
-import MobileImage from '@/app/assets/png/mobile.png'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import HeroImage from '@/app/assets/png/hero-bg.jpg'
@@ -11,27 +9,31 @@ import MobileHero from '@/app/assets/png/hero-bg-mobile.jpg'
 
 function Hero () {
   const router = useRouter()
+
   return (
     <div className='w-full relative'>
+      {/* Desktop Hero */}
       <Image
         src={HeroImage}
         alt='Hero'
         width={1920}
         height={200}
-        className='hidden md:block w-full object-contain mx-auto'
+        className='hidden md:block w-full object-cover mx-auto'
         priority
       />
 
-      <Image
-        src={MobileHero}
-        alt='Hero Mobile'
-        width={800}
-        height={200}
-        className='block md:hidden w-full object-contain mx-auto'
-        priority
-      />
+      <div className='block md:hidden relative h-[70vh] w-full'>
+        <Image
+          src={MobileHero}
+          alt='Hero Mobile'
+          fill
+          className='object-cover'
+          priority
+        />
+      </div>
 
-      <div className='absolute top-[50%] md:top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4'>
+      {/* Overlay text */}
+      <div className='absolute top-[50%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4'>
         <p className='text-[32px] leading-[48px] md:text-[100px] md:leading-[100px] font-extralight font-rose'>
           Prints That Pulse <br className='hidden md:block' /> With Meaning
         </p>

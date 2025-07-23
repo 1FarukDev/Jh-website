@@ -51,7 +51,6 @@ function ForgotPassword ({ onBackToLogin }: ForgotPasswordProps) {
   }
 
   const handleContinueToLogin = () => {
-    // Reset all states and go back to login
     setShowCheckInbox(false)
     setShowResetPassword(false)
     setShowSuccess(false)
@@ -93,8 +92,8 @@ function ForgotPassword ({ onBackToLogin }: ForgotPasswordProps) {
             className='flex flex-col justify-center items-center mt-[30px] gap-6'
           >
             <div className='text-center'>
-              <h1 className='text-[40px] text-[#1C1B0B]'>Forgot Password</h1>
-              <p className='text-[#4E5157] font-satoshi text-lg'>
+              <h1 className='text-[28px] md:text-[40px] text-[#1C1B0B]'>Forgot Password</h1>
+              <p className='text-[#4E5157] font-satoshi text-sm md:text-lg'>
                 Enter your email address and we'll send you a link to reset your
                 password.
               </p>

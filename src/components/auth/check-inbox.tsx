@@ -32,11 +32,13 @@ function CheckInbox ({ email, onResend, onBackToLogin, onResetPassword }: CheckI
         </DialogClose>
       </div>
 
-      <div className='flex flex-col justify-center items-center mt-[35px] gap-6'>
-        <Image src={EmailIcon} alt='Email Icon' width={130} />
+      <div className='flex flex-col justify-center items-center mt-[35px]  gap-6'>
+        <div className='w-[80px] md:w-[130px] '>
+            <Image src={EmailIcon} alt='Email Icon'  />
+        </div>
 
         <div className='text-center'>
-          <h1 className='text-[40px] text-[#1C1B0B] font-nprmal'>
+          <h1 className='text-[28px] md:text-[40px] text-[#1C1B0B] font-nprmal'>
             CHECK YOUR INBOX
           </h1>
           <p className='text-[#4E5157] font-satoshi text-sm font-normal'>
