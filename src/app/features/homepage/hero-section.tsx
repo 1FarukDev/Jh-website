@@ -31,7 +31,7 @@ function Hero () {
         priority
       />
 
-      <div className='absolute top-[38%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4'>
+      <div className='absolute top-[50%] md:top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4'>
         <p className='text-[32px] leading-[48px] md:text-[100px] md:leading-[100px] font-extralight font-rose'>
           Prints That Pulse <br className='hidden md:block' /> With Meaning
         </p>
