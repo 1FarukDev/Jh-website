@@ -98,7 +98,7 @@ function NavBar () {
         }}
       />
       <section
-        className={`py-2 font-satoshi fixed w-full transition-colors duration-300 ${
+        className={`py-4 md:py-2 font-satoshi fixed w-full transition-colors duration-300 ${
           scrolled && !isOpen
             ? 'bg-white shadow-sm z-10'
             : isOpen
@@ -201,7 +201,7 @@ function NavBar () {
 
             {/* Auth Buttons */}
             {!isAuthenticated && (
-              <div className='flex gap-2'>
+              <div className='gap-2 hidden md:flex'>
                 <Button
                   className='bg-black text-white rounded-none h-8 px-6'
                   onClick={() => setLoginModalOpen(true)}
@@ -217,7 +217,6 @@ function NavBar () {
               </div>
             )}
 
-            {/* Authenticated user dropdown */}
             {isAuthenticated && (
               <div
                 className={`${isOpen ? 'flex' : 'hidden'} md:flex relative`}
