@@ -28,12 +28,12 @@ function SearchDropdown ({ onClose }: Props) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
-        className='h-[60vh] bg-white w-full pt-10 relative z-50 border-t shadow-md'
+        className='h-[60vh] overflow-y-auto no-scrollbar  bg-white w-full pt-10 relative z-50 border-t shadow-md'
       >
         <div className='max-w-2xl mx-auto'>
           <button
             onClick={onClose}
-            className='w-6 h-6 flex absolute right-10 top-16 text-gray-700  transition items-center justify-center border border-gray-300 rounded-full  '
+            className='w-6 h-6 flex absolute right-10 top-10 text-gray-700  transition items-center justify-center border border-gray-300 rounded-full  '
           >
             <X className='w-5 h-5' />
           </button>

@@ -21,7 +21,7 @@ function BlogFilters () {
 
   return (
     <section>
-      <div className='flex justify-between items-center'>
+      <div className='flex md:flex-row gap-4 flex-col justify-between items-center'>
         <div className='flex gap-2'>
           {filtersProps.map(filter => {
             const isActive = activeFilter === filter.value
@@ -42,7 +42,7 @@ function BlogFilters () {
             )
           })}
         </div>
-        <div className='flex flex-col sm:flex-row w-[30%] gap-3 border p-1'>
+        <div className='flex flex-col sm:flex-row w-full md:w-[30%] gap-3 border p-1'>
           <div className='relative flex-1'>
             <Search
               strokeWidth={1.25}

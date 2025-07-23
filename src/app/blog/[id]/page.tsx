@@ -9,7 +9,7 @@ function BlogDetail () {
   return (
     <section className='py-26 pt-40'>
       <div className='flex flex-col items-center justify-center max-w-4xl mx-auto'>
-        <h1 className='text-[64px] font-normal text-center leading-[62px] text-[#230D06]'>
+        <h1 className='text-[28px] md:text-[64px] font-normal text-center leading-[32px] md:leading-[62px] text-[#230D06]'>
           Threads of Intention: The Story Behind JH Textile
         </h1>
         <div className='font-satoshi font-normal mt-3'>
@@ -18,15 +18,15 @@ function BlogDetail () {
           </p>
         </div>
       </div>
-      <div className='mt-10'>
-        <Image src={BlogImage} alt='Blog Image' />
+      <div className='mt-10 '>
+        <Image src={BlogImage} alt='Blog Image' className='h-[400px] md:h-auto' />
       </div>
-      <div className='max-w-4xl mx-auto mt-[70px]'>
+      <div className='max-w-4xl mx-auto mt-[70px] px-4 md:px-0'>
         <div>
-          <h1 className='text-[40px] text-[#230D06] font-normal'>
+          <h1 className='text-[32px] text-center md:text-[40px] text-[#230D06] font-normal'>
             From One Pattern to a Practice
           </h1>
-          <p className='text-lg font-normal font-satoshi text-[#4E5157]'>
+          <p className='text-base text-center md:text-start md:text-lg font-normal font-satoshi text-[#4E5157]'>
             JH Textile began not with a business plan or a blueprint, but with a
             feeling — a quiet pull toward materials and the stories they hold.
             It started with one hand-drawn pattern, an old cotton scrap, and a
@@ -35,7 +35,7 @@ function BlogDetail () {
             experimenting with fiber, dye, and print. A personal exploration
             soon unfolded into a lifelong practice.
           </p>
-          <p className='text-lg font-normal font-satoshi text-[#4E5157]'>
+          <p className='text-base text-center md:text-start md:text-lg font-normal font-satoshi text-[#4E5157]'>
             The earliest pieces were made with hand-mixed pigments and organic
             brushes, printed in batches on a makeshift table near a sunlit
             window. There was no formal launch — just a slow unfolding. Over
@@ -44,17 +44,17 @@ function BlogDetail () {
           </p>
         </div>
         <div className='my-10'>
-          <h1 className='text-[40px] text-[#230D06] font-normal '>
+          <h1 className='text-[32px] text-center md:text-[40px] text-[#230D06] font-normal '>
             A Love Letter to Materials
           </h1>
-          <p className='text-lg font-normal font-satoshi text-[#4E5157]'>
+          <p className='text-base text-center md:text-start md:text-lg font-normal font-satoshi text-[#4E5157]'>
             At its core, JH Textile has always been about listening — to cloth,
             to color, to the subtle shifts that happen when hand meets surface.
             Every piece begins with a question: How can this material tell a
             story? Whether it’s a dyed linen for a window treatment or a custom
             wall piece for a studio lobby, each work is rooted in intention.
           </p>
-          <p className='text-lg font-normal font-satoshi text-[#4E5157]'>
+          <p className='text-base text-center md:text-start md:text-lg font-normal font-satoshi text-[#4E5157]'>
             We don’t believe in fast design. Our pieces are slow-made, drawn
             from observation and emotion, and shaped by traditional methods that
             honor both time and technique. We dye with botanicals, print by

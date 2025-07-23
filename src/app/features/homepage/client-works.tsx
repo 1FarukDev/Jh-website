@@ -49,10 +49,10 @@ function ClientWork () {
 
   return (
     <section className='my-[100px]'>
-      <p className='md:text-[60px] text-[28px] font-light text-center leading-[40px]'>
+      <p className='md:text-[60px] text-[28px] md:px-0 px-4 font-light text-center leading-[40px]'>
         Client Work Highlights
       </p>
-      <p className='md:text-lg text-sm font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]'>
+      <p className='md:text-lg text-sm md:px-0 px-4 font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]'>
         A creative textile studio crafting meaningful prints, rooted in texture,
         tradition, and storytelling.
       </p>

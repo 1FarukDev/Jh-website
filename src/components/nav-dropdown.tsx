@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import Modal from './modal'
 import Login from './auth/login'
 import SignUp from './auth/sign-up'
+import ForgotPassword from './auth/forgot-password'
 import { ChevronDown, CircleUserRound, LogOut } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -13,10 +14,20 @@ interface NavLink {
   href: string
 }
 
-function NavDropdown () {
+// Add props for modal triggers
+interface NavDropdownProps {
+  onLoginClick: () => void
+  onSignupClick: () => void
+}
+
+function NavDropdown ({ onLoginClick, onSignupClick }: NavDropdownProps) {
   const { isOpen, dropdownRef } = useNavDropdown()
   const [shouldRender, setShouldRender] = useState(isOpen)
   const [animate, setAnimate] = useState<'in' | 'out'>('in')
+  // Add state to control which auth view is shown
+  const [authView, setAuthView] = useState<'login' | 'forgot'>('login')
+  // Add state to control login modal open
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -29,12 +40,17 @@ function NavDropdown () {
     }
   }, [isOpen, shouldRender])
 
+  // Reset authView to login when modal closes
+  useEffect(() => {
+    if (!loginModalOpen) setAuthView('login')
+  }, [loginModalOpen])
+
   const nav: NavLink[] = [
     { text: 'Home', href: '/' },
     { text: 'Shop', href: '/shop' },
-    { text: 'Our Clients', href: '/contact' },
-    { text: 'About', href: '/contact' },
-    { text: 'BLOG & Press', href: '/contact' },
+    { text: 'Our Clients', href: '/client' },
+    { text: 'About', href: '/about' },
+    { text: 'BLOG & Press', href: '/blog' },
     { text: 'Contact', href: '/contact' }
   ]
 
@@ -61,26 +77,18 @@ function NavDropdown () {
 
       <div className='w-full px-6 pb-10 md:hidden'>
         <div className='flex flex-col gap-4'>
-          <Modal
-            className='!w-[90%] md:!max-w-[70vw] no-scrollbar'
-            trigger={
-              <Button className='w-full bg-white text-black rounded-none h-12'>
-                Login
-              </Button>
-            }
+          <Button
+            className='w-full bg-white text-black rounded-none h-12'
+            onClick={onLoginClick}
           >
-            <Login />
-          </Modal>
-          <Modal
-            className='!w-[80%]  md:!max-w-[70vw] no-scrollbar'
-            trigger={
-              <Button className='w-full bg-transparent border border-white h-12 rounded-none'>
-                Signup
-              </Button>
-            }
+            Login
+          </Button>
+          <Button
+            className='w-full bg-transparent border border-white h-12 rounded-none'
+            onClick={onSignupClick}
           >
-            <SignUp />
-          </Modal>
+            Signup
+          </Button>
         </div>
       </div>
     </section>

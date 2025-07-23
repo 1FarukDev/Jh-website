@@ -58,7 +58,6 @@ export default function RootLayout ({
       <body className={`${satoshi.variable}  antialiased`}>
         <NavDropdownProviderWrapper>
           <NavBar />
-          <NavDropdown />
           {children}
           <Footer />
         </NavDropdownProviderWrapper>

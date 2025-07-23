@@ -30,10 +30,10 @@ function Profile () {
   return (
     <section className='py-26 pt-40'>
       <div className='flex flex-col items-center justify-center max-w-4xl mx-auto'>
-        <h1 className='text-[64px] font-normal text-center leading-[62px] text-[#230D06]'>
+        <h1 className='text-[32px] md:text-[64px] font-normal text-center leading-[32px] md:leading-[62px] text-[#230D06]'>
           Edit your profile
         </h1>
-        <div className='font-satoshi font-light mt-3 text-center'>
+        <div className='font-satoshi font-light mt-3 text-center md:text-base text-sm'>
           <p>Update your details and manage your preferences.</p>
         </div>
       </div>
@@ -48,7 +48,7 @@ function Profile () {
                 className='flex flex-col justify-start items-start gap-6 h-full'
               >
                 <p className='text-lg font-satoshi'>Personal Details</p>
-                <div className='w-full flex gap-4'>
+                <div className='w-full md:flex-row flex-col flex gap-4'>
                   <FormInput
                     name='first_name'
                     type='text'
@@ -97,7 +97,7 @@ function Profile () {
                 className='flex flex-col justify-start items-start gap-6 h-full'
               >
                 <p className='text-lg font-satoshi'>Change Password</p>
-                <div className='w-full flex gap-4'>
+                <div className='w-full flex-col md:flex-row flex gap-4'>
                   <FormInput
                     name='first_name'
                     type='text'
