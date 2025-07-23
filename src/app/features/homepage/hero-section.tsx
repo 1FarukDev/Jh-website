@@ -2,15 +2,17 @@
 
 import React from 'react'
 import Image from 'next/image'
-import HeroImage from '../../../../public/assets/png/hero.png'
+// import HeroImage from '../../../../public/assets/png/hero.png'
 import MobileImage from '@/app/assets/png/mobile.png'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import HeroImage from '@/app/assets/png/hero-bg.jpg'
+import MobileHero from '@/app/assets/png/hero-bg-mobile.jpg'
 
 function Hero () {
   const router = useRouter()
   return (
-    <div className='w-full relative pt-20'>
+    <div className='w-full relative'>
       <Image
         src={HeroImage}
         alt='Hero'
@@ -21,7 +23,7 @@ function Hero () {
       />
 
       <Image
-        src={MobileImage}
+        src={MobileHero}
         alt='Hero Mobile'
         width={800}
         height={200}

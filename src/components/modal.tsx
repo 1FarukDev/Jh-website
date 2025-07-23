@@ -16,6 +16,8 @@ interface CustomModalProps {
   description?: string
   children?: React.ReactNode
   className?: string
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 const Modal: React.FC<CustomModalProps> = ({
@@ -23,10 +25,12 @@ const Modal: React.FC<CustomModalProps> = ({
   title,
   description,
   children,
-  className
+  className,
+  open,
+  onOpenChange
 }) => {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent
         className={`${className} [&>button[data-dialog-close]]:hidden  rounded-none !p-0 m-0`}
