@@ -283,7 +283,14 @@ function NavBar () {
             open={signupModalOpen}
             onOpenChange={setSignupModalOpen}
           >
-            <SignUp />
+            <SignUp
+              onClose={() => setSignupModalOpen(false)}
+              goBackToLogin={() => {
+                setSignupModalOpen(false)
+                setLoginModalOpen(true)
+                setAuthView('login')
+              }}
+            />
           </Modal>
         </div>
 

@@ -20,7 +20,13 @@ type FormData = {
   sign: boolean
 }
 
-function SignUp () {
+function SignUp ({
+  onClose,
+  goBackToLogin
+}: {
+  onClose: any
+  goBackToLogin?: () => void
+}) {
   const methods = useForm<FormData>({
     defaultValues: {
       firstName: '',
@@ -50,7 +56,10 @@ function SignUp () {
             </h2>
           </div>
 
-          <div className='w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer'>
+          <div
+            className='w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer'
+            onClick={onClose}
+          >
             <Image src={CloeIcon} alt='Close icon' width={12} height={12} />
           </div>
         </div>
@@ -145,7 +154,10 @@ function SignUp () {
           <div>
             <p className='font-satoshi font-light text-xs'>
               Already have an account?{' '}
-              <span className='font-medium text-xm cursor-pointer'>
+              <span
+                className='font-medium text-xm cursor-pointer'
+                onClick={() => goBackToLogin?.()}
+              >
                 Log in here
               </span>
             </p>
