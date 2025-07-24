@@ -5,6 +5,9 @@ import { Info, MoveLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import Likes from '@/app/features/shop/likes'
+import PrintMockup from '@/app/features/shop/print-mockup'
+import Print from '@/app/assets/png/print.jpg'
+import Mockup from '@/app/assets/png/darashop4.png'
 
 interface Color {
   text: string
@@ -27,14 +30,20 @@ function Page () {
   return (
     <section>
       <div className='py-26 px-4'>
-        <div className='flex  gap-1 items-center cursor-pointer' onClick={() => router.push('/shop')}> 
+        <div
+          className='flex  gap-1 items-center cursor-pointer'
+          onClick={() => router.push('/shop')}
+        >
           <MoveLeft strokeWidth={1} />
-          <p className='font-satoshi text-xs' >
-            Back to Shop
-          </p>
+          <p className='font-satoshi text-xs'>Back to Shop</p>
         </div>
-        <div className='flex md:flex-row flex-col gap-3'>
-          <div className='md:w-1/2 w-full min-h-[50vh]'>f</div>
+        <div className='flex md:flex-row flex-col gap-3 mt-5'>
+          <div className='md:w-1/2 w-full min-h-[50vh]'>
+            <PrintMockup
+            //   print={Print}
+            //   mockup={Mockup}
+            />
+          </div>
           <div className='md:w-1/2 w-full'>
             <p className='font-satoshi text-[#4E5157] text-lg'>Print</p>
             <p className='text-[40px] text-[#230D06]'>These Days</p>
@@ -113,7 +122,7 @@ function Page () {
           </div>
         </div>
 
-       {/* <Likes /> */}
+        {/* <Likes /> */}
       </div>
     </section>
   )

@@ -275,7 +275,7 @@ function NavBar () {
           {/* Login / Signup Modals */}
           <Modal
             className='!w-[90%] md:!max-w-[50vw] no-scrollbar'
-            trigger={<></>}
+            trigger={''}
             open={loginModalOpen}
             onOpenChange={setLoginModalOpen}
           >
@@ -287,7 +287,7 @@ function NavBar () {
           </Modal>
           <Modal
             className='!w-[90%] md:!max-w-[50vw] no-scrollbar'
-            trigger={<></>}
+            trigger={''}
             open={signupModalOpen}
             onOpenChange={setSignupModalOpen}
           >
