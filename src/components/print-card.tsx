@@ -24,7 +24,7 @@ function PrintCard ({
 }: PrintCardProps) {
   return (
     <section className='w-full'>
-      <div className='relative w-full aspect-[3/4] md:aspect-[3/2]'>
+      <div className='relative w-full aspect-[3/4] md:aspect-[3/3]'>
         <Image
           src={image}
           alt={`${label} Image`}

@@ -23,13 +23,13 @@ function page () {
           <h1 className='text-center font-normal text-[28px] md:text-[80px]'>
             Shop Prints & Textiles
           </h1>
-          <p className='font-satoshi font-normal md:text-2xl text-base text-[#4E5157] text-center'>
+          <p className='font-satoshi font-normal md:text-xl text-base text-[#4E5157] text-center'>
             Each piece is a story—told through texture, tone, and timeless
             print.
           </p>
         </div>
         <div className='mt-10'>
-          {/* <Filters /> */}
+          <Filters />
         </div>
 
         <section>

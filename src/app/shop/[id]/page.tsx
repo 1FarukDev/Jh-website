@@ -122,7 +122,7 @@ function Page () {
           </div>
         </div>
 
-        {/* <Likes /> */}
+        <Likes />
       </div>
     </section>
   )
