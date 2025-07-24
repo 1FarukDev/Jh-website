@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
-  ArrowUp,
   Facebook,
   Instagram,
   Linkedin,
@@ -15,6 +14,14 @@ import Link from 'next/link'
 import ArrowRight from '@/app/assets/svg/arrow-right.svg'
 import FooterIcon from '@/app/assets/svg/footer_icon.svg'
 import Arrowup from '@/app/assets/svg/arrow-up.svg'
+
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent
+} from '@/components/ui/accordion'
+
 export default function Footer () {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -22,10 +29,10 @@ export default function Footer () {
 
   return (
     <footer className='bg-[#1C1B0B] text-white font-satoshi'>
-      <div className='mx-auto px-6 py-16'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 '>
+      <div className='mx-auto px-4 py-16'>
+        <div className='hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8'>
           <div className='lg:col-span-1'>
-            <h3 className='text-[#BDC2CA]  mb-2'>Shop & Explore</h3>
+            <h3 className='text-[#BDC2CA] mb-2'>Shop & Explore</h3>
             <ul className='space-y-1'>
               <li>
                 <Link
@@ -78,7 +85,6 @@ export default function Footer () {
             </ul>
           </div>
 
-          {/* The Artist & Studio */}
           <div className='lg:col-span-1'>
             <h3 className='text-[#BDC2CA] font-medium mb-2'>
               The Artist & Studio
@@ -119,7 +125,6 @@ export default function Footer () {
             </ul>
           </div>
 
-          {/* Support & Legal */}
           <div className='lg:col-span-1'>
             <h3 className='text-[#BDC2CA] font-medium mb-2'>Support & Legal</h3>
             <ul className='space-y-1'>
@@ -158,9 +163,10 @@ export default function Footer () {
             </ul>
           </div>
 
-          {/* Stay Connected */}
           <div className='lg:col-span-1'>
-            <h3 className='text-[#BDC2CA] font-medium mb-2 text-base'>Stay Connected</h3>
+            <h3 className='text-[#BDC2CA] font-medium mb-2 text-base'>
+              Stay Connected
+            </h3>
             <ul className='space-y-1'>
               <li>
                 <Link
@@ -173,7 +179,7 @@ export default function Footer () {
               <li>
                 <Link
                   href='/newsletter'
-                  className='text-xs hover:text-white transition-colors '
+                  className='text-xs hover:text-white transition-colors'
                 >
                   Join the Collectors List (Newsletter Signup)
                 </Link>
@@ -181,23 +187,21 @@ export default function Footer () {
             </ul>
           </div>
 
-          {/* Stay Updated */}
           <div className='lg:col-span-2'>
             <div className='mb-8'>
               <h3 className='text-2xl font-light mb-3 tracking-wide font-rose'>
                 STAY UPDATED
               </h3>
-              <p className='text-xs mb-4  text-gray/0 '>
+              <p className='text-xs mb-4'>
                 Information about products, events, stores and news await you!
               </p>
-
               <div className='flex flex-row gap-3 mb-15 border p-1'>
                 <div className='relative flex-1'>
                   <Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5' />
                   <Input
                     type='email'
                     placeholder='Enter your email'
-                    className='pl-10 py-3 !bg-transparent border-0  font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500 focus:bg-none'
+                    className='pl-10 py-3 !bg-transparent border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500'
                   />
                 </div>
                 <Button className='bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center'>
@@ -206,7 +210,6 @@ export default function Footer () {
                 </Button>
               </div>
             </div>
-
 
             <div className='pt-15 border-t border-white'>
               <h3 className='text-2xl font-light mb-3 tracking-wide font-rose'>
@@ -222,28 +225,131 @@ export default function Footer () {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Footer */}
+        <div className='md:hidden'>
+          <Accordion type='multiple'>
+            <AccordionItem value='shop'>
+              <AccordionTrigger>Shop & Explore</AccordionTrigger>
+              <AccordionContent>
+                <ul className='space-y-1'>
+                  <li>
+                    <Link href='/new-arrivals'>New Arrivals</Link>
+                  </li>
+                  <li>
+                    <Link href='/best-sellers'>Best Sellers</Link>
+                  </li>
+                  <li>
+                    <Link href='/shop-all'>Shop All Prints</Link>
+                  </li>
+                  <li>
+                    <Link href='/limited-editions'>Limited Editions</Link>
+                  </li>
+                  <li>
+                    <Link href='/shipping'>Shipping & Delivery</Link>
+                  </li>
+                  <li>
+                    <Link href='/returns'>Returns & Exchanges</Link>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value='artist'>
+              <AccordionTrigger>The Artist & Studio</AccordionTrigger>
+              <AccordionContent>
+                <ul className='space-y-1'>
+                  <li>
+                    <Link href='/about'>About J.H Textiles</Link>
+                  </li>
+                  <li>
+                    <Link href='/commissions'>Client Work / Commissions</Link>
+                  </li>
+                  <li>
+                    <Link href='/testimonials'>Testimonials</Link>
+                  </li>
+                  <li>
+                    <Link href='/faqs'>FAQs</Link>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value='support'>
+              <AccordionTrigger>Support & Legal</AccordionTrigger>
+              <AccordionContent>
+                <ul className='space-y-1'>
+                  <li>
+                    <Link href='/contact'>Contact</Link>
+                  </li>
+                  <li>
+                    <Link href='/help'>Help Center</Link>
+                  </li>
+                  <li>
+                    <Link href='/terms'>Terms of Service</Link>
+                  </li>
+                  <li>
+                    <Link href='/privacy'>Privacy Policy</Link>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value='connected'>
+              <AccordionTrigger>Stay Connected</AccordionTrigger>
+              <AccordionContent>
+                <ul className='space-y-1'>
+                  <li>
+                    <Link href='/blog'>Blog</Link>
+                  </li>
+                  <li>
+                    <Link href='/newsletter'>Join the Collectors List</Link>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </div>
+      
+        <div className='mt-8 mb-2 md:hidden px-4'>
+          <h3 className='text-2xl font-light mb-3 tracking-wide font-rose'>
+            STAY UPDATED
+          </h3>
+          <p className='text-xs mb-4'>
+            Information about products, events, stores and news await you!
+          </p>
+          <div className='flex flex-row gap-3 mb-15 border p-1'>
+            <div className='relative flex-1'>
+              <Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5' />
+              <Input
+                type='email'
+                placeholder='Enter your email'
+                className='pl-10 py-3 !bg-transparent border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500'
+              />
+            </div>
+            <Button className='bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center'>
+              Subscribe
+              <Image src={ArrowRight} alt='arrow right' />
+            </Button>
+          </div>
+        </div>
+      
       <div className='border-t border-gray-600'>
         <div className='max-w-7xl mx-auto px-6 py-8'>
           <div className='flex flex-col md:flex-row items-center justify-between gap-6'>
-            {/* Logo */}
             <div className='flex items-center gap-3'>
-              <Image src={FooterIcon} alt='Footer icon'/> 
+              <Image src={FooterIcon} alt='Footer icon' />
               <span className='text-xl font-light tracking-wider font-rose'>
                 J.H TEXTILES
               </span>
             </div>
 
-            {/* Copyright */}
             <div className='text-center'>
               <p className='text-white text-base'>
                 © 2025 J.H Textiles — All rights reserved
               </p>
             </div>
 
-            {/* Social Icons */}
             <div className='flex items-center gap-4'>
               <Link
                 href='#'
@@ -272,14 +378,13 @@ export default function Footer () {
             </div>
           </div>
 
-          {/* Back to Top */}
           <div className='flex justify-center mt-8'>
             <Button
               onClick={scrollToTop}
-              className='border-gray-500 font-satoshi text-sm font-light  text-white hover:text-white hover:border-white bg-transparent rounded-full px-6 py-2'
+              className='border-gray-500 font-satoshi text-sm font-light text-white hover:text-white hover:border-white bg-transparent rounded-full px-6 py-2'
             >
               <div className='bg-white p-2 rounded-full'>
-                <Image src={Arrowup} alt='arrow up'/>
+                <Image src={Arrowup} alt='arrow up' />
               </div>
               Back to the Top
             </Button>
