@@ -26,7 +26,7 @@ function EmptyCart () {
         Start Shopping
         <MoveRight strokeWidth={1} />
       </Button>
-      {/* <Likes /> */}
+      <Likes />
     </div>
   )
 }

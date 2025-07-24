@@ -107,7 +107,6 @@ function NavBar () {
         }`}
       >
         <div className='md:grid flex justify-between md:grid-cols-3 items-center px-3'>
-          {/* Left Menu */}
           <div className='flex items-center gap-2 justify-start'>
             <div
               className='flex flex-col items-center justify-center gap-1 cursor-pointer'
@@ -116,14 +115,13 @@ function NavBar () {
                 toggleDropdown()
               }}
             >
-              {/* Hamburger lines */}
               <div
                 className={`w-[48px] h-[2px] transition-all duration-300 ${
                   isOpen
                     ? 'bg-white rotate-45 translate-y-1.5'
                     : getTextColorClass()
-                        ? getTextColorClass().replace('text-', 'bg-')
-                        : 'bg-white'
+                    ? getTextColorClass().replace('text-', 'bg-')
+                    : 'bg-white'
                 }`}
               ></div>
               <div
@@ -131,8 +129,8 @@ function NavBar () {
                   isOpen
                     ? 'bg-white -rotate-45 -translate-y-1.5'
                     : getTextColorClass()
-                        ? getTextColorClass().replace('text-', 'bg-')
-                        : 'bg-white'
+                    ? getTextColorClass().replace('text-', 'bg-')
+                    : 'bg-white'
                 }`}
               ></div>
             </div>
@@ -141,20 +139,17 @@ function NavBar () {
             </h1>
           </div>
 
-          {/* Logo */}
           <Link href='/' className='flex justify-center items-center gap-1'>
             <Image src={NavLogo} alt='Nav Logo' />
             <h2 className={`font-rose ${getTextColorClass()}`}>J.H TEXTILES</h2>
           </Link>
 
-          {/* Right Section */}
           <div
             className={`items-center gap-4 justify-end ${
               isOpen ? 'hidden md:flex' : 'flex'
             } md:flex`}
             style={{ display: 'flex' }}
           >
-            {/* Search */}
             <div
               className={`flex items-center gap-1 cursor-pointer${
                 isOpen ? ' hidden md:flex' : ''
@@ -172,7 +167,6 @@ function NavBar () {
               </p>
             </div>
 
-            {/* Cart */}
             <Link
               href='/cart'
               className={`flex items-center gap-1 cursor-pointer${
@@ -199,7 +193,6 @@ function NavBar () {
               </p>
             </Link>
 
-            {/* Auth Buttons */}
             {!isAuthenticated && (
               <div className='gap-2 hidden md:flex'>
                 <Button
@@ -272,7 +265,6 @@ function NavBar () {
             )}
           </div>
 
-          {/* Login / Signup Modals */}
           <Modal
             className='!w-[90%] md:!max-w-[50vw] no-scrollbar'
             trigger={''}
@@ -295,7 +287,6 @@ function NavBar () {
           </Modal>
         </div>
 
-        {/* Search Dropdown */}
         <AnimatePresence>
           {showSearch && (
             <SearchDropdown onClose={() => setShowSearch(false)} />

@@ -147,21 +147,21 @@ function BuyersInfo ({
                   className='h-[52px]'
                 />
               </div>
-              <div className='md:flex md:flex-row flex-col gap-0 md:gap-4 items-center w-full hidden'>
-                <Button
+              <div className='md:flex hidden gap-4 items-center w-full'>
+                <button
                   type='submit'
-                  className='mt-4 bg-white text-black border border-black h-13 md:h-16 px-6 py-3  text-sm  w-full rounded-none font-satoshi font-normal'
+                  className='mt-4 bg-white text-black border border-black h-16 px-6 py-3  text-sm  w-full rounded-none font-satoshi font-normal'
                   onClick={handlePrevious}
                 >
                   Previous
-                </Button>
-                <Button
+                </button>
+                <button
                   type='submit'
-                  className='mt-4 bg-black text-white px-6 py-3 h-13 md:h-16 text-sm  w-full rounded-none font-satoshi font-normal'
+                  className='mt-4 bg-black text-white px-6 py-3 h-16 text-sm  w-full rounded-none font-satoshi font-normal'
                   onClick={handleNext}
                 >
                   Next
-                </Button>
+                </button>
               </div>
             </form>
           </section>

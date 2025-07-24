@@ -46,27 +46,27 @@ function AboutPage () {
           texture, tradition, and storytelling.
         </p>
 
-        <div className='flex md:flex-row flex-col gap-4 items-center px-4 mt-[50px]'>
+        <div className='flex md:flex-row flex-col gap-4  px-4 mt-[50px]'>
           <div className='bg-[#1C1B0B] text-white p-[32px]'>
-            <Image src={Thread} alt='Thread' className='mb-[48px]' />
+            <Image src={Thread} alt='Thread' className='mb-[20px] md:mb-[48px] w-[30px] md:w-[60px]' />
             <h2 className='text-[40px]'>Craft</h2>
-            <p className='font-satoshi font-normal text-[24px]'>
+            <p className='font-satoshi font-normal text-[15px] md:text-[20px]'>
               We believe in slow, intentional making rooted in material
               knowledge.
             </p>
           </div>
           <div className='bg-[#1C1B0B] text-white p-[32px]'>
-            <Image src={Plant} alt='plant' className='mb-[48px]' />
+            <Image src={Plant} alt='plant' className='mb-[20px] md:mb-[48px] w-[30px] md:w-[60px]' />
             <h2 className='text-[40px]'>Sustainability</h2>
-            <p className='font-satoshi font-normal text-[24px]'>
+            <p className='font-satoshi font-normal text-[15px] md:text-[20px]'>
               From plant-based dyes to long-lasting prints, we create with the
               planet in mind.
             </p>
           </div>
           <div className='bg-[#1C1B0B] text-white p-[32px]'>
-            <Image src={Story} alt='story' className='mb-[48px]' />
+            <Image src={Story} alt='story' className='mb-[20px] md:mb-[48px] w-[30px] md:w-[60px]' />
             <h2 className='text-[40px]'>Storytelling</h2>
-            <p className='font-satoshi font-normal text-[24px]'>
+            <p className='font-satoshi font-normal text-[15px] md:text-[20px]'>
               Every piece reflects a narrative — of place, memory, and design.
             </p>
           </div>
