@@ -20,8 +20,8 @@ function BlogFilters () {
   ]
 
   return (
-    <section>
-      <div className='flex md:flex-row gap-4 flex-col justify-between items-center'>
+    <section className='border-t border-b py-2  border-[#8A8635]'>
+      <div className='flex md:flex-row gap-4 flex-col justify-between items-center px-4'>
         <div className='flex gap-2'>
           {filtersProps.map(filter => {
             const isActive = activeFilter === filter.value
@@ -46,7 +46,7 @@ function BlogFilters () {
           <div className='relative flex-1'>
             <Search
               strokeWidth={1.25}
-              className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5'
+              className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 border-[#828892] h-5 w-5'
             />
             <Input
               type='text'
