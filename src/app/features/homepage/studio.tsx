@@ -5,11 +5,18 @@ import Image from 'next/image'
 
 function Studio () {
   return (
-    <section className='my-16  px-4  mx-auto'>
-      <p className='text-3xl sm:text-4xl md:text-5xl lg:text-[60px] font-normal text-center leading-tight md:leading-[40px]'>
+    <section className='my-16 px-4 mx-auto'>
+      <p
+        data-aos="fade-down"
+        className='text-3xl sm:text-4xl md:text-5xl lg:text-[60px] font-normal text-center leading-tight md:leading-[40px]'
+      >
         In The Studio & In The Press
       </p>
-      <p className='text-sm md:text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-2xl mx-auto'>
+      <p
+        data-aos="fade-up"
+        data-aos-delay="200"
+        className='text-sm md:text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-2xl mx-auto'
+      >
         A glimpse behind the canvas stories, thoughts & headlines.
       </p>
       <div className='mt-8 md:mt-12'>
@@ -25,7 +32,11 @@ function BlogComponent () {
   return (
     <div className='w-full'>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6'>
-        <div className='relative w-full aspect-[4/4] sm:aspect-[3/2] lg:aspect-[5/6] rounded-none overflow-hidden'>
+        {/* Left big card */}
+        <div
+          data-aos="fade-right"
+          className='relative w-full aspect-[4/4] sm:aspect-[3/2] lg:aspect-[5/6] rounded-none overflow-hidden'
+        >
           <Image
             src='/assets/png/blog.jpg'
             alt='Colorful traditional textiles and rugs'
@@ -52,8 +63,13 @@ function BlogComponent () {
           </div>
         </div>
 
+        {/* Right column */}
         <div className='flex flex-col gap-4 md:gap-6'>
-          <div className='relative w-full aspect-[4/4] sm:aspect-[3/2] rounded-none overflow-hidden'>
+          <div
+            data-aos="fade-left"
+            data-aos-delay="200"
+            className='relative w-full aspect-[4/4] sm:aspect-[3/2] rounded-none overflow-hidden'
+          >
             <Image
               src='/assets/png/blog.jpg'
               alt='Traditional textile patterns'
@@ -79,8 +95,13 @@ function BlogComponent () {
             </div>
           </div>
 
+          {/* Small grid */}
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
-            <div className='relative w-full aspect-square rounded-none overflow-hidden'>
+            <div
+              data-aos="fade-up"
+              data-aos-delay="300"
+              className='relative w-full aspect-square rounded-none overflow-hidden'
+            >
               <Image
                 src='/assets/png/blog.jpg'
                 alt='Textile studio workspace'
@@ -108,7 +129,11 @@ function BlogComponent () {
               </div>
             </div>
 
-            <div className='relative w-full aspect-square rounded-none overflow-hidden'>
+            <div
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className='relative w-full aspect-square rounded-none overflow-hidden'
+            >
               <Image
                 src='/assets/png/blog.jpg'
                 alt='Creative textile process'

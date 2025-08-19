@@ -1,6 +1,5 @@
 'use client'
 
-
 import React from 'react'
 import PrintImage from '@public/assets/png/print.png'
 import PrintCard from '@/components/home-page-card'
@@ -16,24 +15,40 @@ function FeaturedPrints () {
 
   return (
     <section className='my-[100px] px-4'>
-      <p className='md:text-[45px] text-[30px] font-bold md:font-normal text-center leading-[20px] md:leading-[40px]'>
+      {/* Section Title */}
+      <p
+        data-aos="fade-down"
+        className='md:text-[45px] text-[30px] font-bold md:font-normal text-center leading-[20px] md:leading-[40px]'
+      >
         Featured Prints
       </p>
-      <p className='md:text-xl text-sm font-satoshi font-normal text-[#4E5157] text-center mt-2'>
+
+      {/* Subtitle */}
+      <p
+        data-aos="fade-up"
+        data-aos-delay="200"
+        className='md:text-xl text-sm font-satoshi font-normal text-[#4E5157] text-center mt-2'
+      >
         Curated works handpicked from J.H Textiles collection.
       </p>
 
-      <div className='mt-[25px] grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3  gap-3 gap-y-8 md:gap-6'>
-        {featuredPrints.slice(0,6).map((item) => (
-          <PrintCard
+      {/* Cards Grid */}
+      <div className='mt-[25px] grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 gap-y-8 md:gap-6'>
+        {featuredPrints.slice(0,6).map((item, index) => (
+          <div
             key={item.id}
-            image={item.image}
-            label={item.label}
-            title={item.title}
-            price={item.price}
-            onAddToCart={() => console.log(`Added ${item.title} to cart`)}
-            onViewDetails={() => console.log(`Viewing details of ${item.title}`)}
-          />
+            data-aos="fade-up"
+            data-aos-delay={index * 100} // staggered animation
+          >
+            <PrintCard
+              image={item.image}
+              label={item.label}
+              title={item.title}
+              price={item.price}
+              onAddToCart={() => console.log(`Added ${item.title} to cart`)}
+              onViewDetails={() => console.log(`Viewing details of ${item.title}`)}
+            />
+          </div>
         ))}
       </div>
     </section>

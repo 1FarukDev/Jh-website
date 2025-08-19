@@ -54,25 +54,52 @@ function ClientWork() {
 
     return (
         <section className="my-[100px]">
-            <p className="md:text-[60px] text-[28px] md:px-0 px-4 font-light text-center leading-[40px]">
+            {/* Heading */}
+            <p
+                data-aos="fade-down"
+                className="md:text-[60px] text-[28px] md:px-0 px-4 font-light text-center leading-[40px]"
+            >
                 Client Work Highlights
             </p>
-            <p className="md:text-lg text-sm md:px-0 px-4 font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]">
+            <p
+                data-aos="fade-up"
+                data-aos-delay="200"
+                className="md:text-lg text-sm md:px-0 px-4 font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]"
+            >
                 A creative textile studio crafting meaningful prints, rooted in
                 texture, tradition, and storytelling.
             </p>
 
+            {/* Main Content */}
             <div className="flex flex-col-reverse md:flex-row items-center mt-2 overflow-hidden bg-[#5C3B00] text-white transition-all duration-500">
-                <div className="flex flex-col items-center justify-center gap-4 w-full md:w-1/2 relative">
+                {/* Left overlay */}
+                <div
+                    key={currentIndex + "-left"}
+                    data-aos="fade-right"
+                    className="flex flex-col items-center justify-center gap-4 w-full md:w-1/2 relative"
+                >
                     <Image src={ClientBg} alt=";" />
-                    <div className="absolute bg-[#5C3B00CC] flex flex-col items-center justify-center gap-4 w-[80%] p-4">
-                        <p className="text-[20px] md:text-[30px] leading-[48px] tracking-tighter text-center">
+                    <div
+                        data-aos="zoom-in-up"
+                        data-aos-delay="200"
+                        className="absolute bg-[#5C3B00CC] flex flex-col items-center justify-center gap-4 w-[80%] p-4"
+                    >
+                        <p
+                            data-aos="fade-up"
+                            className="text-[20px] md:text-[30px] leading-[48px] tracking-tighter text-center"
+                        >
                             {work.text}
                         </p>
-                        <p className="md:text-base text-sm font-satoshi text-center -mt-4 md:-mt-2">
+                        <p
+                            data-aos="fade-up"
+                            data-aos-delay="150"
+                            className="md:text-base text-sm font-satoshi text-center -mt-4 md:-mt-2"
+                        >
                             {work.subText}
                         </p>
                         <Button
+                            data-aos="fade-up"
+                            data-aos-delay="300"
                             className="bg-white text-black font-satoshi rounded-none px-6"
                             onClick={() => router.push("/client")}
                         >
@@ -80,7 +107,13 @@ function ClientWork() {
                         </Button>
                     </div>
                 </div>
-                <div className="w-full md:w-[50%] ml-auto">
+
+                {/* Right image */}
+                <div
+                    key={currentIndex + "-right"}
+                    data-aos="fade-left"
+                    className="w-full md:w-[50%] ml-auto"
+                >
                     <Image
                         src={work.image}
                         alt={work.text}
@@ -89,7 +122,12 @@ function ClientWork() {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between mt-4 px-4 gap-4">
+            {/* Navigation */}
+            <div
+                data-aos="zoom-in"
+                data-aos-delay="400"
+                className="flex items-center justify-between mt-4 px-4 gap-4"
+            >
                 <button
                     onClick={handlePrev}
                     className="border rounded-full border-black p-3 hover:bg-black hover:text-white transition-colors"
@@ -100,6 +138,8 @@ function ClientWork() {
                     {clientWorks.map((_, i) => (
                         <div
                             key={i}
+                            data-aos="zoom-in"
+                            data-aos-delay={i * 100}
                             className={`w-3 h-1 transition-all ${
                                 currentIndex === i
                                     ? "bg-[#1C1B0B] w-[50px] rounded-4xl"
