@@ -1,139 +1,151 @@
-'use client'
+"use client";
 
-import React from 'react'
-import NewsletterSignup from '../features/homepage/news-letter'
-import ConnectImage from '@/app/assets/png/contact.png'
-import Image from 'next/image'
-import { useForm, FormProvider } from 'react-hook-form'
-import { FormInput } from '@/components/input'
-import { FormCheckbox } from '@/components/checkbox'
-
+import React from "react";
+import NewsletterSignup from "../features/homepage/news-letter";
+import ConnectImage from "@/app/assets/png/contact.png";
+import Image from "next/image";
+import { useForm, FormProvider } from "react-hook-form";
+import { FormInput } from "@/components/input";
+import { FormCheckbox } from "@/components/checkbox";
+import { Button } from "@/components/ui/button";
+import FloralImage from "@/app/assets/png/floral.jpeg";
+import FloralImage2 from "@/app/assets/png/floral2.jpeg";
 type FormData = {
-  email: string
-  password: string
-  remember: boolean
-}
+    email: string;
+    password: string;
+    remember: boolean;
+};
 
-function Contact () {
-  const methods = useForm<FormData>({
-    defaultValues: {
-      email: '',
-      password: '',
-      remember: false
-    }
-  })
+function Contact() {
+    const methods = useForm<FormData>({
+        defaultValues: {
+            email: "",
+            password: "",
+            remember: false,
+        },
+    });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data)
-  }
+    const onSubmit = (data: FormData) => {
+        console.log(data);
+    };
 
-  return (
-    <section className='py-26 pt-40'>
-      <div className='flex flex-col items-center justify-center max-w-4xl mx-auto'>
-        <h1 className='text-[32px]  md:text-[64px] font-normal text-center leading-[32px] md:leading-[62px] text-[#230D06]'>
-          Let’s Connect
-        </h1>
-        <div className='font-satoshi font-light mt-3 text-center px-4 md:px-0 md:text-base text-sm'>
-          <p>
-            Got a question, project idea, or just want to say hi? Fill out the{' '}
-            <br className='md:block hidden'/>
-            form and I’ll get back to you soon.
-          </p>
-        </div>
-      </div>
+    return (
+        <>
+            <section className="relative w-full pt-50 h-[900px] md:h-[1100px]">
+                <Image
+                    src={ConnectImage}
+                    alt="Story Image"
+                    className="absolute inset-0 w-full  h-[1/2] object-cover"
+                    priority
+                />
 
-      {/* Image and Form Section */}
-      <div className='flex flex-col md:flex-row gap-8 my-20 items-stretch '>
-        {/* Image Block */}
-        <div className='md:w-1/2 w-full h-full'>
-          <Image
-            src={ConnectImage}
-            alt='Story Image'
-            className='w-full h-full object-cover'
-          />
-        </div>
+                <div className="relative z-10 flex flex-col justify-center items-center w-full h-full px-4">
+                    <div className="p-8 md:p-12 w-full max-w-4xl">
+                        <h1 className="text-[32px] md:text-[48px] font-normal text-[#230D06] text-center">
+                            Let’s Connect
+                        </h1>
+                        <p className="font-normal text-sm md:text-base text-center font-satoshi">
+                            Got a question, project idea, or just want to say
+                            hi? Fill out the
+                            <br className="hidden md:block" />
+                            form and I’ll get back to you soon.
+                        </p>
 
-        {/* Form Block */}
-        <div className='md:w-1/2 w-full px-4 h-full'>
-          <FormProvider {...methods}>
-            <section className='md:p-6 pt-0 w-full h-full'>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className='flex flex-col justify-start items-start gap-6 h-full'
-              >
-                <div className='w-full flex-col md:flex-row flex gap-4'>
-                  <FormInput
-                    name='first_name'
-                    type='text'
-                    placeholder='Enter your first name'
-                    className='h-[52px]'
-                  />
-                  <FormInput
-                    name='last_name'
-                    type='text'
-                    placeholder='Enter your last name'
-                    className='h-[52px]'
-                  />
+                        <FormProvider {...methods}>
+                            <form
+                                onSubmit={methods.handleSubmit(onSubmit)}
+                                className="mt-6 flex flex-col gap-6 bg-[#FCF8F5] p-8 px-10"
+                            >
+                                <div className="w-full flex flex-col md:flex-row gap-4">
+                                    <FormInput
+                                        name="first_name"
+                                        type="text"
+                                        placeholder="Enter your first name"
+                                        className="h-[52px] w-full"
+                                    />
+                                    <FormInput
+                                        name="last_name"
+                                        type="text"
+                                        placeholder="Enter your last name"
+                                        className="h-[52px] w-full"
+                                    />
+                                </div>
+
+                                <div className="w-full flex flex-col md:flex-row gap-4">
+                                    <FormInput
+                                        name="email"
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        className="h-[52px] w-full"
+                                    />
+                                    <FormInput
+                                        name="phone_number"
+                                        type="text"
+                                        placeholder="Enter your phone number"
+                                        className="h-[52px] w-full"
+                                    />
+                                </div>
+
+                                <FormInput
+                                    name="message_header"
+                                    type="text"
+                                    placeholder="Enter your message header"
+                                    className="h-[52px] w-full"
+                                />
+                                <FormInput
+                                    name="message"
+                                    type="textarea"
+                                    placeholder="Enter your message body"
+                                    className="h-[200px] w-full"
+                                />
+
+                                <FormCheckbox
+                                    name="terms"
+                                    label={
+                                        <span className="font-light text-sm">
+                                            I read and accept all terms and
+                                            conditions concerning the service
+                                            use and privacy policy pursuant to
+                                            article 13 of the GDPR.{" "}
+                                            <span className="font-bold underline cursor-pointer">
+                                                Read More
+                                            </span>
+                                        </span>
+                                    }
+                                />
+
+                                <Button
+                                    type="submit"
+                                    className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none"
+                                >
+                                    Send
+                                </Button>
+                            </form>
+                        </FormProvider>
+                    </div>
                 </div>
-
-                <div className='w-full flex flex-col md:flex-row gap-4'>
-                  <FormInput
-                    name='email'
-                    type='email'
-                    placeholder='Enter your email'
-                    className='h-[52px]'
-                  />
-                  <FormInput
-                    name='phone_number'
-                    type='text'
-                    placeholder='Enter your phone number'
-                    className='h-[52px]'
-                  />
+                <div className="flex justify-between items-center absolute w-full bottom-0">
+                    <Image
+                        src={FloralImage}
+                        alt="Floral Decoration"
+                        width={200}
+                        className="animate-bounce"
+                    />
+                    <Image
+                        src={FloralImage2}
+                        alt="Floral Decoration"
+                        width={200}
+                        className="animate-bounce delay-150"
+                    />
                 </div>
-
-                <FormInput
-                  name='message_header'
-                  type='text'
-                  placeholder='Enter your message header'
-                  className='h-[52px]'
-                />
-                <FormInput
-                  name='message'
-                  type='textarea'
-                  placeholder='Enter your message body'
-                  className='h-[200px]'
-                />
-
-                <FormCheckbox
-                  name='terms'
-                  label={
-                    <span className='font-light'>
-                      <p>
-                        I read and accept all terms and conditions concerning
-                        the service use and privacy policy pursuant to article
-                        13 of the General Regulation for the protection of
-                        personal data (GDPR).{' '}
-                        <span className='font-bold underline'>Read More</span>
-                      </p>
-                    </span>
-                  }
-                />
-
-                <button
-                  type='submit'
-                  className='mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal'
-                >
-                  Login
-                </button>
-              </form>
             </section>
-          </FormProvider>
-        </div>
-      </div>
 
-      <NewsletterSignup />
-    </section>
-  )
+            {/* Newsletter Section */}
+            <div className="my-[100px]">
+                <NewsletterSignup />
+            </div>
+        </>
+    );
 }
 
-export default Contact
+export default Contact;

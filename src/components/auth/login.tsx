@@ -12,6 +12,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import Modal from '../modal'
 import { DialogClose } from '../ui/dialog'
 import ForgotPassword from './forgot-password'
+import { Button } from '../ui/button'
 
 type FormData = {
   email: string
@@ -100,12 +101,12 @@ function Login({ onForgotPassword }: LoginProps) {
               </div>
             </div>
 
-            <button
+            <Button
               type='submit'
-              className='mt-4 bg-black text-white px-6 py-3  text-sm  w-full rounded-none font-satoshi font-normal'
+              className='mt-4 bg-black text-white px-6 py-3 h-10 text-sm  w-full rounded-none font-satoshi font-normal'
             >
               Login
-            </button>
+            </Button>
 
             <div className='w-full flex gap-3 items-center'>
               <div className='w-1/2 h-[1px] bg-gray-200'></div>
