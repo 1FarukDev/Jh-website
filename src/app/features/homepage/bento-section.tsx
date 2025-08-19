@@ -20,9 +20,12 @@ export default BentoSection;
 function BlogComponent() {
     return (
         <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
-                {/* LEFT BIG IMAGE */}
-                <div className="relative w-full aspect-[4/4] sm:aspect-[3/2] lg:aspect-[5/6] max-h-[700px] h-full rounded-none overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-4 items-stretch">
+                <div
+                    data-aos="fade-right"
+                    data-aos-duration="1000"
+                    className="relative w-full aspect-[4/4] sm:aspect-[3/2] lg:aspect-[5/6] max-h-[700px] h-full rounded-none overflow-hidden"
+                >
                     <div className="absolute inset-0">
                         <Image
                             src={FirstImage}
@@ -38,7 +41,7 @@ function BlogComponent() {
                             <h1 className="text-xl sm:text-2xl lg:text-3xl font-light text-white mb-3 sm:mb-4 tracking-wide leading-tight">
                                 Where Fabric Tells Your Story
                             </h1>
-                            <p className="text-white/90 text-sm sm:text-base font-satoshi leading-relaxed mb-4 sm:mb-6">
+                            <p className="text-white/90 text-sm sm:text-base font-satoshi leading-relaxed mb-4 sm:mb-4">
                                 Each piece is a story—told through texture,
                                 tone, and timeless print.
                             </p>
@@ -57,10 +60,16 @@ function BlogComponent() {
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN */}
-                <div className="flex flex-col gap-4 md:gap-6 h-full">
-                    {/* Top right image */}
-                    <div className="relative w-full flex-1 rounded-none overflow-hidden">
+                <div
+                    data-aos="fade-left"
+                    data-aos-duration="1000"
+                    className="flex flex-col gap-4 md:gap-4 h-full"
+                >
+                    <div
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                        className="relative w-full flex-1 rounded-none overflow-hidden"
+                    >
                         <div className="absolute inset-0">
                             <Image
                                 src={SecondImage}
@@ -92,9 +101,12 @@ function BlogComponent() {
                         </div>
                     </div>
 
-                    {/* Bottom two images */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
-                        <div className="relative w-full rounded-none overflow-hidden">
+                        <div
+                            data-aos="fade-up-right"
+                            data-aos-duration="1000"
+                            className="relative w-full rounded-none overflow-hidden"
+                        >
                             <div className="absolute inset-0">
                                 <Image
                                     src={ThirdImage}
@@ -115,7 +127,11 @@ function BlogComponent() {
                             </div>
                         </div>
 
-                        <div className="relative w-full rounded-none overflow-hidden">
+                        <div
+                            data-aos="zoom-in"
+                            data-aos-duration="1000"
+                            className="relative w-full rounded-none overflow-hidden"
+                        >
                             <div className="absolute inset-0">
                                 <Image
                                     src={FourthImage}
