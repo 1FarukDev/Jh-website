@@ -29,7 +29,7 @@ function BlogFilters () {
               <p
                 key={filter.value}
                 onClick={() => setActiveFilter(filter.value)}
-                className={`border p-2 font-satoshi px-6 cursor-pointer transition-colors duration-200 
+                className={`border md:p-2 p-1 font-satoshi px-3 md:px-6 cursor-pointer transition-colors duration-200 
                 ${
                   isActive
                     ? 'bg-black text-white border-black'

@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import Image from "next/image";
 import AboutImage from "@/app/assets/png/about.png";
 import AboutImageMobile from "@/app/assets/png/about-mobile.png";
@@ -7,16 +9,18 @@ import Plant from "@/app/assets/svg/plant.svg";
 import Story from "@/app/assets/svg/think.svg";
 import StoryImage from "@/app/assets/png/story.png";
 import ClientMessage from "../features/client/client-message";
+
 function AboutPage() {
     return (
-        <section className="py-26">
-            <div className="md:block hidden">
-                <Image src={AboutImage} alt="About image" className="" />
+        <section className="py-10">
+            <div className="md:block hidden" data-aos="fade-up">
+                <Image src={AboutImage} alt="About image" />
             </div>
-            <div className="md:hidden block">
-                <Image src={AboutImageMobile} alt="About image" className="" />
+            <div className="md:hidden block" data-aos="fade-up">
+                <Image src={AboutImageMobile} alt="About image" />
             </div>
-            <div className="max-w-5xl mx-auto mt-10">
+
+            <div className="max-w-5xl mx-auto mt-10" data-aos="fade-up">
                 <h1 className="text-[32px] md:text-[80px] text-center">
                     Who we are
                 </h1>
@@ -28,14 +32,22 @@ function AboutPage() {
                     pull of fabric, and the way a single pattern could evoke
                     memory, culture, or place.
                 </p>
-                <p className="text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157] my-6">
+                <p
+                    className="text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157] my-6"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                >
                     Each piece from JH Textile carries the imprint of the
                     maker’s hands and a commitment to process. From sketching
                     and carving to printing and finishing, the journey is slow,
                     thoughtful, and deliberate a counterbalance to fast
                     production.
                 </p>
-                <p className="text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">
+                <p
+                    className="text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]"
+                    data-aos="fade-up"
+                    data-aos-delay="400"
+                >
                     Today, JH Textile remains rooted in that original curiosity,
                     exploring the intersection of creativity and craftsmanship
                     with each new collection. Every design is more than
@@ -44,17 +56,20 @@ function AboutPage() {
                 </p>
             </div>
 
-            <div className="mt-32">
+            <div className="mt-32" data-aos="fade-up">
                 <h1 className="md:text-[80px] text-[32px] text-center leading-tight">
                     what We Value
                 </h1>
-                <p className="md:text-lg text-sm   text-[#4E5157] text-center font-satoshi">
+                <p className="md:text-lg text-sm text-[#4E5157] text-center font-satoshi">
                     A creative textile studio crafting meaningful prints, rooted
                     in texture, tradition, and storytelling.
                 </p>
 
-                <div className="flex md:flex-row flex-col gap-4  px-4 mt-[50px]">
-                    <div className="bg-[#1C1B0B] text-white p-[32px]">
+                <div className="flex md:flex-row flex-col gap-4 px-4 mt-[50px]">
+                    <div
+                        className="bg-[#1C1B0B] text-white p-[32px]"
+                        data-aos="zoom-in"
+                    >
                         <Image
                             src={Thread}
                             alt="Thread"
@@ -66,7 +81,12 @@ function AboutPage() {
                             material knowledge.
                         </p>
                     </div>
-                    <div className="bg-[#1C1B0B] text-white p-[32px]">
+
+                    <div
+                        className="bg-[#1C1B0B] text-white p-[32px]"
+                        data-aos="zoom-in"
+                        data-aos-delay="200"
+                    >
                         <Image
                             src={Plant}
                             alt="plant"
@@ -78,7 +98,12 @@ function AboutPage() {
                             create with the planet in mind.
                         </p>
                     </div>
-                    <div className="bg-[#1C1B0B] text-white p-[32px]">
+
+                    <div
+                        className="bg-[#1C1B0B] text-white p-[32px]"
+                        data-aos="zoom-in"
+                        data-aos-delay="400"
+                    >
                         <Image
                             src={Story}
                             alt="story"
@@ -93,12 +118,18 @@ function AboutPage() {
                 </div>
             </div>
 
-            <div className="flex md:flex-row flex-col gap-8 my-32 items-stretch">
-                <div className="md:w-1/2 w-full px-4 flex flex-col justify-center">
-                    <h2 className="text-[#230D06] text-[20px] md:text-[64px] text-center md:text-center font-light">
+            <div
+                className="flex md:flex-row flex-col-reverse gap-8 my-32 items-stretch"
+                data-aos="fade-up"
+            >
+                <div
+                    className="md:w-1/2 w-full px-4 flex flex-col justify-center"
+                    data-aos="fade-right"
+                >
+                    <h2 className="text-[#230D06] text-[20px] md:text-[64px] text-center font-light">
                         Our Story
                     </h2>
-                    <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-center  text-[#4E5157]">
+                    <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">
                         What began as a solo experiment in natural dyes and
                         block printing has grown into a full-bodied practice
                         rooted in craftsmanship, curiosity, and cultural
@@ -108,14 +139,22 @@ function AboutPage() {
                         heirloom-quality prints to immersive spatial
                         commissions.
                     </p>
-                    <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[32px] text-center text-[#4E5157] my-6">
+                    <p
+                        className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[32px] text-[#4E5157] my-6"
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                    >
                         Each piece from JH Textile carries the imprint of the
                         maker’s hands and a commitment to process. From
                         sketching and carving to printing and finishing, the
                         journey is slow, thoughtful, and deliberate a
                         counterbalance to fast production.
                     </p>
-                    <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-center  text-[#4E5157]">
+                    <p
+                        className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]"
+                        data-aos="fade-up"
+                        data-aos-delay="400"
+                    >
                         Today, JH Textile remains rooted in that original
                         curiosity, exploring the intersection of creativity and
                         craftsmanship with each new collection. Every design is
@@ -124,7 +163,11 @@ function AboutPage() {
                     </p>
                 </div>
 
-                <div className="md:w-1/2 w-full flex">
+                <div
+                    className="md:w-1/2 w-full flex"
+                    data-aos="fade-left"
+                    data-aos-delay="200"
+                >
                     <Image
                         src={StoryImage}
                         alt="Story Image"
@@ -133,7 +176,9 @@ function AboutPage() {
                 </div>
             </div>
 
-            <ClientMessage />
+            <div data-aos="fade-up">
+                <ClientMessage />
+            </div>
         </section>
     );
 }
