@@ -21,7 +21,10 @@ function BlogPage() {
     return (
         <section className="py-26">
             <div className="">
-                <div className="flex flex-col items-center justify-center mb-10">
+                <div
+                    className="flex flex-col items-center justify-center mb-10"
+                    data-aos="fade-up"
+                >
                     <h1 className="text-[30px] text-center md:text-[80px] text-[#230D06] tracking-tight">
                         In the Studio & In the Press
                     </h1>
@@ -30,15 +33,21 @@ function BlogPage() {
                         journals, and moments we've been featured.
                     </p>
                 </div>
-                <BlogFilters />
 
-                <div className="">
-                    <div className="flex justify-between items-start">
-                        <div className="w-1/2 p-8">
-                            <p className="font-normal text-[50px] leading-[50px] ">
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <BlogFilters />
+                </div>
+
+                <div className="" data-aos="fade-up" data-aos-delay="400">
+                    <div className="flex md:flex-row flex-col-reverse justify-between items-start">
+                        <div
+                            className="md:w-1/2 p-4 md:p-8"
+                            data-aos="fade-right"
+                        >
+                            <p className="font-normal text-2xl md:text-[50px] md:leading-[50px] ">
                                 Why We Embrace Irregular Prints
                             </p>
-                            <p className="font-normal font-satoshi mt-5 text-base text-[#4E5157]">
+                            <p className="font-normal font-satoshi mt-2 md:mt-5 text-base text-[#4E5157]">
                                 Explore the beauty of hand-made irregularities
                                 in block printing and dyeing, and why Wabi-Sabi
                                 aesthetics play a vital role in JH Textile’s
@@ -48,6 +57,8 @@ function BlogPage() {
                             <Button
                                 className="relative overflow-hidden mt-5 border-black border px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
                                 bg-transparent text-black hover:text-white rounded-none py-2 transition-all duration-300 group"
+                                data-aos="zoom-in"
+                                data-aos-delay="200"
                             >
                                 <span className="relative z-10 flex items-center">
                                     Read More
@@ -56,8 +67,12 @@ function BlogPage() {
                                 <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
                             </Button>
                         </div>
-                        <div className="w-1/2 border-l p-8 border-[#8A8635]">
-                            <div className="w-full h-[600px] relative">
+
+                        <div
+                            className="md:w-1/2 w-full md:border-l p-4 pb-0 md:p-8 border-[#8A8635]"
+                            data-aos="fade-left"
+                        >
+                            <div className="w-full h-[300px] md:h-[600px] relative">
                                 <Image
                                     src={BlogImage}
                                     alt="blog image"
@@ -67,8 +82,49 @@ function BlogPage() {
                             </div>
                         </div>
                     </div>
-
                     <section className="">
+                        {Array.from({
+                            length: Math.ceil(featuredPrints.length / 2),
+                        }).map((_, rowIndex) => {
+                            const start = rowIndex * 2;
+                            const end = start + 2;
+                            const rowItems = featuredPrints.slice(start, end);
+
+                            return (
+                                <div
+                                    key={`mobile-${rowIndex}`}
+                                    className="flex border-t border-[#8A8635] md:hidden"
+                                    data-aos="fade-up"
+                                    data-aos-delay={rowIndex * 200}
+                                >
+                                    {rowItems.map((item, colIndex) => (
+                                        <div
+                                            key={item.id}
+                                            className={`w-1/2 p-4 ${
+                                                colIndex !== rowItems.length - 1
+                                                    ? "border-r border-[#8A8635]"
+                                                    : ""
+                                            }`}
+                                            data-aos="zoom-in"
+                                            data-aos-delay={colIndex * 150}
+                                        >
+                                            <BlogCard
+                                                image={item.image}
+                                                title="Beautiful Prints"
+                                                description="Exploring the inspirations behind our latest hand-printed collection, woven from memory and salt air."
+                                                onReadMore={() =>
+                                                    console.log(
+                                                        "Read more clicked"
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            );
+                        })}
+
+                        {/* Desktop: 3 per row */}
                         {Array.from({
                             length: Math.ceil(featuredPrints.length / 3),
                         }).map((_, rowIndex) => {
@@ -78,8 +134,10 @@ function BlogPage() {
 
                             return (
                                 <div
-                                    key={rowIndex}
-                                    className="flex border-t border-[#8A8635]"
+                                    key={`desktop-${rowIndex}`}
+                                    className="hidden md:flex border-t border-[#8A8635]"
+                                    data-aos="fade-up"
+                                    data-aos-delay={rowIndex * 200}
                                 >
                                     {rowItems.map((item, colIndex) => (
                                         <div
@@ -89,6 +147,8 @@ function BlogPage() {
                                                     ? "border-r border-[#8A8635]"
                                                     : ""
                                             }`}
+                                            data-aos="zoom-in"
+                                            data-aos-delay={colIndex * 150}
                                         >
                                             <BlogCard
                                                 image={item.image}
@@ -108,7 +168,11 @@ function BlogPage() {
                     </section>
                 </div>
 
-                <div className="mt-10 flex justify-between items-center w-full px-4 md:px-[30px]">
+                <div
+                    className="mt-10 flex justify-between items-center w-full px-4 md:px-[30px]"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                >
                     <Button className="bg-white border rounded-none text-black font-light shadow-none hover:bg-black hover:text-white transition-colors font-satoshi !px-8">
                         <MoveLeft strokeWidth={0.5} />
                         Previous

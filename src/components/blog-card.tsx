@@ -18,36 +18,54 @@ const BlogCard: React.FC<BlogCardProps> = ({
     title,
     description,
     onReadMore,
-    height = "auto", // optional height
+    height = "auto",
 }) => {
     return (
         <div className="flex flex-col h-full" style={{ height }}>
-            <div className="w-full relative">
+            <div className="w-full relative aspect-[4/5] sm:aspect-[3/2] md:aspect-[4/3] lg:aspect-[3/2]">
                 <Image
                     src={image}
                     alt={title}
-                    className="w-full h-auto object-cover"
+                    fill
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw"
                 />
             </div>
 
-            <div className="mt-2 flex-1 flex flex-col -space-y-2 justify-between">
-                <div>
-                    <p className="text-[32px] font-semibold">{title}</p>
-                    <p className="font-satoshi">{description}</p>
+            <div className="mt-3 sm:mt-4 md:mt-5 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
+                <div className="space-y-2 sm:space-y-3">
+                    <h3
+                        className="text-lg sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] 
+                                 font-semibold leading-tight line-clamp-2 text-black"
+                    >
+                        {title}
+                    </h3>
+                    <p
+                        className="font-satoshi text-xs sm:text-base md:text-lg 
+                                text-gray-600 leading-relaxed line-clamp-3"
+                    >
+                        {description}
+                    </p>
                 </div>
 
-                <Button
-                    className="relative w-max overflow-hidden mt-5 border-black border px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
-                                bg-transparent text-black hover:text-white rounded-none py-2 transition-all duration-300 group"
-                    onClick={onReadMore}
-                >
-                    <span className="relative z-10 flex items-center">
-                        Read More
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                    </span>
+                <div className="pt-2 sm:pt-3">
+                    <Button
+                        className="relative w-full md:w-max overflow-hidden border-black border 
+                                 px-4 sm:px-6 md:px-8 font-satoshi 
+                                 text-xs sm:text-sm md:text-base
+                                 bg-transparent text-black hover:text-white rounded-none 
+                                 py-2 sm:py-2.5 transition-all duration-300 group"
+                        onClick={onReadMore}
+                    >
+                        <span className="relative z-10 flex items-center">
+                           
+                            <span className="">Read More</span>
+                            <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                        </span>
 
-                    <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-                </Button>
+                        <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                    </Button>
+                </div>
             </div>
         </div>
     );

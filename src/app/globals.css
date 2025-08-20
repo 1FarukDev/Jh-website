@@ -313,3 +313,7 @@
 .animate-navDropdownOut {
   animation: navDropdownOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+[data-aos] {
+  overflow: hidden; 
+}

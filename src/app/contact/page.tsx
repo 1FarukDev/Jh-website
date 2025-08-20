@@ -35,7 +35,7 @@ function Contact() {
                 <Image
                     src={ConnectImage}
                     alt="Story Image"
-                    className="absolute inset-0 w-full  h-[1/2] object-cover"
+                    className="absolute inset-0 w-full h-[80%] md:h-[1/2] object-cover"
                     priority
                 />
 
@@ -51,7 +51,7 @@ function Contact() {
                             form and I’ll get back to you soon.
                         </p>
 
-                        <FormProvider {...methods}>
+                        {/* <FormProvider {...methods}>
                             <form
                                 onSubmit={methods.handleSubmit(onSubmit)}
                                 className="mt-6 flex flex-col gap-6 bg-[#FCF8F5] p-8 px-10"
@@ -121,7 +121,7 @@ function Contact() {
                                     Send
                                 </Button>
                             </form>
-                        </FormProvider>
+                        </FormProvider> */}
                     </div>
                 </div>
                 <div className="flex justify-between items-center absolute w-full bottom-0">
