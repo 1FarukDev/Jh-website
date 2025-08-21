@@ -3,13 +3,15 @@
 import React from "react";
 import NewsletterSignup from "../features/homepage/news-letter";
 import ConnectImage from "@/app/assets/png/contact.png";
+import contact from "@/app/assets/png/contact-mobile.png";
 import Image from "next/image";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormInput } from "@/components/input";
 import { FormCheckbox } from "@/components/checkbox";
 import { Button } from "@/components/ui/button";
-import FloralImage from "@/app/assets/png/floral.jpeg";
-import FloralImage2 from "@/app/assets/png/floral2.jpeg";
+import FloralImage2 from "@/app/assets/png/floral.png";
+import FloralImage from "@/app/assets/png/floral1.png";
+
 type FormData = {
     email: string;
     password: string;
@@ -31,17 +33,23 @@ function Contact() {
 
     return (
         <>
-            <section className="relative w-full pt-50 h-[900px] md:h-[1100px]">
+            <section className="relative w-full md:pt-0 pt-50 h-[900px] md:h-[1100px]">
                 <Image
                     src={ConnectImage}
                     alt="Story Image"
-                    className="absolute inset-0 w-full h-[80%] md:h-[1/2] object-cover"
+                    className="absolute inset-0 w-full hidden md:block  h-[1/2] object-cover"
+                    priority
+                />
+                <Image
+                    src={contact}
+                    alt="contact Image"
+                    className="absolute inset-0 w-full  md:hidden  h-[1/2] object-cover"
                     priority
                 />
 
-                <div className="relative z-10 flex flex-col justify-center items-center w-full h-full px-4">
-                    <div className="p-8 md:p-12 w-full max-w-4xl">
-                        <h1 className="text-[32px] md:text-[48px] font-normal text-[#230D06] text-center">
+                <div className="relative z-10 flex top-30 mb-30 flex-col justify-center items-center w-full h-full px-4">
+                    <div className="p-4 md:p-12 w-full md:max-w-4xl py-10 z-10">
+                        <h1 className="text-[22px] md:text-[48px] font-normal text-[#230D06] text-center">
                             Let’s Connect
                         </h1>
                         <p className="font-normal text-sm md:text-base text-center font-satoshi">
@@ -51,10 +59,10 @@ function Contact() {
                             form and I’ll get back to you soon.
                         </p>
 
-                        {/* <FormProvider {...methods}>
+                        <FormProvider {...methods}>
                             <form
                                 onSubmit={methods.handleSubmit(onSubmit)}
-                                className="mt-6 flex flex-col gap-6 bg-[#FCF8F5] p-8 px-10"
+                                className="mt-6 flex flex-col gap-6 bg-[#FCF8F5] p-4 z-10 md:p-10"
                             >
                                 <div className="w-full flex flex-col md:flex-row gap-4">
                                     <FormInput
@@ -121,27 +129,27 @@ function Contact() {
                                     Send
                                 </Button>
                             </form>
-                        </FormProvider> */}
+                        </FormProvider>
                     </div>
                 </div>
-                <div className="flex justify-between items-center absolute w-full bottom-0">
+                <div className="flex justify-between items-center absolute w-full md:bottom-0 overflow-hidden z-100 -bottom-1/2">
                     <Image
                         src={FloralImage}
                         alt="Floral Decoration"
                         width={200}
-                        className="animate-bounce"
+                        className="animate-bounce w-[150px] md:w-[200px]"
                     />
                     <Image
                         src={FloralImage2}
                         alt="Floral Decoration"
                         width={200}
-                        className="animate-bounce delay-150"
+                        className="animate-bounce delay-200 w-[150px] md:w-[200px]"
                     />
                 </div>
             </section>
 
-            {/* Newsletter Section */}
-            <div className="my-[100px]">
+            
+            <div className="my-[100px]  md:mt-0 mt-[300px]">
                 <NewsletterSignup />
             </div>
         </>

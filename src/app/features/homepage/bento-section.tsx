@@ -20,11 +20,12 @@ export default BentoSection;
 function BlogComponent() {
     return (
         <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden h-auto lg:h-[700px]">
+                {/* Left Image - Main Feature */}
                 <div
                     data-aos="fade-right"
                     data-aos-duration="1000"
-                    className="relative w-full aspect-[4/5] sm:aspect-[3/2] lg:aspect-[5/6] max-h-[700px] rounded-none overflow-hidden min-w-0"
+                    className="relative w-full h-[400px] sm:h-[500px] lg:h-full rounded-none overflow-hidden min-w-0"
                 >
                     <Image
                         src={FirstImage}
@@ -57,15 +58,17 @@ function BlogComponent() {
                     </div>
                 </div>
 
+                {/* Right Container - Grid of smaller images */}
                 <div
                     data-aos="fade-left"
                     data-aos-duration="1000"
-                    className="flex flex-col gap-4 min-w-0"
+                    className="flex flex-col gap-4 min-w-0 h-auto lg:h-full"
                 >
+                    {/* Top image - takes up more space */}
                     <div
                         data-aos="fade-up"
                         data-aos-duration="1000"
-                        className="relative w-full aspect-[4/3] sm:aspect-[16/9] rounded-none overflow-hidden min-w-0"
+                        className="relative w-full h-[300px] sm:h-[350px] lg:flex-[2] rounded-none overflow-hidden min-w-0"
                     >
                         <Image
                             src={SecondImage}
@@ -95,11 +98,12 @@ function BlogComponent() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1 min-w-0">
+                    {/* Bottom row - two smaller images */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex-1 min-w-0">
                         <div
                             data-aos="fade-up-right"
                             data-aos-duration="1000"
-                            className="relative w-full aspect-[4/3] rounded-none overflow-hidden min-w-0"
+                            className="relative w-full h-full rounded-none overflow-hidden min-w-0"
                         >
                             <Image
                                 src={ThirdImage}
@@ -122,7 +126,7 @@ function BlogComponent() {
                         <div
                             data-aos="zoom-in"
                             data-aos-duration="1000"
-                            className="relative w-full aspect-[4/3] rounded-none overflow-hidden min-w-0"
+                            className="relative w-full h-full rounded-none overflow-hidden min-w-0"
                         >
                             <Image
                                 src={FourthImage}
