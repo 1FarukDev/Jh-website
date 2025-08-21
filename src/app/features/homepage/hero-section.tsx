@@ -24,7 +24,7 @@ function Hero() {
                 priority
             />
 
-            <div className="block md:hidden relative h-[70vh] w-full">
+            <div className="block md:hidden relative h-[85vh] w-full">
                 <Image
                     src={MobileHero}
                     alt="Hero Mobile"
