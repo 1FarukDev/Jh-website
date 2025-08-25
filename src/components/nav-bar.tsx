@@ -66,14 +66,12 @@ function NavBar() {
             setExtraRefs([userDropdownRef]);
         }
     }, [setExtraRefs, userDropdownRef, isOpen]);
-    /** Determine text color class */
+   
     const getTextColorClass = () => {
         if (isOpen) return "text-white";
         if (isHomePage) return scrolled ? "text-black" : "text-white";
         return "text-black";
     };
-
-    /** Determine cart icon class */
     const getCartIconClass = () => {
         if (isOpen) return "";
         if (isHomePage) return scrolled ? "" : "invert";
