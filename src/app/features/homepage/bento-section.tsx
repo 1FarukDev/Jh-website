@@ -6,6 +6,7 @@ import FirstImage from "@/app/assets/png/bento1.png";
 import SecondImage from "@/app/assets/png/bento2.png";
 import ThirdImage from "@/app/assets/png/bento3.png";
 import FourthImage from "@/app/assets/png/bento4.png";
+import { Highlighter } from "@/components/ui/highlighter";
 
 function BentoSection() {
     return (
@@ -20,33 +21,25 @@ export default BentoSection;
 function BlogComponent() {
     return (
         <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden h-auto lg:h-[700px]">
-                {/* Left Image - Main Feature */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden h-auto lg:h-[500px]">
                 <div
-                    data-aos="fade-right"
-                    data-aos-duration="1000"
-                    className="relative w-full h-[400px] sm:h-[500px] lg:h-full rounded-none overflow-hidden min-w-0"
+                    // data-aos="fade-right"
+                    // data-aos-duration="1000"
+                    className="relative rounded-none w-full h-[220px] sm:h-[250px] lg:h-full border  overflow-hidden min-w-0"
                 >
-                    <Image
-                        src={FirstImage}
-                        alt="Colorful traditional textiles and rugs"
-                        fill
-                        className="object-cover transform transition-transform duration-300 ease-out hover:scale-105"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-black/40" />
-                    <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 lg:p-8">
-                        <div className="max-w-md">
-                            <h1 className="text-lg sm:text-2xl lg:text-3xl font-light text-white mb-3 tracking-wide leading-tight">
-                                Where Fabric Tells Your Story
+                    {/* <div className="absolute inset-0 bg-black/10" /> */}
+                    <div className="absolute inset-0 flex flex-col text-black justify-center items-center p-4 sm:p-6 lg:p-8 text-center">
+                        <div className="max-w-lg">
+                            <h1 className="text-lg text-black sm:text-2xl lg:text-4xl font-light  mb-3 tracking-wide leading-tight">
+                                Where <Highlighter action="box" color="#1c1b0b75">Fabric</Highlighter> Tells Your <Highlighter action="highlight" color="#1C1B0B" ><span className="text-white">Story</span></Highlighter>
                             </h1>
-                            <p className="text-white/90 text-sm sm:text-base font-satoshi leading-relaxed mb-4">
+                            <p className=" text-sm sm:text-base font-satoshi leading-relaxed mb-4">
                                 Each piece is a story—told through texture,
                                 tone, and timeless print.
                             </p>
                             <Button
                                 className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
-                                bg-transparent border-white text-white hover:text-black rounded-none py-2 transition-all duration-300 group"
+          bg-black border-white text-white  hover:text-black hover:border-black rounded-none py-2 transition-all duration-300 group"
                             >
                                 <span className="relative z-10 flex items-center">
                                     View collection
@@ -56,19 +49,20 @@ function BlogComponent() {
                             </Button>
                         </div>
                     </div>
+                    {/* <BorderBeam duration={8} size={100} /> */}
                 </div>
 
-                {/* Right Container - Grid of smaller images */}
+                {/* Right container */}
                 <div
-                    data-aos="fade-left"
-                    data-aos-duration="1000"
+                    // data-aos="fade-left"
+                    // data-aos-duration="1000"
                     className="flex flex-col gap-4 min-w-0 h-auto lg:h-full"
                 >
-                    {/* Top image - takes up more space */}
+                    {/* Top image */}
                     <div
                         data-aos="fade-up"
                         data-aos-duration="1000"
-                        className="relative w-full h-[300px] sm:h-[350px] lg:flex-[2] rounded-none overflow-hidden min-w-0"
+                        className="relative w-full h-[220px] sm:h-[280px] lg:flex-[2] rounded-none overflow-hidden min-w-0"
                     >
                         <Image
                             src={SecondImage}
@@ -79,7 +73,8 @@ function BlogComponent() {
                         <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
                             <div className="max-w-md">
                                 <h2 className="text-base sm:text-xl lg:text-2xl font-light text-white mb-2 tracking-wide leading-tight">
-                                    Where Fabric Tells Your Story
+                                    Where Fabric Tells Your story
+                                    
                                 </h2>
                                 <p className="text-white/90 text-xs sm:text-sm leading-relaxed font-satoshi mb-3">
                                     Each piece is a story—told through texture,
@@ -87,7 +82,7 @@ function BlogComponent() {
                                 </p>
                                 <Button
                                     className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
-                                    bg-transparent border-white text-white hover:text-black rounded-none py-2 transition-all duration-300 group"
+              bg-transparent border-white text-white hover:text-black rounded-none py-2 transition-all duration-300 group"
                                 >
                                     <span className="relative z-10 flex items-center">
                                         About Us
@@ -98,12 +93,12 @@ function BlogComponent() {
                         </div>
                     </div>
 
-                    {/* Bottom row - two smaller images */}
+                    {/* Bottom row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex-1 min-w-0">
                         <div
-                            data-aos="fade-up-right"
-                            data-aos-duration="1000"
-                            className="relative w-full h-full rounded-none overflow-hidden min-w-0"
+                            // data-aos="fade-up-right"
+                            // data-aos-duration="1000"
+                            className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0"
                         >
                             <Image
                                 src={ThirdImage}
@@ -126,7 +121,7 @@ function BlogComponent() {
                         <div
                             data-aos="zoom-in"
                             data-aos-duration="1000"
-                            className="relative w-full h-full rounded-none overflow-hidden min-w-0"
+                            className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0"
                         >
                             <Image
                                 src={FourthImage}
@@ -140,7 +135,7 @@ function BlogComponent() {
                                     <h3 className="text-xs font-satoshi text-gray-300 font-light tracking-wide">
                                         Limited Collection
                                     </h3>
-                                    <p className="text-white/90 text-4xl sm:text-5xl leading-relaxed font-bold">
+                                    <p className="text-white/90 text-3xl sm:text-4xl leading-relaxed font-bold">
                                         50% Off
                                     </p>
                                     <Button

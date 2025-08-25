@@ -7,14 +7,13 @@ function Studio() {
     return (
         <section className="my-16 px-4 mx-auto max-w-[1440px]">
             <p
-                data-aos="fade-down"
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-normal text-center leading-tight md:leading-[40px]"
             >
                 In The Studio & In The Press
             </p>
             <p
-                data-aos="fade-up"
-                data-aos-delay="200"
+                // data-aos="fade-up"
+                // data-aos-delay="200"
                 className="text-sm md:text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-2xl mx-auto"
             >
                 A glimpse behind the canvas stories, thoughts & headlines.
@@ -66,8 +65,8 @@ function BlogComponent() {
 
                 <div className="flex flex-col gap-4 md:gap-6 min-w-0">
                     <div
-                        data-aos="fade-left"
-                        data-aos-delay="200"
+                        // data-aos="fade-left"
+                        // data-aos-delay="200"
                         className="relative w-full aspect-[4/5] sm:aspect-[3/2] rounded-none overflow-hidden min-w-0"
                     >
                         <Image
@@ -98,8 +97,8 @@ function BlogComponent() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 min-w-0">
                         <div
-                            data-aos="fade-up"
-                            data-aos-delay="300"
+                            // data-aos="fade-up"
+                            // data-aos-delay="300"
                             className="relative w-full aspect-[4/5] sm:aspect-square rounded-none overflow-hidden min-w-0"
                         >
                             <Image
@@ -131,8 +130,8 @@ function BlogComponent() {
                         </div>
 
                         <div
-                            data-aos="fade-up"
-                            data-aos-delay="400"
+                            // data-aos="fade-up"
+                            // data-aos-delay="400"
                             className="relative w-full aspect-[4/5] sm:aspect-square rounded-none overflow-hidden min-w-0"
                         >
                             <Image
