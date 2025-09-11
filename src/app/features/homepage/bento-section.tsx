@@ -10,7 +10,7 @@ import { Highlighter } from "@/components/ui/highlighter";
 
 function BentoSection() {
     return (
-        <section className="my-12 px-4 mx-auto max-w-[1440px]">
+        <section className="my-12 mx-auto">
             <BlogComponent />
         </section>
     );
@@ -21,17 +21,17 @@ export default BentoSection;
 function BlogComponent() {
     return (
         <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden h-auto lg:h-[500px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden h-auto lg:h-[500px] md:px-15 px-4">
                 <div
                     // data-aos="fade-right"
                     // data-aos-duration="1000"
-                    className="relative rounded-none w-full h-[220px] sm:h-[250px] lg:h-full border  overflow-hidden min-w-0"
+                    className="relative rounded-none bg-[#1c1b0b0c] w-full h-[220px] sm:h-[250px] lg:h-full border  overflow-hidden min-w-0"
                 >
                     {/* <div className="absolute inset-0 bg-black/10" /> */}
                     <div className="absolute inset-0 flex flex-col text-black justify-center items-center p-4 sm:p-6 lg:p-8 text-center">
                         <div className="max-w-lg">
                             <h1 className="text-lg text-black sm:text-2xl lg:text-4xl font-light  mb-3 tracking-wide leading-tight">
-                                Where <Highlighter action="box" color="#1c1b0b75">Fabric</Highlighter> Tells Your <Highlighter action="highlight" color="#1C1B0B" ><span className="text-white">Story</span></Highlighter>
+                                Where Prints Tells Your Story
                             </h1>
                             <p className=" text-sm sm:text-base font-satoshi leading-relaxed mb-4">
                                 Each piece is a story—told through texture,
@@ -108,12 +108,12 @@ function BlogComponent() {
                             />
                             <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
                                 <div className="max-w-xs">
-                                    <h3 className="text-sm sm:text-lg font-light text-white mb-1 tracking-wide leading-tight">
+                                    {/* <h3 className="text-sm sm:text-lg font-light text-white mb-1 tracking-wide leading-tight">
                                         Sustainable Threads
                                     </h3>
                                     <p className="text-white/90 text-xs leading-relaxed font-satoshi">
                                         Responsibly made, ethically sourced.
-                                    </p>
+                                    </p> */}
                                 </div>
                             </div>
                         </div>

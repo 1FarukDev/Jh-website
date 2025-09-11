@@ -37,10 +37,11 @@ function Hero() {
                 <p
                     data-aos="fade-up"
                     data-aos-duration="1200"
-                    className="text-[32px] leading-[48px] md:text-[100px] md:leading-[100px] font-extralight font-rose"
+                    className="text-[32px] leading-[48px] md:text-[90px] md:leading-[100px] font-extralight font-rose"
                 >
-                    Prints That Pulse <br className="hidden md:block" /> With
-                    Meaning
+                    {/* Prints That Pulse  With
+                    Meaning */}
+                    Textile Prints that <br className="hidden md:block" /> pulse with meaning 
                 </p>
 
                 <p>

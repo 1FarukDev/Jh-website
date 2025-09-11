@@ -73,8 +73,8 @@ function Page() {
                             <div
                                 key={`mobile-${rowIndex}`}
                                 className="flex border-t border-[#8A8635] md:hidden"
-                                data-aos="zoom-in"
-                                data-aos-delay={rowIndex * 100}
+                                // data-aos="zoom-in"
+                                // data-aos-delay={rowIndex * 100}
                             >
                                 {mobileRowItems.map((item, colIndex) => (
                                     <div
@@ -110,16 +110,16 @@ function Page() {
                     {Array.from({
                         length: Math.ceil(featuredPrints.length / 3),
                     }).map((_, rowIndex) => {
-                        const start = rowIndex * 3;
-                        const end = start + 3;
+                        const start = rowIndex * 4;
+                        const end = start + 4;
                         const rowItems = featuredPrints.slice(start, end);
 
                         return (
                             <div
                                 key={`desktop-${rowIndex}`}
                                 className="hidden md:flex border-t border-[#8A8635]"
-                                data-aos="fade-up"
-                                data-aos-delay={rowIndex * 150}
+                                // data-aos="fade-up"
+                                // data-aos-delay={rowIndex * 150}
                             >
                                 {rowItems.map((item, colIndex) => (
                                     <div
