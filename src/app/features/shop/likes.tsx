@@ -27,7 +27,7 @@ function Likes () {
             title={item.title}
             price={item.price}
             onAddToCart={() => console.log(`Added ${item.title} to cart`)}
-            onViewDetails={() => console.log(`Viewing details of ${item.title}`)}
+            // onViewDetails={() => console.log(`Viewing details of ${item.title}`)}
           />
         </div>
       ))}
