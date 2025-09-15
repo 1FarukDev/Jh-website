@@ -20,7 +20,7 @@ import { usePathname } from "next/navigation";
 
 function NavBar() {
     const pathname = usePathname();
-    const isHomePage = pathname === "/";
+    const isHomePage = pathname === "/" || pathname === '/client' || pathname === '/about';
 
     const { isOpen, toggleDropdown, setExtraRefs, closeDropdown } =
         useNavDropdown();

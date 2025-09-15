@@ -4,6 +4,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "./ui/button";
 import cart from "@/app/assets/svg/shopping-cart-white.svg";
+import Link from "next/link";
 
 type PrintCardProps = {
     image: StaticImageData | string;
@@ -11,7 +12,7 @@ type PrintCardProps = {
     title: string;
     price: string | number;
     onAddToCart?: () => void;
-    onViewDetails?: () => void;
+    onViewDetails?: string;
 };
 
 function PrintCard({
@@ -23,14 +24,14 @@ function PrintCard({
     onViewDetails,
 }: PrintCardProps) {
     return (
-        <section className="w-full h-full flex flex-col">
-            <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] md:aspect-[3/3] lg:aspect-[4/5] xl:aspect-[3/4]">
+        <Link href={`${onViewDetails}`} className="w-full h-full flex flex-col">
+            <div className="relative w-full aspect-square sm:aspect-square md:aspect-square lg:aspect-square xl:aspect-square">
                 <Image
                     src={image}
                     alt={`${label} Image`}
                     fill
                     className="object-cover transition-transform duration-300"
-                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    // sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     priority={false}
                 />
             </div>
@@ -64,7 +65,7 @@ function PrintCard({
                         <span className="sm:hidden">Add</span>
                         <span className="hidden sm:inline">Add to Cart</span>
                     </Button>
-
+{/* 
                     <Button
                         className="bg-white hover:bg-gray-50 border border-black text-black font-satoshi 
                      rounded-none font-normal shadow-none
@@ -76,10 +77,10 @@ function PrintCard({
                     >
                         <span className="sm:hidden">Details</span>
                         <span className="hidden sm:inline">View Details</span>
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
-        </section>
+        </Link>
     );
 }
 

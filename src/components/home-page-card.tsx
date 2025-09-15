@@ -4,6 +4,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "./ui/button";
 import cart from "@/app/assets/svg/shopping-cart-white.svg";
+import Link from "next/link";
 
 type PrintCardProps = {
     image: StaticImageData | string;
@@ -11,7 +12,7 @@ type PrintCardProps = {
     title: string;
     price: string | number;
     onAddToCart?: () => void;
-    onViewDetails?: () => void;
+    onViewDetails?:string;
 };
 
 function PrintCard({
@@ -23,7 +24,7 @@ function PrintCard({
     onViewDetails,
 }: PrintCardProps) {
     return (
-        <section className="w-full group overflow-hidden">
+        <Link href={`${onViewDetails}`} className="w-full group overflow-hidden">
             {/* Image container */}
             <div className="relative w-full aspect-square overflow-hidden">
                 <Image
@@ -69,16 +70,16 @@ function PrintCard({
                             />
                         </div>
 
-                        <Button
+                        {/* <Button
                             className="bg-white border shadow-none border-black text-black font-satoshi rounded-none font-normal px-4 md:px-8 flex-1"
                             onClick={onViewDetails}
                         >
                             View Details
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </div>
-        </section>
+        </Link>
     );
 }
 

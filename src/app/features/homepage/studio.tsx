@@ -2,168 +2,142 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { Icon } from "@iconify/react";
+import { motion, AnimatePresence } from "framer-motion";
 
-function Studio() {
-    return (
-        <section className="my-16 px-4 mx-auto max-w-[1440px]">
-            <p
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-normal text-center leading-tight md:leading-[40px]"
-            >
-                In The Studio & In The Press
-            </p>
-            <p
-                // data-aos="fade-up"
-                // data-aos-delay="200"
-                className="text-sm md:text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-2xl mx-auto"
-            >
-                A glimpse behind the canvas stories, thoughts & headlines.
-            </p>
-            <div className="mt-8 md:mt-12">
-                <BlogComponent />
-            </div>
-        </section>
-    );
+interface BlogItem {
+  title: string;
+  description: string;
+  image: string;
 }
 
-export default Studio;
+const blogItems: BlogItem[] = [
+  {
+    title: "A DAY IN J.H TEXTILES' STUDIO",
+    description:
+      "From the first cup of coffee to the final varnish stroke, here's what a day behind the canvas looks like. Go inside Dara's creative process and see how inspiration becomes print.",
+    image: "/assets/png/blog.jpg",
+  },
+  {
+    title: "HOW I TURN STORIES INTO ART",
+    description:
+      "Every print has a soul — and a story. In this post, I break down how personal memories, cultural roots, and moments of silence shape my visual language.",
+    image: "/assets/png/blog.jpg",
+  },
+  {
+    title: "A DAY IN DARA'S STUDIO",
+    description:
+      "From the first cup of coffee to the final varnish stroke, here's what a day behind the canvas looks like.",
+    image: "/assets/png/blog.jpg",
+  },
+];
 
-function BlogComponent() {
-    return (
-        <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 overflow-hidden">
-                <div
-                    data-aos="fade-right"
-                    className="relative w-full aspect-[4/5] sm:aspect-[3/2] lg:aspect-[5/6] rounded-none overflow-hidden min-w-0"
-                >
-                    <Image
-                        src="/assets/png/blog.jpg"
-                        alt="Colorful traditional textiles and rugs"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-black/40" />
-                    <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 lg:p-8">
-                        <div className="max-w-md">
-                            <h1 className="text-lg sm:text-2xl lg:text-3xl font-light text-white mb-3 sm:mb-4 tracking-wide leading-tight">
-                                A DAY IN J.H TEXTILES&apos; STUDIO
-                            </h1>
-                            <p className="text-white/90 text-sm sm:text-base font-satoshi leading-relaxed mb-4 sm:mb-6">
-                                From the first cup of coffee to the final
-                                varnish stroke, here&apos;s what a day behind
-                                the canvas looks like. Go inside Dara&apos;s
-                                creative process and see how inspiration becomes
-                                print.
-                            </p>
-                            <Button className="border px-5 sm:px-8 font-satoshi text-xs sm:text-sm bg-transparent border-white text-white hover:bg-white hover:text-black rounded-none py-2 transition-all duration-300">
-                                Read More
-                                <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </div>
-                    </div>
-                </div>
+export default function Studio() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalSlides = blogItems.length;
 
-                <div className="flex flex-col gap-4 md:gap-6 min-w-0">
-                    <div
-                        // data-aos="fade-left"
-                        // data-aos-delay="200"
-                        className="relative w-full aspect-[4/5] sm:aspect-[3/2] rounded-none overflow-hidden min-w-0"
-                    >
-                        <Image
-                            src="/assets/png/blog.jpg"
-                            alt="Traditional textile patterns"
-                            fill
-                            className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/50" />
-                        <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
-                            <div className="max-w-sm">
-                                <h2 className="text-base sm:text-xl lg:text-2xl font-light text-white mb-2 sm:mb-3 tracking-wide leading-tight">
-                                    HOW I TURN STORIES INTO ART
-                                </h2>
-                                <p className="text-white/90 text-xs sm:text-sm leading-relaxed font-satoshi mb-3 sm:mb-4">
-                                    Every print has a soul — and a story. In
-                                    this post, I break down how personal
-                                    memories, cultural roots, and moments of
-                                    silence shape my visual language.
-                                </p>
-                                <Button className="border font-satoshi text-xs bg-transparent border-white text-white hover:bg-white hover:text-black rounded-none px-5 sm:px-8 py-2 transition-all duration-300">
-                                    Read More
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+  };
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 min-w-0">
-                        <div
-                            // data-aos="fade-up"
-                            // data-aos-delay="300"
-                            className="relative w-full aspect-[4/5] sm:aspect-square rounded-none overflow-hidden min-w-0"
-                        >
-                            <Image
-                                src="/assets/png/blog.jpg"
-                                alt="Textile studio workspace"
-                                fill
-                                className="object-cover"
-                            />
-                            <div className="absolute inset-0 bg-black/50" />
-                            <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
-                                <div className="max-w-xs">
-                                    <h3 className="text-sm sm:text-lg font-light text-white mb-1 sm:mb-2 tracking-wide leading-tight">
-                                        A DAY IN DARA&apos;S STUDIO
-                                    </h3>
-                                    <p className="text-white/90 text-xs leading-relaxed font-satoshi mb-3 sm:mb-4">
-                                        From the first cup of coffee to the
-                                        final varnish stroke, here&apos;s what a
-                                        day behind the canvas looks like.
-                                    </p>
-                                    <Button
-                                        size="sm"
-                                        className="border font-satoshi text-xs bg-transparent border-white text-white hover:bg-white hover:text-black rounded-none px-4 sm:px-6 py-1.5 sm:py-2 transition-all duration-300"
-                                    >
-                                        Read More
-                                        <ArrowRight className="ml-1.5 sm:ml-2 h-3 w-3" />
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+  };
 
-                        <div
-                            // data-aos="fade-up"
-                            // data-aos-delay="400"
-                            className="relative w-full aspect-[4/5] sm:aspect-square rounded-none overflow-hidden min-w-0"
-                        >
-                            <Image
-                                src="/assets/png/blog.jpg"
-                                alt="Creative textile process"
-                                fill
-                                className="object-cover"
-                            />
-                            <div className="absolute inset-0 bg-black/50" />
-                            <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
-                                <div className="max-w-xs">
-                                    <h3 className="text-sm sm:text-lg font-light text-white mb-1 sm:mb-2 tracking-wide leading-tight">
-                                        A DAY IN DARA&apos;S STUDIO
-                                    </h3>
-                                    <p className="text-white/90 text-xs leading-relaxed font-satoshi mb-3 sm:mb-4">
-                                        Go inside J.H Textiles&apos; creative
-                                        process and see how inspiration becomes
-                                        print.
-                                    </p>
-                                    <Button
-                                        size="sm"
-                                        className="border font-satoshi text-xs bg-transparent border-white text-white hover:bg-white hover:text-black rounded-none px-4 sm:px-6 py-1.5 sm:py-2 transition-all duration-300"
-                                    >
-                                        Read More
-                                        <ArrowRight className="ml-1.5 sm:ml-2 h-3 w-3" />
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  const currentItem = blogItems[currentIndex];
+  const variants = {
+    enter: { opacity: 0, x: 50 },
+    center: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -50 },
+  };
+
+  return (
+    <section className="my-16 mx-auto md:px-15 px-4">
+      <p className="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-normal text-center leading-tight md:leading-[40px]">
+        In The Studio & In The Press
+      </p>
+      <p className="text-sm md:text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-2xl mx-auto">
+        A glimpse behind the canvas stories, thoughts & headlines.
+      </p>
+
+      <div className="mt-8 md:mt-12 bg-[#1c1b0b0c] flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex + "-text"}
+            className="md:w-1/2 flex flex-col justify-center"
+            initial="enter"
+            animate="center"
+            exit="exit"
+            variants={variants}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="md:w-[70%] w-full text-center  flex flex-col justify-center mx-auto">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-light mb-4 tracking-wide leading-tight">
+                {currentItem.title}
+              </h2>
+              <p className="text-sm sm:text-base font-satoshi mb-6 text-[#4E5157]">
+                {currentItem.description}
+              </p>
+
+              <Button
+                className="relative w-max mx-auto overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
+              bg-transparent border-black text-black hover:text-white rounded-none py-2 transition-all duration-300 group"
+              >
+                <span className="relative z-10 flex items-center">
+                  Read More <ArrowRight className="ml-2 h-4 w-4" />
+                </span>
+                <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+              </Button>
             </div>
+          </motion.div>
+
+          <motion.div
+            key={currentIndex + "-image"}
+            className="md:w-1/2 relative w-full h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Image
+              src={currentItem.image}
+              alt={currentItem.title}
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="flex items-center justify-between mt-6 px-4 gap-4">
+        <button
+          onClick={handlePrev}
+          className="border rounded-full border-black p-3 hover:bg-black hover:text-white transition-colors"
+        >
+          <Icon icon="guidance:right-arrow" width="20" height="20" />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {blogItems.map((_, i) => (
+            <div
+              key={i}
+              className={`transition-all w-3 h-1 ${
+                i === currentIndex
+                  ? "bg-[#1C1B0B] w-[50px] rounded-4xl"
+                  : "bg-gray-300 w-[10px] rounded-full"
+              }`}
+            ></div>
+          ))}
         </div>
-    );
+
+        <button
+          onClick={handleNext}
+          className="border rounded-full border-black p-3 hover:bg-black hover:text-white transition-colors"
+        >
+          <Icon icon="guidance:left-arrow" width="20" height="20" />
+        </button>
+      </div>
+    </section>
+  );
 }
