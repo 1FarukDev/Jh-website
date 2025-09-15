@@ -6,7 +6,7 @@ import FirstImage from "@/app/assets/png/bento1.png";
 import SecondImage from "@/app/assets/png/bento2.png";
 import ThirdImage from "@/app/assets/png/bento3.png";
 import FourthImage from "@/app/assets/png/bento4.png";
-import { Highlighter } from "@/components/ui/highlighter";
+import OffTag from '@/app/assets/svg/offtag.svg'
 
 function BentoSection() {
     return (
@@ -121,26 +121,31 @@ function BlogComponent() {
                         <div
                             data-aos="zoom-in"
                             data-aos-duration="1000"
-                            className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0"
+                            className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0 bg-[#2A1407]"
                         >
-                            <Image
+                            {/* <Image
                                 src={FourthImage}
                                 alt="Creative textile process"
                                 fill
                                 className="object-cover transform transition-transform duration-300 ease-out hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-black/50" />
+                            /> */}
+                            {/* <div className="absolute inset-0 bg-black/50" /> */}
                             <div className="absolute inset-0 flex flex-col justify-center items-center p-3 sm:p-4 text-center">
                                 <div className="max-w-xs space-y-2">
-                                    <h3 className="text-xs font-satoshi text-gray-300 font-light tracking-wide">
+                                    {/* <h3 className="text-xs font-satoshi text-gray-300 font-light tracking-wide">
                                         Limited Collection
                                     </h3>
                                     <p className="text-white/90 text-3xl sm:text-4xl leading-relaxed font-bold">
                                         50% Off
-                                    </p>
+                                    </p> */}
+                                    <Image 
+                                    src={OffTag}
+                                    alt="offtag"
+                                    width={200}
+                                    />
                                     <Button
                                         size="sm"
-                                        className="border font-satoshi text-xs bg-transparent border-white text-white hover:bg-white hover:text-black rounded-none px-4 sm:px-6 py-2 transition-all duration-300"
+                                        className="border font-satoshi text-xs mt-4 bg-transparent border-white text-white hover:bg-white hover:text-black rounded-none px-4 sm:px-6 py-2 transition-all duration-300"
                                     >
                                         Shop Now
                                         <ArrowRight className="ml-2 h-3 w-3" />

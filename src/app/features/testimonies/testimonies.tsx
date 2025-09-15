@@ -112,7 +112,7 @@ function Testimonies() {
   }
 
   return (
-    <div className='w-full'>
+    <div className='w-full max-w-[1440px] mx-auto px-4 md:px-15'>
       <h1 className='md:text-[60px] text-[28px] md:px-0 px-4 font-light text-center leading-[40px]'>
         Words From Our Clients
       </h1>
