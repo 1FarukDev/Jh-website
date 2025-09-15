@@ -7,6 +7,7 @@ import ClientMessage from "../features/client/client-message";
 import Profile from "./profile";
 import AboutHero from "./about-hero";
 import Services from "./services";
+import FAQ from "./faqs";
 
 function AboutPage() {
   return (
@@ -54,16 +55,16 @@ function AboutPage() {
       <Profile />
 
       <Services />
-
+      <FAQ />
       <div
-        className="flex md:flex-row flex-col-reverse gap-8 my-32 items-stretch"
+        className="flex md:flex-row flex-col-reverse gap-8 mb-32 items-stretch"
         data-aos="fade-up"
       >
         <div
           className="md:w-1/2 w-full px-4 flex flex-col justify-center"
           data-aos="fade-right"
         >
-          <h2 className="text-[#230D06] text-[20px] md:text-[64px] text-center font-light">
+          <h2 className="text-[#230D06] text-[20px] md:text-[64px] text-center font-normal">
             Our Story
           </h2>
           <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">
@@ -109,7 +110,7 @@ function AboutPage() {
         </div>
       </div>
 
-      <div data-aos="fade-up">
+      <div data-aos="fade-up border border-red-500">
         <ClientMessage />
       </div>
     </section>

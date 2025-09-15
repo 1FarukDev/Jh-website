@@ -10,7 +10,7 @@ function ClientMessage () {
   const router = useRouter()
   return (
     <section 
-      className='relative min-h-[60vh] flex items-center justify-center mt-[50px]'
+      className='relative min-h-[60vh] flex items-center justify-center my-[50px]'
       data-aos="fade-up"
       data-aos-duration="1000"
     >
