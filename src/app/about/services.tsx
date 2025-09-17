@@ -50,7 +50,7 @@ function Services() {
     {
       header: "Print Adjustment",
       subText:
-        "Fine-tuning existing designs whether it’s refining colors, enhancing details, or altering motifs to achieve a perfect fit for your project.",
+        "Fine-tuning existing designs whether it's refining colors, enhancing details, or altering motifs to achieve a perfect fit for your project.",
       color: "#8A8635",
       textColor: "white",
       subTextColor: "#CDD1D7",
@@ -95,14 +95,20 @@ function Services() {
   ];
 
   return (
-    <div className="mt-32 " data-aos="fade-up">
-      <h1 className="text-[32px] md:text-[60px] text-center">Our Services</h1>
-      <p className="md:text-lg text-sm text-[#4E5157] max-w-3xl mx-auto text-center font-satoshi mb-12">
-        A creative textile studio crafting meaningful prints, rooted in texture,
-        tradition, and storytelling.
-      </p>
+    <div className="md:mt-32 mt-20" data-aos="fade-up">
+      {/* Header Section */}
+      <div className="px-4 sm:px-6 lg:px-8">
+        <h1 className="text-[32px] sm:text-[40px] md:text-[60px] text-center leading-tight">
+          Our Services
+        </h1>
+        <p className="md:text-lg text-sm sm:text-base text-[#4E5157] max-w-3xl mx-auto text-center font-satoshi mb-8 md:mb-12 px-4">
+          A creative textile studio crafting meaningful prints, rooted in texture,
+          tradition, and storytelling.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2">
         {services.map((service, idx) => {
           const isLast = idx === services.length - 1;
           const rowIndex = Math.floor(idx / 2);
@@ -112,66 +118,73 @@ function Services() {
             return (
               <div
                 key={idx}
-                className="flex flex-col md:flex-row w-full col-span-2"
+                className="flex flex-col lg:flex-row w-full col-span-1 lg:col-span-2"
                 style={{ backgroundColor: service.color }}
               >
-                <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+                {/* Content */}
+                <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
                   <h2
-                    className="text-2xl font-normal"
+                    className="text-xl sm:text-2xl lg:text-3xl font-normal mb-3 lg:mb-4"
                     style={{ color: service.textColor }}
                   >
                     {service.header}
                   </h2>
                   <p
-                    className="text-sm md:text-base leading-relaxed font-satoshi"
+                    className="text-sm sm:text-base lg:text-lg leading-relaxed font-satoshi"
                     style={{ color: service.subTextColor }}
                   >
                     {service.subText}
                   </p>
                 </div>
 
-                <div className="relative w-full md:w-1/2 h-[300px] md:h-[400px]">
+                {/* Image */}
+                <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[300px] lg:h-[400px] xl:h-[450px] order-1 lg:order-2">
                   <Image
                     src={service.image}
                     alt={service.header}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
               </div>
             );
           }
 
-          // normal alternating layout
+          // Normal alternating layout (desktop only - mobile stacks consistently)
           return (
             <div
               key={idx}
-              className={`flex flex-col md:flex-row ${
-                isOddRow ? "md:flex-row-reverse" : ""
+              className={`flex flex-col lg:flex-row ${
+                isOddRow ? "lg:flex-row-reverse" : ""
               }`}
               style={{ backgroundColor: service.color }}
             >
-              <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+              {/* Content */}
+              <div className="w-full lg:w-1/2 px-10 h-[300px] py-8 sm:p-8 lg:p-10 xl:p-12 flex flex-col justify-center order-2 lg:order-none">
                 <h2
-                  className="text-2xl font-normal"
+                  className="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-normal mb-3 lg:mb-4"
                   style={{ color: service.textColor }}
                 >
                   {service.header}
                 </h2>
                 <p
-                  className="text-sm md:text-base leading-relaxed font-satoshi"
+                  className="text-sm sm:text-base lg:text-base xl:text-lg leading-relaxed font-satoshi"
                   style={{ color: service.subTextColor }}
                 >
                   {service.subText}
                 </p>
               </div>
 
-              <div className="relative w-full md:w-1/2 h-[300px] md:h-[400px]">
+              {/* Image */}
+              <div className="relative w-full lg:w-1/2 h-[320px] sm:h-[350px] lg:h-[350px] xl:h-[400px] order-1 lg:order-none">
                 <Image
                   src={service.image}
                   alt={service.header}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={idx < 2} // Load first two images with priority
                 />
               </div>
             </div>

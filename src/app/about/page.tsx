@@ -12,16 +12,10 @@ import FAQ from "./faqs";
 function AboutPage() {
   return (
     <section className="py">
-      {/* <div className="md:block hidden" data-aos="fade-up">
-        <Image src={AboutImage} alt="About image" />
-      </div>
-      <div className="md:hidden block" data-aos="fade-up">
-        <Image src={AboutImageMobile} alt="About image" />
-      </div> */}
 
       <AboutHero />
 
-      <div className="max-w-2xl mx-auto mt-10" data-aos="fade-up">
+      <div className="max-w-2xl mx-auto mt-10 px-8 md:px-0" data-aos="fade-up">
         <h1 className="text-[32px] md:text-[60px] text-center">Who we are</h1>
         <p className="text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">
           JH Textile began as a love letter to materials, a quiet experiment in
@@ -57,11 +51,11 @@ function AboutPage() {
       <Services />
       <FAQ />
       <div
-        className="flex md:flex-row flex-col-reverse gap-8 mb-32 items-stretch"
+        className="flex md:flex-row flex-col-reverse  gap-8 mb-32 items-stretch"
         data-aos="fade-up"
       >
         <div
-          className="md:w-1/2 w-full px-4 flex flex-col justify-center"
+          className="md:w-1/2 w-full px-8 md:px-0 flex flex-col justify-center"
           data-aos="fade-right"
         >
           <h2 className="text-[#230D06] text-[20px] md:text-[64px] text-center font-normal">
