@@ -4,8 +4,8 @@ import Dara from "@/app/assets/webp/dara.webp";
 
 function Profile() {
   return (
-    <section className="flex md:flex-row flex-col items-center h-[70vh] mt-20">
-      <div className="relative md:w-1/2 h-full bg-[#E8E7D7] p-12 flex items-center justify-center">
+    <section className="flex md:flex-row flex-col items-center md:h-[70vh] mt-20">
+      <div className="relative md:w-1/2 w-full h-full bg-[#E8E7D7] p-12 flex items-center justify-center">
         <Image
           src={Dara}
           alt="Dara image"
@@ -13,7 +13,7 @@ function Profile() {
           priority
         />
       </div>
-      <div className="md:w-1/2 h-full bg-[#EFD9D2] flex flex-col items-center justify-center p-20">
+      <div className="md:w-1/2 w-full h-full bg-[#EFD9D2] flex flex-col items-center justify-center p-10 py-15 md:p-20">
         <h1 className="text-[32px] md:text-[60px] text-center">
           Hey! I’m Dara!
         </h1>

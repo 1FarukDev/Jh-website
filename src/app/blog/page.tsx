@@ -95,7 +95,7 @@ function BlogPage() {
                                     key={`mobile-${rowIndex}`}
                                     className="flex border-t border-[#8A8635] md:hidden"
                                     data-aos="fade-up"
-                                    data-aos-delay={rowIndex * 200}
+                                    data-aos-delay={rowIndex * 50}
                                 >
                                     {rowItems.map((item, colIndex) => (
                                         <div
@@ -148,7 +148,7 @@ function BlogPage() {
                                                     : ""
                                             }`}
                                             data-aos="zoom-in"
-                                            data-aos-delay={colIndex * 150}
+                                            data-aos-delay={colIndex * 50}
                                         >
                                             <BlogCard
                                                 image={item.image}

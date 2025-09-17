@@ -27,13 +27,13 @@ function PortfolioRequest() {
             <h1 className="md:text-[60px] text-[28px] md:px-0 px-4 font-light text-center leading-[40px]">
                 Request Our Portfolio
             </h1>
-            <p className="md:text-base text-sm md:px-0 px-4 font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[50px]">
+            <p className="md:text-base text-sm md:px-0 px-4  font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[50px]">
                 Want to explore our full range of textile designs and past
                 projects? Request our portfolio and we’ll send it straight to
                 your inbox.
             </p>
 
-            <div className="max-w-3xl mx-auto ">
+            <div className="max-w-3xl mx-auto pt-4 md:pt-0">
                 <div className="px-4 h-full">
                     <FormProvider {...methods}>
                         <section className="md:p-6 pt-0 w-full h-full">

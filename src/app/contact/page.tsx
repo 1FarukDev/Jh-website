@@ -11,6 +11,7 @@ import { FormCheckbox } from "@/components/checkbox";
 import { Button } from "@/components/ui/button";
 import FloralImage2 from "@/app/assets/png/floral.png";
 import FloralImage from "@/app/assets/png/floral1.png";
+import FAQ from "../about/faqs";
 
 type FormData = {
     email: string;
@@ -132,18 +133,19 @@ function Contact() {
                         </FormProvider>
                     </div>
                 </div>
-                <div className="flex justify-between items-center absolute w-full md:bottom-0 overflow-hidden z-100 -bottom-1/2">
+                 {/* <FAQ /> */}
+                <div className="flex justify-between items-center absolute w-full md:bottom-0  overflow-hidden ">
                     <Image
                         src={FloralImage}
                         alt="Floral Decoration"
                         width={200}
-                        className="animate-bounce w-[150px] md:w-[200px]"
+                        className=" w-[150px] md:w-[200px]"
                     />
                     <Image
                         src={FloralImage2}
                         alt="Floral Decoration"
                         width={200}
-                        className="animate-bounce delay-200 w-[150px] md:w-[200px]"
+                        className=" delay-200 w-[150px] md:w-[200px]"
                     />
                 </div>
             </section>

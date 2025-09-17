@@ -65,7 +65,7 @@ function Client() {
       </main> */}
 
       <ClientHero />
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
@@ -74,7 +74,7 @@ function Client() {
       >
         <Image src={ClientImage} alt="client image" height={300} />
         <Image src={ClientImage2} alt="client image" height={300} />
-      </motion.div>
+      </motion.div> */}
 
       <ClientProducts />
 
