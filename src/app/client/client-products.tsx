@@ -5,6 +5,8 @@ import ClientImage from "@public/assets/png/clientimage.png";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getClients } from "@/services/api/client";
 
 interface ClientWorkProps {
   text: string;
@@ -14,6 +16,19 @@ interface ClientWorkProps {
 
 function ClientProducts() {
   const router = useRouter();
+
+    const {
+    data: clientsData,
+    isLoading: isClientDataLoading,
+    error,
+  } = useQuery({
+    queryKey: ["clients"],
+    queryFn: getClients,
+  });
+
+
+  console.log(clientsData, 'clients')
+
   const clientWorks: ClientWorkProps[] = [
     {
       text: "GRAPES PATTERN BANK",
