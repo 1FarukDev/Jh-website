@@ -24,7 +24,6 @@ function FeaturedPrints() {
     queryFn: getProducts,
   });
 
-  console.log(productData, "productData");
 
   return (
     <section className="my-[100px] md:px-15 px-4">
