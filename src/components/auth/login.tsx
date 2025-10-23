@@ -20,13 +20,12 @@ type FormData = {
   remember: boolean
 }
 
-// Add prop type for onForgotPassword
+
 interface LoginProps {
   onForgotPassword: () => void
 }
 
 function Login({ onForgotPassword }: LoginProps) {
-  // Remove showForgotPassword state
   const methods = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -39,7 +38,6 @@ function Login({ onForgotPassword }: LoginProps) {
     console.log(data)
   }
 
-  // Remove handleForgotPassword and handleBackToLogin
 
   return (
     <FormProvider {...methods}>
