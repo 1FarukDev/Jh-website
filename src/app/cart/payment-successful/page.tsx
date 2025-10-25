@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { OrderSummaryCard } from '@/components/order-summary-card'
 import PrintImage from '@public/assets/png/print.png'
 import { Button } from '@/components/ui/button'
-import NewsletterSignup from '@/app/features/homepage/news-letter'
+import NewsletterSignup from '@/components/features/homepage/news-letter'
 import { useRouter } from 'next/navigation'
 
 function PaymentSuccessful () {

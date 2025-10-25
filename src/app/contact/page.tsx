@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import NewsletterSignup from "../features/homepage/news-letter";
+import NewsletterSignup from "../../components/features/homepage/news-letter";
 import ConnectImage from "@/app/assets/png/contact.png";
 import contact from "@/app/assets/png/contact-mobile.png";
 import Image from "next/image";

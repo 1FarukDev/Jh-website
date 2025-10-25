@@ -39,8 +39,7 @@ function Hero() {
                     data-aos-duration="1200"
                     className="text-[32px] leading-[48px] md:text-[90px] md:leading-[100px] font-extralight font-rose"
                 >
-                    {/* Prints That Pulse  With
-                    Meaning */}
+                    
                     Textile Prints that <br className="hidden md:block" /> pulse with meaning 
                 </p>
 

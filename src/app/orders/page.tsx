@@ -1,6 +1,6 @@
 import React from 'react'
-import EmptyOrder from '../features/orders/empty-order'
-import { Orders } from '../features/orders/orders-list'
+import EmptyOrder from '../../components/features/orders/empty-order'
+import { Orders } from '../../components/features/orders/orders-list'
 
 function OrderPage () {
   return (

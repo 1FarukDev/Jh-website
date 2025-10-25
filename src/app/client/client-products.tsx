@@ -1,79 +1,65 @@
 "use client";
 
 import React from "react";
-import ClientImage from "@public/assets/png/clientimage.png";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getClients } from "@/services/api/client";
 
-interface ClientWorkProps {
-  text: string;
-  subText: string;
-  image: string | StaticImageData;
-}
-
 function ClientProducts() {
   const router = useRouter();
 
-    const {
-    data: clientsData,
-    isLoading: isClientDataLoading,
-    error,
+  const {
+    data: clientsData = [],
+    isLoading,
+    isError,
   } = useQuery({
     queryKey: ["clients"],
     queryFn: getClients,
   });
 
+  const renderSkeleton = () =>
+    Array.from({ length: 8 }).map((_, index) => (
+      <div
+        key={index}
+        className="relative flex flex-col items-center justify-center h-[400px] md:h-[500px] bg-gray-200 animate-pulse"
+      >
+        <div className="absolute inset-0 bg-gray-300" />
+      </div>
+    ));
 
-  console.log(clientsData, 'clients')
+  const renderClientCards = () =>
+    clientsData.map((client: any, index: number) => (
+      <div
+        key={client.id || index}
+        className="relative flex flex-col items-center justify-center h-[400px] md:h-[500px] text-white overflow-hidden group"
+      >
+        <Image
+          src={client.images[0]}
+          alt={client.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
 
-  const clientWorks: ClientWorkProps[] = [
-    {
-      text: "GRAPES PATTERN BANK",
-      subText:
-        "Commissioned installation using indigo and rust dye techniques, tailored for a calm reception space.",
-      image: ClientImage,
-    },
-    {
-      text: "MOSS TEXTILE SERIES",
-      subText:
-        "An abstract exploration of nature’s impermanence, designed for a botanical conservatory.",
-      image: ClientImage,
-    },
-    {
-      text: "SUNSET THREADS",
-      subText:
-        "Textile panels reflecting sunset hues, created for a coastal art exhibit.",
-      image: ClientImage,
-    },
-    {
-      text: "AUTUMN LEAVES COLLECTION",
-      subText: "Warm-toned textiles for seasonal interior design projects.",
-      image: ClientImage,
-    },
-    {
-      text: "WINTER BLOOM SERIES",
-      subText: "Textiles inspired by frosted landscapes and muted tones.",
-      image: ClientImage,
-    },
-    {
-      text: "TROPICAL ESCAPE",
-      subText: "Vibrant prints capturing the essence of lush jungles.",
-      image: ClientImage,
-    },
-    {
-      text: "DESERT HUES",
-      subText: "Warm, earthy tones reflecting arid landscapes.",
-      image: ClientImage,
-    },
-    {
-      text: "OCEAN WAVES",
-      subText: "Soft flowing patterns inspired by the sea.",
-      image: ClientImage,
-    },
-  ];
+        <div className="absolute inset-0 bg-[#0707075e] flex flex-col items-center justify-center gap-4 p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <p className="text-[18px] md:text-[24px] leading-[32px] tracking-tighter">
+            {client.title || client.name || "Untitled Project"}
+          </p>
+          <p className="md:text-sm text-xs font-satoshi -mt-1 line-clamp-3">
+            {client.description ||
+              client.subText ||
+              "A beautiful textile project showcasing creativity and craftsmanship."}
+          </p>
+          <Button
+            className="bg-white text-black font-satoshi rounded-none px-4 md:px-6"
+            onClick={() => router.push(`/client/${client.id}`)}
+          >
+            View Project
+          </Button>
+        </div>
+      </div>
+    ));
 
   return (
     <section className="my-[100px] px-4 md:px-15">
@@ -86,34 +72,19 @@ function ClientProducts() {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mt-8">
-        {clientWorks.map((work, index) => (
-          <div
-            key={index}
-            className="relative flex flex-col items-center justify-center h-[400px] md:h-[500px] text-white overflow-hidden group"
-          >
-            <Image
-              src={work.image}
-              alt={work.text}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-[#5C3B00CC] flex flex-col items-center justify-center gap-4 p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p className="text-[18px] md:text-[24px] leading-[32px] tracking-tighter">
-                {work.text}
-              </p>
-              <p className="md:text-sm text-xs font-satoshi -mt-1">
-                {work.subText}
-              </p>
-              <Button
-                className="bg-white text-black font-satoshi rounded-none px-4 md:px-6"
-                onClick={() => router.push("/client")}
-              >
-                View Project
-              </Button>
-            </div>
-          </div>
-        ))}
+        {isLoading ? (
+          renderSkeleton()
+        ) : isError ? (
+          <p className="col-span-full text-center py-20 text-red-500">
+            Failed to load client data.
+          </p>
+        ) : clientsData.length > 0 ? (
+          renderClientCards()
+        ) : (
+          <p className="col-span-full text-center py-20 text-gray-500">
+            No client projects available.
+          </p>
+        )}
       </div>
     </section>
   );
