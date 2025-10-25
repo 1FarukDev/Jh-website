@@ -3,8 +3,8 @@ import BlogImage from '@/app/assets/png/blog.png'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { MoveLeft, MoveRight } from 'lucide-react'
-import ClientMessage from '@/app/features/client/client-message'
-import NewsletterSignup from '@/app/features/homepage/news-letter'
+import ClientMessage from '@/components/features/client/client-message'
+import NewsletterSignup from '@/components/features/homepage/news-letter'
 function BlogDetail () {
   return (
     <section className='py-26 pt-40'>

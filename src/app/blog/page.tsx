@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import BlogFilters from "../features/blog/blog-filters";
+import BlogFilters from "../../components/features/blog/blog-filters";
 import BlogImage from "@/app/assets/png/blog--image.png";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MoveLeft, MoveRight } from "lucide-react";
-import ClientMessage from "../features/client/client-message";
+import ClientMessage from "../../components/features/client/client-message";
 import BlogCard from "@/components/blog-card";
 
 function BlogPage() {

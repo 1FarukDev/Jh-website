@@ -7,13 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/services/api/product";
 
 function FeaturedPrints() {
-  const featuredPrints = Array.from({ length: 8 }, (_, i) => ({
-    id: i + 1,
-    image: PrintImage,
-    label: "Print",
-    title: `Green ${i + 1}`,
-    price: 25000,
-  }));
 
   const {
     data: productData = [],

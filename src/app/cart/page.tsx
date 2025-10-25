@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import EmptyCart from '../features/cart/empty-cart'
-import CartItems from '../features/cart/cart-items'
+import EmptyCart from '../../components/features/cart/empty-cart'
+import CartItems from '../../components/features/cart/cart-items'
 
 function Page() {
   return (

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import StoryImage from "@/app/assets/png/story.png";
-import ClientMessage from "../features/client/client-message";
+import ClientMessage from "../../components/features/client/client-message";
 import Profile from "./profile";
 import AboutHero from "./about-hero";
 import Services from "./services";

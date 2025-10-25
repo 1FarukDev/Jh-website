@@ -2,7 +2,7 @@
 import React from 'react'
 import FailedIcon from '@/app/assets/svg/failed.svg'
 import Image from 'next/image'
-import NewsletterSignup from '@/app/features/homepage/news-letter'
+import NewsletterSignup from '@/components/features/homepage/news-letter'
 import { useRouter } from 'next/navigation'
 function page () {
   const router = useRouter()
