@@ -71,7 +71,6 @@ function ClientWork() {
         tradition, and storytelling.
       </p>
 
-      {/* Loading State */}
       {isLoading && (
         <div className="flex flex-col md:flex-row items-center mt-8 gap-4">
           {Array.from({ length: itemsPerSlide }).map((_, index) => (
@@ -109,7 +108,7 @@ function ClientWork() {
                   className="object-cover"
                 />
 
-                <div className="absolute inset-0 bg-[#07070760] flex flex-col items-center justify-center gap-4 p-4 text-center">
+                <div className="absolute inset-0 bg-[#07070737] flex flex-col items-center justify-center gap-4 p-4 text-center">
                   <p className="text-[20px] md:text-[30px] leading-[48px] tracking-tighter">
                     {work.name}
                   </p>
