@@ -33,7 +33,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
             </div>
 
             <div className="mt-3 sm:mt-4 md:mt-5 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
-                <div className="space-y-2 sm:space-y-3">
+                <div className="">
                     <h3
                         className="text-lg sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] 
                                  font-semibold leading-tight line-clamp-2 text-black"

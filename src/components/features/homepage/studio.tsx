@@ -28,6 +28,8 @@ export default function Studio() {
     queryFn: getBlogs,
   });
 
+
+
   const totalSlides = blogsData?.length || 0;
   const currentItem = blogsData?.[currentIndex];
 
