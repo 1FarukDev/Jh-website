@@ -9,6 +9,8 @@ import { MoveLeft, MoveRight } from "lucide-react";
 import ShopImage from "@/app/assets/png/shop.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "@/services/api/product";
 
 function Page() {
   const router = useRouter();
@@ -24,6 +26,17 @@ function Page() {
   const handleViewDetails = (productId: string | number) => {
     router.push(`/shop/${productId}`);
   };
+
+  const {
+    data: productData = [],
+    isLoading,
+    error,
+  } = useQuery<any[]>({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
+
+  console.log(productData, "productData")
 
   return (
     <section>
@@ -89,8 +102,6 @@ function Page() {
               </div>
             );
           })}
-
-          {/* Desktop: 3 per row */}
           {Array.from({
             length: Math.ceil(featuredPrints.length / 3),
           }).map((_, rowIndex) => {

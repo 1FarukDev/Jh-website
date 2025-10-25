@@ -1,41 +1,35 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from "@/services/api/blog";
 
 interface BlogItem {
+  id?: number;
   title: string;
-  description: string;
+  excerpt: string;
   image: string;
 }
 
-const blogItems: BlogItem[] = [
-  {
-    title: "A DAY IN J.H TEXTILES' STUDIO",
-    description:
-      "From the first cup of coffee to the final varnish stroke, here's what a day behind the canvas looks like. Go inside Dara's creative process and see how inspiration becomes print.",
-    image: "/assets/png/blog.jpg",
-  },
-  {
-    title: "HOW I TURN STORIES INTO ART",
-    description:
-      "Every print has a soul — and a story. In this post, I break down how personal memories, cultural roots, and moments of silence shape my visual language.",
-    image: "/assets/png/blog.jpg",
-  },
-  {
-    title: "A DAY IN DARA'S STUDIO",
-    description:
-      "From the first cup of coffee to the final varnish stroke, here's what a day behind the canvas looks like.",
-    image: "/assets/png/blog.jpg",
-  },
-];
-
 export default function Studio() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const totalSlides = blogItems.length;
+
+  const {
+    data: blogsData = [],
+    isLoading,
+    error,
+  } = useQuery<BlogItem[]>({
+    queryKey: ["blogs"],
+    queryFn: getBlogs,
+  });
+
+  const totalSlides = blogsData?.length || 0;
+  const currentItem = blogsData?.[currentIndex];
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
@@ -45,12 +39,54 @@ export default function Studio() {
     setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
   };
 
-  const currentItem = blogItems[currentIndex];
   const variants = {
     enter: { opacity: 0, x: 50 },
     center: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: -50 },
   };
+
+  // 🧩 Loading Skeleton
+  if (isLoading) {
+    return (
+      <section className="my-16 mx-auto md:px-15 px-4">
+        <div className="animate-pulse">
+          <div className="h-10 w-2/3 mx-auto bg-gray-200 rounded-md mb-4" />
+          <div className="h-5 w-1/2 mx-auto bg-gray-200 rounded-md mb-8" />
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="md:w-1/2 space-y-4">
+              <div className="h-6 bg-gray-200 rounded w-3/4" />
+              <div className="h-4 bg-gray-200 rounded w-full" />
+              <div className="h-4 bg-gray-200 rounded w-5/6" />
+              <div className="h-10 bg-gray-200 rounded w-32 mt-6" />
+            </div>
+            <div className="md:w-1/2 h-64 sm:h-80 md:h-96 bg-gray-200 rounded-md" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ⚠️ Empty state
+  if (!blogsData || blogsData.length === 0) {
+    return (
+      <section className="my-16 mx-auto md:px-15 px-4 text-center">
+        <p className="text-2xl font-light text-gray-600">
+          No blog posts available yet.
+        </p>
+      </section>
+    );
+  }
+
+  // ⚠️ Error state
+  if (error) {
+    return (
+      <section className="my-16 mx-auto md:px-15 px-4 text-center">
+        <p className="text-red-500 font-medium">
+          Failed to load blog posts. Please try again later.
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className="my-16 mx-auto md:px-15 px-4">
@@ -61,7 +97,7 @@ export default function Studio() {
         A glimpse behind the canvas stories, thoughts & headlines.
       </p>
 
-      <div className="mt-8 md:mt-12 bg-[#1c1b0b0c] flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
+      <div className="mt-8 md:mt-12 bg-[#1c1b0b0c] pt-5 md:pt-0 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex + "-text"}
@@ -72,12 +108,12 @@ export default function Studio() {
             variants={variants}
             transition={{ duration: 0.5 }}
           >
-            <div className="md:w-[70%] w-full text-center  flex flex-col justify-center mx-auto">
+            <div className="md:w-[70%] w-full text-center flex flex-col justify-center mx-auto">
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-light mb-4 tracking-wide leading-tight">
-                {currentItem.title}
+                {currentItem?.title}
               </h2>
               <p className="text-sm sm:text-base font-satoshi mb-6 text-[#4E5157]">
-                {currentItem.description}
+                {currentItem?.excerpt}
               </p>
 
               <Button
@@ -101,8 +137,8 @@ export default function Studio() {
             transition={{ duration: 0.5 }}
           >
             <Image
-              src={currentItem.image}
-              alt={currentItem.title}
+              src={currentItem?.image || "/assets/png/blog.jpg"}
+              alt={currentItem?.title || "Blog image"}
               fill
               className="object-cover"
             />
@@ -119,7 +155,7 @@ export default function Studio() {
         </button>
 
         <div className="flex items-center gap-2">
-          {blogItems.map((_, i) => (
+          {blogsData.map((_, i) => (
             <div
               key={i}
               className={`transition-all w-3 h-1 ${
