@@ -8,16 +8,19 @@ import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "@/services/api/blog";
+import { useRouter } from "next/navigation";
 
 interface BlogItem {
   id?: number;
   title: string;
   excerpt: string;
   image: string;
+  slug?: string;
 }
 
 export default function Studio() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter();
 
   const {
     data: blogsData = [],
@@ -27,8 +30,6 @@ export default function Studio() {
     queryKey: ["blogs"],
     queryFn: getBlogs,
   });
-
-
 
   const totalSlides = blogsData?.length || 0;
   const currentItem = blogsData?.[currentIndex];
@@ -47,7 +48,6 @@ export default function Studio() {
     exit: { opacity: 0, x: -50 },
   };
 
-  // 🧩 Loading Skeleton
   if (isLoading) {
     return (
       <section className="my-16 mx-auto md:px-15 px-4">
@@ -68,7 +68,6 @@ export default function Studio() {
     );
   }
 
-  // ⚠️ Empty state
   if (!blogsData || blogsData.length === 0) {
     return (
       <section className="my-16 mx-auto md:px-15 px-4 text-center">
@@ -79,7 +78,6 @@ export default function Studio() {
     );
   }
 
-  // ⚠️ Error state
   if (error) {
     return (
       <section className="my-16 mx-auto md:px-15 px-4 text-center">
@@ -119,6 +117,7 @@ export default function Studio() {
               </p>
 
               <Button
+                onClick={() => router.push(`/blog/${currentItem?.slug}`)}
                 className="relative w-max mx-auto overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
               bg-transparent border-black text-black hover:text-white rounded-none py-2 transition-all duration-300 group"
               >
