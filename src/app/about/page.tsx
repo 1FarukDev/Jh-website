@@ -15,7 +15,7 @@ function AboutPage() {
 
       <AboutHero />
 
-      <div className="max-w-2xl mx-auto mt-10 px-8 md:px-0" data-aos="fade-up">
+      <div className="max-w-2xl mx-auto mt-10 px-8 md:px-0" data-aos="fade-up" id="about-section">
         <h1 className="text-[32px] md:text-[60px] text-center">Who we are</h1>
         <p className="text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">
           JH Textile began as a love letter to materials, a quiet experiment in

@@ -1,6 +1,6 @@
 
 import { createClient } from "@/lib/supabase/client";
-// import { AddProductParams } from "@/utils/types/product_types";
+
 
 const supabase = createClient();
 
@@ -32,3 +32,4 @@ export const getClientById = async (id: string | number) => {
 
   return data;
 };
+

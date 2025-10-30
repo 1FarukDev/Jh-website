@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "./ui/button";
-import cart from "@/app/assets/svg/shopping-cart-white.svg";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 type PrintCardProps = {
   image: StaticImageData | string;
+  hoverImage?: StaticImageData | string;
   label: string;
   title: string;
   price: string | number;
@@ -19,6 +18,7 @@ type PrintCardProps = {
 
 function PrintCard({
   image,
+  hoverImage,
   label,
   title,
   price,
@@ -26,8 +26,9 @@ function PrintCard({
   onViewDetails,
   loading = false,
 }: PrintCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   if (loading) {
-    // 💀 Skeleton loader
     return (
       <div className="w-full h-full flex flex-col animate-pulse">
         <div className="relative w-full aspect-square bg-gray-200 rounded-md" />
@@ -47,19 +48,19 @@ function PrintCard({
     );
   }
 
-  // 🖼️ Actual product card
   return (
     <Link
-      href={`${onViewDetails}`}
+      href={onViewDetails ?? "#"}
       className="w-full h-full flex flex-col"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative w-full aspect-square sm:aspect-square md:aspect-square lg:aspect-square xl:aspect-square">
+      <div className="relative w-full aspect-square">
         <Image
-          src={image}
+          src={isHovered && hoverImage ? hoverImage : image}
           alt={`${label} Image`}
           fill
           className="object-cover transition-transform duration-300"
-          priority={false}
         />
       </div>
 

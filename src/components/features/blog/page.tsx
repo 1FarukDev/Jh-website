@@ -9,6 +9,7 @@ import ClientMessage from "../client/client-message";
 import BlogCard from "@/components/blog-card";
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "@/services/api/blog";
+import { useRouter } from "next/navigation";
 
 function BlogPage() {
   const {
@@ -20,19 +21,14 @@ function BlogPage() {
     queryFn: getBlogs,
   });
 
-  if (isLoading) return <p className="text-center py-20">Loading blogs...</p>;
-  if (error)
-    return (
-      <p className="text-center py-20 text-red-500">Failed to load blogs</p>
-    );
+  const router = useRouter();
 
-  // Separate featured and regular blogs
   const featuredBlog = blogsData.find((blog) => blog.is_featured);
   const otherBlogs = blogsData.filter((blog) => !blog.is_featured);
 
   return (
     <section className="py-26">
-      <div className="">
+      <div>
         <div
           className="flex flex-col items-center justify-center mb-10"
           data-aos="fade-up"
@@ -50,122 +46,169 @@ function BlogPage() {
           <BlogFilters />
         </div>
 
-        {featuredBlog && (
-          <div
-            className="flex md:flex-row flex-col-reverse justify-between items-start"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
-            <div className="md:w-1/2 p-4 md:p-8" data-aos="fade-right">
-              <p className="font-normal text-2xl md:text-[40px] md:leading-[50px]">
-                {featuredBlog.title}
-              </p>
-              <p className="font-normal font-satoshi mt-2 md:mt-5 text-base text-[#4E5157]">
-                {featuredBlog.excerpt}
-              </p>
-
-              <Button
-                className="relative overflow-hidden mt-5 border-black border px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
-                                bg-transparent text-black hover:text-white rounded-none py-2 transition-all duration-300 group"
-                onClick={() => console.log("Read more:", featuredBlog.id)}
-              >
-                <span className="relative z-10 flex items-center">
-                  Read More
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </span>
-                <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-              </Button>
-            </div>
-
-            <div
-              className="md:w-1/2 w-full md:border-l p-4 pb-0 md:p-8 border-[#8A8635]"
-              data-aos="fade-left"
-            >
-              <div className="w-full h-[300px] md:h-[600px] relative">
-                <Image
-                  src={featuredBlog.image || "/assets/png/blog--image.png"}
-                  alt={featuredBlog.title}
-                  className="object-cover"
-                  fill
-                />
+        <div
+          className="flex md:flex-row flex-col-reverse justify-between items-start"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          {isLoading ? (
+            <>
+              <div className="md:w-1/2 p-4 md:p-8 space-y-4 animate-pulse">
+                <div className="h-8 bg-gray-200 rounded w-3/4" />
+                <div className="h-4 bg-gray-200 rounded w-full" />
+                <div className="h-4 bg-gray-200 rounded w-5/6" />
+                <div className="h-10 w-32 bg-gray-200 rounded mt-6" />
               </div>
-            </div>
-          </div>
-        )}
 
-        <section className="">
-          {Array.from({ length: Math.ceil(otherBlogs.length / 2) }).map(
-            (_, rowIndex) => {
-              const start = rowIndex * 2;
-              const end = start + 2;
-              const rowItems = otherBlogs.slice(start, end);
+              <div className="md:w-1/2 w-full md:border-l p-4 pb-0 md:p-8 border-[#8A8635]">
+                <div className="w-full h-[300px] md:h-[600px] bg-gray-200 animate-pulse rounded" />
+              </div>
+            </>
+          ) : featuredBlog ? (
+            <>
+              <div className="md:w-1/2 p-4 md:p-8" data-aos="fade-right">
+                <p className="font-normal text-2xl md:text-[40px] md:leading-[50px]">
+                  {featuredBlog.title}
+                </p>
+                <p className="font-normal font-satoshi mt-2 md:mt-5 text-base text-[#4E5157]">
+                  {featuredBlog.excerpt}
+                </p>
 
-              return (
-                <div
-                  key={`mobile-${rowIndex}`}
-                  className="flex border-t border-[#8A8635] md:hidden"
-                  data-aos="fade-up"
-                  data-aos-delay={rowIndex * 100}
+                <Button
+                  className="relative overflow-hidden mt-5 border-black border px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
+                                  bg-transparent text-black hover:text-white rounded-none py-2 transition-all duration-300 group"
+                  onClick={() => router.push(`/blog/${featuredBlog?.slug}`)}
                 >
-                  {rowItems.map((item, colIndex) => (
-                    <div
-                      key={item.id}
-                      className={`w-1/2 p-4 ${
-                        colIndex !== rowItems.length - 1
-                          ? "border-r border-[#8A8635]"
-                          : ""
-                      }`}
-                      data-aos="zoom-in"
-                      data-aos-delay={colIndex * 100}
-                    >
-                      <BlogCard
-                        image={item.image}
-                        title={item.title}
-                        description={item.excerept}
-                        onReadMore={() => console.log("Read more:", item.id)}
-                      />
-                    </div>
-                  ))}
-                </div>
-              );
-            }
-          )}
+                  <span className="relative z-10 flex items-center">
+                    Read More
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </span>
+                  <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                </Button>
+              </div>
 
-          {Array.from({ length: Math.ceil(otherBlogs.length / 3) }).map(
-            (_, rowIndex) => {
-              const start = rowIndex * 3;
-              const end = start + 3;
-              const rowItems = otherBlogs.slice(start, end);
-
-              return (
-                <div
-                  key={`desktop-${rowIndex}`}
-                  className="hidden md:flex border-t border-[#8A8635]"
-                  data-aos="fade-up"
-                  data-aos-delay={rowIndex * 200}
-                >
-                  {rowItems.map((item, colIndex) => (
-                    <div
-                      key={item.id}
-                      className={`w-1/3 p-4 ${
-                        colIndex !== rowItems.length - 1
-                          ? "border-r border-[#8A8635]"
-                          : ""
-                      }`}
-                      data-aos="zoom-in"
-                      data-aos-delay={colIndex * 50}
-                    >
-                      <BlogCard
-                        image={item.image}
-                        title={item.title}
-                        description={item.excerpt}
-                        onReadMore={() => console.log("Read more:", item.id)}
-                      />
-                    </div>
-                  ))}
+              <div
+                className="md:w-1/2 w-full md:border-l p-4 pb-0 md:p-8 border-[#8A8635]"
+                data-aos="fade-left"
+              >
+                <div className="w-full h-[300px] md:h-[600px] relative">
+                  <Image
+                    src={featuredBlog.image || "/assets/png/blog--image.png"}
+                    alt={featuredBlog.title}
+                    className="object-cover"
+                    fill
+                  />
                 </div>
-              );
-            }
+              </div>
+            </>
+          ) : null}
+        </div>
+
+        <section>
+          {isLoading ? (
+            <>
+              <div className="flex border-t border-[#8A8635] md:hidden">
+                {[...Array(2)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-1/2 p-4 border-r border-[#8A8635] animate-pulse"
+                  >
+                    <div className="h-40 bg-gray-200 rounded mb-3" />
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                  </div>
+                ))}
+              </div>
+
+              <div className="hidden md:flex border-t border-[#8A8635]">
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-1/3 p-4 border-r border-[#8A8635] animate-pulse"
+                  >
+                    <div className="h-60 bg-gray-200 rounded mb-4" />
+                    <div className="h-5 bg-gray-200 rounded w-4/5 mb-2" />
+                    <div className="h-4 bg-gray-200 rounded w-full" />
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {Array.from({ length: Math.ceil(otherBlogs.length / 2) }).map(
+                (_, rowIndex) => {
+                  const start = rowIndex * 2;
+                  const end = start + 2;
+                  const rowItems = otherBlogs.slice(start, end);
+
+                  return (
+                    <div
+                      key={`mobile-${rowIndex}`}
+                      className="flex border-t border-[#8A8635] md:hidden"
+                      data-aos="fade-up"
+                      data-aos-delay={rowIndex * 100}
+                    >
+                      {rowItems.map((item, colIndex) => (
+                        <div
+                          key={item.id}
+                          className={`w-1/2 p-4 ${
+                            colIndex !== rowItems.length - 1
+                              ? "border-r border-[#8A8635]"
+                              : ""
+                          }`}
+                          data-aos="zoom-in"
+                          data-aos-delay={colIndex * 100}
+                        >
+                          <BlogCard
+                            image={item.image}
+                            title={item.title}
+                            description={item.excerpt}
+                            onReadMore={() => router.push(`/blog/${item?.id}`)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+              )}
+
+              {Array.from({ length: Math.ceil(otherBlogs.length / 3) }).map(
+                (_, rowIndex) => {
+                  const start = rowIndex * 3;
+                  const end = start + 3;
+                  const rowItems = otherBlogs.slice(start, end);
+
+                  return (
+                    <div
+                      key={`desktop-${rowIndex}`}
+                      className="hidden md:flex border-t border-[#8A8635]"
+                      data-aos="fade-up"
+                      data-aos-delay={rowIndex * 200}
+                    >
+                      {rowItems.map((item, colIndex) => (
+                        <div
+                          key={item.id}
+                          className={`w-1/3 p-4 ${
+                            colIndex !== rowItems.length - 1
+                              ? "border-r border-[#8A8635]"
+                              : ""
+                          }`}
+                          data-aos="zoom-in"
+                          data-aos-delay={colIndex * 50}
+                        >
+                          <BlogCard
+                            image={item.image}
+                            title={item.title}
+                            description={item.excerpt}
+                            onReadMore={() => router.push(`/blog/${item?.slug}`)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+              )}
+            </>
           )}
         </section>
 
