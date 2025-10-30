@@ -90,22 +90,6 @@ function PrintCard({
             </div>
           </div>
 
-          {/* <div className="flex sm:flex-row gap-2 justify-between items-center mt-2">
-            <Button
-              className="bg-black md:block hidden text-white font-satoshi rounded-none font-normal px-8 flex-1"
-              onClick={onAddToCart}
-            >
-              Add to Cart
-            </Button>
-
-            <div className="bg-black md:hidden p-2 pr-4 rounded-full py-4">
-              <Image
-                src={cart}
-                alt="Cart"
-                className="w-[16px] h-[16px] ml-2 md:hidden"
-              />
-            </div>
-          </div> */}
         </div>
       </div>
     </Link>

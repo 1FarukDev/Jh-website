@@ -2,12 +2,17 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-import { useRouter } from "next/navigation";
-import ClientBg from "@/app/assets/png/clientbg.png"; // you can swap this for an "about" background later
+import ClientBg from "@/app/assets/png/clientbg.png";
 import { ArrowRight } from "lucide-react";
 
 function AboutHero() {
-  const router = useRouter();
+  const handleScroll = () => {
+    const section = document.getElementById("about-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="w-full relative h-[90vh] overflow-hidden">
       <Image
@@ -33,7 +38,7 @@ function AboutHero() {
         </p>
 
         <Button
-          onClick={() => router.push("/about")}
+          onClick={handleScroll}
           className="relative overflow-hidden border mt-8 px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
     bg-white border-white text-black hover:text-white rounded-none py-2 
     transition-all duration-300 group w-[140px] hover:w-[170px]"

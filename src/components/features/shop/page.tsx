@@ -29,13 +29,15 @@ function ShopPage() {
 
   return (
     <section>
-      {/* Hero image */}
       <div className="pt-15" data-aos="fade-down" data-aos-duration="1000">
         <Image src={ShopImage} alt="shop" className="md:h-auto h-[30vh]" />
       </div>
 
-      {/* Intro section */}
-      <div className="px-4 md:px-0 pt-10" data-aos="fade-up" data-aos-duration="1000">
+      <div
+        className="px-4 md:px-0 pt-10"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
         <h1 className="text-center font-light text-[20px] md:text-[80px]">
           Shop Prints & Textiles
         </h1>
@@ -44,14 +46,13 @@ function ShopPage() {
         </p>
       </div>
 
-      {/* Filters */}
-      <div className="mt-10 md:px-15 px-4" data-aos="fade-right">
+    
+      <div className="mt-10 md:px-15" data-aos="fade-right">
         <Filters />
       </div>
 
       {/* Product Grid */}
       <section className="mt-[45px] mx-10 border border-t-0 border-b-0 border-[#8A8635] min-h-[300px]">
-       
         {isError && (
           <p className="text-center py-20 text-red-500">
             Failed to load products.
@@ -59,9 +60,7 @@ function ShopPage() {
         )}
 
         {!isLoading && productData.length === 0 && (
-          <p className="text-center py-20 text-gray-500">
-            No products found.
-          </p>
+          <p className="text-center py-20 text-gray-500">No products found.</p>
         )}
 
         {!isLoading && productData.length > 0 && (
@@ -96,7 +95,8 @@ function ShopPage() {
                         onAddToCart={() =>
                           console.log(`Added ${item.title} to cart`)
                         }
-                       onViewDetails={`/shop/${item.id}`}
+                        onViewDetails={`/shop/${item.id}`}
+                        hoverImage={item?.hoverImage}
                       />
                     </div>
                   ))}
@@ -127,7 +127,9 @@ function ShopPage() {
                       }`}
                     >
                       <PrintCard
-                        image={item?.images[0] || item?.thumbnail || "/fallback.png"}
+                        image={
+                          item?.images[0] || item?.thumbnail || "/fallback.png"
+                        }
                         label={item?.label || "Print"}
                         title={item?.title || item?.name}
                         price={item?.price}
@@ -136,6 +138,7 @@ function ShopPage() {
                         }
                         onViewDetails={`/shop/${item.id}`}
                         loading={isLoading}
+                        hoverImage={item?.images[1]}
                       />
                     </div>
                   ))}
