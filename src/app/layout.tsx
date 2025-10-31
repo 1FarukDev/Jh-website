@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/nav-bar";
-import NavDropdown from "../components/nav-dropdown";
+import { Toaster } from "@/components/ui/sonner"
 import localFont from "next/font/local";
 import Footer from "@/components/footer";
 import NavDropdownProviderWrapper from "@/wrapper/nav-wrapper";
@@ -61,6 +61,7 @@ export default function RootLayout({
         <Providers>
           <NavDropdownProviderWrapper>
             <AOS_INIT />
+            <Toaster position="bottom-right" richColors closeButton/>
             <NavBar />
             {children}
             <Footer />
