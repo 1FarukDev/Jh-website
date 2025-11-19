@@ -14,7 +14,7 @@ function AboutHero() {
   };
 
   return (
-    <div className="w-full relative h-[90vh] overflow-hidden">
+    <div className="w-full relative h-[80vh] overflow-hidden">
       <Image
         src={ClientBg}
         alt="About Hero"
@@ -28,28 +28,12 @@ function AboutHero() {
 
       <div className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4">
         <p className="text-[32px] leading-[48px] md:text-[90px] md:leading-[100px] font-extralight font-rose">
-          About Our Studio <br className="hidden md:block" /> Designed with
-          Passion
+          J.H Textiles
         </p>
 
         <p className="mt-4 font-satoshi max-w-2xl mx-auto">
-          Discover the story behind our textile journey — where creativity meets
-          tradition, and every pattern is crafted with meaning.
+          Where creativity meets tradition merging experimentation to craft intentional designs fueled by creativity
         </p>
-
-        <Button
-          onClick={handleScroll}
-          className="relative overflow-hidden border mt-8 px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
-    bg-white border-white text-black hover:text-white rounded-none py-2 
-    transition-all duration-300 group w-[140px] hover:w-[170px]"
-        >
-          <span className="relative z-10 flex items-center justify-center">
-            Learn More
-            <ArrowRight className="ml-2 h-4 w-4 hidden group-hover:inline opacity-0 -translate-x-2 transform transition-all duration-300 text-white group-hover:opacity-100 group-hover:translate-x-0" />
-          </span>
-
-          <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-        </Button>
       </div>
     </div>
   );

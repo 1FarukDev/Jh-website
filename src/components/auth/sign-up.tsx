@@ -1,161 +1,222 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Image from 'next/image'
-import { useForm, FormProvider } from 'react-hook-form'
-import CloeIcon from '@/app/assets/svg/close.svg'
-import NavLogo from '@/app/assets/svg/nav-logo.svg'
-import { FormInput } from '../input'
-import { LockKeyhole, Mail, UserRound } from 'lucide-react'
-import { FormCheckbox } from '../checkbox'
-import { Icon } from '@iconify/react/dist/iconify.js'
+import React from "react";
+import Image from "next/image";
+import { useForm, FormProvider } from "react-hook-form";
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import CloeIcon from "@/app/assets/svg/close.svg";
+import NavLogo from "@/app/assets/svg/nav-logo.svg";
+import { FormInput } from "../input";
+import { LockKeyhole, Mail, UserRound } from "lucide-react";
+import { FormCheckbox } from "../checkbox";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "../ui/button";
 
 type FormData = {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  confirmPassword: string
-  terms: boolean
-  sign: boolean
-}
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  terms: boolean;
+  sign: boolean;
+};
 
-function SignUp ({
+function SignUp({
   onClose,
-  goBackToLogin
+  goBackToLogin,
 }: {
-  onClose: any
-  goBackToLogin?: () => void
+  onClose: () => void;
+  goBackToLogin?: () => void;
 }) {
+  const supabase = createClient();
+
   const methods = useForm<FormData>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       terms: false,
-      sign: false
-    }
-  })
+      sign: false,
+    },
+  });
+
+  const { handleSubmit } = methods;
+
+  const signUpMutation = useMutation({
+    mutationFn: async (data: FormData) => {
+      if (data.password !== data.confirmPassword) {
+        throw new Error("Passwords don't match");
+      }
+
+      if (!data.terms) {
+        throw new Error("You must agree to the Terms and Conditions");
+      }
+
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (authError) throw new Error(authError.message);
+
+      const user = authData.user;
+
+      if (!user) {
+        toast.info("Please check your email to confirm your account.");
+        return;
+      }
+
+      const { error: updateError } = await supabase
+        .from("users")
+        .update({
+          first_name: data.firstName,
+          last_name: data.lastName,
+        })
+        .eq("id", user.id);
+
+      if (updateError) throw new Error(updateError.message);
+
+      return user.id;
+    },
+    onSuccess: () => {
+      toast.success("Account created successfully!");
+      onClose();
+    },
+    onError: (error: any) => {
+      toast.error(error.message || "Something went wrong");
+    },
+  });
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
-  }
+    signUpMutation.mutate(data);
+  };
 
   return (
     <FormProvider {...methods}>
-      <section className='md:p-6 p-3 pt-0 w-full'>
-        <div className='flex justify-between items-start'>
+      <section className="md:p-6 p-3 pt-0 w-full">
+        <div className="flex justify-between items-start">
           <div></div>
 
-          <div className='flex justify-center items-center gap-1'>
-            <Image src={NavLogo} alt='Nav Logo' width={50} />
-            <h2 className='font-rose text-black md:text-base text-sm'>
+          <div className="flex justify-center items-center gap-1">
+            <Image src={NavLogo} alt="Nav Logo" width={50} />
+            <h2 className="font-rose text-black md:text-base text-sm">
               J.H TEXTILES
             </h2>
           </div>
 
           <div
-            className='w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer'
+            className="w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer"
             onClick={onClose}
           >
-            <Image src={CloeIcon} alt='Close icon' width={12} height={12} />
+            <Image src={CloeIcon} alt="Close icon" width={12} height={12} />
           </div>
         </div>
 
         <form
-          onSubmit={methods.handleSubmit(onSubmit)}
-          className='flex flex-col justify-center items-center mt-[30px] gap-6'
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col justify-center items-center mt-[30px] gap-6"
         >
-          <div className='text-center'>
-            <h1 className='md:text-[40px] text-[24px] text-[#1C1B0B]'>
+          <div className="text-center">
+            <h1 className="md:text-[40px] text-[24px] text-[#1C1B0B]">
               Create Your Account
             </h1>
-            <p className='text-[#4E5157] font-satoshi text-xs md:text-lg'>
+            <p className="text-[#4E5157] font-satoshi text-xs md:text-lg">
               Start your journey with handmade pieces and studio updates.
             </p>
           </div>
 
-          <div className='w-full  flex flex-col gap-4'>
-            <div className='flex md:flex-row flex-col gap-3 items-center'>
+          <div className="w-full flex flex-col gap-4">
+            <div className="flex md:flex-row flex-col gap-3 items-center">
               <FormInput
-                name='firstName'
-                placeholder='Enter your first name'
-                className='h-[52px]'
+                name="firstName"
+                placeholder="Enter your first name"
+                className="h-[52px]"
                 iconLeft={<UserRound strokeWidth={0.75} />}
               />
               <FormInput
-                name='lastName'
-                placeholder='Enter your last name'
+                name="lastName"
+                placeholder="Enter your last name"
                 iconLeft={<UserRound strokeWidth={0.75} />}
-                className='h-[52px]'
+                className="h-[52px]"
               />
             </div>
+
             <FormInput
-              name='email'
-              type='email'
-              placeholder='Enter your email'
+              name="email"
+              type="email"
+              placeholder="Enter your email"
               iconLeft={<Mail strokeWidth={0.75} />}
-              className='h-[52px]'
+              className="h-[52px]"
             />
+
             <FormInput
-              name='password'
-              type='password'
-              placeholder='Enter your password'
+              name="password"
+              type="password"
+              placeholder="Enter your password"
               iconLeft={<LockKeyhole strokeWidth={0.75} />}
-              className='h-[52px]'
+              className="h-[52px]"
             />
+
             <FormInput
-              name='confirmPassword'
-              type='password'
-              placeholder='Re-enter your password'
+              name="confirmPassword"
+              type="password"
+              placeholder="Re-enter your password"
               iconLeft={<LockKeyhole strokeWidth={0.75} />}
-              className='h-[52px]'
+              className="h-[52px]"
+            />
+
+            <FormCheckbox
+              name="sign"
+              label="Sign me up for JH Textile updates and special offers"
             />
             <FormCheckbox
-              name='sign'
-              label='Sign me up for JH Textile updates and special offers'
-            />
-            <FormCheckbox
-              name='terms'
-              label='I agree to the Terms and Conditions'
+              name="terms"
+              label="I agree to the Terms and Conditions"
             />
           </div>
 
-          <button
-            type='submit'
-            className='mt-4 bg-black text-white px-6 py-3  text-sm  w-full rounded-none font-satoshi font-normal'
+          <Button
+            type="submit"
+            disabled={signUpMutation.isPending}
+            loading={signUpMutation.isPending}
+            className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal"
           >
-            Create Account
-          </button>
+            {signUpMutation.isPending
+              ? "Creating Account..."
+              : "Create Account"}
+          </Button>
 
-          <div className='w-full flex gap-3 items-center'>
-            <div className='w-1/2 h-[1px] bg-gray-200'></div>
-            <p className='font-satoshi text-xs font-normal'>Or</p>
-            <div className='w-1/2 h-[.5px] bg-gray-200'></div>
+          <div className="w-full flex gap-3 items-center">
+            <div className="w-1/2 h-[1px] bg-gray-200"></div>
+            <p className="font-satoshi text-xs font-normal">Or</p>
+            <div className="w-1/2 h-[.5px] bg-gray-200"></div>
           </div>
 
-          <div className='flex gap-4 items-center  w-full'>
-            <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2'>
-              <Icon icon='flat-color-icons:google' width='20' height='20' />
-              <p className='font-satoshi md:text-base text-[10px] font-normal text-olive'>
+          <div className="flex gap-4 items-center w-full">
+            <div className="flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2">
+              <Icon icon="flat-color-icons:google" width="20" height="20" />
+              <p className="font-satoshi md:text-base text-[10px] font-normal text-olive">
                 Sign up with Google
               </p>
             </div>
-            <div className='flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2'>
-              <Icon icon='logos:facebook' width='20' height='20' />
-              <p className='font-satoshi md:text-base text-[10px] font-normal text-olive'>
+            <div className="flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2">
+              <Icon icon="logos:facebook" width="20" height="20" />
+              <p className="font-satoshi md:text-base text-[10px] font-normal text-olive">
                 Sign up with Facebook
               </p>
             </div>
           </div>
 
           <div>
-            <p className='font-satoshi font-light text-xs'>
-              Already have an account?{' '}
+            <p className="font-satoshi font-light text-xs">
+              Already have an account?{" "}
               <span
-                className='font-medium text-xm cursor-pointer'
+                className="font-medium text-xm cursor-pointer"
                 onClick={() => goBackToLogin?.()}
               >
                 Log in here
@@ -165,7 +226,7 @@ function SignUp ({
         </form>
       </section>
     </FormProvider>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;
