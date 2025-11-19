@@ -41,8 +41,8 @@ function ShopPage() {
         <h1 className="text-center font-light text-[20px] md:text-[80px]">
           Shop Prints & Textiles
         </h1>
-        <p className="font-satoshi font-normal md:text-xl text-base text-[#4E5157] text-center -mt-3">
-          Each piece is a story—told through texture, tone, and timeless print.
+        <p className="font-satoshi font-normal md:text-xl text-base text-[#4E5157] text-center -mt-3 max-w-5xl mx-auto">
+          Browse a curated collection of ready-to-use textile prints. Perfect for fashion brands, interior designers, or creatives looking for exclusive, high-quality surface patterns.
         </p>
       </div>
 

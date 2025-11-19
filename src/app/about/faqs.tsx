@@ -7,34 +7,122 @@ const FAQ = () => {
 
   const faqData = [
     {
-      question: "WHAT MAKES JH TEXTILE UNIQUE?",
-      answer:
-        "At J.H Textile, every piece is crafted with care, using natural dyes, hand-printed details, and sustainable materials. Our focus is on creating fabrics that are both timeless and meaningful, carrying the story of craftsmanship in every stitch.",
+      question: "What is surface pattern design / print design?",
+      header:
+        "Surface pattern design is the creation of artworks that can be printed or applied onto the surface of objects such as clothes, wallpapers, packaging, and home goods. These designs are often created in repeating formats so they can seamlessly cover any size area. Designers use colors, motifs, and shapes to make these patterns visually appealing. The process combines artistic creativity with design software skills, making products more distinctive and market-ready.",
+      // answer: [""],
     },
     {
-      question: "DO YOU ACCEPT CUSTOM COMMISSIONS?",
-      answer:
-        "Yes, we welcome custom commissions and work closely with clients to bring their unique visions to life. Our team specializes in creating bespoke textile designs that reflect your personal style and requirements.",
+      question: "What services does J.H. Textiles offer?",
+      header:
+        "We specialize in custom surface pattern design, textile prints, and print development. Our services include:",
+      answer: [
+        "Placement prints",
+        "Print rescaling",
+        "Print licensing",
+        "Illustration",
+        "Print development",
+        "Color separation for production",
+      ],
     },
     {
-      question: "WHAT PAYMENT OPTIONS DO YOU ACCEPT?",
-      answer:
-        "We accept various payment methods including major credit cards, PayPal, bank transfers, and for larger orders, we can arrange payment plans. All transactions are secure and processed through encrypted channels.",
+      question: "Do you print on fabric?",
+      header:
+        "No, we do not handle fabric printing in-house. Our focus is on designing high-quality, production-ready textile prints. We provide digital files prepared for various printing methods (digital, screen, or traditional techniques), which you can share with your chosen manufacturer or printer.",
+      // answer: [""],
     },
     {
-      question: "ARE YOUR TEXTILES SUSTAINABLE?",
-      answer:
-        "Sustainability is at the core of our practice. We use eco-friendly natural dyes, organic materials where possible, and employ traditional techniques that have minimal environmental impact. Our production process focuses on quality over quantity.",
+      question: "How long does it take to create a custom print?",
+      header:
+        "Timelines vary depending on the complexity of the project. A first draft typically takes 7–21 working days. If revisions are needed, the process may take longer. Since custom design is a collaborative process, we work closely with you to refine the print until it fully meets your expectations.",
+      // answer: [""],
     },
     {
-      question: "DO YOU SHIP INTERNATIONALLY?",
-      answer:
-        "Yes, we ship worldwide. International shipping rates and delivery times vary by location. We work with trusted shipping partners to ensure your textiles arrive safely and on time, with full tracking and insurance coverage.",
+      question: "How much does a custom print cost?",
+      header:
+        "Pricing depends on the complexity, medium, and scope of the project. Simpler designs may cost less than intricate, layered, or experimental ones. We provide a tailored quote after reviewing your project requirements.",
+      // answer: [""],
     },
     {
-      question: "HOW DO I CARE FOR MY TEXTILE?",
-      answer:
-        "Each textile comes with specific care instructions. Generally, we recommend gentle hand washing with mild detergent, avoiding harsh chemicals, and air drying away from direct sunlight to preserve the colors and fabric integrity.",
+      question: "Do you sell ready-to-use prints?",
+      header:
+        "Yes. Our Shop Prints collection features curated, ready-to-use textile prints available for direct licensing or purchase.",
+      // answer: [""],
+    },
+    {
+      question: "Do you create custom prints?",
+      header:
+        "Yes. We welcome commissions and collaborate closely with clients to develop bespoke textile designs tailored to your brand’s vision, values, and requirements.",
+      // answer: [""],
+    },
+    {
+      question: "What do I need to prepare before commissioning a print?",
+      header:
+        "We recommend preparing a mood board that captures your vision, style, and preferences. This can include images, color palettes, textures, patterns, or even words and phrases. A mood board gives us a clear reference to align with your expectations, streamlining the process and minimizing revisions.",
+      // answer: [""],
+    },
+    {
+      question: "What are exclusive prints?",
+      header:
+        "Exclusive prints grant the buyer sole rights to use the design for a specific product or range. The design cannot be sold or licensed to anyone else. Exclusive rights are more expensive but provide a competitive advantage, ensuring your brand’s print remains unique.",
+      // answer: [""],
+    },
+    {
+      question: "What are non-exclusive prints?",
+      header:
+        "Non-exclusive prints can be sold or licensed to multiple buyers. This means the same design may appear across different brands or products. They are more affordable than exclusive designs, offering high-quality prints at a lower cost.",
+      // answer: [""],
+    },
+    {
+      question: "Do you offer color variations?",
+      header:
+        "Yes. Each print comes with two free color variations. Additional colorways can be developed for an extra fee.",
+      // answer: [""],
+    },
+    {
+      question: "What is the difference between placement prints and repeats?",
+      header: "",
+      answer: [
+        "Placement prints are single motifs or designs applied to a specific area of a garment or product, often used to make a statement.",
+        "Repeat patterns are seamless designs that tile across fabric continuously without visible edges, making them suitable for large surfaces.",
+      ],
+    },
+    {
+      question: "How does print licensing work?",
+      header:
+        "Licensing grants you the right to use a design for specific products and purposes. Ownership remains with J.H. Textiles, but your brand gains usage rights defined by exclusivity, scope, territory, and duration.",
+      // answer: [""],
+    },
+    {
+      question: "What is included in a license?",
+      header: "A license agreement typically covers:",
+      answer: [
+        "Usage scope (apparel, interiors, packaging, etc.)",
+        "Territory (local, regional, or global use)",
+        "Duration (seasonal, limited-term, or permanent use)",
+        "Exclusivity (exclusive vs. non-exclusive rights)",
+      ],
+    },
+    {
+      question: "Can I request exclusive rights?",
+      header:
+        "Yes. Exclusive licenses ensure only your brand can use the design. They are priced higher as they guarantee market distinction.",
+      // answer: [""],
+    },
+    {
+      question: "Can I extend my license later?",
+      header:
+        "Absolutely. If your business expands, we can renegotiate terms to extend the scope, territory, or duration of your license.",
+      // answer: [""],
+    },
+    {
+      question: "How can I collaborate with J.H. Textiles?",
+      header: "You can:",
+      answer: [
+        "Book a consultation to discuss custom projects.",
+        "Shop ready-to-use prints from our collection.",
+        "Request our full portfolio for review.",
+      ],
     },
   ];
 
@@ -49,25 +137,14 @@ const FAQ = () => {
       transition: { duration: 0.6, staggerChildren: 0.1 },
     },
   };
-
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
-
   const contentVariants: Variants = {
-    hidden: {
-      height: 0,
-      opacity: 0,
-      transition: { duration: 0.3, ease: "easeInOut" },
-    },
-    visible: {
-      height: "auto",
-      opacity: 1,
-      transition: { duration: 0.4, ease: "easeInOut" },
-    },
+    hidden: { height: 0, opacity: 0, transition: { duration: 0.3 } },
+    visible: { height: "auto", opacity: 1, transition: { duration: 0.4 } },
   };
-
   const iconVariants: Variants = {
     closed: { rotate: 0 },
     open: { rotate: 45 },
@@ -77,7 +154,7 @@ const FAQ = () => {
     <div className="max-w-5xl mx-auto px-6 py-16 min-h-screen">
       <section>
         <h1 className="text-[32px] md:text-[60px] text-center">FAQS</h1>
-        <p className="md:text-lg text-sm text-[#4E5157] max-w-3xl mx-auto text-center font-satoshi mb-12">
+        <p className="md:text-lg text-sm text-[#4E5157] max-w-3xl mx-auto text-center mb-12">
           Answers to the things we’re most often asked about our textiles,
           process, and orders.
         </p>
@@ -107,7 +184,7 @@ const FAQ = () => {
               <motion.div
                 variants={iconVariants}
                 animate={activeIndex === index ? "open" : "closed"}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.3 }}
                 className="flex-shrink-0 w-6 h-6 text-gray-600 group-hover:text-gray-900"
               >
                 <Plus className="w-6 h-6" strokeWidth={1.5} />
@@ -127,12 +204,21 @@ const FAQ = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
+                    transition={{ duration: 0.3 }}
                     className="px-4 pb-8"
                   >
-                    <p className="text-gray-700 leading-relaxed font-satoshi text-base max-w-4xl">
-                      {faq.answer}
-                    </p>
+                    {faq.header && (
+                      <p className="text-gray-900 font-medium mb-2 font-satoshi">
+                        {faq.header}
+                      </p>
+                    )}
+                    {faq.answer  && (
+                      <ul className="text-gray-700 leading-relaxed list-disc list-inside space-y-1 font-satoshi">
+                        {faq.answer.map((item, idx) => (
+                          <li key={idx} className="font-satoshi">{item}</li>
+                        ))}
+                      </ul>
+                    )}
                   </motion.div>
                 </motion.div>
               )}

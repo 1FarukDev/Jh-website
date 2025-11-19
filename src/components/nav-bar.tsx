@@ -20,7 +20,6 @@ import { usePathname } from "next/navigation";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
 
-
 function NavBar() {
   const pathname = usePathname();
   const supabase = createClient();
@@ -40,7 +39,6 @@ function NavBar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
   const [authView, setAuthView] = useState<"login" | "forgot">("login");
-  
 
   const isAuthenticated = false;
 
@@ -230,7 +228,8 @@ function NavBar() {
                       isOpen ? "bg-white text-black" : "bg-black text-white"
                     } p-2 px-[9px] rounded-full text-xs font-normal`}
                   >
-                    JD
+                    {user?.first_name?.[0]?.toUpperCase()}
+                    {user?.last_name?.[0]?.toUpperCase()}
                   </p>
 
                   <div
@@ -238,7 +237,9 @@ function NavBar() {
                       isOpen ? "text-white" : "text-black"
                     } md:flex`}
                   >
-                    <p className="text-xs font-normal">John Doe</p>
+                    <p className="text-xs font-normal">
+                      {user?.first_name + " " + user?.last_name}
+                    </p>
                     <ChevronDown size={16} strokeWidth={1} />
                   </div>
                 </div>
@@ -256,7 +257,10 @@ function NavBar() {
                           <CircleUserRound size={20} strokeWidth={1.5} />
                           Profile
                         </li>
-                        <li className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white" onClick={() => supabase.auth.signOut()}>
+                        <li
+                          className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white"
+                          onClick={() => supabase.auth.signOut()}
+                        >
                           <LogOut size={20} strokeWidth={1.5} />
                           Logout
                         </li>

@@ -32,7 +32,7 @@ function Services() {
     {
       header: "Placement Prints",
       subText:
-        "Strategically positioned motifs and designs, carefully aligned to garments or products, ensuring each piece tells a story with precision and balance.",
+        "Strategically engineered motifs and designs, carefully aligned to garments or products",
       color: "#E9C892",
       textColor: "#2F281D",
       subTextColor: "#4E5157",
@@ -41,16 +41,16 @@ function Services() {
     {
       header: "Print Rescaling",
       subText:
-        "Seamlessly resizing patterns to fit different products, from large-scale installations to smaller accessories, while preserving detail and integrity.",
+        "Seamlessly resizing patterns for different products, from large-scale designs to small repeats, ensuring consistency across application.",
       color: "#2F281D",
       textColor: "white",
       subTextColor: "#CDD1D7",
       image: PrintScalingImage,
     },
     {
-      header: "Print Adjustment",
+      header: "Print Licensing",
       subText:
-        "Fine-tuning existing designs whether it's refining colors, enhancing details, or altering motifs to achieve a perfect fit for your project.",
+        "Access to exclusive, ready-made designs tailored to your brand’s needs.",
       color: "#8A8635",
       textColor: "white",
       subTextColor: "#CDD1D7",
@@ -66,18 +66,18 @@ function Services() {
       image: RushImage,
     },
     {
-      header: "Illustration",
+      header: "Illustration & Artwork",
       subText:
-        "Hand-drawn or digitally crafted motifs created by our artists, designed to capture emotion, story, and texture that inspire your finished textiles.",
+        "Hand-drawn or digitally crafted motifs, artworks, and non-repeats.",
       color: "#683112",
       textColor: "white",
       subTextColor: "#CDD1D7",
       image: IllustrationImage,
     },
     {
-      header: "Mockups",
+      header: "Color Seperation",
       subText:
-        "Visual representations of your designs on products, giving you a realistic preview before production begins.",
+        "Technical expertise to prepare your prints for production across different printing method.",
       color: "#1C1B0B",
       textColor: "white",
       subTextColor: "#CDD1D7",
@@ -86,7 +86,7 @@ function Services() {
     {
       header: "Print Development",
       subText:
-        "A full creative journey from concept sketches to final textiles, where designs evolve through exploration, sampling, and refinement.",
+        "Crafting high-quality prints from images or motifs provided by you; developing existing prints into new creative directions.",
       color: "#F0DAB6",
       textColor: "#230D06",
       subTextColor: "#4E5157",
@@ -102,8 +102,7 @@ function Services() {
           Our Services
         </h1>
         <p className="md:text-lg text-sm sm:text-base text-[#4E5157] max-w-3xl mx-auto text-center font-satoshi mb-8 md:mb-12 px-4">
-          A creative textile studio crafting meaningful prints, rooted in texture,
-          tradition, and storytelling.
+         At J.H. Textiles, each print begins with process—sketching, painting, and crafting textures across traditional and digital mediums. 
         </p>
       </div>
 

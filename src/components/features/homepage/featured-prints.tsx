@@ -26,9 +26,9 @@ function FeaturedPrints() {
 
       <p
         data-aos-delay="200"
-        className="md:text-xl text-sm font-satoshi font-normal text-[#4E5157] text-center mt-2"
+        className="md:text-xl text-sm font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-4xl mx-auto"
       >
-        Curated works handpicked from J.H Textiles collection.
+        Discover a curated showcase of exclusive and original surface patterns ranging from abstract and floral, geometric, photographic, and minimalist designs.
       </p>
 
       <div className="mt-[25px] grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 gap-y-4 md:gap-4">

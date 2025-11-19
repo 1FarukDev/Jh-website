@@ -19,22 +19,29 @@ function ClientHero() {
         priority
       />
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/50 z-10" />
 
-      {/* Text content */}
       <div className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4">
-        <p
-          data-aos="fade-up"
-          data-aos-duration="1200"
-          className="text-[32px] leading-[48px] md:text-[90px] md:leading-[100px] font-extralight font-rose"
-        >
-          Collaborations <br className="hidden md:block" /> Rooted in creativity
-        </p>
+        <div className="max-w-5xl mx-auto">
+          <p
+            data-aos="fade-up"
+            data-aos-duration="1200"
+            className="text-[32px] leading-[48px] md:text-[70px] md:leading-[100px] font-extralight font-rose "
+          >
+            {/* Collaborations  Rooted in creativity */}
+            Collaborations Trusted to interpret ideas into print.
+          </p>
 
-        <p className="mt-4 font-satoshi">
-          From J.H Textile studios to large-scale spaces, we bring textile ideas to life.
-        </p>
+          <p className="mt-4 font-satoshi">
+            Trusted to interpret ideas into print, we’ve spent over 5 years
+            collaborating with brands to translate creative visions into
+            standout surface designs. From paintings to digital renderings, and
+            employing experimental techniques, we ensure each print has a unique
+            identity. Our work spans apparel and packaging, with each design
+            carefully developed to ensure originality, brand recognition, and
+            market distinction.
+          </p>
+        </div>
 
         <Button
           onClick={() => router.push("/shop")}

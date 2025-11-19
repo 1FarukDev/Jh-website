@@ -48,7 +48,7 @@ function Login({ onForgotPassword }: LoginProps) {
         toast.error(`Login failed: ${error.message}`);
       } else if (authData.user) {
         toast.success("Logged in successfully!");
-        console.log("Logged in user:", authData.user);
+
       }
     } catch (err) {
       toast.error("Something went wrong. Please try again.");

@@ -64,11 +64,11 @@ function ClientProducts() {
   return (
     <section className="my-[100px] px-4 md:px-15">
       <p className="md:text-[60px] text-[28px] font-light text-center leading-[40px]">
-        Client Work Highlights
+        Highlights
       </p>
       <p className="md:text-lg text-sm font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px] mt-2">
-        A creative textile studio crafting meaningful prints, rooted in texture,
-        tradition, and storytelling.
+        Browse through a selection of creative projects for brands from our
+        portfolio
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mt-8">

@@ -28,11 +28,10 @@ function BlogComponent() {
           <div className="absolute inset-0 flex flex-col text-black justify-center items-center p-4 sm:p-6 lg:p-8 text-center">
             <div className="max-w-lg">
               <h1 className="text-lg text-black sm:text-2xl lg:text-4xl font-light  mb-3 tracking-wide leading-tight">
-                Where Prints Tells Your Story
+                Custom Prints to Define Your Vision
               </h1>
               <p className=" text-sm sm:text-base font-satoshi leading-relaxed mb-4">
-                Each piece is a story—told through texture, tone, and timeless
-                print.
+               We are a Nigerian textile print design studio specializing in exclusive surface patterns. Our portfolio ranges from abstract to floral, from bold digital aesthetics to watercolor motifs. Each print is designed for versatile applications, including digital printing, screen printing, jacquard, adire, batik, and more. Whatever your medium, our designs adapt seamlessly.
               </p>
               <Button
                 onClick={() => router.push("/shop")}
@@ -40,7 +39,7 @@ function BlogComponent() {
           bg-black border-white text-white  hover:text-black hover:border-black rounded-none py-2 transition-all duration-300 group"
               >
                 <span className="relative z-10 flex items-center">
-                  View collection
+                  Book a consultation
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </span>
                 <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
