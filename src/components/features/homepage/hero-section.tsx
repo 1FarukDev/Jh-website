@@ -4,7 +4,8 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import HeroImage from "@/app/assets/png/hero-bg.jpg";
+// import HeroImage from "@/app/assets/png/hero-bg.jpg";
+import HeroImage from "@public/assets/png/background.jpg";
 import MobileHero from "@/app/assets/png/hero-bg-mobile.jpg";
 import { TextAnimate } from "@/components/text-animate";
 import { ArrowRight } from "lucide-react";
@@ -18,8 +19,8 @@ function Hero() {
         src={HeroImage}
         alt="Hero"
         width={1920}
-        height={200}
-        className="hidden md:block w-full object-cover mx-auto"
+        height={700}
+        className="hidden md:block w-full h-[750px] object-cover mx-auto"
         priority
       />
 

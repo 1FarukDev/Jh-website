@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import TestimonialBG from '@/app/assets/svg/testimonialbg.svg'
+import TestimonialBG from '@public/assets/png/testimonial.jpg'
 import QuoteIcon from '@/app/assets/svg/quote.svg'
 
 interface TestimonialCardProps {

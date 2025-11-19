@@ -110,11 +110,6 @@ function Testimonies() {
       <h1 className="md:text-[60px] text-[28px] md:px-0 px-4 font-light text-center leading-[40px]">
         Words From Our Clients
       </h1>
-      {/* <p className="md:text-lg text-sm md:px-0 px-4 font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]">
-        What our clients at J.H Textiles studio are saying about us
-      </p> */}
-
-      {/* Carousel */}
       <div
         ref={scrollRef}
         onScroll={handleScroll}

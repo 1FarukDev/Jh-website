@@ -46,7 +46,7 @@ function AboutPage() {
       <Services />
       <FAQ />
       <div
-        className="flex md:flex-row flex-col-reverse  gap-8 mb-32 items-stretch"
+        className="flex md:flex-row flex-col-reverse  gap-8 mb-32 items-stretch px-8"
         data-aos="fade-up"
       >
         <div
@@ -56,7 +56,7 @@ function AboutPage() {
           <h2 className="text-[#230D06] text-[20px] md:text-[64px] text-center font-normal">
             Our Story
           </h2>
-          <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">
+          <p className="md:text-center text-lg md:text-[20px] font-satoshi font-normal max-w-3xl leading-[24px] md:leading-[25px] text-[#4E5157]">
             What began as a solo experiment in natural dyes and block printing
             has grown into a full-bodied practice rooted in craftsmanship,
             curiosity, and cultural connection. Over time, JH Textile evolved
