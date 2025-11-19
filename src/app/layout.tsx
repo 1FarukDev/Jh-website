@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import NavDropdownProviderWrapper from "@/wrapper/nav-wrapper";
 import AOS_INIT from "@/components/AOS_INIT";
 import Providers from "./providers";
+import TopLoader from "@/components/TopLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,6 +64,7 @@ export default function RootLayout({
             <AOS_INIT />
             <Toaster position="bottom-right" richColors closeButton/>
             <NavBar />
+            <TopLoader />
             {children}
             <Footer />
           </NavDropdownProviderWrapper>

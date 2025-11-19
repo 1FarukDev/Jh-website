@@ -10,6 +10,7 @@ interface UserProfile {
   last_name: string | null;
   avatar_url: string | null;
   created_at: string;
+  email: string;
 }
 
 export function useSupabaseAuth() {
@@ -32,7 +33,6 @@ export function useSupabaseAuth() {
 
     getInitialSession();
 
-    // Listen for auth changes
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (_event: string, session: Session | null) => {
         setSession(session);
@@ -64,5 +64,11 @@ export function useSupabaseAuth() {
     }
   };
 
-  return { session, user, loading };
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+    setUser(null);
+  };
+
+  return { session, user, loading, logout };
 }

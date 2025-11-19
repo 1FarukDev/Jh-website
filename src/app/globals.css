@@ -317,3 +317,11 @@
 [data-aos] {
   overflow: hidden; 
 }
+
+#nprogress .bar {
+  background: #2A1407 !important;
+  height: 3px !important;
+}
+#nprogress .peg {
+  box-shadow: 0 0 10px #2A1407, 0 0 5px #2A1407 !important;
+}

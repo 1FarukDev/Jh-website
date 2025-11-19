@@ -22,9 +22,10 @@ type FormData = {
 
 interface LoginProps {
   onForgotPassword: () => void;
+  onSuccess?: () => void;
 }
 
-function Login({ onForgotPassword }: LoginProps) {
+function Login({ onForgotPassword,onSuccess }: LoginProps) {
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
   const methods = useForm<FormData>({
@@ -48,7 +49,7 @@ function Login({ onForgotPassword }: LoginProps) {
         toast.error(`Login failed: ${error.message}`);
       } else if (authData.user) {
         toast.success("Logged in successfully!");
-
+        if (onSuccess) onSuccess();
       }
     } catch (err) {
       toast.error("Something went wrong. Please try again.");

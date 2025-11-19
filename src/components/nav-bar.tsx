@@ -26,9 +26,7 @@ function NavBar() {
   const isHomePage =
     pathname === "/" || pathname === "/client" || pathname === "/about";
 
-  const { user } = useSupabaseAuth();
-
-  console.log(user);
+  const { user, logout } = useSupabaseAuth();
   const { isOpen, toggleDropdown, setExtraRefs, closeDropdown } =
     useNavDropdown();
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -250,16 +248,25 @@ function NavBar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 py-2 w-32 border rounded shadow-md z-50 bg-[#1C1B0B]"
+                      className="absolute right-0 mt-2 py-2 w-50 border top-7 rounded shadow-md z-100 bg-[#1C1B0B]"
                     >
                       <ul className="text-sm text-gray-700">
-                        <li className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white border-b">
-                          <CircleUserRound size={20} strokeWidth={1.5} />
-                          Profile
-                        </li>
+                        <Link href={"/profile"}>
+                          <li
+                            className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white border-b"
+                            onClick={() => setUserDropdownOpen(false)}
+                          >
+                            <CircleUserRound size={20} strokeWidth={1.5} />
+                            Profile
+                          </li>
+                        </Link>
+
                         <li
                           className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white"
-                          onClick={() => supabase.auth.signOut()}
+                          onClick={() => {
+                            logout();
+                            setUserDropdownOpen(false);
+                          }}
                         >
                           <LogOut size={20} strokeWidth={1.5} />
                           Logout
@@ -279,7 +286,10 @@ function NavBar() {
             onOpenChange={setLoginModalOpen}
           >
             {authView === "login" ? (
-              <Login onForgotPassword={() => setAuthView("forgot")} />
+              <Login
+                onForgotPassword={() => setAuthView("forgot")}
+                onSuccess={() => setLoginModalOpen(false)}
+              />
             ) : (
               <ForgotPassword onBackToLogin={() => setAuthView("login")} />
             )}
