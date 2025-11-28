@@ -19,6 +19,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
+import ResetPassword from "./auth/reset-password";
+import PasswordSuccess from "./auth/password-success";
 
 function NavBar() {
   const pathname = usePathname();
@@ -26,21 +28,59 @@ function NavBar() {
   const isHomePage =
     pathname === "/" || pathname === "/client" || pathname === "/about";
 
-  const { user } = useSupabaseAuth();
-
-  console.log(user);
+  const { user, logout } = useSupabaseAuth();
   const { isOpen, toggleDropdown, setExtraRefs, closeDropdown } =
     useNavDropdown();
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState<boolean>(false);
   const userDropdownRef = useRef<HTMLDivElement>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
   const [authView, setAuthView] = useState<"login" | "forgot">("login");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const type = params.get("type");
+    
+    let hasProcessedRecovery = false;
+  
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (event: string, session: any | null) => {
+       
+        if (code && type === "recovery" && event === "INITIAL_SESSION" && !hasProcessedRecovery) {
+          hasProcessedRecovery = true;
+          console.log("Password recovery session established! Opening reset modal...");
+          setShowResetPassword(true);
+          
+          window.history.replaceState({}, "", window.location.pathname);
+        }
+        
+        if (event === "PASSWORD_RECOVERY") {
+          console.log("PASSWORD_RECOVERY event detected!");
+          setShowResetPassword(true);
+        }
+      }
+    );
+  
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
 
-  const isAuthenticated = false;
+  const handleContinueToLogin = () => {
+    setShowResetPassword(false);
+    setShowSuccess(false);
+    setLoginModalOpen(true);
+  };
+
+  const handlePasswordUpdated = () => {
+    setShowSuccess(true);
+  };
 
   useEffect(() => {
     if (!loginModalOpen) setAuthView("login");
@@ -250,16 +290,25 @@ function NavBar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 py-2 w-32 border rounded shadow-md z-50 bg-[#1C1B0B]"
+                      className="absolute right-0 mt-2 py-2 w-50 border top-7 rounded shadow-md z-100 bg-[#1C1B0B]"
                     >
                       <ul className="text-sm text-gray-700">
-                        <li className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white border-b">
-                          <CircleUserRound size={20} strokeWidth={1.5} />
-                          Profile
-                        </li>
+                        <Link href={"/profile"}>
+                          <li
+                            className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white border-b"
+                            onClick={() => setUserDropdownOpen(false)}
+                          >
+                            <CircleUserRound size={20} strokeWidth={1.5} />
+                            Profile
+                          </li>
+                        </Link>
+
                         <li
                           className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white"
-                          onClick={() => supabase.auth.signOut()}
+                          onClick={() => {
+                            logout();
+                            setUserDropdownOpen(false);
+                          }}
                         >
                           <LogOut size={20} strokeWidth={1.5} />
                           Logout
@@ -279,7 +328,10 @@ function NavBar() {
             onOpenChange={setLoginModalOpen}
           >
             {authView === "login" ? (
-              <Login onForgotPassword={() => setAuthView("forgot")} />
+              <Login
+                onForgotPassword={() => setAuthView("forgot")}
+                onSuccess={() => setLoginModalOpen(false)}
+              />
             ) : (
               <ForgotPassword onBackToLogin={() => setAuthView("login")} />
             )}
@@ -298,6 +350,22 @@ function NavBar() {
                 setAuthView("login");
               }}
             />
+          </Modal>
+          <Modal
+            className="!w-[90%] md:!max-w-[50vw] no-scrollbar"
+            trigger={""}
+            open={showResetPassword}
+            onOpenChange={setShowResetPassword}
+          >
+            <ResetPassword onPasswordUpdated={handlePasswordUpdated} />
+          </Modal>
+          <Modal
+            className="!w-[90%] md:!max-w-[50vw] no-scrollbar"
+            trigger={""}
+            open={showSuccess}
+            onOpenChange={setShowSuccess}
+          >
+            <PasswordSuccess onContinue={handleContinueToLogin} />
           </Modal>
         </div>
 

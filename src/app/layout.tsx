@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/nav-bar";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 import localFont from "next/font/local";
 import Footer from "@/components/footer";
 import NavDropdownProviderWrapper from "@/wrapper/nav-wrapper";
 import AOS_INIT from "@/components/AOS_INIT";
 import Providers from "./providers";
+import TopLoader from "@/components/TopLoader";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,8 +63,11 @@ export default function RootLayout({
         <Providers>
           <NavDropdownProviderWrapper>
             <AOS_INIT />
-            <Toaster position="bottom-right" richColors closeButton/>
+            <Toaster position="bottom-right" richColors closeButton />
             <NavBar />
+            <Suspense fallback={null}>
+              <TopLoader />
+            </Suspense>
             {children}
             <Footer />
           </NavDropdownProviderWrapper>

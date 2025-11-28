@@ -20,7 +20,7 @@ function FeaturedPrints() {
 
   return (
     <section className="my-[100px] md:px-15 px-4">
-      <p className="md:text-[45px] text-[30px] font-bold md:font-normal text-center leading-[20px] md:leading-[40px]">
+      <p className="md:text-[45px] text-[30px] font-semibold md:font-normal text-center leading-[20px] md:leading-[40px]">
         Featured Prints
       </p>
 

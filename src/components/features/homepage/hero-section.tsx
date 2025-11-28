@@ -20,11 +20,11 @@ function Hero() {
         alt="Hero"
         width={1920}
         height={700}
-        className="hidden md:block w-full h-[750px] object-cover mx-auto"
+        className=" w-full h-[600px] md:h-[750px] object-cover mx-auto"
         priority
       />
 
-      <div className="block md:hidden relative h-[85vh] w-full">
+      {/* <div className="block md:hidden relative h-[85vh] w-full">
         <Image
           src={MobileHero}
           alt="Hero Mobile"
@@ -32,21 +32,21 @@ function Hero() {
           className="object-cover"
           priority
         />
-      </div>
+      </div> */}
 
       <div className="absolute max-w-6xl  top-[50%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4">
         <p
           data-aos="fade-up"
           data-aos-duration="1200"
-          className="text-[32px] leading-[48px] md:text-[50px] md:leading-[70px] font-extralight font-rose"
+          className="text-[20px] leading-[35px] md:text-[50px] md:leading-[70px] font-extralight font-rose"
         >
           Surface Pattern Design Studio – Textile Print Designs with Meaning
         </p>
 
-        <p>Designed for fashion, interiors, and lifestyle..</p>
+        <p className="md:text-lg text-sm font-satoshi">Designed for fashion, interiors, and lifestyle..</p>
         <Button
           onClick={() => router.push("/shop")}
-          className="relative overflow-hidden border mt-8 px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
+          className="relative overflow-hidden border mt-3 md:mt-8 px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
     bg-white border-white text-black hover:text-white rounded-none py-2 
     transition-all duration-300 group w-[160px] hover:w-[190px]"
         >

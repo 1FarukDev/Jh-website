@@ -24,13 +24,13 @@ function BlogComponent() {
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-hidden h-auto lg:h-[500px] md:px-15 px-4">
-        <div className="relative rounded-none bg-[#1c1b0b0c] w-full h-[220px] sm:h-[250px] lg:h-full border  overflow-hidden min-w-0">
+        <div className="relative rounded-none bg-[#1c1b0b0c] w-full h-[350px] lg:h-full border  overflow-hidden min-w-0">
           <div className="absolute inset-0 flex flex-col text-black justify-center items-center p-4 sm:p-6 lg:p-8 text-center">
             <div className="max-w-lg">
-              <h1 className="text-lg text-black sm:text-2xl lg:text-4xl font-light  mb-3 tracking-wide leading-tight">
+              <h1 className="text-base text-black sm:text-2xl lg:text-4xl font-light  mb-3 tracking-wide leading-tight">
                 Custom Prints to Define Your Vision
               </h1>
-              <p className=" text-sm sm:text-base font-satoshi leading-relaxed mb-4">
+              <p className=" text-sm  font-satoshi leading-relaxed mb-4">
                We are a Nigerian textile print design studio specializing in exclusive surface patterns. Our portfolio ranges from abstract to floral, from bold digital aesthetics to watercolor motifs. Each print is designed for versatile applications, including digital printing, screen printing, jacquard, adire, batik, and more. Whatever your medium, our designs adapt seamlessly.
               </p>
               <Button
@@ -99,7 +99,7 @@ function BlogComponent() {
             <div
               data-aos="zoom-in"
               data-aos-duration="1000"
-              className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0 bg-[#2A1407]"
+              className="relative w-full h-[220px] sm:h-[200px] rounded-none overflow-hidden min-w-0 bg-[#2A1407]"
             >
               <div className="absolute inset-0 flex flex-col justify-center items-center p-3 sm:p-4 text-center">
                 <div className="max-w-xs space-y-2">
