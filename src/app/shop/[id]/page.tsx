@@ -19,8 +19,10 @@ interface Color {
 function Page() {
   const router = useRouter();
   const params = useParams();
-  const id = params?.id 
-    ? (Array.isArray(params.id) ? params.id[0] : params.id)
+  const id = params?.id
+    ? Array.isArray(params.id)
+      ? params.id[0]
+      : params.id
     : null;
 
   const { data: productData, isLoading: isProductLoading } = useQuery({
@@ -36,7 +38,10 @@ function Page() {
     { text: "Dark Blue", value: "Dark Blue", code: "#141B34" },
   ];
 
-  const [selectedColor, setSelectedColor] = useState<string>("Green");
+  const addToCart = () => {
+    // Implement add to cart functionality here
+    alert("Added to cart!");
+  };
 
   if (isProductLoading) {
     return (
@@ -58,10 +63,15 @@ function Page() {
         </div>
         <div className="flex md:flex-row flex-col gap-3 mt-5">
           <div className="md:w-1/2 w-full min-h-[50vh]">
-            <PrintMockup print={productData.images[0]} images={productData.images}/>
+            <PrintMockup
+              print={productData.images[0]}
+              images={productData.images}
+            />
           </div>
           <div className="md:w-1/2 w-full">
-            <p className="font-satoshi text-[#4E5157] text-lg">{productData?.category}</p>
+            <p className="font-satoshi text-[#4E5157] text-lg">
+              {productData?.category}
+            </p>
             <p className="text-[40px] text-[#230D06]">{productData?.name}</p>
 
             <hr className="my-4" />
@@ -70,7 +80,8 @@ function Page() {
               <div>
                 <p className="font-satoshi font-normal">About</p>
                 <p className="font-satoshi font-normal">
-                  <span className="font-bold">"{productData?.name}"</span> {productData?.description}
+                  <span className="font-bold">"{productData?.name}"</span>{" "}
+                  {productData?.description}
                 </p>
               </div>
 
@@ -131,10 +142,16 @@ function Page() {
               <p className="text-[40px] font-bold">NGN {productData?.price}</p>
             </div>
             <div className="font-satoshi font-light w-full md:flex-row flex-col flex gap-3 mt-6">
-              <Button className="bg-black text-white rounded-none shadow-none md:w-1/2 h-12 hover:bg-opacity-90 transition">
+              <Button
+                className="bg-black text-white rounded-none shadow-none md:w-1/2 h-12 hover:bg-opacity-90 transition"
+                onClick={() => alert("Proceeding to buy now")}
+              >
                 Buy Now
               </Button>
-              <Button className="bg-white text-black border border-black rounded-none shadow-none md:w-1/2 h-12 hover:bg-gray-100 transition">
+              <Button
+                className="bg-white text-black border border-black rounded-none shadow-none md:w-1/2 h-12 hover:bg-gray-100 transition"
+                onClick={() => addToCart()}
+              >
                 Add to Cart
               </Button>
             </div>

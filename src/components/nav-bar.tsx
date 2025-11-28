@@ -19,6 +19,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
+import ResetPassword from "./auth/reset-password";
+import PasswordSuccess from "./auth/password-success";
 
 function NavBar() {
   const pathname = usePathname();
@@ -33,12 +35,52 @@ function NavBar() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState<boolean>(false);
   const userDropdownRef = useRef<HTMLDivElement>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
   const [authView, setAuthView] = useState<"login" | "forgot">("login");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const type = params.get("type");
+    
+    let hasProcessedRecovery = false;
+  
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (event: string, session: any | null) => {
+       
+        if (code && type === "recovery" && event === "INITIAL_SESSION" && !hasProcessedRecovery) {
+          hasProcessedRecovery = true;
+          console.log("Password recovery session established! Opening reset modal...");
+          setShowResetPassword(true);
+          
+          window.history.replaceState({}, "", window.location.pathname);
+        }
+        
+        if (event === "PASSWORD_RECOVERY") {
+          console.log("PASSWORD_RECOVERY event detected!");
+          setShowResetPassword(true);
+        }
+      }
+    );
+  
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
 
-  const isAuthenticated = false;
+  const handleContinueToLogin = () => {
+    setShowResetPassword(false);
+    setShowSuccess(false);
+    setLoginModalOpen(true);
+  };
+
+  const handlePasswordUpdated = () => {
+    setShowSuccess(true);
+  };
 
   useEffect(() => {
     if (!loginModalOpen) setAuthView("login");
@@ -308,6 +350,22 @@ function NavBar() {
                 setAuthView("login");
               }}
             />
+          </Modal>
+          <Modal
+            className="!w-[90%] md:!max-w-[50vw] no-scrollbar"
+            trigger={""}
+            open={showResetPassword}
+            onOpenChange={setShowResetPassword}
+          >
+            <ResetPassword onPasswordUpdated={handlePasswordUpdated} />
+          </Modal>
+          <Modal
+            className="!w-[90%] md:!max-w-[50vw] no-scrollbar"
+            trigger={""}
+            open={showSuccess}
+            onOpenChange={setShowSuccess}
+          >
+            <PasswordSuccess onContinue={handleContinueToLogin} />
           </Modal>
         </div>
 

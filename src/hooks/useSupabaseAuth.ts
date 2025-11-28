@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { SupabaseClient, Session } from "@supabase/supabase-js";
 
@@ -18,6 +18,21 @@ export function useSupabaseAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const fetchUserProfile = useCallback(async (userId: string) => {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", userId)
+      .single<UserProfile>();
+
+    if (error) {
+      console.error("Error fetching user profile:", error);
+      setUser(null);
+    } else {
+      setUser(data);
+    }
+  }, [supabase]);
 
   useEffect(() => {
     const getInitialSession = async () => {
@@ -47,25 +62,10 @@ export function useSupabaseAuth() {
     return () => {
       listener.subscription.unsubscribe();
     };
-  }, [supabase]);
-
-  const fetchUserProfile = async (userId: string) => {
-    const { data, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("id", userId)
-      .single<UserProfile>();
-
-    if (error) {
-      console.error("Error fetching user profile:", error);
-      setUser(null);
-    } else {
-      setUser(data);
-    }
-  };
+  }, [supabase, fetchUserProfile]);
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: "global" });
     setSession(null);
     setUser(null);
   };

@@ -63,7 +63,7 @@ function ClientWork() {
 
   return (
     <section className="my-[100px] px-4 md:px-15">
-      <p className="md:text-[60px] text-[28px] font-light text-center leading-[40px]">
+      <p className="md:text-[45px] text-[25px] font-semibold mb-2 md:font-normal text-center leading-[20px] md:leading-[40px]">
        Clients/ Collaborations
       </p>
       <p className="md:text-lg text-sm font-satoshi font-normal text-center text-[#4E5157] leading-[20px] md:leading-[40px]">

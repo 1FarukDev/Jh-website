@@ -51,11 +51,9 @@ export default function Studio() {
   if (isLoading) {
     return (
       <section className="my-16 mx-auto md:px-15 px-4">
-        <div className="animate-pulse">
-          <div className="h-10 w-2/3 mx-auto bg-gray-200 rounded-md mb-4" />
-          <div className="h-5 w-1/2 mx-auto bg-gray-200 rounded-md mb-8" />
+        <div className="animate-pulse flex flex-col gap-6">
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/2 space-y-4">
+            <div className="md:w-1/2 flex flex-col gap-4">
               <div className="h-6 bg-gray-200 rounded w-3/4" />
               <div className="h-4 bg-gray-200 rounded w-full" />
               <div className="h-4 bg-gray-200 rounded w-5/6" />
