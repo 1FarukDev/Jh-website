@@ -21,6 +21,8 @@ import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
 import ResetPassword from "./auth/reset-password";
 import PasswordSuccess from "./auth/password-success";
+import CountryDropdown from "./country-dropdown";
+import { useCart } from "@/context/cart-context";
 
 function NavBar() {
   const pathname = usePathname();
@@ -31,6 +33,7 @@ function NavBar() {
   const { user, logout } = useSupabaseAuth();
   const { isOpen, toggleDropdown, setExtraRefs, closeDropdown } =
     useNavDropdown();
+  const { getCartCount } = useCart();
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState<boolean>(false);
@@ -191,6 +194,8 @@ function NavBar() {
             } md:flex`}
             style={{ display: "flex" }}
           >
+            <CountryDropdown textColor={getTextColorClass()} isOpen={isOpen} />
+
             <div
               className={`flex items-center gap-1 cursor-pointer${
                 isOpen ? " hidden md:flex" : ""
@@ -210,27 +215,34 @@ function NavBar() {
 
             <Link
               href="/cart"
-              className={`flex items-center gap-1 cursor-pointer${
+              className={`flex items-center gap-1 cursor-pointer relative${
                 isOpen ? " hidden md:flex" : ""
               }`}
             >
-              {isOpen ? (
-                <Image
-                  src={cartwhite}
-                  alt="Cart"
-                  className="w-[24px] h-[24px]"
-                />
-              ) : (
-                <Image
-                  src={cart}
-                  alt="Cart"
-                  className={`w-[24px] h-[24px] ${getCartIconClass()}`}
-                />
-              )}
+              <div className="relative">
+                {isOpen ? (
+                  <Image
+                    src={cartwhite}
+                    alt="Cart"
+                    className="w-[24px] h-[24px]"
+                  />
+                ) : (
+                  <Image
+                    src={cart}
+                    alt="Cart"
+                    className={`w-[24px] h-[24px] ${getCartIconClass()}`}
+                  />
+                )}
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {getCartCount()}
+                  </span>
+                )}
+              </div>
               <p
                 className={`font-normal hidden md:block text-[14px] ${getTextColorClass()}`}
               >
-                Carts
+                Cart
               </p>
             </Link>
 

@@ -4,29 +4,60 @@ import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useCurrency } from "@/context/currency-context";
+import { useCart } from "@/context/cart-context";
 
 type PrintCardProps = {
+  productId?: number;
   image: StaticImageData | string;
   hoverImage?: StaticImageData | string;
+  images?: string[];
   label: string;
   title: string;
   price: string | number;
+  category?: string;
   onAddToCart?: () => void;
   onViewDetails?: string;
   loading?: boolean;
 };
 
 function PrintCard({
+  productId,
   image,
   hoverImage,
+  images,
   label,
   title,
   price,
+  category,
   onAddToCart,
   onViewDetails,
   loading = false,
 }: PrintCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { formatPrice } = useCurrency();
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (onAddToCart) {
+      onAddToCart();
+    } else if (productId) {
+      addToCart({
+        productId,
+        name: title,
+        title,
+        price: typeof price === "number" ? price : Number(price) || 0,
+        image: typeof image === "string" ? image : "",
+        images: images || [],
+        category: category || label,
+        exclusivity: "Non-Exclusive Print",
+        size: 'Standard Size',
+      });
+    }
+  };
 
   if (loading) {
     return (
@@ -74,8 +105,8 @@ function PrintCard({
               {title}
             </h3>
             <p className="font-satoshi text-sm sm:text-base md:text-lg font-medium text-[#2A1407]">
-              {typeof price === "number"
-                ? `₦${price.toLocaleString()}`
+              {typeof price === "number" || !isNaN(Number(price))
+                ? formatPrice(Number(price))
                 : price}
             </p>
           </div>
@@ -88,7 +119,7 @@ function PrintCard({
               py-2 sm:py-2.5 
               text-xs sm:text-sm md:text-base
               flex-1 transition-colors duration-200"
-            onClick={onAddToCart}
+            onClick={handleAddToCart}
           >
             <span className="sm:hidden">Add</span>
             <span className="hidden sm:inline">Add to Cart</span>

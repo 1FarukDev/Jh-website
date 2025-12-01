@@ -4,7 +4,8 @@ import { FormInput } from '@/components/input'
 import { OrderSummaryCard } from '@/components/order-summary-card'
 import React from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
-import PrintImage from '@public/assets/png/print.png'
+import { useCart } from '@/context/cart-context'
+import { useCurrency } from '@/context/currency-context'
 
 type FormData = {
   first_name: string
@@ -25,6 +26,9 @@ function CardDetails ({
   handleNext: () => void
   handlePrevious: () => void
 }) {
+  const { cart, getCartTotal } = useCart()
+  const { formatPrice } = useCurrency()
+  
   const methods = useForm<FormData>({
     defaultValues: {
       first_name: '',
@@ -37,35 +41,17 @@ function CardDetails ({
       home_address: ''
     }
   })
-  const orderData = [
-    {
-      title: 'Simpler Times',
-      price: 'NGN 150.000',
-      exclusivity: 'EXCLUSIVE PRINT',
-      color: 'Green',
-      colorCode: '#8A8635',
-      quantity: 1,
-      size: `Scaled to 10.4" x 12.5`,
-      image: PrintImage
-    },
-    {
-      title: 'These Days',
-      price: 'NGN 150.000',
-      exclusivity: 'EXCLUSIVE PRINT',
-      color: 'Green',
-      colorCode: '#8A8635',
-      quantity: 3,
-      size: `Scaled to 10.4" x 12.5`,
-      image: PrintImage
-    }
-  ]
+
+  const subtotal = getCartTotal()
+  const shipping = 0 
+  const total = subtotal + shipping
 
   const onSubmit = (data: FormData) => {
     console.log(data)
   }
 
   return (
-    <section className='flex md:flex-row flex-col gap-4 items-center mt-10 md:mt-20'>
+    <section className='flex md:flex-row flex-col gap-4 items-start mt-10 md:mt-20'>
       <div className='md:w-[60%] md:border-r border-black md:pr-6'>
         <FormProvider {...methods}>
           <section className='md:p-6 pt-0 w-full'>
@@ -171,25 +157,35 @@ function CardDetails ({
           Order Summary
         </h2>
 
-        <div className='space-y-2'>
-          {orderData.map((order, idx) => (
-            <OrderSummaryCard key={idx} {...order} />
+        <div className='space-y-2 max-h-[400px] overflow-y-auto'>
+          {cart.map((item) => (
+            <OrderSummaryCard 
+              key={item.id}
+              title={item.title}
+              price={item.price}
+              exclusivity={item.exclusivity.toUpperCase()}
+              color={item.color || 'Default'}
+              colorCode={item.colorCode || '#8A8635'}
+              quantity={item.quantity}
+              size={item.size}
+              image={item.image}
+            />
           ))}
         </div>
         <div className='py-8 flex flex-col gap-3 font-satoshi'>
           <div className='flex justify-between text-[20px] font-medium text-[#1C1B0B]'>
             <p className='font-light'>Subtotal</p>
-            <p>NGN 150.000</p>
+            <p>{formatPrice(subtotal)}</p>
           </div>
           <div className='flex justify-between text-[20px] font-medium text-[#1C1B0B]'>
             <p className='font-light'>Shipping</p>
-            <p>NGN 150.000</p>
+            <p>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</p>
           </div>
         </div>
         <div className='bg-gray-400 w-full h-[1px]' />
         <div className='flex justify-between pt-4 pb-4 text-[20px] font-medium text-[#1C1B0B]'>
           <p>Total</p>
-          <p>NGN 150.000</p>
+          <p>{formatPrice(total)}</p>
         </div>
       </section>
       <div className='md:hidden block gap-4 items-center w-full'>

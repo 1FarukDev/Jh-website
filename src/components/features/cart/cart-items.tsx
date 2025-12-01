@@ -28,51 +28,7 @@ function CartItems () {
     }
   }
 
-  const products = [
-    {
-      id: 1,
-      image: PrintImage,
-      title: 'Simpler Times',
-      exclusivity: 'Exclusive Print',
-      colorLabel: 'Green',
-      colorCode: '#22C55E',
-      size: 'Scaled to 10.4" x 12.5"',
-      price: 'NGN 90,000'
-    },
-    {
-      id: 2,
-      image: PrintImage,
-      title: 'Golden Hour',
-      exclusivity: 'Limited Edition',
-      colorLabel: 'Gold',
-      colorCode: '#FFD700',
-      size: 'Scaled to 8.0" x 10.0"',
-      price: 'NGN 70,000'
-    }
-  ]
 
-  const orderData = [
-    {
-      title: 'Simpler Times',
-      price: 'NGN 150.000',
-      exclusivity: 'EXCLUSIVE PRINT',
-      color: 'Green',
-      colorCode: '#8A8635',
-      quantity: 1,
-      size: `Scaled to 10.4" x 12.5`,
-      image: PrintImage
-    },
-    {
-      title: 'These Days',
-      price: 'NGN 150.000',
-      exclusivity: 'EXCLUSIVE PRINT',
-      color: 'Green',
-      colorCode: '#8A8635',
-      quantity: 3,
-      size: `Scaled to 10.4" x 12.5`,
-      image: PrintImage
-    }
-  ]
 
   const renderContent = () => {
     switch (currentStep) {
@@ -98,7 +54,7 @@ function CartItems () {
         Review your selected prints and prepare to check out.
       </p>
 
-      <div className='flex items-center justify-between w-full relative mt-10 font-satoshi'>
+      <div className='flex items-start justify-between w-full relative mt-10 font-satoshi'>
         {steps.map((step, index) => {
           const isActive = currentStep === step.number
           const isCompleted = step.number < currentStep

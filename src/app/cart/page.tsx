@@ -7,7 +7,6 @@ function Page() {
   return (
     <section>
         <div className='py-26 '>
-            {/* <EmptyCart /> */}
             <CartItems />
         </div>
     </section>

@@ -1,16 +1,20 @@
+'use client'
+
 import React from 'react'
 import Image, { StaticImageData } from 'next/image'
 import { MoveLeft, MoveRight } from 'lucide-react'
+import { useCurrency } from '@/context/currency-context'
+import { useCart } from '@/context/cart-context'
 
 interface OrderSummaryCardProps {
   title: string
-  price: string
+  price: string | number
   exclusivity: string
   color: string
   colorCode: string
   quantity: number
   size: string
-  image: StaticImageData
+  image: StaticImageData | string
 }
 
 function OrderSummaryCard ({
@@ -23,6 +27,7 @@ function OrderSummaryCard ({
   size,
   image
 }: OrderSummaryCardProps) {
+  const { formatPrice } = useCurrency()
   return (
     <div className='flex flex-row items-start gap-3 md:gap-5 py-4 md:py-6 border-b border-[#B9B8A8]'>
       <Image
@@ -47,7 +52,9 @@ function OrderSummaryCard ({
               Price
             </p>
             <p className='font-bold text-base md:text-[18px] text-[#1C1B0B]'>
-              {price}
+              {typeof price === 'number' || !isNaN(Number(price))
+                ? formatPrice(Number(price))
+                : price}
             </p>
           </div>
         </div>
@@ -77,42 +84,58 @@ function OrderSummaryCard ({
   )
 }
 
-interface Order {
-  title: string
-  price: string
-  exclusivity: string
-  color: string
-  colorCode: string
-  quantity: number
-  size: string
-  image: StaticImageData
-}
-
 interface OrderSummaryListProps {
-  orders: Order[]
   onClick: () => void
 }
 
-function OrderSummaryList ({ orders, onClick }: OrderSummaryListProps) {
+function OrderSummaryList ({ onClick }: OrderSummaryListProps) {
+  const { formatPrice } = useCurrency()
+  const { cart, getCartTotal, getCartCount } = useCart()
+  
+  const total = getCartTotal()
+  const itemCount = getCartCount()
+  
   return (
     <section className='bg-[#E8E7D7] md:p-8 p-4 pt-8 mx-auto'>
       <h2 className='font-bold text-[#1C1B0B] text-[24px] text-center pb-6 uppercase'>
-        Order Summary
+        Cart Summary
       </h2>
 
-      <div className='space-y-2'>
-        {orders.map((order, idx) => (
-          <OrderSummaryCard key={idx} {...order} />
+      <div className='mb-4'>
+        <p className='font-satoshi text-sm text-[#686D75]'>
+          {itemCount} {itemCount === 1 ? 'item' : 'items'} in cart
+        </p>
+      </div>
+
+      <div className='space-y-2 max-h-[400px] overflow-y-auto'>
+        {cart.map((item) => (
+          <OrderSummaryCard 
+            key={item.id}
+            title={item.title}
+            price={item.price}
+            exclusivity={item.exclusivity.toUpperCase()}
+            color={item.color || 'Default'}
+            colorCode={item.colorCode || '#8A8635'}
+            quantity={item.quantity}
+            size={item.size}
+            image={item.image}
+          />
         ))}
       </div>
 
-      <div className='flex justify-between pt-8 pb-4 text-[20px] font-medium text-[#1C1B0B]'>
-        <p>Total</p>
-        <p>NGN 150.000</p>
+      <div className='border-t border-[#1C1B0B] mt-6 pt-6'>
+        <div className='flex justify-between text-[16px] font-satoshi text-[#686D75] mb-2'>
+          <p>Subtotal</p>
+          <p>{formatPrice(total)}</p>
+        </div>
+        <div className='flex justify-between text-[20px] md:text-[24px] font-bold text-[#1C1B0B]'>
+          <p>Total</p>
+          <p>{formatPrice(total)}</p>
+        </div>
       </div>
 
       <button
-        className='w-full bg-[#1C1B0B] text-white py-3 text-center text-[16px] font-medium flex justify-center items-center gap-2'
+        className='w-full bg-[#1C1B0B] text-white py-3 mt-6 text-center text-[16px] font-medium flex justify-center items-center gap-2 hover:bg-[#2C2B1B] transition-colors'
         onClick={onClick}
       >
         Proceed to checkout <MoveRight strokeWidth={1} />
