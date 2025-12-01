@@ -11,6 +11,7 @@ import Providers from "./providers";
 import TopLoader from "@/components/TopLoader";
 import { Suspense } from "react";
 import { CurrencyProvider } from "@/context/currency-context";
+import { CartProvider } from "@/context/cart-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,16 +64,18 @@ export default function RootLayout({
       <body className={`${satoshi.variable}  antialiased`}>
         <Providers>
           <CurrencyProvider>
-            <NavDropdownProviderWrapper>
-              <AOS_INIT />
-              <Toaster position="bottom-right" richColors closeButton />
-              <NavBar />
-              <Suspense fallback={null}>
-                <TopLoader />
-              </Suspense>
-              {children}
-              <Footer />
-            </NavDropdownProviderWrapper>
+            <CartProvider>
+              <NavDropdownProviderWrapper>
+                <AOS_INIT />
+                <Toaster position="bottom-right" richColors closeButton />
+                <NavBar />
+                <Suspense fallback={null}>
+                  <TopLoader />
+                </Suspense>
+                {children}
+                <Footer />
+              </NavDropdownProviderWrapper>
+            </CartProvider>
           </CurrencyProvider>
         </Providers>
       </body>

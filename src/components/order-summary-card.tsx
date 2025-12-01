@@ -1,16 +1,20 @@
+'use client'
+
 import React from 'react'
 import Image, { StaticImageData } from 'next/image'
 import { MoveLeft, MoveRight } from 'lucide-react'
+import { useCurrency } from '@/context/currency-context'
+import { useCart } from '@/context/cart-context'
 
 interface OrderSummaryCardProps {
   title: string
-  price: string
+  price: string | number
   exclusivity: string
   color: string
   colorCode: string
   quantity: number
   size: string
-  image: StaticImageData
+  image: StaticImageData | string
 }
 
 function OrderSummaryCard ({
@@ -23,6 +27,7 @@ function OrderSummaryCard ({
   size,
   image
 }: OrderSummaryCardProps) {
+  const { formatPrice } = useCurrency()
   return (
     <div className='flex flex-row items-start gap-3 md:gap-5 py-4 md:py-6 border-b border-[#B9B8A8]'>
       <Image
@@ -47,7 +52,9 @@ function OrderSummaryCard ({
               Price
             </p>
             <p className='font-bold text-base md:text-[18px] text-[#1C1B0B]'>
-              {price}
+              {typeof price === 'number' || !isNaN(Number(price))
+                ? formatPrice(Number(price))
+                : price}
             </p>
           </div>
         </div>
@@ -79,13 +86,13 @@ function OrderSummaryCard ({
 
 interface Order {
   title: string
-  price: string
+  price: string | number
   exclusivity: string
   color: string
   colorCode: string
   quantity: number
   size: string
-  image: StaticImageData
+  image: StaticImageData | string
 }
 
 interface OrderSummaryListProps {
@@ -94,6 +101,10 @@ interface OrderSummaryListProps {
 }
 
 function OrderSummaryList ({ orders, onClick }: OrderSummaryListProps) {
+  const { formatPrice } = useCurrency()
+  const { getCartTotal } = useCart()
+  
+  const total = getCartTotal()
   return (
     <section className='bg-[#E8E7D7] md:p-8 p-4 pt-8 mx-auto'>
       <h2 className='font-bold text-[#1C1B0B] text-[24px] text-center pb-6 uppercase'>
@@ -108,7 +119,7 @@ function OrderSummaryList ({ orders, onClick }: OrderSummaryListProps) {
 
       <div className='flex justify-between pt-8 pb-4 text-[20px] font-medium text-[#1C1B0B]'>
         <p>Total</p>
-        <p>NGN 150.000</p>
+        <p>{formatPrice(total)}</p>
       </div>
 
       <button

@@ -35,12 +35,14 @@ function FeaturedPrints() {
         {productData.slice(0, 6).map((item, index) => (
           <div key={item.id}>
             <PrintCard
+              productId={item.id}
               image={item.images[0]}
+              images={item.images}
               label={item.category}
               title={item.name}
               price={item.price}
+              category={item.category}
               hoverImage={item.images[1]}
-              onAddToCart={() => console.log(`Added ${item.title} to cart`)}
               onViewDetails={`/shop/${item.id}`}
               loading={isLoading}
             />

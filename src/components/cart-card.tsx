@@ -1,21 +1,27 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import CloseIcon from '@/app/assets/svg/close.svg'
+import { useCart } from '@/context/cart-context'
+import { useCurrency } from '@/context/currency-context'
 
 interface CartCardProps {
+  id?: number
   image: any
   title: string
   exclusivity: string
   colorLabel: string
   colorCode: string
   size: string
-  price: string
+  price: string | number
+  quantity?: number
   onRemove?: () => void
+  onUpdateQuantity?: (quantity: number) => void
 }
 
 const CartCard: React.FC<CartCardProps> = ({
+  id,
   image,
   title,
   exclusivity,
@@ -23,12 +29,30 @@ const CartCard: React.FC<CartCardProps> = ({
   colorCode,
   size,
   price,
-  onRemove
+  quantity = 1,
+  onRemove,
+  onUpdateQuantity
 }) => {
-  const [quantity, setQuantity] = useState(1)
+  const { updateQuantity } = useCart()
+  const { formatPrice } = useCurrency()
 
-  const handleIncrease = () => setQuantity(prev => prev + 1)
-  const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
+  const handleIncrease = () => {
+    const newQuantity = quantity + 1
+    if (id && !onUpdateQuantity) {
+      updateQuantity(id, newQuantity)
+    } else if (onUpdateQuantity) {
+      onUpdateQuantity(newQuantity)
+    }
+  }
+
+  const handleDecrease = () => {
+    const newQuantity = Math.max(1, quantity - 1)
+    if (id && !onUpdateQuantity) {
+      updateQuantity(id, newQuantity)
+    } else if (onUpdateQuantity) {
+      onUpdateQuantity(newQuantity)
+    }
+  }
 
   return (
     <section className='relative items-start border-b pb-4 md:pb-8 w-full bg-white'>
@@ -119,7 +143,11 @@ const CartCard: React.FC<CartCardProps> = ({
             <p className='font-satoshi mt-2 md:mt-4 text-xs md:text-base'>
               Price
             </p>
-            <p className='font-bold text-lg md:text-[30px]'>{price}</p>
+            <p className='font-bold text-lg md:text-[30px]'>
+              {typeof price === 'number' || !isNaN(Number(price))
+                ? formatPrice(Number(price))
+                : price}
+            </p>
           </div>
         </div>
       </div>

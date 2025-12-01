@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductById } from "@/services/api/product";
 import Image from "next/image";
 import { useCurrency } from "@/context/currency-context";
+import { useCart } from "@/context/cart-context";
 
 interface Color {
   text: string;
@@ -21,6 +22,7 @@ function Page() {
   const router = useRouter();
   const params = useParams();
   const { formatPrice } = useCurrency();
+  const { addToCart: addToCartContext } = useCart();
   const id = params?.id
     ? Array.isArray(params.id)
       ? params.id[0]
@@ -40,9 +42,20 @@ function Page() {
     { text: "Dark Blue", value: "Dark Blue", code: "#141B34" },
   ];
 
-  const addToCart = () => {
-    // Implement add to cart functionality here
-    alert("Added to cart!");
+  const handleAddToCart = () => {
+    if (productData) {
+      addToCartContext({
+        productId: productData.id,
+        name: productData.name,
+        title: productData.name,
+        price: Number(productData.price) || 0,
+        image: productData.images[0] || "",
+        images: productData.images,
+        category: productData.category,
+        exclusivity: "Non-Exclusive Print",
+        size: 'Scaled to 10.4" x 12.5"',
+      });
+    }
   };
 
   if (isProductLoading) {
@@ -148,13 +161,16 @@ function Page() {
             <div className="font-satoshi font-light w-full md:flex-row flex-col flex gap-3 mt-6">
               <Button
                 className="bg-black text-white rounded-none shadow-none md:w-1/2 h-12 hover:bg-opacity-90 transition"
-                onClick={() => alert("Proceeding to buy now")}
+                onClick={() => {
+                  handleAddToCart();
+                  router.push('/cart');
+                }}
               >
                 Buy Now
               </Button>
               <Button
                 className="bg-white text-black border border-black rounded-none shadow-none md:w-1/2 h-12 hover:bg-gray-100 transition"
-                onClick={() => addToCart()}
+                onClick={handleAddToCart}
               >
                 Add to Cart
               </Button>

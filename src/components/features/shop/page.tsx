@@ -88,13 +88,13 @@ function ShopPage() {
                       }`}
                     >
                       <PrintCard
+                        productId={item.id}
                         image={item?.image || item.thumbnail || "/fallback.png"}
-                        label={item?.label || "Print"}
+                        images={item?.images}
+                        label={item?.category || item?.label || "Print"}
                         title={item?.title || item.name}
                         price={item?.price}
-                        onAddToCart={() =>
-                          console.log(`Added ${item.title} to cart`)
-                        }
+                        category={item?.category}
                         onViewDetails={`/shop/${item.id}`}
                         hoverImage={item?.hoverImage}
                       />
@@ -127,15 +127,15 @@ function ShopPage() {
                       }`}
                     >
                       <PrintCard
+                        productId={item.id}
                         image={
                           item?.images[0] || item?.thumbnail || "/fallback.png"
                         }
-                        label={item?.label || "Print"}
+                        images={item?.images}
+                        label={item?.category || item?.label || "Print"}
                         title={item?.title || item?.name}
                         price={item?.price}
-                        onAddToCart={() =>
-                          console.log(`Added ${item?.title} to cart`)
-                        }
+                        category={item?.category}
                         onViewDetails={`/shop/${item.id}`}
                         loading={isLoading}
                         hoverImage={item?.images[1]}

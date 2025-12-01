@@ -6,13 +6,17 @@ import { Button } from "./ui/button";
 import cart from "@/app/assets/svg/shopping-cart-white.svg";
 import Link from "next/link";
 import { useCurrency } from "@/context/currency-context";
+import { useCart } from "@/context/cart-context";
 
 type PrintCardProps = {
+  productId?: number;
   image: StaticImageData | string;
   hoverImage?: StaticImageData | string;
+  images?: string[];
   label: string;
   title: string;
   price: string | number;
+  category?: string;
   onAddToCart?: () => void;
   onViewDetails?: string;
   loading?: boolean;
