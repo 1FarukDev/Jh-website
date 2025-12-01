@@ -36,19 +36,7 @@ function CartList ({ handleNext }: { handleNext: () => void }) {
       </div>
 
       <div className='w-full md:w-[40%] mt-6 md:mt-0'>
-        <OrderSummaryList 
-          orders={cart.map(item => ({
-            title: item.title,
-            price: item.price,
-            exclusivity: item.exclusivity.toUpperCase(),
-            color: item.color || 'Default',
-            colorCode: item.colorCode || '#8A8635',
-            quantity: item.quantity,
-            size: item.size,
-            image: item.image
-          }))} 
-          onClick={handleNext} 
-        />
+        <OrderSummaryList onClick={handleNext} />
       </div>
     </div>
   )
