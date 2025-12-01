@@ -9,6 +9,7 @@ import PrintMockup from "@/components/features/shop/print-mockup";
 import { useQuery } from "@tanstack/react-query";
 import { getProductById } from "@/services/api/product";
 import Image from "next/image";
+import { useCurrency } from "@/context/currency-context";
 
 interface Color {
   text: string;
@@ -19,6 +20,7 @@ interface Color {
 function Page() {
   const router = useRouter();
   const params = useParams();
+  const { formatPrice } = useCurrency();
   const id = params?.id
     ? Array.isArray(params.id)
       ? params.id[0]
@@ -139,7 +141,9 @@ function Page() {
 
             <div>
               <p className="font-satoshi text-[#4E5157]">Price</p>
-              <p className="text-[40px] font-bold">NGN {productData?.price}</p>
+              <p className="text-[40px] font-bold">
+                {formatPrice(Number(productData?.price) || 0)}
+              </p>
             </div>
             <div className="font-satoshi font-light w-full md:flex-row flex-col flex gap-3 mt-6">
               <Button

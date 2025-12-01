@@ -21,6 +21,7 @@ import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
 import ResetPassword from "./auth/reset-password";
 import PasswordSuccess from "./auth/password-success";
+import CountryDropdown from "./country-dropdown";
 
 function NavBar() {
   const pathname = usePathname();
@@ -191,6 +192,8 @@ function NavBar() {
             } md:flex`}
             style={{ display: "flex" }}
           >
+            <CountryDropdown textColor={getTextColorClass()} isOpen={isOpen} />
+
             <div
               className={`flex items-center gap-1 cursor-pointer${
                 isOpen ? " hidden md:flex" : ""

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useCurrency } from "@/context/currency-context";
 
 type PrintCardProps = {
   image: StaticImageData | string;
@@ -27,6 +28,7 @@ function PrintCard({
   loading = false,
 }: PrintCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { formatPrice } = useCurrency();
 
   if (loading) {
     return (
@@ -74,8 +76,8 @@ function PrintCard({
               {title}
             </h3>
             <p className="font-satoshi text-sm sm:text-base md:text-lg font-medium text-[#2A1407]">
-              {typeof price === "number"
-                ? `₦${price.toLocaleString()}`
+              {typeof price === "number" || !isNaN(Number(price))
+                ? formatPrice(Number(price))
                 : price}
             </p>
           </div>
