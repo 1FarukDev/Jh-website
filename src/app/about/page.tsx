@@ -45,7 +45,7 @@ function AboutPage() {
 
       <Services />
       <FAQ />
-      <div
+      {/* <div
         className="flex md:flex-row flex-col-reverse  gap-8 mb-32 items-stretch px-8"
         data-aos="fade-up"
       >
@@ -97,7 +97,7 @@ function AboutPage() {
             className="w-full h-full object-cover"
           />
         </div>
-      </div>
+      </div> */}
 
       <div data-aos="fade-up border border-red-500">
         <ClientMessage />
