@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 // import HeroImage from "@/app/assets/png/hero-bg.jpg";
-import HeroImage from "@public/assets/png/background.jpg";
+import HeroImage from "@/app/assets/png/home page.jpg";
 import MobileHero from "@/app/assets/png/hero-bg-mobile.jpg";
 import { TextAnimate } from "@/components/text-animate";
 import { ArrowRight } from "lucide-react";
@@ -15,15 +15,17 @@ function Hero() {
 
   return (
     <div className="w-full relative">
-      <Image
-        src={HeroImage}
-        alt="Hero"
-        width={1920}
-        height={700}
-        className=" w-full h-[600px] md:h-[750px] object-cover mx-auto"
-        priority
-      />
-
+      <div>
+        <Image
+          src={HeroImage}
+          alt="Hero"
+          width={1920}
+          height={700}
+          className=" w-full h-[600px] md:h-[750px] object-cover mx-auto"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
       {/* <div className="block md:hidden relative h-[85vh] w-full">
         <Image
           src={MobileHero}
@@ -43,7 +45,9 @@ function Hero() {
           Surface Pattern Design Studio – Textile Print Designs with Meaning
         </p>
 
-        <p className="md:text-lg text-sm font-satoshi">Designed for fashion, interiors, and lifestyle..</p>
+        <p className="md:text-lg text-sm font-satoshi">
+          Designed for fashion, interiors, and lifestyle..
+        </p>
         <Button
           onClick={() => router.push("/shop")}
           className="relative overflow-hidden border mt-3 md:mt-8 px-6 sm:px-8 font-satoshi text-xs sm:text-sm 
