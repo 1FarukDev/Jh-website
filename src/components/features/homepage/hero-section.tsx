@@ -26,15 +26,7 @@ function Hero() {
         />
         <div className="absolute inset-0 bg-black/50" />
       </div>
-      {/* <div className="block md:hidden relative h-[85vh] w-full">
-        <Image
-          src={MobileHero}
-          alt="Hero Mobile"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div> */}
+      
 
       <div className="absolute max-w-6xl  top-[50%] md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4">
         <p
