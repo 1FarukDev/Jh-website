@@ -34,7 +34,7 @@ function BlogPage() {
           data-aos="fade-up"
         >
           <h1 className="text-[30px] text-center md:text-[80px] text-[#230D06] tracking-tight">
-            In the Studio & In the Press
+            In the Studio
           </h1>
           <p className="font-satoshi text-xs text-center md:text-base text-[#4E5157] leading-[20px]">
             Stories from behind the loom, creative thoughts, process journals,

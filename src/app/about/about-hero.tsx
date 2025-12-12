@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-import ClientBg from "@/app/assets/png/clientbg.png";
+import AboutImage from "@/app/assets/png/about jh textiles.jpg";
 import { ArrowRight } from "lucide-react";
 
 function AboutHero() {
@@ -14,9 +14,9 @@ function AboutHero() {
   };
 
   return (
-    <div className="w-full relative h-[80vh] overflow-hidden">
+    <div className="w-full relative h-[90vh] overflow-hidden">
       <Image
-        src={ClientBg}
+        src={AboutImage}
         alt="About Hero"
         width={1920}
         height={200}
