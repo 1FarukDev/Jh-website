@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-// import HeroImage from "@/app/assets/png/hero-bg.jpg";
 import HeroImage from "@/app/assets/png/home page.jpg";
 import MobileHero from "@/app/assets/png/hero-bg-mobile.jpg";
 import { TextAnimate } from "@/components/text-animate";

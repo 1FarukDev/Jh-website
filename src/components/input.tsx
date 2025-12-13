@@ -53,7 +53,7 @@ export const FormInput: React.FC<FormInputProps> = ({
             hasIconLeft && 'pl-10',
             hasIconRight && 'pr-10',
             error &&
-              'border-destructive ring-destructive/20 placeholder:font-satoshi placeholder:text-normal',
+              'border-destructive ring-destructive/20 placeholder:font-satoshi font-satoshi text-xs placeholder:text-normal',
             className
           )}
           aria-invalid={!!error}
@@ -65,7 +65,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           </div>
         )}
       </div>
-      {error && <p className='text-sm text-destructive'>{error}</p>}
+      {error && <p className='text-xs font-satoshi text-destructive'>{error}</p>}
     </div>
   )
 }

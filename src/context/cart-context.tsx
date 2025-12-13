@@ -1,13 +1,12 @@
 'use client'
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode
-} from 'react'
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { toast } from 'sonner'
+import debounce from 'lodash.debounce'
+import { syncLocalCart } from '@/services/api/cart'
+import { createClient } from '@/lib/supabase/client'
+
+const supabase = createClient()
 
 export interface CartItem {
   id: number
@@ -40,88 +39,88 @@ const CartContext = createContext<CartContextProps | undefined>(undefined)
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([])
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const [hasLoadedCart, setHasLoadedCart] = useState(false)
+  const [authUser, setAuthUser] = useState<any>(null)
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    if (isClient && typeof window !== 'undefined') {
-      const savedCart = localStorage.getItem('cart')
-      if (savedCart) {
-        try {
-          setCart(JSON.parse(savedCart))
-        } catch (error) {
-          console.error('Error loading cart from localStorage:', error)
-        }
+    if (typeof window === 'undefined') return
+    const savedCart = localStorage.getItem('cart')
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart))
+      } catch (err) {
+        console.error('Failed to load cart', err)
       }
     }
-  }, [isClient])
+    setHasLoadedCart(true)
+  }, [])
 
-  // Save cart to localStorage when it changes
+  // Listen to auth changes - only set up once
   useEffect(() => {
-    if (isClient && typeof window !== 'undefined') {
-      localStorage.setItem('cart', JSON.stringify(cart))
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      const user = session?.user || null
+      setAuthUser(user)
+
+      // Only sync if user just logged in and cart has items
+      if (user && cart.length > 0) {
+        const payload = cart.map(item => ({
+          productId: item.productId,
+          quantity: item.quantity
+        }))
+        syncLocalCart(payload as any).catch(err => console.error('Cart sync failed', err))
+      }
+    })
+
+    return () => authListener.subscription.unsubscribe()
+  }, []) // Empty dependency array - set up listener once
+
+  // Debounced backend sync
+  const syncCartDebounced = debounce(async (cartToSync: CartItem[]) => {
+    if (!authUser || !cartToSync.length) return
+    try {
+      const payload = cartToSync.map(item => ({
+        productId: item.productId,
+        quantity: item.quantity
+      }))
+      await syncLocalCart(payload as any)
+    } catch (err) {
+      console.error('Failed to sync cart', err)
     }
-  }, [cart, isClient])
+  }, 2000)
+
+  // Save to localStorage and sync to backend
+  useEffect(() => {
+    if (!hasLoadedCart || typeof window === 'undefined') return
+    localStorage.setItem('cart', JSON.stringify(cart))
+    syncCartDebounced(cart)
+  }, [cart, hasLoadedCart, authUser, syncCartDebounced])
 
   const addToCart = (item: Omit<CartItem, 'id' | 'quantity'>) => {
-    // Check if item already exists before updating state
-    const existingItem = cart.find(
-      (cartItem) => cartItem.productId === item.productId
-    )
-
+    const existingItem = cart.find(ci => ci.productId === item.productId)
     if (existingItem) {
-      // Update quantity if item exists
-      setCart((prevCart) =>
-        prevCart.map((cartItem) =>
-          cartItem.productId === item.productId
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
-      )
-      toast.success('Updated quantity in cart!', {
-        description: `${item.name} quantity increased`
-      })
+      setCart(prev => prev.map(ci =>
+        ci.productId === item.productId
+          ? { ...ci, quantity: ci.quantity + 1 }
+          : ci
+      ))
+      toast.success('Updated quantity in cart!', { description: `${item.name} quantity increased` })
     } else {
-      // Add new item
-      const newItem: CartItem = {
-        ...item,
-        id: Date.now(), // Simple ID generation
-        quantity: 1
-      }
-      setCart((prevCart) => [...prevCart, newItem])
-      toast.success('Added to cart!', {
-        description: `${item.name} has been added to your cart`
-      })
+      const newItem: CartItem = { ...item, id: Date.now(), quantity: 1 }
+      setCart(prev => [...prev, newItem])
+      toast.success('Added to cart!', { description: `${item.name} has been added to your cart` })
     }
   }
 
   const removeFromCart = (itemId: number) => {
-    const item = cart.find((cartItem) => cartItem.id === itemId)
-    
-    setCart((prevCart) => prevCart.filter((cartItem) => cartItem.id !== itemId))
-    
-    if (item) {
-      toast.success('Removed from cart', {
-        description: `${item.name} has been removed`
-      })
-    }
+    const item = cart.find(ci => ci.id === itemId)
+    setCart(prev => prev.filter(ci => ci.id !== itemId))
+    if (item) toast.success('Removed from cart', { description: `${item.name} has been removed` })
   }
 
   const updateQuantity = (itemId: number, quantity: number) => {
-    if (quantity < 1) {
-      removeFromCart(itemId)
-      return
-    }
-
-    setCart((prevCart) =>
-      prevCart.map((cartItem) =>
-        cartItem.id === itemId ? { ...cartItem, quantity } : cartItem
-      )
-    )
+    if (quantity < 1) return removeFromCart(itemId)
+    setCart(prev => prev.map(ci => (ci.id === itemId ? { ...ci, quantity } : ci)))
   }
 
   const clearCart = () => {
@@ -131,31 +130,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  const getCartTotal = (): number => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0)
-  }
-
-  const getCartCount = (): number => {
-    return cart.reduce((count, item) => count + item.quantity, 0)
-  }
-
-  const isInCart = (productId: number): boolean => {
-    return cart.some((item) => item.productId === productId)
-  }
+  const getCartTotal = () => cart.reduce((total, item) => total + item.price * item.quantity, 0)
+  const getCartCount = () => cart.reduce((count, item) => count + item.quantity, 0)
+  const isInCart = (productId: number) => cart.some(item => item.productId === productId)
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-        getCartTotal,
-        getCartCount,
-        isInCart
-      }}
-    >
+    <CartContext.Provider value={{
+      cart,
+      addToCart,
+      removeFromCart,
+      updateQuantity,
+      clearCart,
+      getCartTotal,
+      getCartCount,
+      isInCart
+    }}>
       {children}
     </CartContext.Provider>
   )
@@ -163,9 +152,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
 export const useCart = () => {
   const context = useContext(CartContext)
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider')
-  }
+  if (!context) throw new Error('useCart must be used within a CartProvider')
   return context
 }
-
