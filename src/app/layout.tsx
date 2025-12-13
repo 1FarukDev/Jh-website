@@ -12,6 +12,7 @@ import TopLoader from "@/components/TopLoader";
 import { Suspense } from "react";
 import { CurrencyProvider } from "@/context/currency-context";
 import { CartProvider } from "@/context/cart-context";
+import { CheckoutProvider } from "@/context/checkout-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,16 +66,18 @@ export default function RootLayout({
         <Providers>
           <CurrencyProvider>
             <CartProvider>
-              <NavDropdownProviderWrapper>
-                <AOS_INIT />
-                <Toaster position="bottom-right" richColors closeButton />
-                <NavBar />
-                <Suspense fallback={null}>
-                  <TopLoader />
-                </Suspense>
-                {children}
-                <Footer />
-              </NavDropdownProviderWrapper>
+              <CheckoutProvider>
+                <NavDropdownProviderWrapper>
+                  <AOS_INIT />
+                  <Toaster position="bottom-right" richColors closeButton />
+                  <NavBar />
+                  <Suspense fallback={null}>
+                    <TopLoader />
+                  </Suspense>
+                  {children}
+                  <Footer />
+                </NavDropdownProviderWrapper>
+              </CheckoutProvider>
             </CartProvider>
           </CurrencyProvider>
         </Providers>
