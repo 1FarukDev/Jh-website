@@ -138,7 +138,7 @@ function Login({ onForgotPassword, onSuccess }: LoginProps) {
             </Button>
 
             <div className="w-full flex gap-3 items-center">
-              <div className="w-1/2 h-[1px] bg-gray-200"></div>
+              <div className="w-1/2 h-px bg-gray-200"></div>
               <p className="font-satoshi text-xs font-normal">Or</p>
               <div className="w-1/2 h-[.5px] bg-gray-200"></div>
             </div>
