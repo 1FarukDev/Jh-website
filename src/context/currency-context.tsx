@@ -93,23 +93,18 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   }
 
   
-  const formatPrice = (price: number): string => {
-    console.log('formatPrice called:', { price, selectedCountry, currency: currency.code })
-    
+  const formatPrice = (price: number): string => {  
     if (!price || isNaN(price)) {
-      console.log('Invalid price, returning 0')
       return `${currency.symbol}0`
     }
     
     const convertedPrice = convertPrice(price)
-    console.log('Converted price:', convertedPrice)
     
     const formattedNumber = convertedPrice.toLocaleString('en-US', {
       minimumFractionDigits: selectedCountry === 'NG' ? 0 : 2,
       maximumFractionDigits: selectedCountry === 'NG' ? 0 : 2
     })
     const result = `${currency.symbol}${formattedNumber}`
-    console.log('Formatted result:', result)
     return result
   }
 

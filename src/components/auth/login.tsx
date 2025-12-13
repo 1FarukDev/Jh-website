@@ -13,6 +13,7 @@ import { DialogClose } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
+import { syncLocalCart } from "@/services/api/cart";
 
 type FormData = {
   email: string;
@@ -25,7 +26,7 @@ interface LoginProps {
   onSuccess?: () => void;
 }
 
-function Login({ onForgotPassword,onSuccess }: LoginProps) {
+function Login({ onForgotPassword, onSuccess }: LoginProps) {
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
   const methods = useForm<FormData>({
@@ -48,6 +49,14 @@ function Login({ onForgotPassword,onSuccess }: LoginProps) {
       if (error) {
         toast.error(`Login failed: ${error.message}`);
       } else if (authData.user) {
+        const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        try {
+          await syncLocalCart(localCart);
+        } catch (cartError) {
+          console.error("Cart sync failed:", cartError);
+          toast.error("Failed to sync cart. Your cart may be incomplete.");
+        }
+
         toast.success("Logged in successfully!");
         if (onSuccess) onSuccess();
       }
