@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import PrintImage from '@public/assets/png/print.png'
-import { Button } from '@/components/ui/button'
 import CartList from './cart-list'
 import BuyersInfo from './buyers-info'
 import CardDetails from './card-details'

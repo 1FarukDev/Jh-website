@@ -8,7 +8,6 @@ import EmptyCart from './empty-cart'
 
 function CartList ({ handleNext }: { handleNext: () => void }) {
   const { cart, removeFromCart } = useCart()
-  console.log("cart", cart)
 
   if (cart.length === 0) {
     return <EmptyCart />
