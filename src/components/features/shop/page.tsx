@@ -5,7 +5,7 @@ import Filters from "./filters";
 import PrintCard from "@/components/print-card";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
-import ShopImage from "@/app/assets/png/shop.png";
+import ShopImage from "@/app/assets/webp/consultation.webp";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +30,7 @@ function ShopPage() {
   return (
     <section>
       <div className="pt-15" data-aos="fade-down" data-aos-duration="1000">
-        <Image src={ShopImage} alt="shop" className="md:h-auto h-[30vh]" />
+        <Image src={ShopImage} alt="shop" className="md:h-[600px] h-[30vh]" />
       </div>
 
       <div

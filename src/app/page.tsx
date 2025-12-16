@@ -7,6 +7,7 @@ import FeaturedPrints from "../components/features/homepage/featured-prints";
 import Studio from "../components/features/homepage/studio";
 import NewsletterSignup from "../components/features/homepage/news-letter";
 import BentoSection from "../components/features/homepage/bento-section";
+import ClientMessage from "@/components/features/client/client-message";
 
 export default function Home() {
     return (
@@ -16,7 +17,7 @@ export default function Home() {
             <ClientWork />
             <FeaturedPrints />
             <Studio />
-            <NewsletterSignup />
+            <ClientMessage />
         </section>
     );
 }
