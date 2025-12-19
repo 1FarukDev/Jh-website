@@ -1,50 +1,54 @@
-'use client'
+"use client";
 
-import { FormInput } from '@/components/input'
-import { OrderSummaryCard } from '@/components/order-summary-card'
-import React from 'react'
-import { useForm, FormProvider } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useCart } from '@/context/cart-context'
-import { useCurrency } from '@/context/currency-context'
-import { useCheckout } from '@/context/checkout-context'
-import { buyersInfoSchema, BuyersInfoFormData } from '@/validators/checkout-validators'
+import { FormInput } from "@/components/input";
+import { OrderSummaryCard } from "@/components/order-summary-card";
+import React from "react";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useCart } from "@/context/cart-context";
+import { useCurrency } from "@/context/currency-context";
+import { useCheckout } from "@/context/checkout-context";
+import {
+  buyersInfoSchema,
+  BuyersInfoFormData,
+} from "@/validators/checkout-validators";
+import { FormPhoneInput } from "@/components/phone-input";
 
 function BuyersInfo({
   handleNext,
-  handlePrevious
+  handlePrevious,
 }: {
-  handleNext: () => void
-  handlePrevious: () => void
+  handleNext: () => void;
+  handlePrevious: () => void;
 }) {
-  const { cart, getCartTotal } = useCart()
-  const { formatPrice } = useCurrency()
-  const { checkoutData, updateCheckoutData } = useCheckout()
+  const { cart, getCartTotal } = useCart();
+  const { formatPrice } = useCurrency();
+  const { checkoutData, updateCheckoutData } = useCheckout();
 
   const methods = useForm<BuyersInfoFormData>({
     resolver: zodResolver(buyersInfoSchema),
     defaultValues: {
-      first_name: checkoutData.firstName || '',
-      last_name: checkoutData.lastName || '',
-      email: checkoutData.email || '',
-      phone_number: checkoutData.phoneNumber || ''
-    }
-  })
+      first_name: checkoutData.firstName || "",
+      last_name: checkoutData.lastName || "",
+      email: checkoutData.email || "",
+      phone_number: checkoutData.phoneNumber || "",
+    },
+  });
 
-  const subtotal = getCartTotal()
-  const shipping = 0
-  const total = subtotal + shipping
+  const subtotal = getCartTotal();
+  const shipping = 0;
+  const total = subtotal + shipping;
 
   const onSubmit = (data: BuyersInfoFormData) => {
     updateCheckoutData({
       firstName: data.first_name,
       lastName: data.last_name,
       email: data.email,
-      phoneNumber: data.phone_number
-    })
+      phoneNumber: data.phone_number,
+    });
 
-    handleNext()
-  }
+    handleNext();
+  };
 
   return (
     <section className="flex md:flex-row flex-col gap-4 items-start mt-10 md:mt-20">
@@ -91,11 +95,10 @@ function BuyersInfo({
                 </div>
 
                 <div className="w-full">
-                  <FormInput
+                  <FormPhoneInput
                     name="phone_number"
-                    type="tel"
+                    defaultCountry="NG"
                     placeholder="Enter your phone number"
-                    className="h-[52px]"
                   />
                 </div>
               </div>
@@ -135,8 +138,8 @@ function BuyersInfo({
               title={item.title}
               price={item.price}
               exclusivity={item.exclusivity.toUpperCase()}
-              color={item.color || 'Default'}
-              colorCode={item.colorCode || '#8A8635'}
+              color={item.color || "Default"}
+              colorCode={item.colorCode || "#8A8635"}
               quantity={item.quantity}
               size={item.size}
               image={item.image}
@@ -152,7 +155,7 @@ function BuyersInfo({
 
           <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
             <p className="font-light">Shipping</p>
-            <p>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</p>
+            <p>{shipping === 0 ? "FREE" : formatPrice(shipping)}</p>
           </div>
         </div>
 
@@ -183,7 +186,7 @@ function BuyersInfo({
         </button>
       </div>
     </section>
-  )
+  );
 }
 
-export default BuyersInfo
+export default BuyersInfo;
