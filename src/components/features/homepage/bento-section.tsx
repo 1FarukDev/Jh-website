@@ -7,6 +7,9 @@ import SecondImage from "@/app/assets/webp/filler image 2.webp";
 import ThirdImage from "@/app/assets/png/bento3.png";
 import OffTag from "@/app/assets/svg/offtag.svg";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/modal";
+import { useState } from "react";
+import Consultation from "@/components/consultation";
 
 function BentoSection() {
   return (
@@ -19,6 +22,7 @@ function BentoSection() {
 export default BentoSection;
 
 function BlogComponent() {
+  const [showConsultationModal, setShowConsultationModal] = useState(false);
   const router = useRouter();
   return (
     <div className="w-full">
@@ -38,7 +42,7 @@ function BlogComponent() {
                 more. Whatever your medium, our designs adapt seamlessly.
               </p>
               <Button
-                onClick={() => router.push("/shop")}
+                onClick={() => setShowConsultationModal(true)}
                 className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
           bg-black border-white text-white  hover:text-black hover:border-black rounded-none py-2 transition-all duration-300 group"
               >
@@ -53,7 +57,6 @@ function BlogComponent() {
         </div>
 
         <div className="flex flex-col gap-4 min-w-0 h-auto lg:h-full">
-          {/* 🔹 First / Large Image */}
           <div
             data-aos="fade-up"
             data-aos-duration="1000"
@@ -66,7 +69,6 @@ function BlogComponent() {
               className="object-cover transform transition-transform duration-300 ease-out hover:scale-105"
             />
 
-            {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
 
             <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
@@ -92,7 +94,6 @@ function BlogComponent() {
             </div>
           </div>
 
-          {/* 🔹 Second / Small Image */}
           <div className="grid grid-cols-1 min-w-0">
             <div className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0">
               <Image
@@ -102,14 +103,21 @@ function BlogComponent() {
                 className="object-cover transform transition-transform duration-300 ease-out hover:scale-105"
               />
 
-              {/* Overlay */}
               <div className="absolute inset-0 bg-black/30" />
 
               <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
-                <div className="max-w-xs">{/* Optional text/CTA */}</div>
+                <div className="max-w-xs" />
               </div>
             </div>
           </div>
+          <Modal
+            className="!w-[60%] md:!max-w-[40vw] no-scrollbar !rounded-md !shadow-sm"
+            trigger={""}
+            open={showConsultationModal}
+            onOpenChange={setShowConsultationModal}
+          >
+            <Consultation />
+          </Modal>
         </div>
       </div>
     </div>

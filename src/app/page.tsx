@@ -5,7 +5,6 @@ import Hero from "../components/features/homepage/hero-section";
 import ClientWork from "../components/features/homepage/client-works";
 import FeaturedPrints from "../components/features/homepage/featured-prints";
 import Studio from "../components/features/homepage/studio";
-import NewsletterSignup from "../components/features/homepage/news-letter";
 import BentoSection from "../components/features/homepage/bento-section";
 import ClientMessage from "@/components/features/client/client-message";
 
