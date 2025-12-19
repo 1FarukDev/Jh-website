@@ -1,15 +1,18 @@
 import React from "react";
-import consultationImage from "@/app/assets/webp/consultaion.webp";
+import consultationImage from "@/app/assets/webp/consultation.webp";
+import PlacementPrints from "@/app/assets/webp/placement prints- J.webp";
 import customPrintImage from "@/app/assets/webp/customprints.webp";
-import PrintScalingImage from "@/app/assets/webp/rescaling.webp";
-import AdjustmentImage from "@/app/assets/webp/adjustment.webp";
+import PrintScalingImage from "@/app/assets/webp/print rescaling-jh textiles.webp";
 import RushImage from "@/app/assets/webp/rushservice.webp";
-import IllustrationImage from "@/app/assets/webp/illustration.webp";
+import PrintingLicence from "@/app/assets/webp/print licensing.webp";
+import IllustrationImage from "@/app/assets/webp/hand drawn illustrations.webp";
 import MockupsImage from "@/app/assets/webp/mockups.webp";
 import PrintImage from "@/app/assets/webp/development.webp";
 import Image from "next/image";
-
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 function Services() {
+  const router = useRouter();
   const services = [
     {
       header: "Consultation",
@@ -36,7 +39,7 @@ function Services() {
       color: "#E9C892",
       textColor: "#2F281D",
       subTextColor: "#4E5157",
-      image: consultationImage,
+      image: PlacementPrints,
     },
     {
       header: "Print Rescaling",
@@ -54,7 +57,7 @@ function Services() {
       color: "#8A8635",
       textColor: "white",
       subTextColor: "#CDD1D7",
-      image: AdjustmentImage,
+      image: PrintingLicence,
     },
     {
       header: "Rush Service",
@@ -96,17 +99,16 @@ function Services() {
 
   return (
     <div className="md:mt-32 mt-20" data-aos="fade-up">
-      {/* Header Section */}
       <div className="px-4 sm:px-6 lg:px-8">
         <h1 className="text-[32px] sm:text-[40px] md:text-[60px] text-center leading-tight">
           Our Services
         </h1>
         <p className="md:text-lg text-sm sm:text-base text-[#4E5157] max-w-3xl mx-auto text-center font-satoshi mb-8 md:mb-12 px-4">
-         At J.H. Textiles, each print begins with process—sketching, painting, and crafting textures across traditional and digital mediums. 
+          At J.H. Textiles, each print begins with process—sketching, painting,
+          and crafting textures across traditional and digital mediums.
         </p>
       </div>
 
-      {/* Services Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {services.map((service, idx) => {
           const isLast = idx === services.length - 1;
@@ -120,7 +122,6 @@ function Services() {
                 className="flex flex-col lg:flex-row w-full col-span-1 lg:col-span-2"
                 style={{ backgroundColor: service.color }}
               >
-                {/* Content */}
                 <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
                   <h2
                     className="text-xl sm:text-2xl lg:text-3xl font-normal mb-3 lg:mb-4"
@@ -136,7 +137,6 @@ function Services() {
                   </p>
                 </div>
 
-                {/* Image */}
                 <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[300px] lg:h-[400px] xl:h-[450px] order-1 lg:order-2">
                   <Image
                     src={service.image}
@@ -150,7 +150,6 @@ function Services() {
             );
           }
 
-          // Normal alternating layout (desktop only - mobile stacks consistently)
           return (
             <div
               key={idx}
@@ -159,7 +158,6 @@ function Services() {
               }`}
               style={{ backgroundColor: service.color }}
             >
-              {/* Content */}
               <div className="w-full lg:w-1/2 px-10 h-[300px] py-8 sm:p-8 lg:p-10 xl:p-12 flex flex-col justify-center order-2 lg:order-none">
                 <h2
                   className="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-normal mb-3 lg:mb-4"
@@ -175,7 +173,6 @@ function Services() {
                 </p>
               </div>
 
-              {/* Image */}
               <div className="relative w-full lg:w-1/2 h-[320px] sm:h-[350px] lg:h-[350px] xl:h-[400px] order-1 lg:order-none">
                 <Image
                   src={service.image}
@@ -183,12 +180,32 @@ function Services() {
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority={idx < 2} // Load first two images with priority
+                  priority={idx < 2}
                 />
               </div>
             </div>
           );
         })}
+      </div>
+      <div className="flex justify-center gap-10 mt-10">
+        <Button
+          onClick={() => router.push("/shop")}
+          className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
+          bg-black border-white text-white  hover:text-shite hover:border-black rounded-none py-2 transition-all duration-300 group"
+        >
+          <span className="relative z-10 flex items-center">
+            Browse Prints
+          </span>
+        </Button>
+        <Button
+          onClick={() => router.push("/shop")}
+          className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
+          bg-black border-white text-white  hover:text-white hover:border-black rounded-none py-2 transition-all duration-300 group"
+        >
+          <span className="relative z-10 flex items-center">
+            Book a consultation
+          </span>
+        </Button>
       </div>
     </div>
   );

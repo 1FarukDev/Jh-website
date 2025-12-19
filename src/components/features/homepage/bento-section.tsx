@@ -2,12 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import FirstImage from "@/app/assets/png/bento1.png";
-import SecondImage from "@/app/assets/png/bento2.png";
+import FirstImage from "@/app/assets/webp/filler image 1.webp";
+import SecondImage from "@/app/assets/webp/filler image 2.webp";
 import ThirdImage from "@/app/assets/png/bento3.png";
-import FourthImage from "@/app/assets/png/bento4.png";
 import OffTag from "@/app/assets/svg/offtag.svg";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/modal";
+import { useState } from "react";
+import Consultation from "@/components/consultation";
 
 function BentoSection() {
   return (
@@ -20,6 +22,7 @@ function BentoSection() {
 export default BentoSection;
 
 function BlogComponent() {
+  const [showConsultationModal, setShowConsultationModal] = useState(false);
   const router = useRouter();
   return (
     <div className="w-full">
@@ -31,10 +34,15 @@ function BlogComponent() {
                 Custom Prints to Define Your Vision
               </h1>
               <p className=" text-sm  font-satoshi leading-relaxed mb-4">
-               We are a Nigerian textile print design studio specializing in exclusive surface patterns. Our portfolio ranges from abstract to floral, from bold digital aesthetics to watercolor motifs. Each print is designed for versatile applications, including digital printing, screen printing, jacquard, adire, batik, and more. Whatever your medium, our designs adapt seamlessly.
+                We are a Nigerian textile print design studio specializing in
+                exclusive surface patterns. Our portfolio ranges from abstract
+                to floral, from bold digital aesthetics to watercolor motifs.
+                Each print is designed for versatile applications, including
+                digital printing, screen printing, jacquard, adire, batik, and
+                more. Whatever your medium, our designs adapt seamlessly.
               </p>
               <Button
-                onClick={() => router.push("/shop")}
+                onClick={() => setShowConsultationModal(true)}
                 className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
           bg-black border-white text-white  hover:text-black hover:border-black rounded-none py-2 transition-all duration-300 group"
               >
@@ -60,10 +68,13 @@ function BlogComponent() {
               fill
               className="object-cover transform transition-transform duration-300 ease-out hover:scale-105"
             />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+
             <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
               <div className="max-w-md">
                 <h2 className="text-base sm:text-xl lg:text-2xl font-light text-white mb-2 tracking-wide leading-tight">
-                  Where Fabric Tells Your story
+                  Where Fabric Tells Your Story
                 </h2>
                 <p className="text-white/90 text-xs sm:text-sm leading-relaxed font-satoshi mb-3">
                   Each piece is a story—told through texture, tone, and timeless
@@ -72,7 +83,7 @@ function BlogComponent() {
                 <Button
                   onClick={() => router.push("/about")}
                   className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
-              bg-transparent border-white text-white hover:text-black rounded-none py-2 transition-all duration-300 group"
+          bg-transparent border-white text-white hover:text-black rounded-none py-2 transition-all duration-300 group"
                 >
                   <span className="relative z-10 flex items-center">
                     About Us
@@ -83,20 +94,38 @@ function BlogComponent() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex-1 min-w-0">
+          <div className="grid grid-cols-1 min-w-0">
             <div className="relative w-full h-[180px] sm:h-[200px] rounded-none overflow-hidden min-w-0">
               <Image
-                src={ThirdImage}
+                src={FirstImage}
                 alt="Textile studio workspace"
                 fill
                 className="object-cover transform transition-transform duration-300 ease-out hover:scale-105"
               />
+
+              <div className="absolute inset-0 bg-black/30" />
+
               <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
-                <div className="max-w-xs"></div>
+                <div className="max-w-xs" />
               </div>
             </div>
+          </div>
+          <Modal
+            className="!w-[60%] md:!max-w-[40vw] no-scrollbar !rounded-md !shadow-sm"
+            trigger={""}
+            open={showConsultationModal}
+            onOpenChange={setShowConsultationModal}
+          >
+            <Consultation />
+          </Modal>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            <div
+{
+  /* <div
               data-aos="zoom-in"
               data-aos-duration="1000"
               className="relative w-full h-[220px] sm:h-[200px] rounded-none overflow-hidden min-w-0 bg-[#2A1407]"
@@ -114,10 +143,5 @@ function BlogComponent() {
                   </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+            </div> */
 }

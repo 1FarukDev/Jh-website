@@ -13,6 +13,7 @@ import { Suspense } from "react";
 import { CurrencyProvider } from "@/context/currency-context";
 import { CartProvider } from "@/context/cart-context";
 import { CheckoutProvider } from "@/context/checkout-context";
+import 'react-phone-number-input/style.css'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
