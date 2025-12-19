@@ -4,11 +4,11 @@ import FailedIcon from '@/app/assets/svg/failed.svg'
 import Image from 'next/image'
 import NewsletterSignup from '@/components/features/homepage/news-letter'
 import { useRouter } from 'next/navigation'
-function page () {
+function PaymentFailed () {
   const router = useRouter()
   return (
     <section className='py-26 pt-30 md:pt-40'>
-      <div className='flex flex-col px-4 gap-6 justify-center items-center'>
+      <div className='flex flex-col px-4 gap-6 justify-center items-center max-w-7xl mx-auto'>
         <div className='flex flex-col items-center justify-center'>
           <Image
             src={FailedIcon}
@@ -47,4 +47,4 @@ function page () {
   )
 }
 
-export default page
+export default PaymentFailed

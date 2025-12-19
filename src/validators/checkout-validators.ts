@@ -33,42 +33,42 @@ export type BuyersInfoFormData = z.infer<typeof buyersInfoSchema>;
 
 // Card Details Validation
 export const cardDetailsSchema = z.object({
-  card_number: z
-    .string()
-    .regex(/^\d{13,19}$/, "Card number must be between 13 and 19 digits")
-    .refine((val) => luhnCheck(val), "Invalid card number"),
+  // card_number: z
+  //   .string()
+  //   .regex(/^\d{13,19}$/, "Card number must be between 13 and 19 digits")
+  //   .refine((val) => luhnCheck(val), "Invalid card number"),
 
-  card_holder: z
-    .string()
-    .min(3, "Cardholder name must be at least 3 characters")
-    .max(50, "Cardholder name must be less than 50 characters")
-    .regex(
-      /^[a-zA-Z\s'-]+$/,
-      "Cardholder name can only contain letters, spaces, hyphens, and apostrophes"
-    ),
+  // card_holder: z
+  //   .string()
+  //   .min(3, "Cardholder name must be at least 3 characters")
+  //   .max(50, "Cardholder name must be less than 50 characters")
+  //   .regex(
+  //     /^[a-zA-Z\s'-]+$/,
+  //     "Cardholder name can only contain letters, spaces, hyphens, and apostrophes"
+  //   ),
 
-  expiry_date: z
-    .string()
-    .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiry date must be in MM/YY format")
-    .refine((val) => isValidExpiryDate(val), "Card has expired"),
+  // expiry_date: z
+  //   .string()
+  //   .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiry date must be in MM/YY format")
+  //   .refine((val) => isValidExpiryDate(val), "Card has expired"),
 
-  cvv: z.string().regex(/^\d{3,4}$/, "CVV must be 3 or 4 digits"),
+  // cvv: z.string().regex(/^\d{3,4}$/, "CVV must be 3 or 4 digits"),
 
-  billing_country: z.string().min(2, "Country is required"),
+  // billing_country: z.string().min(2, "Country is required"),
 
-  billing_state: z.string().min(2, "State/Province is required"),
+  // billing_state: z.string().min(2, "State/Province is required"),
 
-  billing_city: z.string().min(2, "City is required"),
+  // billing_city: z.string().min(2, "City is required"),
 
-  billing_postal_code: z
-    .string()
-    .min(3, "Postal code must be at least 3 characters")
-    .max(20, "Postal code is too long"),
+  // billing_postal_code: z
+  //   .string()
+  //   .min(3, "Postal code must be at least 3 characters")
+  //   .max(20, "Postal code is too long"),
 
-  billing_address: z
-    .string()
-    .min(5, "Address must be at least 5 characters")
-    .max(100, "Address must be less than 100 characters"),
+  // billing_address: z
+  //   .string()
+  //   .min(5, "Address must be at least 5 characters")
+    // .max(100, "Address must be less than 100 characters"),
 });
 
 export type CardDetailsFormData = z.infer<typeof cardDetailsSchema>;
