@@ -4,7 +4,7 @@ import FailedIcon from '@/app/assets/svg/failed.svg'
 import Image from 'next/image'
 import NewsletterSignup from '@/components/features/homepage/news-letter'
 import { useRouter } from 'next/navigation'
-function PaymentFailed () {
+function PaymentFailedw () {
   const router = useRouter()
   return (
     <section className='py-26 pt-30 md:pt-40'>
@@ -47,4 +47,4 @@ function PaymentFailed () {
   )
 }
 
-export default PaymentFailed
+export default PaymentFailedw

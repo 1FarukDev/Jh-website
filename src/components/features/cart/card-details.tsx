@@ -14,6 +14,8 @@ import React, { useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { useCheckout } from "@/context/checkout-context";
+import { useMutation } from "@tanstack/react-query";
+import { createOrder, CreateOrderPayload } from "@/services/api/order";
 
 function CardDetails({
   handleNext,
@@ -26,6 +28,33 @@ function CardDetails({
   const { formatPrice } = useCurrency();
   const { checkoutData, clearCheckoutData } = useCheckout();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const createOrderMutation = useMutation({
+    mutationFn: createOrder,
+    onSuccess: async (order) => {
+      // After order is saved, initiate payment
+      const paymentRes = await fetch("/api/create-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: total,
+          email: checkoutData.email,
+          name: `${checkoutData.firstName} ${checkoutData.lastName}`,
+          tx_ref: order.tx_ref,
+        }),
+      });
+
+      const paymentData = await paymentRes.json();
+
+      if (paymentData.link) {
+        window.location.href = paymentData.link;
+      }
+    },
+    onError: (error) => {
+      console.error("Order creation failed:", error);
+      setIsSubmitting(false);
+    },
+  });
 
   const subtotal = getCartTotal();
   const shipping = 0;
@@ -53,71 +82,39 @@ function CardDetails({
   };
   */
 
-  const handlePayment = async () => {
+  const handlePayment = () => {
     setIsSubmitting(true);
-    try {
-      // Prepare order payload
-      const orderPayload = {
-        customer_name: `${checkoutData.firstName} ${checkoutData.lastName}`,
-        customer_email: checkoutData.email,
-        customer_phone: checkoutData.phoneNumber,
-        total_amount: total,
-        status: "pending",
-        payment_status: "pending",
-        /*
-        shipping_address: {
-          country: checkoutData.deliveryCountry,
-          state: checkoutData.deliveryState,
-          city: checkoutData.deliveryCity,
-          postal_code: checkoutData.deliveryPostalCode,
-          address: checkoutData.deliveryAddress,
-        },
-        */
-        product_data: cart.map((item) => ({
-          productId: item.productId,
-          name: item.name,
-          quantity: item.quantity,
-          price: item.price,
-          color: item.color,
-          size: item.size,
-          exclusivity: item.exclusivity,
-        })),
-      };
 
-      // const orderRes = await fetch("/api/orders", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(orderPayload),
-      // });
+    const tx_ref = `tx-${Date.now()}`;
 
-      // if (!orderRes.ok) {
-      //   console.error("Failed to create order");
-      //   setIsSubmitting(false);
-      //   return;
-      // }
+    const orderPayload = {
+      tx_ref,
+      customer_name: `${checkoutData.firstName} ${checkoutData.lastName}`,
+      customer_email: checkoutData.email,
+      customer_phone: checkoutData.phoneNumber,
+      total_amount: total,
+      product_data: cart.map((item) => ({
+        productId: item.productId,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        color: item.color,
+        size: item.size,
+        exclusivity: item.exclusivity,
+      })),
 
-      // const order = await orderRes.json();
-      const paymentRes = await fetch("/api/create-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: total,
-          email: checkoutData.email,
-          name: `${checkoutData.firstName} ${checkoutData.lastName}`,
-        }),
-      });
+      /*
+    shipping_address: {
+      country: checkoutData.deliveryCountry,
+      state: checkoutData.deliveryState,
+      city: checkoutData.deliveryCity,
+      postal_code: checkoutData.deliveryPostalCode,
+      address: checkoutData.deliveryAddress,
+    },
+    */
+    };
 
-      const paymentData = await paymentRes.json();
-      if (paymentData.link) {
-        window.location.href = paymentData.link;
-      } else {
-        console.error("Failed to initiate payment");
-      }
-    } catch (error) {
-      console.error("Payment error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    createOrderMutation.mutate(orderPayload as CreateOrderPayload);
   };
 
   return (
