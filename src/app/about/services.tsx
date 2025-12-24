@@ -3,7 +3,7 @@ import consultationImage from "@/app/assets/webp/consultation.webp";
 import PlacementPrints from "@/app/assets/webp/placement prints- J.webp";
 import customPrintImage from "@/app/assets/webp/customprints.webp";
 import PrintScalingImage from "@/app/assets/webp/print rescaling-jh textiles.webp";
-import RushImage from "@/app/assets/webp/rushservice.webp";
+import RushImage from "@/app/assets/png/Rush-Service--JH-Textiles.jpg";
 import PrintingLicence from "@/app/assets/webp/print licensing.webp";
 import IllustrationImage from "@/app/assets/webp/hand drawn illustrations.webp";
 import MockupsImage from "@/app/assets/webp/mockups.webp";
@@ -193,9 +193,7 @@ function Services() {
           className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
           bg-black border-white text-white  hover:text-shite hover:border-black rounded-none py-2 transition-all duration-300 group"
         >
-          <span className="relative z-10 flex items-center">
-            Browse Prints
-          </span>
+          <span className="relative z-10 flex items-center">Browse Prints</span>
         </Button>
         <Button
           onClick={() => router.push("/shop")}
