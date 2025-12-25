@@ -32,22 +32,29 @@ function CardDetails({
   const createOrderMutation = useMutation({
     mutationFn: createOrder,
     onSuccess: async (order) => {
-      // After order is saved, initiate payment
-      const paymentRes = await fetch("/api/create-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: total,
-          email: checkoutData.email,
-          name: `${checkoutData.firstName} ${checkoutData.lastName}`,
-          tx_ref: order.tx_ref,
-        }),
-      });
+      try {
+        const paymentRes = await fetch("/api/create-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: total,
+            email: checkoutData.email,
+            name: `${checkoutData.firstName} ${checkoutData.lastName}`,
+            tx_ref: order.tx_ref,
+          }),
+        });
 
-      const paymentData = await paymentRes.json();
+        const paymentData = await paymentRes.json();
 
-      if (paymentData.link) {
+        if (!paymentData.link) {
+          throw new Error("Payment link not returned");
+        }
+
+        // Redirect to payment gateway
         window.location.href = paymentData.link;
+      } catch (err) {
+        console.error("Payment init failed:", err);
+        setIsSubmitting(false);
       }
     },
     onError: (error) => {
