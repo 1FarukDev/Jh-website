@@ -7,10 +7,11 @@ import PaymentFailed from "@/components/payment-failed/page";
 
 const PaymentCallbackPage = () => {
   const searchParams = useSearchParams();
-  const statusParam = searchParams.get("status");
   const tx_ref = searchParams.get("tx_ref");
 
-  const [status, setStatus] = useState<"loading" | "successful" | "failed">("loading");
+  const [status, setStatus] = useState<"loading" | "successful" | "failed">(
+    "loading"
+  );
 
   useEffect(() => {
     if (!tx_ref) {
@@ -43,7 +44,11 @@ const PaymentCallbackPage = () => {
     return <div className="text-center p-8">Verifying payment...</div>;
   }
 
-  return status === "successful" ? <PaymentSuccessful /> : <PaymentFailed />;
+  return status === "successful" ? (
+    <PaymentSuccessful tx_ref={tx_ref!} />
+  ) : (
+    <PaymentFailed />
+  );
 };
 
 export default PaymentCallbackPage;

@@ -13,6 +13,7 @@ export type CreateOrderPayload = {
     price: number;
     color?: string;
     size?: string;
+    image?: string;
   }[];
 };
 
@@ -35,10 +36,10 @@ export async function createOrder(payload: CreateOrderPayload) {
 
   if (orderError) {
     console.error("Create order error FULL:", orderError);
-    throw orderError; // 👈 IMPORTANT
+    throw orderError; 
   }
 
-  // 2️⃣ Insert order items
+
   const orderItems = payload.product_data.map((item) => ({
     order_id: order.id,
     product_id: item.productId,
@@ -48,6 +49,7 @@ export async function createOrder(payload: CreateOrderPayload) {
     line_total: item.price * item.quantity,
     color: item.color,
     size: item.size,
+    image: item.image,
   }));
 
   const { error: itemsError } = await supabase
@@ -61,3 +63,68 @@ export async function createOrder(payload: CreateOrderPayload) {
 
   return order;
 }
+
+
+
+export const getOrderItems = async (tx_ref: string) => {
+  if (!tx_ref) throw new Error("Missing tx_ref");
+
+  // 1️⃣ Get order ID
+  const { data: order, error: orderError } = await supabase
+    .from("orders")
+    .select("id")
+    .eq("tx_ref", tx_ref)
+    .single();
+
+  if (orderError || !order) {
+    throw new Error("Order not found");
+  }
+
+  // 2️⃣ Get order items
+  const { data: items, error: itemsError } = await supabase
+    .from("order_items")
+    .select(`
+      id,
+      order_id,
+      product_id,
+      product_name,
+      quantity,
+      unit_price,
+      line_total,
+      color,
+      size,
+      image
+    `)
+    .eq("order_id", order.id);
+
+  if (itemsError) {
+    throw itemsError;
+  }
+
+  if (!items || items.length === 0) return [];
+
+  // 3️⃣ Fetch products separately
+  const productIds = items.map((item: any) => item.product_id);
+
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select(`
+      id,
+      name,
+      price,
+      images
+    `)
+    .in("id", productIds);
+
+  if (productsError) {
+    throw productsError;
+  }
+
+  // 4️⃣ Merge items + products
+  const mergedItems = items.map((item: any) => ({
+    ...item,
+    product: products?.find((p: any) => p.id === item.product_id) || null,
+  }));
+
+  return mergedItems;
+};

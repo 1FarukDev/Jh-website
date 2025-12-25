@@ -108,6 +108,7 @@ function CardDetails({
         color: item.color,
         size: item.size,
         exclusivity: item.exclusivity,
+        image: item.image,
       })),
 
       /*
