@@ -36,9 +36,8 @@ export async function createOrder(payload: CreateOrderPayload) {
 
   if (orderError) {
     console.error("Create order error FULL:", orderError);
-    throw orderError; 
+    throw orderError;
   }
-
 
   const orderItems = payload.product_data.map((item) => ({
     order_id: order.id,
@@ -64,12 +63,9 @@ export async function createOrder(payload: CreateOrderPayload) {
   return order;
 }
 
-
-
 export const getOrderItems = async (tx_ref: string) => {
   if (!tx_ref) throw new Error("Missing tx_ref");
 
-  // 1️⃣ Get order ID
   const { data: order, error: orderError } = await supabase
     .from("orders")
     .select("id")
@@ -80,10 +76,10 @@ export const getOrderItems = async (tx_ref: string) => {
     throw new Error("Order not found");
   }
 
-  // 2️⃣ Get order items
   const { data: items, error: itemsError } = await supabase
     .from("order_items")
-    .select(`
+    .select(
+      `
       id,
       order_id,
       product_id,
@@ -94,7 +90,8 @@ export const getOrderItems = async (tx_ref: string) => {
       color,
       size,
       image
-    `)
+    `
+    )
     .eq("order_id", order.id);
 
   if (itemsError) {
@@ -103,28 +100,39 @@ export const getOrderItems = async (tx_ref: string) => {
 
   if (!items || items.length === 0) return [];
 
-  // 3️⃣ Fetch products separately
   const productIds = items.map((item: any) => item.product_id);
 
   const { data: products, error: productsError } = await supabase
     .from("products")
-    .select(`
+    .select(
+      `
       id,
       name,
       price,
       images
-    `)
+    `
+    )
     .in("id", productIds);
 
   if (productsError) {
     throw productsError;
   }
 
-  // 4️⃣ Merge items + products
   const mergedItems = items.map((item: any) => ({
     ...item,
     product: products?.find((p: any) => p.id === item.product_id) || null,
   }));
 
   return mergedItems;
+};
+
+export const getOrders = async () => {
+  const { data, error } = await supabase
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  return data;
 };

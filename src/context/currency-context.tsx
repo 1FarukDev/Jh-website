@@ -94,8 +94,8 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
     const convertedPrice = convertPrice(price);
 
     const formattedNumber = convertedPrice.toLocaleString("en-US", {
-      minimumFractionDigits: 0, // just ensures at least 0 decimal
-      maximumFractionDigits: 20, // large number to preserve decimals
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 20,
     });
 
     const result = `${currency.symbol}${formattedNumber}`;

@@ -41,7 +41,11 @@ const PaymentCallbackPage = () => {
   }, [tx_ref]);
 
   if (status === "loading") {
-    return <div className="text-center p-8">Verifying payment...</div>;
+    return (
+      <div className="flex items-center justify-center h-[80vh]">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+      </div>
+    );
   }
 
   return status === "successful" ? (
