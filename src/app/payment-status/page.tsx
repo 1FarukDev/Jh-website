@@ -1,25 +1,16 @@
-"use client";
+import { Suspense } from "react";
+import PaymentCallbackClient from "./payment-callback";
 
-import React, { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import PaymentSuccessful from "@/components/payment-successful/page";
-import PaymentFailed from "@/components/payment-failed/page";
-
-const PaymentResult = () => {
-  const searchParams = useSearchParams();
-  const status = searchParams.get("status");
-
-  return status === "successful"
-    ? <PaymentSuccessful />
-    : <PaymentFailed />;
-};
-
-const PaymentCallbackPage = () => {
+export default function PaymentStatusPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <PaymentResult />
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-[80vh]">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+        </div>
+      }
+    >
+      <PaymentCallbackClient />
     </Suspense>
   );
-};
-
-export default PaymentCallbackPage;
+}
