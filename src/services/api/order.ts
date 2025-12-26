@@ -138,3 +138,24 @@ export const getOrders = async () => {
 
   return data;
 };
+
+export const getOrderItemsByOrderId = async (orderId: number | any) => {
+  const { data, error } = await supabase
+    .from("order_items")
+    .select(
+      `
+      id,
+      product_name,
+      quantity,
+      unit_price,
+      line_total,
+      color,
+      size,
+      image
+    `
+    )
+    .eq("order_id", orderId);
+
+  if (error) throw error;
+  return data;
+};

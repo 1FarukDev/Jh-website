@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Modal from "@/components/modal";
 import OrderDetails from "@/components/order-details";
@@ -12,7 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { getOrderItemsByOrderId } from "@/services/api/order";
 import { formatDate } from "@/services/helpers/formatDate";
+import { useQuery } from "@tanstack/react-query";
 import { MoveRight } from "lucide-react";
 import { useState } from "react";
 
@@ -22,8 +24,8 @@ export interface Order {
   total_amount: number;
   status: "Delivered" | "Processing" | string;
   payment_status?: "Paid" | "Unpaid" | string;
-  product_data?: any[];
-  id: string;
+  product_data?: any[]; // kept (not removed)
+  id: number; // ✅ FIX: bigint → number
 }
 
 interface OrdersProps {
@@ -35,6 +37,17 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   const orders = initialOrders || [];
+
+  const {
+    data: orderItems = [],
+    isLoading: isOrderItemsLoading,
+  } = useQuery({
+    queryKey: ["order-items", selectedOrder?.id],
+    queryFn: () => getOrderItemsByOrderId(selectedOrder!.id),
+    enabled: !!selectedOrder?.id,
+  });
+
+  console.log("orderItems", orderItems);
 
   if (!orders.length) {
     return <div className="text-center py-8">You have no orders yet.</div>;
@@ -52,12 +65,22 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
             <TableHead className="text-white">Actions</TableHead>
           </TableRow>
         </TableHeader>
+
         <TableBody>
           {orders.map((order) => (
             <TableRow key={order.order_number}>
-              <TableCell className="border border-gray-200">{order.order_number}</TableCell>
-              <TableCell className="border border-gray-200">{formatDate(order.created_at)}</TableCell>
-              <TableCell className="border border-gray-200">₦{order.total_amount.toLocaleString()}</TableCell>
+              <TableCell className="border border-gray-200">
+                {order.order_number}
+              </TableCell>
+
+              <TableCell className="border border-gray-200">
+                {formatDate(order.created_at)}
+              </TableCell>
+
+              <TableCell className="border border-gray-200">
+                ₦{order.total_amount.toLocaleString()}
+              </TableCell>
+
               <TableCell className="border border-gray-200">
                 <span
                   className={cn(
@@ -71,6 +94,7 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
                   {order.status}
                 </span>
               </TableCell>
+
               <TableCell className="border border-gray-200">
                 <Button
                   className="rounded-none !px-6 py-1 bg-black text-white hover:bg-gray-800"
@@ -88,7 +112,7 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
       </Table>
 
       <Modal
-        className="!w-[60%] md:!max-w-[40vw] no-scrollbar !rounded-md !shadow-sm"
+        className="w-[90vw]! md:max-w-[40vw]! no-scrollbar rounded-md! shadow-sm!"
         trigger={""}
         open={open}
         onOpenChange={setOpen}
@@ -96,7 +120,7 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
         {selectedOrder && (
           <OrderDetails
             onCloseButton={() => setOpen(false)}
-            orderId={selectedOrder.order_number}
+            orderId={selectedOrder.order_number} // display ID
             orderStatus={
               selectedOrder.status === "Delivered"
                 ? "Completed"
@@ -106,7 +130,8 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
             }
             paymentStatus={selectedOrder.payment_status || "Unpaid"}
             totalAmount={selectedOrder.total_amount}
-            productData={selectedOrder.product_data || []}
+            productData={orderItems} // ✅ REAL order_items data
+            // isLoading={isOrderItemsLoading} // optional but useful
           />
         )}
       </Modal>

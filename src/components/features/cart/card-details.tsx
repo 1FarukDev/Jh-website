@@ -100,7 +100,7 @@ function CardDetails({
       customer_email: checkoutData.email,
       customer_phone: checkoutData.phoneNumber,
       total_amount: total,
-      product_id: cart.map((item) => item.productId),
+      product_id: cart.map(item => item.productId).join(','),
       product_data: cart.map((item) => ({
         productId: item.productId,
         name: item.name,
