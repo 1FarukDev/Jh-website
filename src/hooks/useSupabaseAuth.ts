@@ -11,6 +11,8 @@ interface UserProfile {
   avatar_url: string | null;
   created_at: string;
   email: string;
+  receive_updates?: boolean;
+  receive_notifications?: boolean;
 }
 
 export function useSupabaseAuth() {

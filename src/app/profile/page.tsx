@@ -2,50 +2,156 @@
 
 import React, { useEffect } from "react";
 import NewsletterSignup from "../../components/features/homepage/news-letter";
-import ConnectImage from "@/app/assets/png/contact.png";
-import Image from "next/image";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormInput } from "@/components/input";
 import { FormCheckbox } from "@/components/checkbox";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
+import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
-type FormData = {
+type PersonalDetailsFormData = {
   email: string;
-  password: string;
-  remember: boolean;
   first_name: string;
   last_name: string;
+  receive_updates: boolean;
+  receive_notifications: boolean;
+};
+
+type PasswordFormData = {
+  old_password: string;
+  new_password: string;
+  new_password_confirm: string;
 };
 
 function Profile() {
-  const { user, logout } = useSupabaseAuth();
+  const { user, loading } = useSupabaseAuth();
+  const supabase = createClient();
 
-  console.log("User Profile:", user);
-  const methods = useForm<FormData>({
+  const personalDetailsMethods = useForm<PersonalDetailsFormData>({
     defaultValues: {
       email: "",
       first_name: "",
       last_name: "",
-      password: "",
-      remember: false,
+      receive_updates: false,
+      receive_notifications: false,
+    },
+  });
+
+  const passwordMethods = useForm<PasswordFormData>({
+    defaultValues: {
+      old_password: "",
+      new_password: "",
+      new_password_confirm: "",
     },
   });
 
   useEffect(() => {
     if (user) {
-      methods.reset({
+      personalDetailsMethods.reset({
         email: user.email ?? "",
         first_name: user.first_name ?? "",
         last_name: user.last_name ?? "",
-        password: "",
-        remember: false,
+        receive_updates: user.receive_updates ?? false,
+        receive_notifications: user.receive_notifications ?? false,
       });
     }
-  }, [user, methods]);
+  }, [user, personalDetailsMethods]);
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onPersonalDetailsSubmit = async (data: PersonalDetailsFormData) => {
+    if (!user) return;
+
+    try {
+      const { error: profileError } = await supabase
+        .from("users")
+        .update({
+          first_name: data.first_name,
+          last_name: data.last_name,
+          receive_updates: data.receive_updates,
+          receive_notifications: data.receive_notifications,
+        })
+        .eq("id", user.id);
+
+      if (profileError) throw profileError;
+
+      if (data.email !== user.email) {
+        const { error: emailError } = await supabase.auth.updateUser({
+          email: data.email,
+        });
+
+        if (emailError) throw emailError;
+        toast.success(
+          "Profile updated! Please check your email to confirm the new address."
+        );
+      } else {
+        toast.success("Profile updated successfully!");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile. Please try again.");
+    }
   };
+
+  const onPasswordSubmit = async (data: PasswordFormData) => {
+    if (!user) return;
+
+    // Validate password match
+    if (data.new_password !== data.new_password_confirm) {
+      toast.error("New passwords do not match!");
+      return;
+    }
+
+    // Validate password strength (optional)
+    if (data.new_password.length < 6) {
+      toast.error("Password must be at least 6 characters long!");
+      return;
+    }
+
+    try {
+      // Verify old password by attempting to sign in
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: data.old_password,
+      });
+
+      if (signInError) {
+        toast.error("Old password is incorrect!");
+        return;
+      }
+
+      // Update password
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: data.new_password,
+      });
+
+      if (updateError) throw updateError;
+
+      toast.success("Password updated successfully!");
+      passwordMethods.reset();
+    } catch (error) {
+      console.error("Error updating password:", error);
+      toast.error("Failed to update password. Please try again.");
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="py-26 pt-40">
+        <div className="flex flex-col items-center justify-center max-w-4xl mx-auto">
+          <p className="text-lg">Loading...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!user) {
+    return (
+      <section className="py-26 pt-40">
+        <div className="flex flex-col items-center justify-center max-w-4xl mx-auto">
+          <p className="text-lg">Please log in to view your profile.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-26 pt-40">
@@ -60,10 +166,13 @@ function Profile() {
 
       <div className="flex gap-8 my-20 max-w-4xl mx-auto items-stretch px-4">
         <div className="h-full w-full">
-          <FormProvider {...methods}>
-            <section className=" pt-0 w-full h-full">
+          {/* Personal Details Form */}
+          <FormProvider {...personalDetailsMethods}>
+            <section className="pt-0 w-full h-full">
               <form
-                onSubmit={methods.handleSubmit(onSubmit)}
+                onSubmit={personalDetailsMethods.handleSubmit(
+                  onPersonalDetailsSubmit
+                )}
                 className="flex flex-col justify-start items-start gap-6 h-full"
               >
                 <p className="text-lg font-satoshi">Personal Details</p>
@@ -90,29 +199,34 @@ function Profile() {
 
                 <div className="flex flex-col gap-3">
                   <FormCheckbox
-                    name="terms"
-                    label={"Receive product updates & studio stories"}
+                    name="receive_updates"
+                    label="Receive product updates & studio stories"
                   />
                   <FormCheckbox
-                    name="terms"
-                    label={"Receive order notifications"}
+                    name="receive_notifications"
+                    label="Receive order notifications"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal"
+                  disabled={personalDetailsMethods.formState.isSubmitting}
+                  className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Update
+                  {personalDetailsMethods.formState.isSubmitting
+                    ? "Updating..."
+                    : "Update"}
                 </button>
               </form>
             </section>
           </FormProvider>
 
           <hr className="my-8" />
-          <FormProvider {...methods}>
-            <section className=" pt-0 w-full h-full">
+
+          {/* Change Password Form */}
+          <FormProvider {...passwordMethods}>
+            <section className="pt-0 w-full h-full">
               <form
-                onSubmit={methods.handleSubmit(onSubmit)}
+                onSubmit={passwordMethods.handleSubmit(onPasswordSubmit)}
                 className="flex flex-col justify-start items-start gap-6 h-full"
               >
                 <p className="text-lg font-satoshi">Change Password</p>
@@ -139,9 +253,12 @@ function Profile() {
 
                 <button
                   type="submit"
-                  className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal"
+                  disabled={passwordMethods.formState.isSubmitting}
+                  className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Update
+                  {passwordMethods.formState.isSubmitting
+                    ? "Updating..."
+                    : "Update Password"}
                 </button>
               </form>
             </section>
