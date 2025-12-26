@@ -93,14 +93,14 @@ function Profile() {
 
   const onPasswordSubmit = async (data: PasswordFormData) => {
     if (!user) return;
+    console.log(data);
 
-    // Validate password match
+  
     if (data.new_password !== data.new_password_confirm) {
       toast.error("New passwords do not match!");
       return;
     }
 
-    // Validate password strength (optional)
     if (data.new_password.length < 6) {
       toast.error("Password must be at least 6 characters long!");
       return;
