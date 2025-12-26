@@ -51,8 +51,7 @@ function Contact() {
 
   return (
     <>
-      <section className="relative w-full md:h-[1100px] h-[900px]">
-        {/* Background images */}
+      <section className="relative w-full md:h-[1100px] h-[900px] md:pt-0 pt-45">
         <Image
           src={ConnectImage}
           alt="Story Image"
@@ -66,7 +65,6 @@ function Contact() {
           priority
         />
 
-        {/* Form container */}
         <div className="relative z-10 flex flex-col justify-center items-center w-full h-full px-4 md:px-0">
           <div className="p-4 md:p-12 w-full md:max-w-4xl py-10 z-10">
             <h1 className="text-[22px] md:text-[48px] font-normal text-[#230D06] text-center">
@@ -83,7 +81,6 @@ function Contact() {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className="mt-6 flex flex-col gap-6 bg-[#FCF8F5] p-4 md:p-10 rounded-md"
               >
-                {/* Name fields */}
                 <div className="w-full flex flex-col md:flex-row gap-4">
                   <FormInput
                     name="first_name"
@@ -99,7 +96,6 @@ function Contact() {
                   />
                 </div>
 
-                {/* Email & phone */}
                 <div className="w-full flex flex-col md:flex-row gap-4">
                   <FormInput
                     name="email"
@@ -114,7 +110,6 @@ function Contact() {
                   />
                 </div>
 
-                {/* Subject */}
                 <FormInput
                   name="message_header"
                   type="text"
@@ -122,14 +117,12 @@ function Contact() {
                   className="h-[52px] w-full"
                 />
 
-                {/* Message body */}
                 <FormTextarea
                   name="message"
                   placeholder="Enter your message body"
                   className="h-[200px] w-full bg-white"
                 />
 
-                {/* Terms */}
                 <FormCheckbox
                   name="terms"
                   label={
@@ -144,7 +137,6 @@ function Contact() {
                   }
                 />
 
-                {/* Submit button */}
                 <Button
                   type="submit"
                   className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none"
@@ -157,7 +149,6 @@ function Contact() {
           </div>
         </div>
 
-        {/* Decorative images */}
         <div className="flex justify-between items-center absolute w-full md:bottom-0 overflow-hidden">
           <Image
             src={FloralImage}
