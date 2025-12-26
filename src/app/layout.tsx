@@ -13,7 +13,8 @@ import { Suspense } from "react";
 import { CurrencyProvider } from "@/context/currency-context";
 import { CartProvider } from "@/context/cart-context";
 import { CheckoutProvider } from "@/context/checkout-context";
-import 'react-phone-number-input/style.css'
+import "react-phone-number-input/style.css";
+import { SearchProvider } from "@/context/search-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,16 +69,18 @@ export default function RootLayout({
           <CurrencyProvider>
             <CartProvider>
               <CheckoutProvider>
-                <NavDropdownProviderWrapper>
-                  <AOS_INIT />
-                  <Toaster position="bottom-right" richColors closeButton />
-                  <NavBar />
-                  <Suspense fallback={null}>
-                    <TopLoader />
-                  </Suspense>
-                  {children}
-                  <Footer />
-                </NavDropdownProviderWrapper>
+                <SearchProvider maxSearches={10}>
+                  <NavDropdownProviderWrapper>
+                    <AOS_INIT />
+                    <Toaster position="bottom-right" richColors closeButton />
+                    <NavBar />
+                    <Suspense fallback={null}>
+                      <TopLoader />
+                    </Suspense>
+                    {children}
+                    <Footer />
+                  </NavDropdownProviderWrapper>
+                </SearchProvider>
               </CheckoutProvider>
             </CartProvider>
           </CurrencyProvider>

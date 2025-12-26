@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/client";
 
-
 const supabase = createClient();
 
 export const getProducts = async () => {
@@ -32,3 +31,23 @@ export const getProductById = async (id: number) => {
   return data;
 };
 
+export const searchProducts = async (query: string) => {
+  if (!query || query.trim() === "") {
+    return getProducts();
+  }
+
+  const searchTerm = `%${query.trim()}%`;
+
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .or(`name.ilike.${searchTerm},category.ilike.${searchTerm},description.ilike.${searchTerm}`)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error searching products:", error.message);
+    return [];
+  }
+
+  return data;
+};
