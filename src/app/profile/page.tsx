@@ -103,6 +103,7 @@ function Profile() {
     }
 
     try {
+      // gitguardian-ignore
       const { error } = await supabase.auth.updateUser({
         password: data.new_password,
       });
