@@ -6,6 +6,7 @@ export type CreateOrderPayload = {
   customer_email: string;
   customer_phone: string;
   total_amount: number;
+  product_id: any;
   product_data: {
     productId: number;
     name: string;
@@ -30,6 +31,7 @@ export async function createOrder(payload: CreateOrderPayload) {
       total_amount: payload.total_amount,
       status: "pending",
       payment_status: "pending",
+      product_id: payload.product_id,
     })
     .select()
     .single();
