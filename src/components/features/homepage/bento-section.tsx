@@ -35,11 +35,10 @@ function BlogComponent() {
               </h1>
               <p className=" text-sm  font-satoshi leading-relaxed mb-4">
                 We are a Nigerian textile print design studio specializing in
-                exclusive surface patterns. Our portfolio ranges from abstract
-                to floral, from bold digital aesthetics to watercolor motifs.
+                exclusive surface patterns. Our services range from bold digital aesthetics and hand-painted watercolour motifs.
                 Each print is designed for versatile applications, including
                 digital printing, screen printing, jacquard, adire, batik, and
-                more. Whatever your medium, our designs adapt seamlessly.
+                more. Whatever your medium, our designs can adapt seamlessly.
               </p>
               <Button
                 onClick={() => setShowConsultationModal(true)}
@@ -74,11 +73,12 @@ function BlogComponent() {
             <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
               <div className="max-w-md">
                 <h2 className="text-base sm:text-xl lg:text-2xl font-light text-white mb-2 tracking-wide leading-tight">
-                  Where Fabric Tells Your Story
+                  Where Prints Tell Your Story
                 </h2>
                 <p className="text-white/90 text-xs sm:text-sm leading-relaxed font-satoshi mb-3">
-                  Each piece is a story—told through texture, tone, and timeless
-                  print.
+                  {/* Each design is a timeless story told through texture, colour,
+                  and balance . */}
+                  Learn more about services we offer...
                 </p>
                 <Button
                   onClick={() => router.push("/about")}

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
+  const router = useRouter();
   const faqData = [
     {
       question: "What is surface pattern design / print design?",
@@ -34,7 +36,7 @@ const FAQ = () => {
     {
       question: "How long does it take to create a custom print?",
       header:
-        "Timelines vary depending on the complexity of the project. A first draft typically takes 7–21 working days. If revisions are needed, the process may take longer. Since custom design is a collaborative process, we work closely with you to refine the print until it fully meets your expectations.",
+        "Timelines vary depending on the complexity of the project. A first draft typically takes 7–14 working days. If revisions are needed, the process may take longer. Since custom design is a collaborative process, we work closely with you to refine the print until it fully meets your expectations.",
       // answer: [""],
     },
     {
@@ -46,7 +48,7 @@ const FAQ = () => {
     {
       question: "Do you sell ready-to-use prints?",
       header:
-        "Yes. Our Shop Prints collection features curated, ready-to-use textile prints available for direct licensing or purchase.",
+        "Yes. Our shop features curated, ready-to-use textile prints available for direct licensing or purchase.",
       // answer: [""],
     },
     {
@@ -155,8 +157,7 @@ const FAQ = () => {
       <section>
         <h1 className="text-[32px] md:text-[60px] text-center">FAQS</h1>
         <p className="md:text-lg text-sm text-[#4E5157] max-w-3xl mx-auto text-center mb-12">
-          Answers to the things we’re most often asked about our textiles,
-          process, and orders.
+          Answers to questions about our print design process
         </p>
       </section>
 
@@ -212,13 +213,40 @@ const FAQ = () => {
                         {faq.header}
                       </p>
                     )}
-                    {faq.answer  && (
+                    {faq.answer && (
                       <ul className="text-gray-700 leading-relaxed list-disc list-inside space-y-1 font-satoshi">
                         {faq.answer.map((item, idx) => (
-                          <li key={idx} className="font-satoshi">{item}</li>
+                          <li key={idx} className="font-satoshi">
+                            {item}
+                          </li>
                         ))}
                       </ul>
                     )}
+                    <div className="flex gap-4 items-center">
+                      {faq.question === "Do you create custom prints?" ||
+                        faq.question === "Do you create custom prints?" ||
+                        (faq.question ===
+                          "How can I collaborate with J.H. Textiles?" && (
+                          <Button
+                            onClick={() => router.push("/shop")}
+                            className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
+      bg-white text-black hover:bg-black hover:text-white transition-colors border"
+                          >
+                            Book a consultation
+                          </Button>
+                        ))}
+                      {faq.question === "Do you sell ready-to-use prints?" ||
+                        (faq.question ===
+                          "How can I collaborate with J.H. Textiles?" && (
+                          <Button
+                            onClick={() => router.push("/shop")}
+                            className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
+      bg-white text-black hover:bg-black hover:text-white transition-colors border"
+                          >
+                            Shop exclusive prints
+                          </Button>
+                        ))}
+                    </div>
                   </motion.div>
                 </motion.div>
               )}
