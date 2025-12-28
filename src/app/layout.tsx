@@ -15,6 +15,7 @@ import { CartProvider } from "@/context/cart-context";
 import { CheckoutProvider } from "@/context/checkout-context";
 import "react-phone-number-input/style.css";
 import { SearchProvider } from "@/context/search-context";
+import CookieConsent from "@/components/cookie-banner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,6 +84,7 @@ export default function RootLayout({
                 </SearchProvider>
               </CheckoutProvider>
             </CartProvider>
+            <CookieConsent />
           </CurrencyProvider>
         </Providers>
       </body>

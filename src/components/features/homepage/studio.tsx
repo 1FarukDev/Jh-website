@@ -89,10 +89,10 @@ export default function Studio() {
   return (
     <section className="my-16 mx-auto md:px-15 px-4">
       <p className="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-normal text-center leading-tight md:leading-[40px]">
-        In The Studio & In The Press
+        In The Studio
       </p>
       <p className="text-sm md:text-xl font-satoshi font-normal text-[#4E5157] text-center mt-2 max-w-2xl mx-auto">
-        A glimpse behind the canvas stories, thoughts & headlines.
+        A window into our creative process.
       </p>
 
       <div className="mt-8 md:mt-12 bg-[#1c1b0b0c] pt-5 md:pt-0 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">

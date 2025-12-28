@@ -1,7 +1,6 @@
 import React from "react";
 import consultationImage from "@/app/assets/webp/consultation.webp";
 import PlacementPrints from "@/app/assets/webp/placement prints- J.webp";
-import customPrintImage from "@/app/assets/webp/customprints.webp";
 import PrintScalingImage from "@/app/assets/webp/print rescaling-jh textiles.webp";
 import RushImage from "@/app/assets/png/Rush-Service--JH-Textiles.jpg";
 import PrintingLicence from "@/app/assets/webp/print licensing.webp";
@@ -11,13 +10,14 @@ import PrintImage from "@/app/assets/webp/development.webp";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import DaraPrints from "@/app/assets/png/Dara-JH-Textiles--Custom-print-design.jpg";
 function Services() {
   const router = useRouter();
   const services = [
     {
       header: "Consultation",
       subText:
-        "Personalized design guidance where we listen to your ideas, review your inspirations, and help shape textiles that reflect your vision with expertise and care.",
+        "Personalized design guidance where we listen to your ideas, review your inspirations, and help shape prints that reflect your vision with expertise.",
       color: "#1C1B0B",
       textColor: "white",
       subTextColor: "#CDD1D7",
@@ -26,11 +26,11 @@ function Services() {
     {
       header: "Custom Prints",
       subText:
-        "Unique hand-crafted patterns designed exclusively for you, blending tradition and innovation to create fabrics that cannot be found anywhere else.",
+        "Unique hand-crafted patterns designed exclusively for your brand.",
       color: "#8A8635",
       textColor: "white",
       subTextColor: "#CDD1D7",
-      image: customPrintImage,
+      image: DaraPrints,
     },
     {
       header: "Placement Prints",
@@ -53,7 +53,7 @@ function Services() {
     {
       header: "Print Licensing",
       subText:
-        "Access to exclusive, ready-made designs tailored to your brand’s needs.",
+        "Access to exclusive, ready-made designs tailored to your brand's needs.",
       color: "#8A8635",
       textColor: "white",
       subTextColor: "#CDD1D7",
@@ -62,7 +62,7 @@ function Services() {
     {
       header: "Rush Service",
       subText:
-        "Fast-tracked design and production for projects on tight deadlines, delivering high-quality textiles without compromising on craftsmanship.",
+        "Fast-tracked design for projects on tight deadlines, delivering high-quality prints without compromising on craftsmanship.",
       color: "#230D06",
       textColor: "white",
       subTextColor: "#CDD1D7",
@@ -71,20 +71,29 @@ function Services() {
     {
       header: "Illustration & Artwork",
       subText:
-        "Hand-drawn or digitally crafted motifs, artworks, and non-repeats.",
+        "Hand-painted or digitally crafted motifs, artworks, and non-repeats created to meet your brand's needs.",
       color: "#683112",
       textColor: "white",
       subTextColor: "#CDD1D7",
       image: IllustrationImage,
     },
     {
-      header: "Color Seperation",
+      header: "Color Separation",
       subText:
         "Technical expertise to prepare your prints for production across different printing method.",
       color: "#1C1B0B",
       textColor: "white",
       subTextColor: "#CDD1D7",
       image: MockupsImage,
+    },
+    {
+      header: "Color Variants",
+      subText:
+        "Developing new color-ways to match the seasons (Spring/Summer, Autumn/Winter), trends and your brand needs in the moment.",
+      color: "#F0DAB6",
+      textColor: "#230D06",
+      subTextColor: "#4E5157",
+      image: PrintImage,
     },
     {
       header: "Print Development",
@@ -104,51 +113,16 @@ function Services() {
           Our Services
         </h1>
         <p className="md:text-lg text-sm sm:text-base text-[#4E5157] max-w-3xl mx-auto text-center font-satoshi mb-8 md:mb-12 px-4">
-          At J.H. Textiles, each print begins with process—sketching, painting,
-          and crafting textures across traditional and digital mediums.
+          At J.H. Textiles, each print begins with a process—consultation,
+          ideation, developing prints and presentation through the use
+          traditional and digital mediums.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {services.map((service, idx) => {
-          const isLast = idx === services.length - 1;
           const rowIndex = Math.floor(idx / 2);
           const isOddRow = rowIndex % 2 !== 0;
-
-          if (isLast) {
-            return (
-              <div
-                key={idx}
-                className="flex flex-col lg:flex-row w-full col-span-1 lg:col-span-2"
-                style={{ backgroundColor: service.color }}
-              >
-                <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
-                  <h2
-                    className="text-xl sm:text-2xl lg:text-3xl font-normal mb-3 lg:mb-4"
-                    style={{ color: service.textColor }}
-                  >
-                    {service.header}
-                  </h2>
-                  <p
-                    className="text-sm sm:text-base lg:text-lg leading-relaxed font-satoshi"
-                    style={{ color: service.subTextColor }}
-                  >
-                    {service.subText}
-                  </p>
-                </div>
-
-                <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[300px] lg:h-[400px] xl:h-[450px] order-1 lg:order-2">
-                  <Image
-                    src={service.image}
-                    alt={service.header}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
-            );
-          }
 
           return (
             <div
@@ -171,6 +145,15 @@ function Services() {
                 >
                   {service.subText}
                 </p>
+                {service.header === "Print Licensing" && (
+                  <Button
+                    onClick={() => router.push("/shop")}
+                    className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
+      bg-white text-black hover:bg-black hover:text-white transition-colors border"
+                  >
+                    Shop exclusive prints
+                  </Button>
+                )}
               </div>
 
               <div className="relative w-full lg:w-1/2 h-[320px] sm:h-[350px] lg:h-[350px] xl:h-[400px] order-1 lg:order-none">

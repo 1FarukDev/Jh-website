@@ -13,8 +13,8 @@ export default function Home() {
         <section className="pb-15">
             <Hero />
             <BentoSection />
-            <ClientWork />
             <FeaturedPrints />
+            <ClientWork />
             <Studio />
             <ClientMessage />
         </section>
