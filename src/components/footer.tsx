@@ -154,7 +154,7 @@ export default function Footer () {
               </li>
               <li>
                 <Link
-                  href='/privacy'
+                  href='/privacy-policy'
                   className='text-xs hover:text-white transition-colors'
                 >
                   Privacy Policy
@@ -201,7 +201,7 @@ export default function Footer () {
                   <Input
                     type='email'
                     placeholder='Enter your email'
-                    className='pl-10 py-3 !bg-transparent border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500'
+                    className='pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500'
                   />
                 </div>
                 <Button className='bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center'>
