@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import consultationImage from "@/app/assets/webp/consultation.webp";
 import PlacementPrints from "@/app/assets/webp/placement prints- J.webp";
@@ -11,7 +13,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import DaraPrints from "@/app/assets/png/Dara-JH-Textiles--Custom-print-design.jpg";
-function Services() {
+function Services({handleConsultation}: {handleConsultation: () => void}) {
+  
   const router = useRouter();
   const services = [
     {
@@ -179,7 +182,7 @@ function Services() {
           <span className="relative z-10 flex items-center">Browse Prints</span>
         </Button>
         <Button
-          onClick={() => router.push("/shop")}
+          onClick={handleConsultation}
           className="relative overflow-hidden border px-5 sm:px-7 font-satoshi text-xs sm:text-sm 
           bg-black border-white text-white  hover:text-white hover:border-black rounded-none py-2 transition-all duration-300 group"
         >
@@ -187,6 +190,7 @@ function Services() {
             Book a consultation
           </span>
         </Button>
+       
       </div>
     </div>
   );
