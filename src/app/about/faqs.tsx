@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-const FAQ = () => {
+const FAQ = ({ handleConsultation }: { handleConsultation: () => void }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const router = useRouter();
   const faqData = [
@@ -223,29 +223,28 @@ const FAQ = () => {
                       </ul>
                     )}
                     <div className="flex gap-4 items-center">
-                      {faq.question === "Do you create custom prints?" ||
-                        faq.question === "Do you create custom prints?" ||
-                        (faq.question ===
-                          "How can I collaborate with J.H. Textiles?" && (
-                          <Button
-                            onClick={() => router.push("/shop")}
-                            className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
-      bg-white text-black hover:bg-black hover:text-white transition-colors border"
-                          >
-                            Book a consultation
-                          </Button>
-                        ))}
-                      {faq.question === "Do you sell ready-to-use prints?" ||
-                        (faq.question ===
-                          "How can I collaborate with J.H. Textiles?" && (
-                          <Button
-                            onClick={() => router.push("/shop")}
-                            className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
-      bg-white text-black hover:bg-black hover:text-white transition-colors border"
-                          >
-                            Shop exclusive prints
-                          </Button>
-                        ))}
+                      {(faq.question === "Do you create custom prints?" ||
+                        faq.question ===
+                          "How can I collaborate with J.H. Textiles?") && (
+                        <Button
+                          onClick={handleConsultation}
+                          className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
+bg-white text-black hover:bg-black hover:text-white transition-colors border"
+                        >
+                          Book a consultation
+                        </Button>
+                      )}
+                      {(faq.question === "Do you sell ready-to-use prints?" ||
+                        faq.question ===
+                          "How can I collaborate with J.H. Textiles?") && (
+                        <Button
+                          onClick={() => router.push("/shop")}
+                          className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
+bg-white text-black hover:bg-black hover:text-white transition-colors border"
+                        >
+                          Shop exclusive prints
+                        </Button>
+                      )}
                     </div>
                   </motion.div>
                 </motion.div>

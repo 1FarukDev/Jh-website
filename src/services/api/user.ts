@@ -15,3 +15,16 @@ export const getUserDetails = async (id: number | string) => {
 
   return data;
 };
+
+export const createConsultation = async (data: any) => {
+  const { data: consultationData, error } = await supabase
+    .from("consultations")
+    .insert(data);
+
+  if (error) {
+    console.error(`Error creating consultation:`, error.message);
+    throw new Error(error.message);
+  }
+
+  return data;
+};

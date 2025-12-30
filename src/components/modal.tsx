@@ -33,7 +33,7 @@ const Modal: React.FC<CustomModalProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent
-        className={`${className} [&>button[data-dialog-close]]:hidden  rounded-none gap-0`}
+        className={`${className} md:!w-[60%] w-[90%] md:!max-w-[40vw] no-scrollbar !rounded-md !shadow-sm [&>button[data-dialog-close]]:hidden  rounded-none gap-0`}
       >
         <DialogHeader className='p-0 m-0 gap-0'>
           {title && <DialogTitle className='p-0 m-0 gap-0'>{title}</DialogTitle>}

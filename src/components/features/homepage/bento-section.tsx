@@ -111,12 +111,12 @@ function BlogComponent() {
             </div>
           </div>
           <Modal
-            className="!w-[60%] md:!max-w-[40vw] no-scrollbar !rounded-md !shadow-sm"
+            className=""
             trigger={""}
             open={showConsultationModal}
             onOpenChange={setShowConsultationModal}
           >
-            <Consultation />
+            <Consultation onClose={() => setShowConsultationModal(false)} />
           </Modal>
         </div>
       </div>
