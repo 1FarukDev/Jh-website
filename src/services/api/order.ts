@@ -32,6 +32,7 @@ export async function createOrder(payload: CreateOrderPayload) {
       status: "pending",
       payment_status: "pending",
       product_id: payload.product_id,
+      quantity: payload.product_data.reduce((acc, item) => acc + item.quantity, 0),
     })
     .select()
     .single();

@@ -49,8 +49,6 @@ function CardDetails({
         if (!paymentData.link) {
           throw new Error("Payment link not returned");
         }
-
-        // Redirect to payment gateway
         window.location.href = paymentData.link;
       } catch (err) {
         console.error("Payment init failed:", err);
@@ -100,7 +98,7 @@ function CardDetails({
       customer_email: checkoutData.email,
       customer_phone: checkoutData.phoneNumber,
       total_amount: total,
-      product_id: cart.map(item => item.productId).join(','),
+      product_id: cart.map(item => item.productId),
       product_data: cart.map((item) => ({
         productId: item.productId,
         name: item.name,
