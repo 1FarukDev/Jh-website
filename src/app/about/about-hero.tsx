@@ -24,16 +24,16 @@ function AboutHero() {
         priority
       />
 
-      <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 bg-black/30 z-10" />
 
       <div className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4">
         <p className="text-[32px] leading-[48px] md:text-[90px] md:leading-[100px] font-extralight font-rose">
           J.H Textiles
         </p>
 
-        <p className="mt-4 font-satoshi max-w-2xl mx-auto">
+        {/* <p className="mt-4 font-satoshi max-w-2xl mx-auto">
           Where creativity meets tradition merging experimentation to craft intentional designs fueled by creativity
-        </p>
+        </p> */}
       </div>
     </div>
   );

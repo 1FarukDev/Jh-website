@@ -16,7 +16,7 @@ import ForgotPassword from "./auth/forgot-password";
 import Link from "next/link";
 import SearchDropdown from "./search-dropdown";
 import { AnimatePresence, motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
 import ResetPassword from "./auth/reset-password";
@@ -26,6 +26,7 @@ import { useCart } from "@/context/cart-context";
 
 function NavBar() {
   const pathname = usePathname();
+  const router = useRouter();
   const supabase = createClient();
   const isHomePage =
     pathname === "/" || pathname === "/client" || pathname === "/about";
@@ -317,9 +318,10 @@ function NavBar() {
 
                         <li
                           className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white"
-                          onClick={() => {
-                            logout();
+                          onClick={async () => {
+                            await logout();
                             setUserDropdownOpen(false);
+                            // router.push('/');
                           }}
                         >
                           <LogOut size={20} strokeWidth={1.5} />
