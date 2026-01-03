@@ -24,8 +24,8 @@ export interface Order {
   total_amount: number;
   status: "Delivered" | "Processing" | string;
   payment_status?: "Paid" | "Unpaid" | string;
-  product_data?: any[]; // kept (not removed)
-  id: number; // ✅ FIX: bigint → number
+  product_data?: any[];
+  id: number;
 }
 
 interface OrdersProps {
@@ -38,10 +38,7 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
 
   const orders = initialOrders || [];
 
-  const {
-    data: orderItems = [],
-    isLoading: isOrderItemsLoading,
-  } = useQuery({
+  const { data: orderItems = [], isLoading: isOrderItemsLoading } = useQuery({
     queryKey: ["order-items", selectedOrder?.id],
     queryFn: () => getOrderItemsByOrderId(selectedOrder!.id),
     enabled: !!selectedOrder?.id,

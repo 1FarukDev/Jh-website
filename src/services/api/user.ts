@@ -26,5 +26,22 @@ export const createConsultation = async (data: any) => {
     throw new Error(error.message);
   }
 
-  return data;
+  return consultationData;
+};
+
+export const createNewsletterSubscription = async (data: any) => {
+  const { data: newsletterData, error } = await supabase
+    .from("newsletter")
+    .insert(data);
+
+  if (error) {
+    console.error(`Error creating newsletter subscription:`, error.message);
+    throw new Error(error.message);
+  }
+  await fetch('/api/send-newsletter-email', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+
+  return newsletterData;
 };
