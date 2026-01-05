@@ -5,7 +5,6 @@ import Filters from "./filters";
 import PrintCard from "@/components/print-card";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
-// import ShopImage from "@/app/assets/webp/consultation.webp";
 import ShopImage from "@/app/assets/png/2-shop-prints-jh-textiles.jpg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

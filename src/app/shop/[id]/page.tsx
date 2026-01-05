@@ -19,6 +19,7 @@ interface Color {
 }
 
 function Page() {
+  const [scale, setScale] = useState(1);
   const router = useRouter();
   const params = useParams();
   const { formatPrice } = useCurrency();
@@ -81,6 +82,9 @@ function Page() {
             <PrintMockup
               print={productData.images[0]}
               images={productData.images}
+              scale={scale}
+              onScaleChange={setScale}
+              
             />
           </div>
           <div className="md:w-1/2 w-full">
@@ -92,11 +96,14 @@ function Page() {
             <hr className="my-4" />
 
             <section className="flex flex-col gap-6">
-              <div>
+              <div className=" max-w-3xl">
                 <p className="font-satoshi font-normal">About</p>
                 <p className="font-satoshi font-normal">
                   <span className="font-bold">"{productData?.name}"</span>{" "}
-                  {productData?.description}
+                  <div
+                    className="prose prose-lg font-satoshi prose-satoshi mx-auto text-[#4E5157]"
+                    dangerouslySetInnerHTML={{ __html: productData.description }}
+                  />
                 </p>
               </div>
 
@@ -104,10 +111,7 @@ function Page() {
                 <p className="font-light">Exclusivity</p>
                 <div className="flex gap-2 items-center mt-3">
                   <p className="border px-4 py-2 rounded-none border-black font-light">
-                    NON-EXCLUSIVE PRINT
-                  </p>
-                  <p className="border px-4 py-2 rounded-none border-black font-light">
-                    EXCLUSIVE PRINT
+                    {productData?.exclusive ? "EXCLUSIVE PRINT" : "NON-EXCLUSIVE PRINT"}
                   </p>
                 </div>
               </div>
@@ -138,7 +142,7 @@ function Page() {
               <div className="font-satoshi text-black ">
                 <p className=" font-light">Size:</p>
                 <div className="border px-4 py-2 border-black w-max font-normal text-xs mt-3">
-                  Scaled to 10.4" x 12.5
+                  Scaled to {scale.toFixed(1)}x
                 </div>
                 <div className="text-xs flex items-center gap-2 mt-1 ">
                   <Info strokeWidth={1} width={20} />
@@ -163,7 +167,7 @@ function Page() {
                 className="bg-black text-white rounded-none shadow-none md:w-1/2 h-12 hover:bg-opacity-90 transition"
                 onClick={() => {
                   handleAddToCart();
-                  router.push('/cart');
+                  router.push("/cart");
                 }}
               >
                 Buy Now

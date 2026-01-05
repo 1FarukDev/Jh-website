@@ -13,6 +13,7 @@ interface ClientWorkProps {
   name: string;
   subText: string;
   images: string[];
+  id: string;
 }
 
 function ClientWork() {
@@ -105,7 +106,7 @@ function ClientWork() {
                     <p className="text-sm md:text-base">{work.subText}</p>
                     <Button
                       className="bg-white text-black rounded-none px-6"
-                      onClick={() => router.push("/client")}
+                      onClick={() => router.push(`/client/${work.id}`)}
                     >
                       View Project
                     </Button>

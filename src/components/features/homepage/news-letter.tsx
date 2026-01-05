@@ -27,8 +27,7 @@ export default function NewsletterSignup () {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Validate email
+  
     if (!email || !email.includes('@')) {
       toast.error('Please enter a valid email address')
       return

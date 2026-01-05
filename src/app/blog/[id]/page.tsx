@@ -93,7 +93,7 @@ function BlogDetail() {
       <div className="max-w-4xl mx-auto mt-[70px] px-4 md:px-0">
         {blogDetails.body && (
           <div
-            className="prose prose-lg prose-satoshi mx-auto text-[#4E5157]"
+            className="prose prose-lg font-satoshi prose-satoshi mx-auto text-[#4E5157]"
             dangerouslySetInnerHTML={{ __html: blogDetails.body }}
           />
         )}
