@@ -96,7 +96,10 @@ function Page() {
                 <p className="font-satoshi font-normal">About</p>
                 <p className="font-satoshi font-normal">
                   <span className="font-bold">"{productData?.name}"</span>{" "}
-                  {productData?.description}
+                  <div
+                    className="prose prose-lg font-satoshi prose-satoshi mx-auto text-[#4E5157]"
+                    dangerouslySetInnerHTML={{ __html: productData.description }}
+                  />
                 </p>
               </div>
 
@@ -163,7 +166,7 @@ function Page() {
                 className="bg-black text-white rounded-none shadow-none md:w-1/2 h-12 hover:bg-opacity-90 transition"
                 onClick={() => {
                   handleAddToCart();
-                  router.push('/cart');
+                  router.push("/cart");
                 }}
               >
                 Buy Now
