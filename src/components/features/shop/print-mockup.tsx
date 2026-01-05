@@ -101,7 +101,14 @@ function PrintMockup({
               step="0.1"
               value={scale}
               onChange={(e) => onScaleChange(parseFloat(e.target.value))}
-              className="w-full max-w-[240px] h-[2px] appearance-none rounded-full accent-[#8A8635]"
+              className="w-full max-w-[250px] h-[2px] appearance-none rounded-full accent-[#8A8635]"
+              style={{
+                background: `linear-gradient(to right, #8A8635 0%, #8A8635 ${
+                  ((scale - 0.8) / (2 - 0.8)) * 100
+                }%, #e5e7eb ${
+                  ((scale - 0.8) / (2 - 0.8)) * 100
+                }%, #e5e7eb 100%)`,
+              }}
             />
 
             <button

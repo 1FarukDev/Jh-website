@@ -2,8 +2,11 @@ import PrintCard from "@/components/print-card";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/services/api/product";
+import { useCart } from "@/context/cart-context";
 
 function Likes() {
+  const { addToCart } = useCart();
+
   const {
     data: productData = [],
     isLoading,
@@ -22,24 +25,40 @@ function Likes() {
   }
 
   return (
-    <section className="flex flex-col justify-center items-center mt-20 w-full">
+    <section className="flex flex-col items-center mt-20 w-full">
       <h1 className="text-[28px] md:text-[40px]">You might also like</h1>
-      <p className="font-satoshi text-[#4E5157] md:text-base text-sm">
+      <p className="font-satoshi text-[#4E5157] md:text-base text-sm text-center">
         Curated works handpicked from J.H Textiles collection.
       </p>
 
+      {/* Horizontal scroll container */}
       <div className="mt-[45px] w-full overflow-x-auto no-scrollbar">
-        <div className="flex gap-6 flex-nowrap">
+        <div className="flex gap-6 px-4 flex-nowrap">
           {productData.map((item) => (
-            <div key={item.id} className="min-w-[300px] flex-shrink-0">
+            <div
+              key={item.id}
+              className="min-w-[260px] sm:min-w-[300px] flex-shrink-0"
+            >
               <PrintCard
                 image={item.images?.[0] || "/placeholder.png"}
+                hoverImage={item.images?.[1]}
                 label={item.category}
                 title={item.name}
                 price={item.price}
-                onAddToCart={() => console.log(`Added ${item.name} to cart`)}
                 onViewDetails={`/shop/${item.id}`}
-                hoverImage={item.images?.[1]}
+                onAddToCart={() =>
+                  addToCart({
+                    productId: item.id,
+                    name: item.name,
+                    title: item.name,
+                    price: Number(item.price) || 0,
+                    image: item.images?.[0] || "",
+                    images: item.images || [],
+                    category: item.category,
+                    exclusivity: "Non-Exclusive Print",
+                    size: 'Scaled to 10.4" x 12.5"',
+                  })
+                }
               />
             </div>
           ))}
