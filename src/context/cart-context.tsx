@@ -28,6 +28,8 @@ export interface CartItem {
   colorCode?: string;
   size: string;
   quantity: number;
+  print_development?:boolean
+  color_variant?: string
 }
 
 interface CartContextProps {

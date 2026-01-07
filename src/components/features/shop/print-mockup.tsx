@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
-// ✅ Human mockup (transparent PNG)
 import MockupHuman from "@/app/assets/png/darashop4.png";
 
 interface PrintMockupProps {
@@ -38,15 +37,11 @@ function PrintMockup({
     setSelectedPatternIndex((i) => (i + 1) % images.length);
 
   const prevPattern = () =>
-    setSelectedPatternIndex((i) =>
-      i === 0 ? images.length - 1 : i - 1
-    );
+    setSelectedPatternIndex((i) => (i === 0 ? images.length - 1 : i - 1));
 
   return (
     <div className="flex flex-col w-full gap-6 max-w-[90%] mx-auto">
-      {/* ================= MAIN PREVIEW ================= */}
       <div className="relative w-full aspect-square overflow-hidden bg-white">
-        {/* BASE PATTERN */}
         <Image
           src={selectedPattern}
           alt="Pattern preview"
@@ -60,7 +55,6 @@ function PrintMockup({
           }}
         />
 
-        {/* HUMAN MOCKUP OVERLAY */}
         {selectedMockup && (
           <Image
             src={selectedMockup.image}
@@ -70,28 +64,25 @@ function PrintMockup({
           />
         )}
 
-        {/* LEFT ARROW */}
         <button
           onClick={prevPattern}
           className="absolute left-3 top-1/2 -translate-y-1/2
                      w-10 h-10 bg-black/10 hover:bg-black/20
-                     text-black text-xl flex items-center justify-center z-30"
+                     text-white text-xl flex items-center justify-center z-30"
         >
           ‹
         </button>
 
-        {/* RIGHT ARROW */}
         <button
           onClick={nextPattern}
           className="absolute right-3 top-1/2 -translate-y-1/2
                      w-10 h-10 bg-black/10 hover:bg-black/20
-                     text-black text-xl flex items-center justify-center z-30"
+                    text-xl flex items-center justify-center z-30 text-white"
         >
           ›
         </button>
       </div>
 
-      {/* ================= SCALE CONTROLS ================= */}
       <div className="flex items-center justify-center gap-3 px-4">
         <button
           onClick={handleDecrease}
@@ -111,9 +102,7 @@ function PrintMockup({
           style={{
             background: `linear-gradient(to right, #8A8635 0%, #8A8635 ${
               ((scale - 1) / 2) * 100
-            }%, #e5e7eb ${
-              ((scale - 1) / 2) * 100
-            }%, #e5e7eb 100%)`,
+            }%, #e5e7eb ${((scale - 1) / 2) * 100}%, #e5e7eb 100%)`,
           }}
         />
 
@@ -125,15 +114,13 @@ function PrintMockup({
         </button>
       </div>
 
-      {/* ================= PRINT VARIANTS + HUMAN MOCKUP ================= */}
       <div className="flex gap-3 overflow-x-auto justify-center px-4 pb-2">
-        {/* PATTERN VARIANTS */}
         {images.map((img, index) => (
           <button
             key={`pattern-${index}`}
             onClick={() => {
               setSelectedPatternIndex(index);
-              setSelectedMockup(null); // disable human
+              setSelectedMockup(null);
             }}
             className={`relative w-20 aspect-square border-2 shrink-0 ${
               index === selectedPatternIndex && !selectedMockup
@@ -150,7 +137,6 @@ function PrintMockup({
           </button>
         ))}
 
-        {/* HUMAN MOCKUP (LAST ITEM) */}
         <button
           onClick={() => {
             setSelectedMockup({
@@ -158,7 +144,7 @@ function PrintMockup({
               name: "On Model",
               image: MockupHuman,
             });
-            onScaleChange(1); // recommended for mockups
+            onScaleChange(1);
           }}
           className={`relative w-20 aspect-square border-2 shrink-0 ${
             selectedMockup?.id === "human"
@@ -166,7 +152,6 @@ function PrintMockup({
               : "border-gray-300"
           }`}
         >
-          {/* Pattern background */}
           <Image
             src={selectedPattern}
             alt="On Model"
@@ -174,7 +159,6 @@ function PrintMockup({
             className="object-cover"
           />
 
-          {/* Human overlay */}
           <Image
             src={MockupHuman}
             alt="On Model"
