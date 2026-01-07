@@ -46,7 +46,7 @@ function ClientProducts() {
           <p className="text-[18px] md:text-[24px] leading-[32px] tracking-tighter">
             {client.title || client.name || "Untitled Project"}
           </p>
-          <p className="md:text-sm text-xs font-satoshi -mt-1 line-clamp-3">
+          <p className="md:text-sm text-xs font-satoshi -mt-1 line-clamp-2">
             {client.description ||
               client.subText ||
               "A beautiful textile project showcasing creativity and craftsmanship."}

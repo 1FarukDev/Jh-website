@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useForm, FormProvider } from "react-hook-form";
 import CloeIcon from "@/app/assets/svg/close.svg";
-import NavLogo from "@/app/assets/svg/nav-logo.svg";
+import NavLogo from "@/app/assets/svg/nav-logo.png";
 import { FormInput } from "../input";
 import { LockKeyhole, Mail } from "lucide-react";
 import { FormCheckbox } from "../checkbox";
@@ -76,7 +76,15 @@ function Login({ onForgotPassword, onSuccess }: LoginProps) {
             <div></div>
 
             <div className="flex justify-center items-center gap-1">
-              <Image src={NavLogo} alt="Nav Logo" width={50} />
+              <Image
+                src={NavLogo}
+                alt="Nav Logo"
+                width={400}
+                height={400}
+                priority
+                quality={100}
+                className="w-[200px] object-contain"
+              />
               <h2 className="font-rose text-black md:text-base text-sm">
                 J.H TEXTILES
               </h2>

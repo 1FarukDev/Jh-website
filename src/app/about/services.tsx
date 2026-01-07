@@ -7,7 +7,8 @@ import PrintScalingImage from "@/app/assets/webp/print rescaling-jh textiles.web
 import RushImage from "@/app/assets/png/Rush-Service--JH-Textiles.jpg";
 import PrintingLicence from "@/app/assets/webp/print licensing.webp";
 import IllustrationImage from "@/app/assets/webp/hand drawn illustrations.webp";
-import MockupsImage from "@/app/assets/webp/mockups.webp";
+import ColorsSeparation from '@/app/assets/png/color-separation.jpg'
+import ColorsVariants from '@/app/assets/png/color-variants.jpg'
 import PrintImage from "@/app/assets/webp/development.webp";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -87,7 +88,7 @@ function Services({handleConsultation}: {handleConsultation: () => void}) {
       color: "#1C1B0B",
       textColor: "white",
       subTextColor: "#CDD1D7",
-      image: MockupsImage,
+      image: ColorsSeparation,
     },
     {
       header: "Color Variants",
@@ -96,7 +97,7 @@ function Services({handleConsultation}: {handleConsultation: () => void}) {
       color: "#F0DAB6",
       textColor: "#230D06",
       subTextColor: "#4E5157",
-      image: PrintImage,
+      image: ColorsVariants,
     },
     {
       header: "Print Development",

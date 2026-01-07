@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
-import ClientBg from "@/app/assets/png/clientbg.png";
+import ClientBg from "@/app/assets/png/clients-and-collaborations-jh-textiles.jpg";
 import { ArrowRight } from "lucide-react";
 
 function ClientHero() {
