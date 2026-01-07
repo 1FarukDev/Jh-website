@@ -52,7 +52,7 @@ function PrintCard({
         price: typeof price === "number" ? price : Number(price) || 0,
         image: typeof image === "string" ? image : "",
         images: images || [],
-        category: category || label,
+        category: label,
         exclusivity: "Non-Exclusive Print",
         size: 'Standard Size',
       });

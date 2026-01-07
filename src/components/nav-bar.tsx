@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import NavLogo from "@/app/assets/svg/nav-logo.svg";
+import NavLogo from "@/app/assets/svg/nav-logo.png";
 import { ChevronDown, CircleUserRound, LogOut, Search } from "lucide-react";
 import cart from "@/app/assets/svg/cart.svg";
 import cartwhite from "@/app/assets/svg/shopping-cart-white.svg";
@@ -50,27 +50,33 @@ function NavBar() {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
     const type = params.get("type");
-    
+
     let hasProcessedRecovery = false;
-  
+
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (event: string, session: any | null) => {
-       
-        if (code && type === "recovery" && event === "INITIAL_SESSION" && !hasProcessedRecovery) {
+        if (
+          code &&
+          type === "recovery" &&
+          event === "INITIAL_SESSION" &&
+          !hasProcessedRecovery
+        ) {
           hasProcessedRecovery = true;
-          console.log("Password recovery session established! Opening reset modal...");
+          console.log(
+            "Password recovery session established! Opening reset modal..."
+          );
           setShowResetPassword(true);
-          
+
           window.history.replaceState({}, "", window.location.pathname);
         }
-        
+
         if (event === "PASSWORD_RECOVERY") {
           console.log("PASSWORD_RECOVERY event detected!");
           setShowResetPassword(true);
         }
       }
     );
-  
+
     return () => {
       listener.subscription.unsubscribe();
     };
@@ -145,10 +151,10 @@ function NavBar() {
           isOpen
             ? "bg-[#1C1B0B] z-[100]"
             : isHomePage
-            ? scrolled
-              ? "bg-white shadow-sm z-[100]"
-              : "bg-transparent z-[100]"
-            : "bg-white shadow-sm z-[100]"
+              ? scrolled
+                ? "bg-white shadow-sm z-[100]"
+                : "bg-transparent z-[100]"
+              : "bg-white shadow-sm z-[100]"
         }`}
       >
         <div className="md:grid flex justify-between md:grid-cols-3 items-center px-3">
@@ -165,8 +171,8 @@ function NavBar() {
                   isOpen
                     ? "bg-white rotate-45 translate-y-1.5"
                     : getTextColorClass()
-                    ? getTextColorClass().replace("text-", "bg-")
-                    : "bg-white"
+                      ? getTextColorClass().replace("text-", "bg-")
+                      : "bg-white"
                 }`}
               ></div>
               <div
@@ -174,8 +180,8 @@ function NavBar() {
                   isOpen
                     ? "bg-white -rotate-45 -translate-y-1.5"
                     : getTextColorClass()
-                    ? getTextColorClass().replace("text-", "bg-")
-                    : "bg-white"
+                      ? getTextColorClass().replace("text-", "bg-")
+                      : "bg-white"
                 }`}
               ></div>
             </div>
@@ -185,8 +191,15 @@ function NavBar() {
           </div>
 
           <Link href="/" className="flex justify-center items-center gap-1">
-            <Image src={NavLogo} alt="Nav Logo" />
-            <h2 className={`font-rose ${getTextColorClass()}`}>J.H TEXTILES</h2>
+            <Image
+              src={NavLogo}
+              alt="Nav Logo"
+              width={400}
+              height={400}
+              priority
+              quality={100}
+              className="w-[200px] object-contain"
+            />
           </Link>
 
           <div

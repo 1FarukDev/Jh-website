@@ -109,15 +109,15 @@ function Page() {
               />
             </div>
 
-            <div className="md:w-1/2 w-full">
-              <p className="font-satoshi text-[#4E5157] text-lg">
+            <div className="md:w-1/2 w-full ">
+              <p className="font-satoshi text-[#4E5157] text-lg ">
                 {productData?.category}
               </p>
               <p className="text-[40px] text-[#230D06]">{productData?.name}</p>
 
               <hr className="my-4" />
 
-              <section className="flex flex-col gap-6">
+              <section className="flex flex-col gap-6 ">
                 {productData?.description && (
                   <div className="max-w-3xl">
                     <p className="font-satoshi font-normal">About</p>
@@ -130,7 +130,7 @@ function Page() {
                   </div>
                 )}
 
-                <div className="font-satoshi text-[#4E5157]">
+                <div className="font-satoshi text-[#4E5157] md:w-[80%] w-full ">
                   <p className="font-satoshi font-bold">Delivery Guide</p>
                   <p className="font-medium">
                     After selecting your print, you'll receive scale options via
@@ -146,7 +146,8 @@ function Page() {
                   <ul className="mt-4">
                     <li>- Print Modification </li>
                     <li className="flex items-center gap-2">
-                      - Additional color variants:
+                      - Additional color variants{" "}
+                      <span className="text-xs">(attract extra fee)</span>:
                       <CustomSelect
                         value={colorValue}
                         onValueChange={(val) => {

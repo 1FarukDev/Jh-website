@@ -42,16 +42,16 @@ function ShopPage() {
           Shop Prints & Textiles
         </h1>
         <p className="font-satoshi font-normal md:text-xl text-base text-[#4E5157] text-center -mt-3 max-w-5xl mx-auto">
-          Browse a curated collection of ready-to-use textile prints. Perfect for fashion brands, interior designers, or creatives looking for exclusive, high-quality surface patterns.
+          Browse a curated collection of ready-to-use textile prints. Perfect
+          for fashion brands, interior designers, or creatives looking for
+          exclusive, high-quality surface patterns.
         </p>
       </div>
 
-    
       <div className="mt-10 md:px-15" data-aos="fade-right">
         <Filters />
       </div>
 
-      {/* Product Grid */}
       <section className="mt-[45px] mx-10 border border-t-0 border-b-0 border-[#8A8635] min-h-[300px]">
         {isError && (
           <p className="text-center py-20 text-red-500">
@@ -91,7 +91,7 @@ function ShopPage() {
                         productId={item.id}
                         image={item?.image || item.thumbnail || "/fallback.png"}
                         images={item?.images}
-                        label={item?.category || item?.label || "Print"}
+                        label={item?.tag || item?.label || "No tag"}
                         title={item?.title || item.name}
                         price={item?.price}
                         category={item?.category}
@@ -132,7 +132,7 @@ function ShopPage() {
                           item?.images[0] || item?.thumbnail || "/fallback.png"
                         }
                         images={item?.images}
-                        label={item?.category || item?.label || "Print"}
+                        label={item?.tag || item?.label || "No tag"}
                         title={item?.title || item?.name}
                         price={item?.price}
                         category={item?.category}
