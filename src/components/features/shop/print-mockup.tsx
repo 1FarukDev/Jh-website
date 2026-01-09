@@ -40,7 +40,7 @@ function PrintMockup({
     setSelectedPatternIndex((i) => (i === 0 ? images.length - 1 : i - 1));
 
   return (
-    <div className="flex flex-col w-full gap-6 max-w-[90%] mx-auto">
+    <div className="flex flex-col w-full gap-6 md:max-w-[90%] mx-auto">
       <div className="relative w-full aspect-square overflow-hidden bg-white">
         <Image
           src={selectedPattern}
@@ -83,7 +83,7 @@ function PrintMockup({
         </button>
       </div>
 
-      <div className="flex items-center justify-center gap-3 px-4">
+      <div className="flex items-center justify-center gap-3 md:px-4">
         <button
           onClick={handleDecrease}
           className="px-3 py-[2px] bg-[#8A8635] text-lg text-white"
@@ -114,7 +114,7 @@ function PrintMockup({
         </button>
       </div>
 
-      <div className="flex gap-3 overflow-x-auto justify-center px-4 pb-2">
+      <div className="flex gap-3 overflow-x-auto no-scrollbar justify-center px-4 pb-2">
         {images.map((img, index) => (
           <button
             key={`pattern-${index}`}

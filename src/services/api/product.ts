@@ -31,6 +31,7 @@ export const getProductById = async (id: number) => {
   return data;
 };
 
+
 export const searchProducts = async (query: string) => {
   if (!query || query.trim() === "") {
     return getProducts();
@@ -46,6 +47,37 @@ export const searchProducts = async (query: string) => {
 
   if (error) {
     console.error("Error searching products:", error.message);
+    return [];
+  }
+
+  return data;
+};
+
+export const getFilteredProducts = async (filters: {
+  category?: string;
+  minPrice?: string;
+  maxPrice?: string;
+}) => {
+  let query = supabase.from("products").select("*");
+
+  if (filters.category && filters.category !== "all") {
+    query = query.ilike("tag", `%${filters.category}%`);
+  }
+
+
+  if (filters.minPrice) {
+    query = query.gte("price", parseFloat(filters.minPrice));
+  }
+  if (filters.maxPrice) {
+    query = query.lte("price", parseFloat(filters.maxPrice));
+  }
+
+  query = query.order("created_at", { ascending: false });
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching filtered products:", error.message);
     return [];
   }
 

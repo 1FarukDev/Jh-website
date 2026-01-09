@@ -1,173 +1,214 @@
-'use client'
+"use client";
 
-import { ChevronDown, X } from 'lucide-react'
-import React, { useState } from 'react'
+import { ChevronDown, X } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { createPortal } from "react-dom";
 
 interface FilterProps {
-  text: string
-  value: string
+  text: string;
+  value: string;
 }
 
-function Filters () {
-  const [activeFilter, setActiveFilter] = useState<string>('all')
-  const [showPriceFilter, setShowPriceFilter] = useState<boolean>(false)
-  const [showCategoryDropdown, setShowCategoryDropdown] =
-    useState<boolean>(false)
-  const [minPrice, setMinPrice] = useState<string>('')
-  const [maxPrice, setMaxPrice] = useState<string>('')
+function Filters() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [mounted, setMounted] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [showPriceFilter, setShowPriceFilter] = useState(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filtersProps: FilterProps[] = [
-    { text: 'All', value: 'all' },
-    { text: 'Prints', value: 'prints' },
-    { text: 'Textiles', value: 'textiles' },
-    { text: 'Editions', value: 'editions' },
-    { text: 'Originals', value: 'originals' },
-    { text: 'Linens', value: 'linens' }
-  ]
+    { text: "All", value: "all" },
+    { text: "Flora", value: "floral" },
+    { text: "Afrocentric", value: "afrocentric" },
+    { text: "Conversational", value: "conversational" },
+    { text: "Abstract", value: "abstract" },
+    { text: "Geometric", value: "geometric" },
+    { text: "Watercolor", value: "watercolor" },
+    { text: "Digital", value: "digital" },
+    { text: "Minimal", value: "minimal" },
+    { text: "All over print", value: "all over print" },
+    { text: "Placement Print", value: "placement print" },
+    { text: "Border Print", value: "border print" },
+  ];
+
+  useEffect(() => {
+    setMounted(true);
+    const category = searchParams.get("category") || "all";
+    setActiveFilter(category);
+    setMinPrice(searchParams.get("minPrice") || "");
+    setMaxPrice(searchParams.get("maxPrice") || "");
+  }, [searchParams]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setShowCategoryDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const updateQueryParams = (params: Record<string, string | null>) => {
+    const currentParams = new URLSearchParams(searchParams.toString());
+    Object.entries(params).forEach(([key, value]) => {
+      if (!value || value === "all") currentParams.delete(key);
+      else currentParams.set(key, value);
+    });
+    router.push(`?${currentParams.toString()}`, { scroll: false });
+  };
 
   const handleApplyFilter = () => {
-    console.log('Applied filters:', { minPrice, maxPrice })
-    setShowPriceFilter(false)
-  }
+    updateQueryParams({
+      minPrice: minPrice || null,
+      maxPrice: maxPrice || null,
+    });
+    setShowPriceFilter(false);
+  };
 
   const handleReset = () => {
-    setMinPrice('')
-    setMaxPrice('')
-  }
+    setMinPrice("");
+    setMaxPrice("");
+    updateQueryParams({ minPrice: null, maxPrice: null });
+  };
+
+  const getActiveText = () =>
+    filtersProps.find((f) => f.value === activeFilter)?.text || "All";
+
+  if (!mounted) return null;
+
+  const buttonRect = buttonRef.current?.getBoundingClientRect();
+  const top = buttonRect ? buttonRect.bottom + window.scrollY : 0;
+  const left = buttonRect ? buttonRect.left + window.scrollX : 0;
 
   return (
-    <section className='relative'>
-      <div className='flex justify-between items-center'>
-        <div className='hidden md:flex gap-2'>
-          {filtersProps.map(filter => {
-            const isActive = activeFilter === filter.value
+    <section className="relative">
+      <div className="flex justify-between items-center">
+        <div className="hidden md:flex gap-2 items-center w-[70%] overflow-x-auto no-scrollbar">
+          {filtersProps.map((filter) => {
+            const isActive = activeFilter === filter.value;
             return (
               <p
                 key={filter.value}
-                onClick={() => setActiveFilter(filter.value)}
-                className={`border p-2 font-satoshi px-6 cursor-pointer transition-colors duration-200 
-                ${
-                  isActive
-                    ? 'bg-black text-white border-black'
-                    : 'text-[#828892] border-[#828892] hover:bg-[#f0f0f0]'
-                }
-              `}
+                onClick={() => {
+                  setActiveFilter(filter.value);
+                  updateQueryParams({ category: filter.value });
+                }}
+                className={`border p-2 font-satoshi w-fit text-nowrap px-6 cursor-pointer transition-colors duration-200
+                  ${isActive ? "bg-black text-white border-black" : "text-gray-500 border-gray-500 hover:bg-gray-100"}
+                `}
               >
                 {filter.text}
               </p>
-            )
+            );
           })}
         </div>
 
-        <div className='relative md:hidden'>
+        <div className="relative md:hidden">
           <button
-            className='border px-4 py-2 border-black flex items-center justify-between gap-2 w-36'
-            onClick={() => setShowCategoryDropdown(prev => !prev)}
+            ref={buttonRef}
+            className="border px-4 py-2 border-black flex items-center justify-between gap-2 w-36"
+            onClick={() => setShowCategoryDropdown((prev) => !prev)}
           >
-            {filtersProps.find(f => f.value === activeFilter)?.text || 'Select'}
+            {getActiveText()}
             <ChevronDown size={18} />
           </button>
 
-          {showCategoryDropdown && (
-            <div className='absolute left-0 mt-2 bg-white border border-gray-300 shadow-md rounded w-36 z-50'>
-              {filtersProps.map(filter => (
-                <p
-                  key={filter.value}
-                  onClick={() => {
-                    setActiveFilter(filter.value)
-                    setShowCategoryDropdown(false)
-                  }}
-                  className={`px-4 py-2 cursor-pointer hover:bg-gray-100 
-                  ${
-                    activeFilter === filter.value
-                      ? 'bg-gray-200 font-semibold'
-                      : ''
-                  }`}
-                >
-                  {filter.text}
-                </p>
-              ))}
-            </div>
-          )}
+          {showCategoryDropdown &&
+            createPortal(
+              <div
+                ref={dropdownRef}
+                className="absolute bg-white border border-gray-300 shadow-md rounded z-[9999] w-36"
+                style={{ top, left }}
+              >
+                {filtersProps.map((filter) => (
+                  <p
+                    key={filter.value}
+                    onClick={() => {
+                      setActiveFilter(filter.value);
+                      updateQueryParams({ category: filter.value });
+                      setShowCategoryDropdown(false);
+                    }}
+                    className={`px-4 py-2 cursor-pointer hover:bg-gray-100
+                      ${activeFilter === filter.value ? "bg-gray-200 font-semibold" : ""}
+                    `}
+                  >
+                    {filter.text}
+                  </p>
+                ))}
+              </div>,
+              document.body
+            )}
         </div>
 
-        <div className='relative'>
+        <div className="relative">
           <div
-            className='border px-6 p-2 border-black cursor-pointer'
-            onClick={() => setShowPriceFilter(!showPriceFilter)}
+            className="border px-6 p-2 border-black cursor-pointer"
+            onClick={() => setShowPriceFilter((prev) => !prev)}
           >
-            <p className='text-[black] font-satoshi flex items-center gap-1'>
+            <p className="flex items-center gap-1">
               Filter <ChevronDown strokeWidth={1} size={20} />
             </p>
           </div>
         </div>
       </div>
 
-      {showPriceFilter && (
-        <div className='absolute right-0 top-full mt-2 bg-white border border-gray-300 shadow-lg z-5 w-72 m:w-90 font-satoshi'>
-          <div className='flex justify-between items-center p-4 border-b border-gray-200'>
-            <h3 className='text-base font-normal'>Filter</h3>
-            <button
-              onClick={() => setShowPriceFilter(false)}
-              className='text-black'
-            >
-              <X size={18} />
-            </button>
-          </div>
-
-          <div className='p-4'>
-            <div className='flex justify-between items-center mb-4'>
-              <h4 className='font-normal text-sm'>Price Range</h4>
-              <button
-                onClick={handleReset}
-                className='text-sm text-black underline'
-              >
-                Reset
+      {showPriceFilter &&
+        createPortal(
+          <div className="fixed top-[140px] right-4 w-72 bg-white border border-gray-300 shadow-lg z-[9999] p-4 font-satoshi">
+            <div className="flex justify-between items-center border-b pb-2">
+              <h3>Filter</h3>
+              <button onClick={() => setShowPriceFilter(false)}>
+                <X size={18} />
               </button>
             </div>
 
-            <div className='grid grid-cols-2 gap-4 mb-6'>
-              <div>
-                <label className='block text-sm text-gray-600 mb-1'>Min:</label>
-                <input
-                  type='number'
-                  value={minPrice}
-                  onChange={e => setMinPrice(e.target.value)}
-                  placeholder='₦0'
-                  className='w-full p-2 border border-gray-300 text-sm focus:outline-none focus:border-gray-500'
-                />
-              </div>
-              <div>
-                <label className='block text-sm text-gray-600 mb-1'>Max:</label>
-                <input
-                  type='number'
-                  value={maxPrice}
-                  onChange={e => setMaxPrice(e.target.value)}
-                  placeholder='₦0'
-                  className='w-full p-2 border border-gray-300 text-sm focus:outline-none focus:border-gray-500'
-                />
-              </div>
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              <input
+                type="number"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                placeholder="Min"
+                className="border p-2 text-sm"
+              />
+              <input
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                placeholder="Max"
+                className="border p-2 text-sm"
+              />
             </div>
 
-            <div className='grid grid-cols-2 gap-2'>
-              <button
-                onClick={() => setShowPriceFilter(false)}
-                className='py-1 text-sm font-light  border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-200'
-              >
-                Close
+            <div className="flex justify-between mt-4">
+              <button onClick={handleReset} className="text-sm underline">
+                Reset
               </button>
               <button
                 onClick={handleApplyFilter}
-                className='py-1 bg-black text-sm font-light text-white hover:bg-gray-800 transition-colors duration-200'
+                className="bg-black text-white px-4 py-1 text-sm"
               >
-                Apply Filter
+                Apply
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </section>
-  )
+  );
 }
 
-export default Filters
+export default Filters;

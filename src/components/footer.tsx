@@ -70,12 +70,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
+                {/* <Link
                   href="/best-sellers"
                   className="text-xs hover:text-white transition-colors"
                 >
                   Best Sellers
-                </Link>
+                </Link> */}
               </li>
               <li>
                 <Link
@@ -85,14 +85,14 @@ export default function Footer() {
                   Shop All Prints
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/limited-editions"
                   className="text-xs hover:text-white transition-colors"
                 >
                   Limited Editions
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/shipping"
@@ -127,10 +127,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/commissions"
+                  href="/client"
                   className="text-xs hover:text-white transition-colors"
                 >
-                  Client Work / Commissions
+                  Client Work
                 </Link>
               </li>
               <li>
@@ -203,14 +203,14 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/newsletter"
                   className="text-xs hover:text-white transition-colors"
                 >
                   Join the Collectors List (Newsletter Signup)
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -262,17 +262,17 @@ export default function Footer() {
                   <li>
                     <Link href="/new-arrivals">New Arrivals</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link href="/best-sellers">Best Sellers</Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link href="/shop-all">Shop All Prints</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link href="/limited-editions">Limited Editions</Link>
-                  </li>
+                  </li> */}
                   <li>
-                    <Link href="/shipping">Shipping & Delivery</Link>
+                    <Link href="/delivery-guide">Delivery Guide</Link>
                   </li>
                   <li>
                     <Link href="/returns">Returns & Exchanges</Link>
@@ -289,7 +289,7 @@ export default function Footer() {
                     <Link href="/about">About J.H Textiles</Link>
                   </li>
                   <li>
-                    <Link href="/commissions">Client Work / Commissions</Link>
+                    <Link href="/client">Client Work</Link>
                   </li>
                   <li>
                     <Link href="/testimonials">Testimonials</Link>
@@ -328,9 +328,9 @@ export default function Footer() {
                   <li>
                     <Link href="/blog">Blog</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link href="/newsletter">Join the Collectors List</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </AccordionContent>
             </AccordionItem>
