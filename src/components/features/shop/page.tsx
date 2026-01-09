@@ -1,31 +1,32 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Filters from "./filters";
 import PrintCard from "@/components/print-card";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
 import ShopImage from "@/app/assets/png/2-shop-prints-jh-textiles.jpg";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "@/services/api/product";
+import { getFilteredProducts } from "@/services/api/product";
 
 function ShopPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const category = searchParams.get("category") || "all";
+  const minPrice = searchParams.get("minPrice") || "";
+  const maxPrice = searchParams.get("maxPrice") || "";
 
   const {
     data: productData = [],
     isLoading,
     isError,
   } = useQuery<any[]>({
-    queryKey: ["products"],
-    queryFn: getProducts,
+    queryKey: ["products", category, minPrice, maxPrice],
+    queryFn: () => getFilteredProducts({ category, minPrice, maxPrice }),
   });
-
-  const handleViewDetails = (productId: string | number) => {
-    router.push(`/shop/${productId}`);
-  };
 
   return (
     <section>
@@ -38,21 +39,27 @@ function ShopPage() {
         data-aos="fade-up"
         data-aos-duration="1000"
       >
-        <h1 className="text-center font-light text-[20px] md:text-[80px]">
+        <h1 className="text-center font-light text-[30px] md:text-[80px]">
           Shop Prints & Textiles
         </h1>
-        <p className="font-satoshi font-normal md:text-xl text-base text-[#4E5157] text-center -mt-3 max-w-5xl mx-auto">
+        <p className="font-satoshi font-normal md:text-xl text-base text-[#4E5157] text-center md:-mt-3 max-w-5xl mx-auto">
           Browse a curated collection of ready-to-use textile prints. Perfect
           for fashion brands, interior designers, or creatives looking for
           exclusive, high-quality surface patterns.
         </p>
       </div>
 
-      <div className="mt-10 md:px-15" data-aos="fade-right">
+      <div className="mt-10 md:px-15 px-4" data-aos="fade-right">
         <Filters />
       </div>
 
-      <section className="mt-[45px] mx-10 border border-t-0 border-b-0 border-[#8A8635] min-h-[300px]">
+      <section className="mt-[45px] md:mx-10 px-4 border border-t-0 border-b-0 border-[#8A8635] min-h-[300px]">
+        {isLoading && (
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+          </div>
+        )}
+
         {isError && (
           <p className="text-center py-20 text-red-500">
             Failed to load products.
@@ -60,12 +67,13 @@ function ShopPage() {
         )}
 
         {!isLoading && productData.length === 0 && (
-          <p className="text-center py-20 text-gray-500">No products found.</p>
+          <p className="text-center py-20 text-gray-500">
+            No products found matching your filters.
+          </p>
         )}
 
         {!isLoading && productData.length > 0 && (
           <>
-            {/* Mobile (2 per row) */}
             {Array.from({
               length: Math.ceil(productData.length / 2),
             }).map((_, rowIndex) => {
@@ -89,7 +97,9 @@ function ShopPage() {
                     >
                       <PrintCard
                         productId={item.id}
-                        image={item?.image || item.thumbnail || "/fallback.png"}
+                        image={
+                          item?.images[0] || item?.thumbnail || "/fallback.png"
+                        }
                         images={item?.images}
                         label={item?.tag || item?.label || "No tag"}
                         title={item?.title || item.name}
@@ -104,7 +114,6 @@ function ShopPage() {
               );
             })}
 
-            {/* Desktop (4 per row) */}
             {Array.from({
               length: Math.ceil(productData.length / 4),
             }).map((_, rowIndex) => {
@@ -148,6 +157,28 @@ function ShopPage() {
           </>
         )}
       </section>
+
+      {/* Show filter summary */}
+      {(category !== "all" || minPrice || maxPrice) && !isLoading && (
+        <div className="mx-10 mt-4 flex items-center gap-2 text-sm text-gray-600">
+          <span>Active filters:</span>
+          {category !== "all" && (
+            <span className="bg-gray-200 px-3 py-1 rounded">
+              Category: {category}
+            </span>
+          )}
+          {minPrice && (
+            <span className="bg-gray-200 px-3 py-1 rounded">
+              Min: ${minPrice}
+            </span>
+          )}
+          {maxPrice && (
+            <span className="bg-gray-200 px-3 py-1 rounded">
+              Max: ${maxPrice}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Pagination */}
       <div

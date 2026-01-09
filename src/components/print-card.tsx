@@ -121,7 +121,7 @@ function PrintCard({
               flex-1 transition-colors duration-200"
             onClick={handleAddToCart}
           >
-            <span className="sm:hidden">Add</span>
+            <span className="sm:hidden">Add to cart</span>
             <span className="hidden sm:inline">Add to Cart</span>
           </Button>
         </div>

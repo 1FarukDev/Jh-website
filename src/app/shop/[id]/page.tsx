@@ -113,7 +113,9 @@ function Page() {
               <p className="font-satoshi text-[#4E5157] text-lg ">
                 {productData?.category}
               </p>
-              <p className="text-[40px] text-[#230D06]">{productData?.name}</p>
+              <p className="text-[30px] md:text-[40px] text-[#230D06]">
+                {productData?.name}
+              </p>
 
               <hr className="my-4" />
 
@@ -143,11 +145,9 @@ function Page() {
                     Need changes before purchase? Use the drop-down buttons
                     above to request custom colorways or print
                   </p>
-                  <ul className="mt-4">
-                    <li>- Print Modification </li>
-                    <li className="flex items-center gap-2">
-                      - Additional color variants{" "}
-                      <span className="text-xs">(attract extra fee)</span>:
+                  <ul className="mt-4 flex flex-col gap-2">
+                    <li className="flex flex-col md:flex-row  gap-2 font-bold">
+                      Additional color variants:
                       <CustomSelect
                         value={colorValue}
                         onValueChange={(val) => {
@@ -165,12 +165,22 @@ function Page() {
                         className="h-2"
                       />
                     </li>
-                    <li className="flex items-center gap-2">
-                      -
+                    <li className="font-bold">
+                      <FormCheckbox
+                        name="print_modification"
+                        label={
+                          <span className="font-bold text-[#4E5157]">
+                            Print Modification
+                          </span>
+                        }
+                      />{" "}
+                    </li>
+
+                    <li className="flex items-center gap-2 ">
                       <FormCheckbox
                         name="print_development"
                         label={
-                          <span>
+                          <span className="font-bold text-[#4E5157]">
                             Print development: Custom quote provided via email
                           </span>
                         }
