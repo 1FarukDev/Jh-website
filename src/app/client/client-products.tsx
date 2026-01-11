@@ -42,7 +42,8 @@ function ClientProducts() {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-[#0707075e] flex flex-col items-center justify-center gap-4 p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {/* Mobile: always visible, Desktop: hover */}
+        <div className="absolute inset-0 bg-[#0707075e] flex flex-col items-center justify-center gap-4 p-4 text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
           <p className="text-[18px] md:text-[24px] leading-[32px] tracking-tighter">
             {client.title || client.name || "Untitled Project"}
           </p>

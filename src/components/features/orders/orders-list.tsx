@@ -25,6 +25,7 @@ export interface Order {
   status: "Delivered" | "Processing" | string;
   payment_status?: "Paid" | "Unpaid" | string;
   product_data?: any[];
+  currency: string;
   id: number;
 }
 
@@ -75,19 +76,23 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
               </TableCell>
 
               <TableCell className="border border-gray-200">
-                ₦{order.total_amount.toLocaleString()}
+                {order.currency === "USD"
+                  ? "$" + order.total_amount.toLocaleString()
+                  : order.currency === "GBP"
+                    ? "£" + order.total_amount.toLocaleString()
+                    : "₦" + order.total_amount.toLocaleString()}
               </TableCell>
 
               <TableCell className="border border-gray-200">
                 <span
                   className={cn(
-                    "inline-flex items-center px-3 py-1 text-xs rounded-full font-medium",
-                    order.status === "Delivered"
+                    "inline-flex items-center px-3 py-1 text-xs rounded-full font-medium capitalize",
+                    order.status === "confirmed"
                       ? "bg-green-700 text-white"
                       : "bg-amber-900 text-white"
                   )}
                 >
-                  <span className="w-2 h-2 mr-1 rounded-full bg-white" />
+                  <span className="w-2 h-2 mr-1 rounded-full bg-white " />
                   {order.status}
                 </span>
               </TableCell>
@@ -117,18 +122,18 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
         {selectedOrder && (
           <OrderDetails
             onCloseButton={() => setOpen(false)}
-            orderId={selectedOrder.order_number} // display ID
+            orderId={selectedOrder.order_number}
             orderStatus={
               selectedOrder.status === "Delivered"
                 ? "Completed"
                 : selectedOrder.status === "Processing"
-                ? "Pending"
-                : "Failed"
+                  ? "Pending"
+                  : "Failed"
             }
+            currency={selectedOrder.currency}
             paymentStatus={selectedOrder.payment_status || "Unpaid"}
             totalAmount={selectedOrder.total_amount}
-            productData={orderItems} // ✅ REAL order_items data
-            // isLoading={isOrderItemsLoading} // optional but useful
+            productData={orderItems}
           />
         )}
       </Modal>

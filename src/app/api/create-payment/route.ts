@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { amount, email, name, tx_ref } = await req.json();
+    const { amount, currency, email, name, tx_ref } = await req.json();
 
     const response = await fetch("https://api.flutterwave.com/v3/payments", {
       method: "POST",
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         tx_ref,
         amount,
-        currency: "NGN",
+        currency: currency || "NGN",
         redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-status`,
         customer: { email, name },
         payment_options: "card,ussd,banktransfer,qr",

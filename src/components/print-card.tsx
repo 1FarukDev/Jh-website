@@ -15,6 +15,7 @@ type PrintCardProps = {
   label: string;
   title: string;
   price: string | number;
+  exclusivity: boolean;
   category?: string;
   onAddToCart?: () => void;
   onViewDetails?: string;
@@ -29,6 +30,7 @@ function PrintCard({
   label,
   title,
   price,
+  exclusivity,
   category,
   onAddToCart,
   onViewDetails,
@@ -53,8 +55,8 @@ function PrintCard({
         image: typeof image === "string" ? image : "",
         images: images || [],
         category: label,
-        exclusivity: "Non-Exclusive Print",
-        size: 'Standard Size',
+        exclusivity: exclusivity ? "Exclusive Print" : "Non-Exclusive Print",
+        size: "18\" x 30\"",
       });
     }
   };

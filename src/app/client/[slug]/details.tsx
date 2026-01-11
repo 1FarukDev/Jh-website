@@ -25,25 +25,25 @@ function Details() {
   const skeletonArray = Array.from({ length: totalImages });
 
   return (
-    <section className="py-[100px] px-10">
-      <div className="flex flex-col leading-tight mb-8 items-center text-center">
-        <h1 className="font-normal text-[60px]">
+    <section className="py-[100px] px-4 md:px-10">
+      <div className="flex flex-col leading-tight mb-6 md:mb-8 items-center text-center">
+        <h1 className="font-normal text-[32px] md:text-[60px] leading-[36px] md:leading-tight">
           {clientData?.name || "Client Name"}
         </h1>
-        <p className="text-[#4E5157] font-normal text-lg font-satoshi max-w-[600px]">
+        <p className="text-[#4E5157] font-normal text-sm md:text-lg font-satoshi max-w-[90%] md:max-w-[600px] mt-2 md:mt-0">
           {clientData?.description ||
             "Commissioned installation using indigo and rust dye techniques, tailored for a calm reception space."}
         </p>
       </div>
 
-      <div className="columns-1 md:columns-3 gap-3 space-y-3">
+      <div className="columns-1 sm:columns-2 md:columns-3 gap-2 md:gap-3 space-y-2 md:space-y-3">
         {isClientLoading ? (
           skeletonArray.map((_, idx) => (
             <div
               key={idx}
-              className="w-full mb-3 break-inside-avoid animate-pulse bg-gray-200"
+              className="w-full mb-2 md:mb-3 break-inside-avoid animate-pulse bg-gray-200 rounded-sm"
               style={{
-                height: `${150 + Math.random() * 600}px`,
+                height: `${150 + Math.random() * 400}px`,
               }}
             />
           ))
@@ -51,7 +51,7 @@ function Details() {
           clientData.images.map((img: string, index: number) => (
             <div
               key={index}
-              className="relative mb-3 w-full break-inside-avoid overflow-hidden"
+              className="relative mb-2 md:mb-3 w-full break-inside-avoid overflow-hidden rounded-sm"
             >
               <Image
                 src={img}
@@ -60,11 +60,14 @@ function Details() {
                 height={800}
                 className="w-full h-auto object-cover"
                 onLoadingComplete={() => setLoadedImages((prev) => prev + 1)}
+                priority={index < 3}
               />
             </div>
           ))
         ) : (
-          <p className="text-gray-500">No images available</p>
+          <p className="text-gray-500 col-span-full text-center py-10">
+            No images available
+          </p>
         )}
       </div>
     </section>

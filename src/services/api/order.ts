@@ -6,6 +6,7 @@ export type CreateOrderPayload = {
   customer_email: string;
   customer_phone: string;
   total_amount: number;
+  currency?: string;
   product_id: any;
   product_data: {
     productId: number;
@@ -29,6 +30,7 @@ export async function createOrder(payload: CreateOrderPayload) {
       customer_email: payload.customer_email,
       customer_phone: payload.customer_phone,
       total_amount: payload.total_amount,
+      currency: payload.currency || "NGN", 
       status: "pending",
       payment_status: "pending",
       product_id: payload.product_id,

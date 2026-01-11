@@ -29,10 +29,13 @@ export default function Studio() {
   } = useQuery<BlogItem[]>({
     queryKey: ["blogs"],
     queryFn: getBlogs,
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 
-  const totalSlides = blogsData?.length || 0;
-  const currentItem = blogsData?.[currentIndex];
+  // Only show first 5 blogs
+  const displayBlogs = blogsData?.slice(0, 5) || [];
+  const totalSlides = displayBlogs.length;
+  const currentItem = displayBlogs[currentIndex];
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
@@ -66,7 +69,7 @@ export default function Studio() {
     );
   }
 
-  if (!blogsData || blogsData.length === 0) {
+  if (!displayBlogs || displayBlogs.length === 0) {
     return (
       <section className="my-16 mx-auto md:px-15 px-4 text-center">
         <p className="text-2xl font-light text-gray-600">
@@ -140,6 +143,9 @@ export default function Studio() {
               alt={currentItem?.title || "Blog image"}
               fill
               className="object-cover"
+              priority={currentIndex === 0}
+              loading={currentIndex === 0 ? "eager" : "lazy"}
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </motion.div>
         </AnimatePresence>
@@ -154,7 +160,7 @@ export default function Studio() {
         </button>
 
         <div className="flex items-center gap-2">
-          {blogsData.map((_, i) => (
+          {displayBlogs.map((_: BlogItem, i: number) => (
             <div
               key={i}
               className={`transition-all w-3 h-1 ${

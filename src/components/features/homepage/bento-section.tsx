@@ -4,8 +4,6 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import FirstImage from "@/app/assets/webp/filler image 1.webp";
 import SecondImage from "@/app/assets/webp/filler image 2.webp";
-import ThirdImage from "@/app/assets/png/bento3.png";
-import OffTag from "@/app/assets/svg/offtag.svg";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
 import { useState } from "react";

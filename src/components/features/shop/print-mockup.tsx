@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
-import MockupHuman from "@/app/assets/png/darashop4.png";
+import MockupHuman from "@/app/assets/png/J-H-TEXTILES-DRESS-MOCKUP.png";
 
 interface PrintMockupProps {
   print: string;
@@ -41,26 +41,50 @@ function PrintMockup({
 
   return (
     <div className="flex flex-col w-full gap-6 md:max-w-[90%] mx-auto">
-      <div className="relative w-full aspect-square overflow-hidden bg-white">
-        <Image
-          src={selectedPattern}
-          alt="Pattern preview"
-          fill
-          priority
-          className="transition-transform duration-200 z-10"
-          style={{
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
-            objectFit: "cover",
-          }}
-        />
+      <div className="relative w-full aspect-square overflow-hidden bg-gray-100">
+        {selectedMockup ? (
+          <div className="relative w-full h-full bg-white">
+            <div
+              className="absolute inset-0 z-10 flex items-center justify-center"
+              style={{
+                clipPath: "inset(20% 32% 0% 30%)",
+              }}
+            >
+              <Image
+                src={selectedPattern}
+                alt="Pattern preview"
+                fill
+                priority
+                className="transition-transform duration-200"
+                style={{
+                  transform: `scale(${scale})`,
+                  transformOrigin: "center",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
 
-        {selectedMockup && (
+            <div className="absolute inset-0 z-20">
+              <Image
+                src={selectedMockup.image}
+                alt={selectedMockup.name}
+                fill
+                className="object-contain pointer-events-none"
+              />
+            </div>
+          </div>
+        ) : (
           <Image
-            src={selectedMockup.image}
-            alt={selectedMockup.name}
+            src={selectedPattern}
+            alt="Pattern preview"
             fill
-            className="object-contain pointer-events-none z-20"
+            priority
+            className="transition-transform duration-200"
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+              objectFit: "cover",
+            }}
           />
         )}
 
@@ -146,24 +170,33 @@ function PrintMockup({
             });
             onScaleChange(1);
           }}
-          className={`relative w-20 aspect-square border-2 shrink-0 ${
+          className={`relative w-20 aspect-square border-2 shrink-0 overflow-hidden ${
             selectedMockup?.id === "human"
               ? "border-[#8A8635]"
               : "border-gray-300"
           }`}
         >
-          <Image
-            src={selectedPattern}
-            alt="On Model"
-            fill
-            className="object-cover"
-          />
+          {/* Pattern background - clipped to dress area only */}
+          <div
+            className="absolute inset-0"
+            style={{
+              clipPath: "inset(12% 28% 5% 28%)",
+            }}
+          >
+            <Image
+              src={selectedPattern}
+              alt="On Model"
+              fill
+              className="object-cover"
+            />
+          </div>
 
+          {/* Mockup overlay */}
           <Image
             src={MockupHuman}
             alt="On Model"
             fill
-            className="object-contain pointer-events-none"
+            className="object-contain pointer-events-none relative z-10"
           />
         </button>
       </div>

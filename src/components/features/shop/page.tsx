@@ -107,6 +107,7 @@ function ShopPage() {
                         category={item?.category}
                         onViewDetails={`/shop/${item.id}`}
                         hoverImage={item?.hoverImage}
+                        exclusivity={item?.exclusive}
                       />
                     </div>
                   ))}
@@ -148,6 +149,7 @@ function ShopPage() {
                         onViewDetails={`/shop/${item.id}`}
                         loading={isLoading}
                         hoverImage={item?.images[1]}
+                        exclusivity={item?.exclusive}
                       />
                     </div>
                   ))}

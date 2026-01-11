@@ -25,7 +25,7 @@ function CardDetails({
   handlePrevious: () => void;
 }) {
   const { cart, getCartTotal, clearCart } = useCart();
-  const { formatPrice } = useCurrency();
+  const { formatPrice, currency, convertPrice } = useCurrency();
   const { checkoutData, clearCheckoutData } = useCheckout();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -37,7 +37,8 @@ function CardDetails({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            amount: total,
+            amount: convertPrice(total),
+            currency: currency.code,
             email: checkoutData.email,
             name: `${checkoutData.firstName} ${checkoutData.lastName}`,
             tx_ref: order.tx_ref,
@@ -97,8 +98,9 @@ function CardDetails({
       customer_name: `${checkoutData.firstName} ${checkoutData.lastName}`,
       customer_email: checkoutData.email,
       customer_phone: checkoutData.phoneNumber,
-      total_amount: total,
-      product_id: cart.map(item => item.productId),
+      total_amount: convertPrice(total),
+      currency: currency.code,
+      product_id: cart.map((item) => item.productId),
       product_data: cart.map((item) => ({
         productId: item.productId,
         name: item.name,
@@ -123,7 +125,7 @@ function CardDetails({
 
     createOrderMutation.mutate(orderPayload as CreateOrderPayload);
   };
-
+  console.log(cart);
   return (
     <section className="flex flex-col gap-4 items-start mt-10 md:mt-20">
       {/* 
