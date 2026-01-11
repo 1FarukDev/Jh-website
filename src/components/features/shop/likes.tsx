@@ -55,8 +55,8 @@ function Likes() {
                     image: item.images?.[0] || "",
                     images: item.images || [],
                     category: item.category,
-                    exclusivity: "Non-Exclusive Print",
-                    size: 'Scaled to 10.4" x 12.5"',
+                    exclusivity: item.exclusive ? "Exclusive Print" : "Non-Exclusive Print",
+                    size: "18\" x 30\"",
                   })
                 }
               />

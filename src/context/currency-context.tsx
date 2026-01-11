@@ -1,4 +1,5 @@
 "use client";
+
 import React, {
   createContext,
   useContext,
@@ -21,7 +22,8 @@ interface CurrencyContextProps {
   setSelectedCountry: (country: Country) => void;
   currency: Currency;
   convertPrice: (basePrice: number) => number;
-  formatPrice: (price: number) => string;
+  approximatePrice: (basePrice: number) => number;
+  formatPrice: (basePrice: number) => string;
 }
 
 const currencies: Record<Country, Currency> = {
@@ -64,42 +66,53 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    if (isClient && typeof window !== "undefined") {
-      const savedCountry = localStorage.getItem("selectedCountry") as Country;
-      if (savedCountry && currencies[savedCountry]) {
-        setSelectedCountry(savedCountry);
-      }
+    if (!isClient) return;
+
+    const savedCountry = localStorage.getItem("selectedCountry") as Country;
+    if (savedCountry && currencies[savedCountry]) {
+      setSelectedCountry(savedCountry);
     }
   }, [isClient]);
 
   useEffect(() => {
-    if (isClient && typeof window !== "undefined") {
-      localStorage.setItem("selectedCountry", selectedCountry);
-    }
+    if (!isClient) return;
+
+    localStorage.setItem("selectedCountry", selectedCountry);
   }, [selectedCountry, isClient]);
 
   const currency = currencies[selectedCountry];
 
   const convertPrice = (basePrice: number): number => {
     if (!basePrice || isNaN(basePrice)) return 0;
+
     const rate = conversionRates[selectedCountry];
     return basePrice * rate;
   };
 
-  const formatPrice = (price: number): string => {
-    if (!price || isNaN(price)) {
-      return `${currency.symbol}0`;
+  const approximatePrice = (basePrice: number): number => {
+    const converted = convertPrice(basePrice);
+
+    switch (selectedCountry) {
+      case "NG":
+        return Math.round(converted / 100) * 100;
+
+      case "US":
+      case "GB":
+        return Math.round(converted);
+
+      default:
+        return Math.round(converted);
     }
+  };
 
-    const convertedPrice = convertPrice(price);
+  const formatPrice = (basePrice: number): string => {
+    const approx = approximatePrice(basePrice);
 
-    const formattedNumber = convertedPrice.toLocaleString("en-US", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 20,
+    const formatted = approx.toLocaleString("en-US", {
+      maximumFractionDigits: 0,
     });
 
-    const result = `${currency.symbol}${formattedNumber}`;
-    return result;
+    return `${currency.symbol}${formatted}`;
   };
 
   return (
@@ -109,6 +122,7 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
         setSelectedCountry,
         currency,
         convertPrice,
+        approximatePrice,
         formatPrice,
       }}
     >

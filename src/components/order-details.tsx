@@ -24,6 +24,7 @@ type OrderDetailsProps = {
   totalAmount: string | number;
   productData: OrderItem[];
   isLoading?: boolean;
+  currency: string
 };
 
 function OrderDetails({
@@ -34,6 +35,7 @@ function OrderDetails({
   totalAmount,
   productData,
   isLoading,
+  currency,
 }: OrderDetailsProps) {
   return (
     <section className="font-satoshi p-4">
@@ -61,7 +63,7 @@ function OrderDetails({
         { label: "Order Status", value: orderStatus },
         { label: "Payment Status", value: paymentStatus },
         { label: "Order ID", value: orderId },
-        { label: "Total Amount", value: `₦${totalAmount}` },
+        { label: "Total Amount", value: `${currency}${totalAmount}` },
       ].map((row, index) => (
         <div
           key={index}
@@ -128,7 +130,7 @@ function OrderDetails({
                   )}
 
                   <p className="text-gray-500">
-                    Unit Price: ₦{item.unit_price.toLocaleString()}
+                    Unit Price: {item.unit_price.toLocaleString()}
                   </p>
 
                   <p className="font-semibold">

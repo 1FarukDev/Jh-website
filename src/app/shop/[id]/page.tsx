@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Info, MoveLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter, useParams } from "next/navigation";
@@ -19,6 +19,12 @@ interface Color {
   value: string;
   code: string;
 }
+
+const ADDITIONAL_COSTS = {
+  ADDITIONAL_VARIANTS: 74000,
+  PRINT_MODIFICATION: 74000,
+  PRINT_DEVELOPMENT: 320000,
+};
 
 function Page() {
   const [scale, setScale] = useState(1);
@@ -39,7 +45,6 @@ function Page() {
     enabled: id !== null,
   });
 
-  // --- Form setup for checkbox + variants ---
   const form = useForm({
     defaultValues: {
       print_development: false,
@@ -51,11 +56,42 @@ function Page() {
 
   const { setValue: setFormValue, getValues, watch } = form;
   const [colorValue, setColorValue] = useState("");
-  
-  // Watch the checkbox state
-  const additionalVariantsEnabled = watch("additional_variants_enabled");
 
-  // --- Colors example, can be used later if you want swatches ---
+  const additionalVariantsEnabled = watch("additional_variants_enabled");
+  const colorVariant = watch("color_variant");
+  const printModification = watch("print_modification");
+  const printDevelopment = watch("print_development");
+
+  const calculatedPrice = useMemo(() => {
+    const basePrice = Number(productData?.price) || 0;
+    let additionalCosts = 0;
+
+    if (additionalVariantsEnabled && colorVariant) {
+      const variantCount = parseInt(colorVariant) || 0;
+      additionalCosts += ADDITIONAL_COSTS.ADDITIONAL_VARIANTS * variantCount;
+    }
+    if (printModification) {
+      additionalCosts += ADDITIONAL_COSTS.PRINT_MODIFICATION;
+    }
+    if (printDevelopment) {
+      additionalCosts += ADDITIONAL_COSTS.PRINT_DEVELOPMENT;
+    }
+
+    return {
+      base: basePrice,
+      additional: additionalCosts,
+      variantCount:
+        additionalVariantsEnabled && colorVariant ? parseInt(colorVariant) : 0,
+      total: basePrice + additionalCosts,
+    };
+  }, [
+    productData?.price,
+    additionalVariantsEnabled,
+    colorVariant,
+    printModification,
+    printDevelopment,
+  ]);
+
   const colors: Color[] = [
     { text: "Blue", value: "Blue", code: "#3570E0" },
     { text: "Red", value: "Red", code: "#992626" },
@@ -68,21 +104,25 @@ function Page() {
 
     const print_development = getValues("print_development");
     const print_modification = getValues("print_modification");
-    const additional_variants_enabled = getValues("additional_variants_enabled");
-    const color_variant = additional_variants_enabled ? getValues("color_variant") : "";
+    const additional_variants_enabled = getValues(
+      "additional_variants_enabled"
+    );
+    const color_variant = additional_variants_enabled
+      ? getValues("color_variant")
+      : "";
 
     addToCartContext({
       productId: productData.id,
       name: productData.name,
       title: productData.name,
-      price: Number(productData.price) || 0,
+      price: calculatedPrice.total,
       image: productData.images[0] || "",
       images: productData.images,
       category: productData.category,
-      exclusivity: "Non-Exclusive Print",
-      size: 'Scaled to 10.4" x 12.5"',
+      exclusivity: productData.exclusive ? "Exclusive Print" : "Non-Exclusive Print",
+      size: "18\" x 30\"",
       print_development,
-      // print_modification,
+      print_modification,
       color_variant,
     });
   };
@@ -147,11 +187,12 @@ function Page() {
                     email within 24 hours. Once you confirm your choice, we'll
                     deliver the high-resolution final file (300 DPI) in JPG,
                     PDF, or PNG format, along with a commercial license. Other
-                    file types are available for an additional fee. Each print selected comes with 2 free color variants.
+                    file types are available for an additional fee. Each print
+                    selected comes with 2 free color variants.
                   </p>
                   <p>
                     Need changes before purchase? Use the drop-down buttons
-                    below to request custom colorways or print modifications. 
+                    below to request custom colorways or print modifications.
                   </p>
                   <ul className="mt-4 flex flex-col gap-2">
                     <li className="flex flex-col gap-2">
@@ -159,7 +200,14 @@ function Page() {
                         name="additional_variants_enabled"
                         label={
                           <span className="font-bold text-[#4E5157]">
-                            Additional color variants
+                            Additional color variants{" "}
+                            <span className="text-xs text-[#828892]">
+                              {/* (+
+                              {formatPrice(
+                                ADDITIONAL_COSTS.ADDITIONAL_VARIANTS
+                              )}{" "}
+                              per variant) */}
+                            </span>
                           </span>
                         }
                       />
@@ -189,7 +237,10 @@ function Page() {
                         name="print_modification"
                         label={
                           <span className="font-bold text-[#4E5157]">
-                            Print Modification <span className="text-xs text-[#828892]">slight changes (2 revisions included)</span>
+                            Print Modification{" "}
+                            <span className="text-xs text-[#828892]">
+                              slight changes (2 revisions included)
+                            </span>
                           </span>
                         }
                       />{" "}
@@ -200,7 +251,13 @@ function Page() {
                         name="print_development"
                         label={
                           <span className="font-bold text-[#4E5157]">
-                            Print development <span className="text-xs text-[#828892]">developing existing prints into new creative directions</span>
+                            Print development{" "}
+                            <span className="text-xs text-[#828892]">
+                              developing existing prints into new creative
+                              directions
+                              {/* (+
+                              {formatPrice(ADDITIONAL_COSTS.PRINT_DEVELOPMENT)}) */}
+                            </span>
                           </span>
                         }
                       />
@@ -238,9 +295,68 @@ function Page() {
 
               <div>
                 <p className="font-satoshi text-[#4E5157]">Price</p>
-                <p className="text-[40px] font-bold">
-                  {formatPrice(Number(productData?.price) || 0)}
-                </p>
+
+                {/* Base Price */}
+                <div className="flex items-baseline gap-2">
+                  <p className="text-[40px] font-bold">
+                    {formatPrice(calculatedPrice.total)}
+                  </p>
+                  {calculatedPrice.additional > 0 && (
+                    <p className="text-sm text-[#828892] line-through">
+                      {formatPrice(calculatedPrice.base)}
+                    </p>
+                  )}
+                </div>
+
+                {/* Price Breakdown */}
+                {calculatedPrice.additional > 0 && (
+                  <div className="mt-2 p-3 bg-gray-50 rounded-md text-sm font-satoshi">
+                    <p className="font-semibold mb-2">Price Breakdown:</p>
+                    <div className="space-y-1 text-[#4E5157]">
+                      <div className="flex justify-between">
+                        <span>Base Print</span>
+                        <span>{formatPrice(calculatedPrice.base)}</span>
+                      </div>
+                      {additionalVariantsEnabled && colorVariant && (
+                        <div className="flex justify-between">
+                          <span>
+                            Additional Color Variants (
+                            {calculatedPrice.variantCount} ×{" "}
+                            {formatPrice(ADDITIONAL_COSTS.ADDITIONAL_VARIANTS)})
+                          </span>
+                          <span>
+                            +
+                            {formatPrice(
+                              ADDITIONAL_COSTS.ADDITIONAL_VARIANTS *
+                                calculatedPrice.variantCount
+                            )}
+                          </span>
+                        </div>
+                      )}
+                      {printModification && (
+                        <div className="flex justify-between">
+                          <span>Print Modification</span>
+                          <span>
+                            +{formatPrice(ADDITIONAL_COSTS.PRINT_MODIFICATION)}
+                          </span>
+                        </div>
+                      )}
+                      {printDevelopment && (
+                        <div className="flex justify-between">
+                          <span>Print Development</span>
+                          <span>
+                            +{formatPrice(ADDITIONAL_COSTS.PRINT_DEVELOPMENT)}
+                          </span>
+                        </div>
+                      )}
+                      <hr className="my-2" />
+                      <div className="flex justify-between font-bold text-black">
+                        <span>Total</span>
+                        <span>{formatPrice(calculatedPrice.total)}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="font-satoshi font-light w-full md:flex-row flex-col flex gap-3 mt-6">
