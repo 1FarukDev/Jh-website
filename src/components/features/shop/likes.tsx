@@ -46,6 +46,7 @@ function Likes() {
                 title={item.name}
                 price={item.price}
                 onViewDetails={`/shop/${item.id}`}
+                exclusivity={item.exclusivity}
                 onAddToCart={() =>
                   addToCart({
                     productId: item.id,

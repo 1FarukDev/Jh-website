@@ -71,6 +71,7 @@ export default function SearchPageClient() {
                 category={item.category}
                 hoverImage={item.images[1]}
                 onViewDetails={`/shop/${item.id}`}
+                exclusivity={item.exclusivity}
               />
             ))}
           </div>
