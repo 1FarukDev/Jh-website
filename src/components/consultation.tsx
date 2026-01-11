@@ -33,12 +33,11 @@ function Consultation({ onClose }: { onClose: () => void }) {
     onSuccess: () => {
       toast.success("Consultation created successfully");
       setSubmitted(true);
-      reset(); // clear the form
+      reset();
 
-      // Close the modal after a short delay if needed
       setTimeout(() => {
         setSubmitted(false);
-        onClose(); // close the modal after 2 seconds
+        onClose();
       }, 2000);
 
       setLoading(false);

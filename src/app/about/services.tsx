@@ -14,6 +14,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import DaraPrints from "@/app/assets/png/Dara-JH-Textiles--Custom-print-design.jpg";
+import FirstImage from "@/app/assets/webp/filler image 1.webp";
 function Services({handleConsultation}: {handleConsultation: () => void}) {
   
   const router = useRouter();
@@ -106,7 +107,7 @@ function Services({handleConsultation}: {handleConsultation: () => void}) {
       color: "#F0DAB6",
       textColor: "#230D06",
       subTextColor: "#4E5157",
-      image: PrintImage,
+      image: FirstImage,
     },
   ];
 

@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react";
 function ClientHero() {
   const router = useRouter();
   return (
-    <div className="w-full relative h-[90vh] overflow-hidden">
+    <div className="w-full relative h-[80vh] md:h-[90vh] overflow-hidden">
       <Image
         src={ClientBg}
         alt="Hero"
@@ -26,13 +26,12 @@ function ClientHero() {
           <p
             data-aos="fade-up"
             data-aos-duration="1200"
-            className="text-[32px] leading-[48px] md:text-[70px] md:leading-[100px] font-extralight font-rose "
+            className="text-[32px] leading-[40px] md:text-[70px] md:leading-[100px] font-extralight font-rose "
           >
-            {/* Collaborations  Rooted in creativity */}
             Collaborations Trusted to interpret ideas into print.
           </p>
 
-          <p className="mt-4 font-satoshi">
+          <p className="mt-4 font-satoshi md:text-base text-sm">
             Trusted to interpret ideas into print, we’ve spent over 5 years
             collaborating with brands to translate creative visions into
             standout surface designs. From paintings to digital renderings, and

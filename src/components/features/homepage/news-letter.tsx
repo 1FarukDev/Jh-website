@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Mail } from 'lucide-react'
 import Image from 'next/image'
-import NewsLetter from '@public/assets/png/newsletter.png'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import ArrowRight from '@/app/assets/svg/arrow-right.svg'
 import Information from '@/app/assets/svg/information.svg'
@@ -10,6 +9,7 @@ import { createNewsletterSubscription } from '@/services/api/user'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useState } from 'react'
+import NewsLetterImage from "@public/assets/png/newsletter.jpg";
 
 export default function NewsletterSignup () {
   const [email, setEmail] = useState('')
@@ -39,7 +39,7 @@ export default function NewsletterSignup () {
   return (
     <section className='relative min-h-[60vh] flex items-center justify-center mt-[50px]'>
       <Image
-        src={NewsLetter}
+        src={NewsLetterImage}
         alt='Colorful traditional textiles and rugs background'
         fill
         className='object-cover'

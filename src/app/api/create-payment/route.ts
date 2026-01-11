@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         tx_ref,
         amount,
-        currency: "NGN",
+        currency: "USD",
         redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-status`,
         customer: { email, name },
         payment_options: "card,ussd,banktransfer,qr",

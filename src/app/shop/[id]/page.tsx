@@ -43,12 +43,17 @@ function Page() {
   const form = useForm({
     defaultValues: {
       print_development: false,
+      print_modification: false,
+      additional_variants_enabled: false,
       color_variant: "",
     },
   });
 
-  const { setValue: setFormValue, getValues } = form;
+  const { setValue: setFormValue, getValues, watch } = form;
   const [colorValue, setColorValue] = useState("");
+  
+  // Watch the checkbox state
+  const additionalVariantsEnabled = watch("additional_variants_enabled");
 
   // --- Colors example, can be used later if you want swatches ---
   const colors: Color[] = [
@@ -62,7 +67,9 @@ function Page() {
     if (!productData) return;
 
     const print_development = getValues("print_development");
-    const color_variant = getValues("color_variant");
+    const print_modification = getValues("print_modification");
+    const additional_variants_enabled = getValues("additional_variants_enabled");
+    const color_variant = additional_variants_enabled ? getValues("color_variant") : "";
 
     addToCartContext({
       productId: productData.id,
@@ -75,6 +82,7 @@ function Page() {
       exclusivity: "Non-Exclusive Print",
       size: 'Scaled to 10.4" x 12.5"',
       print_development,
+      // print_modification,
       color_variant,
     });
   };
@@ -138,39 +146,50 @@ function Page() {
                     After selecting your print, you'll receive scale options via
                     email within 24 hours. Once you confirm your choice, we'll
                     deliver the high-resolution final file (300 DPI) in JPG,
-                    TIFF, or PNG format, along with a commercial license. Other
-                    file types are available for an additional fee.
+                    PDF, or PNG format, along with a commercial license. Other
+                    file types are available for an additional fee. Each print selected comes with 2 free color variants.
                   </p>
                   <p>
                     Need changes before purchase? Use the drop-down buttons
-                    above to request custom colorways or print
+                    below to request custom colorways or print modifications. 
                   </p>
                   <ul className="mt-4 flex flex-col gap-2">
-                    <li className="flex flex-col md:flex-row  gap-2 font-bold">
-                      Additional color variants:
-                      <CustomSelect
-                        value={colorValue}
-                        onValueChange={(val) => {
-                          setColorValue(val);
-                          setFormValue("color_variant", val, {
-                            shouldDirty: true,
-                          });
-                        }}
-                        placeholder="variants counts"
-                        options={[
-                          { label: "1", value: "1" },
-                          { label: "2", value: "2" },
-                          { label: "3", value: "3" },
-                        ]}
-                        className="h-2"
+                    <li className="flex flex-col gap-2">
+                      <FormCheckbox
+                        name="additional_variants_enabled"
+                        label={
+                          <span className="font-bold text-[#4E5157]">
+                            Additional color variants
+                          </span>
+                        }
                       />
+                      {additionalVariantsEnabled && (
+                        <div className="ml-6">
+                          <CustomSelect
+                            value={colorValue}
+                            onValueChange={(val) => {
+                              setColorValue(val);
+                              setFormValue("color_variant", val, {
+                                shouldDirty: true,
+                              });
+                            }}
+                            placeholder="Select variant count"
+                            options={[
+                              { label: "1", value: "1" },
+                              { label: "2", value: "2" },
+                              { label: "3", value: "3" },
+                            ]}
+                            className="h-2"
+                          />
+                        </div>
+                      )}
                     </li>
                     <li className="font-bold">
                       <FormCheckbox
                         name="print_modification"
                         label={
                           <span className="font-bold text-[#4E5157]">
-                            Print Modification
+                            Print Modification <span className="text-xs text-[#828892]">slight changes (2 revisions included)</span>
                           </span>
                         }
                       />{" "}
@@ -181,7 +200,7 @@ function Page() {
                         name="print_development"
                         label={
                           <span className="font-bold text-[#4E5157]">
-                            Print development: Custom quote provided via email
+                            Print development <span className="text-xs text-[#828892]">developing existing prints into new creative directions</span>
                           </span>
                         }
                       />
@@ -190,7 +209,7 @@ function Page() {
                 </div>
 
                 <div className="font-satoshi">
-                  <p className="font-light">Exclusivity</p>
+                  {/* <p className="font-light">Exclusivity</p> */}
                   <div className="flex gap-2 items-center mt-3">
                     <p className="border px-4 py-2 rounded-none border-black font-light">
                       {productData?.exclusive
@@ -201,10 +220,10 @@ function Page() {
                 </div>
 
                 <div className="font-satoshi text-black">
-                  <p className="font-light">Size:</p>
-                  <div className="border px-4 py-2 border-black w-max font-normal text-xs mt-3">
+                  {/* <p className="font-light">Size:</p> */}
+                  {/* <div className="border px-4 py-2 border-black w-max font-normal text-xs mt-3">
                     Scaled to {scale.toFixed(1)}x
-                  </div>
+                  </div> */}
                   <div className="text-xs flex items-center gap-2 mt-1">
                     <Info strokeWidth={1} width={20} />
                     <p className="text-[#828892]">

@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
-import MockupHuman from "@/app/assets/png/darashop4.png";
+import MockupHuman from "@/app/assets/png/J-H-TEXTILES-DRESS-MOCKUP.png";
+// import MockupHuman from "@/app/assets/png/darashop4.png";
 
 interface PrintMockupProps {
   print: string;
