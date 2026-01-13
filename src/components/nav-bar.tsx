@@ -23,6 +23,7 @@ import ResetPassword from "./auth/reset-password";
 import PasswordSuccess from "./auth/password-success";
 import CountryDropdown from "./country-dropdown";
 import { useCart } from "@/context/cart-context";
+import NavLogoWhite from "@/app/assets/png/J.H TEXTILES LOGO -WHITE.png";
 
 function NavBar() {
   const pathname = usePathname();
@@ -86,6 +87,12 @@ function NavBar() {
     setShowResetPassword(false);
     setShowSuccess(false);
     setLoginModalOpen(true);
+  };
+
+  const getLogoSrc = () => {
+    if (isOpen) return NavLogoWhite;
+    if (isHomePage) return scrolled ? NavLogo : NavLogoWhite;
+    return NavLogo;
   };
 
   const handlePasswordUpdated = () => {
@@ -192,18 +199,18 @@ function NavBar() {
 
           <Link href="/" className="flex justify-center items-center gap-1">
             <Image
-              src={NavLogo}
+              src={getLogoSrc()}
               alt="Nav Logo"
               width={400}
               height={400}
               priority
               quality={100}
-              className="w-[200px] object-contain"
+              className="md:w-[200px] w-[120px] object-contain transition-opacity duration-300"
             />
           </Link>
 
           <div
-            className={`items-center gap-4 justify-end ${
+            className={`items-center md:gap-4 gap-2 justify-end ${
               isOpen ? "hidden md:flex" : "flex"
             } md:flex`}
             style={{ display: "flex" }}
@@ -218,7 +225,7 @@ function NavBar() {
             >
               <Search
                 strokeWidth={1.5}
-                className={`w-[24px] h-[24px] ${getTextColorClass()}`}
+                className={`md:w-[24px] w-[16px] md:h-[24px] h-[16px] ${getTextColorClass()}`}
               />
               <p
                 className={`font-normal hidden md:block text-[14px] ${getTextColorClass()}`}
@@ -244,7 +251,7 @@ function NavBar() {
                   <Image
                     src={cart}
                     alt="Cart"
-                    className={`w-[24px] h-[24px] ${getCartIconClass()}`}
+                    className={`md:w-[24px] w-[16px] md:h-[24px] h-[16px] ${getCartIconClass()}`}
                   />
                 )}
                 {getCartCount() > 0 && (
@@ -299,7 +306,7 @@ function NavBar() {
                   </p>
 
                   <div
-                    className={`items-center gap-1 ${
+                    className={`items-center gap-1 md:flex hidden ${
                       isOpen ? "text-white" : "text-black"
                     } md:flex`}
                   >

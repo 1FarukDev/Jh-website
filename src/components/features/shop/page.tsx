@@ -31,11 +31,11 @@ function ShopPage() {
   return (
     <section>
       <div className="pt-15" data-aos="fade-down" data-aos-duration="1000">
-        <Image src={ShopImage} alt="shop" className="md:h-[700px] h-[30vh]" />
+        <Image src={ShopImage} alt="shop" className="md:h-[700px] h-[35vh]" />
       </div>
 
       <div
-        className="px-4 md:px-0 pt-10"
+        className="px-4 md:px-0 pt-5"
         data-aos="fade-up"
         data-aos-duration="1000"
       >
@@ -53,7 +53,7 @@ function ShopPage() {
         <Filters />
       </div>
 
-      <section className="mt-[45px] md:mx-10 px-4 border border-t-0 border-b-0 border-[#8A8635] min-h-[300px]">
+      <section className="mt-[45px] md:mx-10 px-0 border border-t-0 border-b-0 border-[#8A8635] min-h-[300px]">
         {isLoading && (
           <div className="flex items-center justify-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
@@ -89,7 +89,7 @@ function ShopPage() {
                   {rowItems.map((item: any, colIndex: number) => (
                     <div
                       key={item.id}
-                      className={`w-1/2 p-2 ${
+                      className={`w-1/2 md:p-2 p-1 ${
                         colIndex !== rowItems.length - 1
                           ? "border-r border-[#8A8635]"
                           : ""

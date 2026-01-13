@@ -30,8 +30,6 @@ function Likes() {
       <p className="font-satoshi text-[#4E5157] md:text-base text-sm text-center">
         Curated works handpicked from J.H Textiles collection.
       </p>
-
-      {/* Horizontal scroll container */}
       <div className="mt-[45px] w-full overflow-x-auto no-scrollbar">
         <div className="flex gap-6 px-4 flex-nowrap">
           {productData.map((item) => (

@@ -8,30 +8,6 @@ import React, {
   ReactNode,
 } from "react";
 
-declare global {
-  interface Window {
-    storage: {
-      get: (
-        key: string,
-        shared?: boolean
-      ) => Promise<{ key: string; value: string; shared: boolean } | null>;
-      set: (
-        key: string,
-        value: string,
-        shared?: boolean
-      ) => Promise<{ key: string; value: string; shared: boolean } | null>;
-      delete: (
-        key: string,
-        shared?: boolean
-      ) => Promise<{ key: string; deleted: boolean; shared: boolean } | null>;
-      list: (
-        prefix?: string,
-        shared?: boolean
-      ) => Promise<{ keys: string[]; prefix?: string; shared: boolean } | null>;
-    };
-  }
-}
-
 interface SearchContextType {
   searches: string[];
   addSearch: (search: string) => void;
@@ -53,36 +29,32 @@ export function SearchProvider({
   const [searches, setSearches] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Load searches from localStorage on mount
   useEffect(() => {
-    const loadSearches = async () => {
-      try {
-        const result = await window.storage.get("recent-searches");
-        if (result?.value) {
-          const parsed = JSON.parse(result.value);
-          setSearches(Array.isArray(parsed) ? parsed : []);
-        }
-      } catch (error) {
-        console.log("No existing searches found, starting fresh");
-        setSearches([]);
-      } finally {
-        setIsLoaded(true);
+    if (typeof window === "undefined") return;
+    
+    try {
+      const stored = localStorage.getItem("recent-searches");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setSearches(Array.isArray(parsed) ? parsed : []);
       }
-    };
-
-    loadSearches();
+    } catch (error) {
+      console.log("No existing searches found, starting fresh");
+      setSearches([]);
+    } finally {
+      setIsLoaded(true);
+    }
   }, []);
 
+  // Save searches to localStorage whenever they change
   useEffect(() => {
-    if (isLoaded) {
-      const saveSearches = async () => {
-        try {
-          await window.storage.set("recent-searches", JSON.stringify(searches));
-        } catch (error) {
-          console.error("Failed to save searches:", error);
-        }
-      };
-
-      saveSearches();
+    if (!isLoaded || typeof window === "undefined") return;
+    
+    try {
+      localStorage.setItem("recent-searches", JSON.stringify(searches));
+    } catch (error) {
+      console.error("Failed to save searches:", error);
     }
   }, [searches, isLoaded]);
 
@@ -92,9 +64,7 @@ export function SearchProvider({
 
     setSearches((prev) => {
       const filtered = prev.filter((s) => s !== trimmedSearch);
-
       const updated = [trimmedSearch, ...filtered];
-
       return updated.slice(0, maxSearches);
     });
   };

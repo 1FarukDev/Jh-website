@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import MockupHuman from "@/app/assets/png/J-H-TEXTILES-DRESS-MOCKUP.png";
+import MockupShirt from "@/app/assets/webp/mockupshirt.webp";
 
 interface PrintMockupProps {
   print: string;
@@ -47,7 +48,10 @@ function PrintMockup({
             <div
               className="absolute inset-0 z-10 flex items-center justify-center"
               style={{
-                clipPath: "inset(20% 32% 0% 30%)",
+                clipPath:
+                  selectedMockup.id === "shirt"
+                    ? "inset(20% 20% 15% 20%)"
+                    : "inset(20% 20% 0% 20%)",
               }}
             >
               <Image
@@ -176,11 +180,10 @@ function PrintMockup({
               : "border-gray-300"
           }`}
         >
-          {/* Pattern background - clipped to dress area only */}
           <div
             className="absolute inset-0"
             style={{
-              clipPath: "inset(12% 28% 5% 28%)",
+              clipPath: "inset(12% 25% 0% 28%)",
             }}
           >
             <Image
@@ -190,11 +193,45 @@ function PrintMockup({
               className="object-cover"
             />
           </div>
-
-          {/* Mockup overlay */}
           <Image
             src={MockupHuman}
             alt="On Model"
+            fill
+            className="object-contain pointer-events-none relative z-10"
+          />
+        </button>
+
+        <button
+          onClick={() => {
+            setSelectedMockup({
+              id: "shirt",
+              name: "On Shirt",
+              image: MockupShirt,
+            });
+            onScaleChange(1);
+          }}
+          className={`relative w-20 aspect-square border-2 shrink-0 overflow-hidden ${
+            selectedMockup?.id === "shirt"
+              ? "border-[#8A8635]"
+              : "border-gray-300"
+          }`}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              clipPath: "inset(20% 20% 15% 20%)",
+            }}
+          >
+            <Image
+              src={selectedPattern}
+              alt="On Shirt"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <Image
+            src={MockupShirt}
+            alt="On Shirt"
             fill
             className="object-contain pointer-events-none relative z-10"
           />
