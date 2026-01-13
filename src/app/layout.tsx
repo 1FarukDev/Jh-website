@@ -16,6 +16,7 @@ import { CheckoutProvider } from "@/context/checkout-context";
 import "react-phone-number-input/style.css";
 import { SearchProvider } from "@/context/search-context";
 import CookieConsent from "@/components/cookie-banner";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,16 +72,18 @@ export default function RootLayout({
             <CartProvider>
               <CheckoutProvider>
                 <SearchProvider maxSearches={10}>
-                  <NavDropdownProviderWrapper>
-                    <AOS_INIT />
-                    <Toaster position="bottom-right" richColors closeButton />
-                    <NavBar />
-                    <Suspense fallback={null}>
-                      <TopLoader />
-                    </Suspense>
-                    {children}
-                    <Footer />
-                  </NavDropdownProviderWrapper>
+                  <ScrollToTop>
+                    <NavDropdownProviderWrapper>
+                      <AOS_INIT />
+                      <Toaster position="bottom-right" richColors closeButton />
+                      <NavBar />
+                      <Suspense fallback={null}>
+                        <TopLoader />
+                      </Suspense>
+                      {children}
+                      <Footer />
+                    </NavDropdownProviderWrapper>
+                  </ScrollToTop>
                 </SearchProvider>
               </CheckoutProvider>
             </CartProvider>

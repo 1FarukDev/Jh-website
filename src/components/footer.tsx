@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRight from "@/app/assets/svg/arrow-right.svg";
-import FooterIcon from "@/app/assets/svg/footer_icon.svg";
+import FooterIcon from "@/app/assets/png/J.H TEXTILES LOGO -WHITE.png";
 import Arrowup from "@/app/assets/svg/arrow-up.svg";
 
 import {
@@ -365,10 +365,10 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <Image src={FooterIcon} alt="Footer icon" />
-              <span className="text-xl font-light tracking-wider font-rose">
+              <Image src={FooterIcon} alt="Footer icon" width={200} height={200}/>
+              {/* <span className="text-xl font-light tracking-wider font-rose">
                 J.H TEXTILES
-              </span>
+              </span> */}
             </div>
 
             <div className="text-center">

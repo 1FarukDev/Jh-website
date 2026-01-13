@@ -10,15 +10,12 @@ export default function TopLoader() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // When route starts changing
     const handleStart = () => {
       NProgress.start();
     };
 
-    // Start progress BEFORE pathname changes
     window.addEventListener("routeChangeStart", handleStart);
 
-    // Stop progress immediately when route is rendered
     NProgress.done();
 
     return () => {
@@ -26,7 +23,6 @@ export default function TopLoader() {
     };
   }, []);
 
-  // Whenever URL changes → stop progress (route finished)
   useEffect(() => {
     NProgress.done();
   }, [pathname, searchParams]);
