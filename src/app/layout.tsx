@@ -17,6 +17,7 @@ import "react-phone-number-input/style.css";
 import { SearchProvider } from "@/context/search-context";
 import CookieConsent from "@/components/cookie-banner";
 import ScrollToTop from "@/components/scroll-to-top";
+import GoogleAnalytics from "@/components/google-analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,6 +67,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body className={`${satoshi.variable}  antialiased`}>
         <Providers>
           <CurrencyProvider>
