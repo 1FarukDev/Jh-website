@@ -21,6 +21,7 @@ interface CartCardProps {
   color_variant?: string;
   print_development?: boolean;
   print_modification?: boolean;
+  images?: string[];
 }
 
 const CartCard: React.FC<CartCardProps> = ({
@@ -38,6 +39,7 @@ const CartCard: React.FC<CartCardProps> = ({
   color_variant,
   print_development,
   print_modification,
+  images,
 }) => {
   const { updateQuantity } = useCart();
   const { formatPrice } = useCurrency();
@@ -110,26 +112,19 @@ const CartCard: React.FC<CartCardProps> = ({
             </div>
             <div className="font-satoshi">
               <p className="font-light mb-1 md:mb-2 text-xs md:text-sm">
-                {/* {color_variant ? `Color Variants`} */}
                 Color variants
               </p>
-              {/* {color_variant ? (
-                <p className='font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base'>
-                  {color_variant} Variant{parseInt(color_variant) > 1 ? 's' : ''}
-                </p>
-              ) : (
-                <div
-                  className='h-7 w-7 md:h-10 md:w-10 border border-black rounded'
-                  style={{ backgroundColor: colorCode }}
-                />
-              )} */}
-              <Image
-                src={image}
-                alt="Print Image"
-                width={32}
-                height={32}
-                className="w-8 h-8 md:w-10 md:h-10 border object-cover rounded"
-              />
+              <div className="flex gap-1 items-center">
+                {images?.map((image) => (
+                  <Image
+                    src={image}
+                    alt="Print Image"
+                    width={32}
+                    height={32}
+                    className="w-8 h-8 md:w-10 md:h-10 border object-cover rounded"
+                  />
+                ))}
+              </div>
             </div>
             <div className="font-satoshi">
               <p className="font-light mb-1 md:mb-2 text-xs md:text-sm">Size</p>
