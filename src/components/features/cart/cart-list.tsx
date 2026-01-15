@@ -24,6 +24,7 @@ function CartList ({ handleNext }: { handleNext: () => void }) {
               key={item.id}
               id={item.id}
               image={item.image}
+              images={item.images }
               title={item.title}
               exclusivity={item.exclusivity}
               colorLabel={item.color || 'Default'}

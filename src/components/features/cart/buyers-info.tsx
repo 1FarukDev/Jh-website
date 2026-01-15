@@ -143,6 +143,7 @@ function BuyersInfo({
               quantity={item.quantity}
               size={item.size}
               image={item.image}
+              images={item.images}
             />
           ))}
         </div>

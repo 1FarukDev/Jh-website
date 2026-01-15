@@ -109,18 +109,33 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     syncCartDebounced(cart);
   }, [cart, hasLoadedCart, authUser, syncCartDebounced]);
 
+  // const addToCart = (item: Omit<CartItem, "id" | "quantity">) => {
+  //   const existingItem = cart.find((ci) => ci.productId === item.productId);
+  //   if (existingItem) {
+  //     setCart((prev) =>
+  //       prev.map((ci) =>
+  //         ci.productId === item.productId
+  //           ? { ...ci, quantity: ci.quantity + 1 }
+  //           : ci
+  //       )
+  //     );
+  //     toast.success("Updated quantity in cart!", {
+  //       description: `${item.name} quantity increased`,
+  //     });
+  //   } else {
+  //     const newItem: CartItem = { ...item, id: Date.now(), quantity: 1 };
+  //     setCart((prev) => [...prev, newItem]);
+  //     toast.success("Added to cart!", {
+  //       description: `${item.name} has been added to your cart`,
+  //     });
+  //   }
+  // };
+
   const addToCart = (item: Omit<CartItem, "id" | "quantity">) => {
     const existingItem = cart.find((ci) => ci.productId === item.productId);
     if (existingItem) {
-      setCart((prev) =>
-        prev.map((ci) =>
-          ci.productId === item.productId
-            ? { ...ci, quantity: ci.quantity + 1 }
-            : ci
-        )
-      );
-      toast.success("Updated quantity in cart!", {
-        description: `${item.name} quantity increased`,
+      toast.info("Already in cart!", {
+        description: `${item.name} is already in your cart`,
       });
     } else {
       const newItem: CartItem = { ...item, id: Date.now(), quantity: 1 };
