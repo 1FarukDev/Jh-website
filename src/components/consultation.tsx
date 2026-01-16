@@ -30,7 +30,16 @@ function Consultation({ onClose }: { onClose: () => void }) {
 
   const createConsultationMutation = useMutation({
     mutationFn: createConsultation,
-    onSuccess: () => {
+    onSuccess: async (data) => {
+      await fetch("/api/send-consultation-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        }),
+      });
       toast.success("Consultation created successfully");
       setSubmitted(true);
       reset();
