@@ -27,30 +27,9 @@ interface CurrencyContextProps {
 }
 
 const currencies: Record<Country, Currency> = {
-  NG: {
-    code: "NGN",
-    symbol: "₦",
-    flag: "🇳🇬",
-    country: "Nigeria",
-  },
-  US: {
-    code: "USD",
-    symbol: "$",
-    flag: "🇺🇸",
-    country: "United States",
-  },
-  GB: {
-    code: "GBP",
-    symbol: "£",
-    flag: "🇬🇧",
-    country: "United Kingdom",
-  },
-};
-
-const conversionRates: Record<Country, number> = {
-  NG: 1,
-  US: 0.0012,
-  GB: 0.00095,
+  NG: { code: "NGN", symbol: "₦", flag: "🇳🇬", country: "Nigeria" },
+  US: { code: "USD", symbol: "$", flag: "🇺🇸", country: "United States" },
+  GB: { code: "GBP", symbol: "£", flag: "🇬🇧", country: "United Kingdom" },
 };
 
 const CurrencyContext = createContext<CurrencyContextProps | undefined>(
@@ -59,47 +38,69 @@ const CurrencyContext = createContext<CurrencyContextProps | undefined>(
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCountry, setSelectedCountry] = useState<Country>("NG");
+  const [conversionRates, setConversionRates] = useState<Record<Country, number>>({
+    NG: 1,
+    US: 0.0012,
+    GB: 0.00095,
+  });
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // mark client
+  useEffect(() => setIsClient(true), []);
 
+  // load selected country from localStorage
   useEffect(() => {
     if (!isClient) return;
-
     const savedCountry = localStorage.getItem("selectedCountry") as Country;
     if (savedCountry && currencies[savedCountry]) {
       setSelectedCountry(savedCountry);
     }
   }, [isClient]);
 
+  // save selected country
   useEffect(() => {
     if (!isClient) return;
-
     localStorage.setItem("selectedCountry", selectedCountry);
   }, [selectedCountry, isClient]);
+
+  // fetch live conversion rates from ExchangeRate API
+  useEffect(() => {
+    async function fetchRates() {
+      try {
+        const res = await fetch(
+          "https://v6.exchangerate-api.com/v6/38a846be0a61831cd0a9263b/latest/NGN"
+        );
+        const data = await res.json();
+        if (data.conversion_rates) {
+          setConversionRates({
+            NG: 1,
+            US: data.conversion_rates.USD,
+            GB: data.conversion_rates.GBP,
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch conversion rates, using default.", err);
+      }
+    }
+    fetchRates();
+  }, []);
 
   const currency = currencies[selectedCountry];
 
   const convertPrice = (basePrice: number): number => {
     if (!basePrice || isNaN(basePrice)) return 0;
-
-    const rate = conversionRates[selectedCountry];
+    const rate = conversionRates[selectedCountry] || 1;
     return basePrice * rate;
   };
 
   const approximatePrice = (basePrice: number): number => {
     const converted = convertPrice(basePrice);
-
     switch (selectedCountry) {
       case "NG":
         return Math.round(converted / 100) * 100;
-
       case "US":
       case "GB":
         return Math.round(converted);
-
       default:
         return Math.round(converted);
     }
@@ -107,11 +108,7 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
 
   const formatPrice = (basePrice: number): string => {
     const approx = approximatePrice(basePrice);
-
-    const formatted = approx.toLocaleString("en-US", {
-      maximumFractionDigits: 0,
-    });
-
+    const formatted = approx.toLocaleString("en-US", { maximumFractionDigits: 0 });
     return `${currency.symbol}${formatted}`;
   };
 
@@ -133,8 +130,6 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
 
 export const useCurrency = () => {
   const context = useContext(CurrencyContext);
-  if (!context) {
-    throw new Error("useCurrency must be used within a CurrencyProvider");
-  }
+  if (!context) throw new Error("useCurrency must be used within a CurrencyProvider");
   return context;
 };
