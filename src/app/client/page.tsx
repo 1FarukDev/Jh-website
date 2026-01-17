@@ -1,43 +1,36 @@
-"use client";
+import type { Metadata } from "next";
+import Client from "./Client";
 
-import React, { useState } from "react";
-import ClientProducts from "./client-products";
-import ClientMessage from "../../components/features/client/client-message";
-import Testimonies from "../../components/features/testimonies/testimonies";
-import PortfolioRequest from "../../components/features/client/portfolio-request";
+export const metadata: Metadata = {
+  title: "Our Clients – Premium Textile Projects | JH Textiles",
+  description:
+    "Explore the projects, products, and collaborations of JH Textiles with fashion brands and interior designers.",
+  alternates: {
+    canonical: "https://jh-website-lime.vercel.app/client",
+  },
+  openGraph: {
+    title: "JH Textiles Clients & Projects",
+    description:
+      "Discover the portfolio, client collaborations, and textile products by JH Textiles.",
+    url: "https://jh-website-lime.vercel.app/client",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JH Textiles Clients & Projects",
+    description:
+      "Discover the portfolio, client collaborations, and textile products by JH Textiles.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+};
 
-import ClientHero from "./client-hero";
-import Consultation from "@/components/consultation";
-import Modal from "@/components/modal";
-
-function Client() {
-  const [showConsultationModal, setShowConsultationModal] = useState(false);
-  return (
-    <section className="py">
-      <ClientHero />
-
-      <ClientProducts />
-
-      <div data-aos="fade-up" data-aos-delay="200">
-        <PortfolioRequest />
-      </div>
-
-      <div data-aos="fade-up" data-aos-delay="400">
-        <ClientMessage />
-      </div>
-
-      <div data-aos="fade-up" data-aos-delay="300">
-        <Modal
-          className=""
-          trigger={""}
-          open={showConsultationModal}
-          onOpenChange={setShowConsultationModal}
-        >
-          <Consultation onClose={() => setShowConsultationModal(false)} />
-        </Modal>
-      </div>
-    </section>
-  );
+export default function Page() {
+  return <Client />;
 }
-
-export default Client;
