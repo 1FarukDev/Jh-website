@@ -3,13 +3,13 @@ import BlogDetail from "./BlogDetail";
 import { getBlogBySlug } from "@/services/api/blog";
 
 type Props = {
-  params: Promise<{ id: string }>; // Changed: params is now a Promise
+  params: Promise<{ id: string }>; 
 };
 
 export async function generateMetadata(
   { params }: Props
 ): Promise<Metadata> {
-  const { id } = await params; // Await params before accessing properties
+  const { id } = await params; 
   const blog = await getBlogBySlug(id);
 
   if (!blog) {
