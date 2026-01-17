@@ -36,7 +36,6 @@ export async function GET(req: Request) {
     const currencyPaid = data.data.currency;
 
     const supabase = await createClient();
-   
 
     const { error } = await supabase
       .from("orders")
@@ -47,21 +46,34 @@ export async function GET(req: Request) {
       })
       .eq("tx_ref", tx_ref);
 
-    if (error) {
-      console.error("Failed to update order after payment:", error);
-      return new Response(
-        JSON.stringify({ success: false, message: "Failed to update order" }),
-        { status: 500 }
-      );
-    }
+    if (!error) {
+      // Get order details to send email
+      const { data: order } = await supabase
+        .from("orders")
+        .select("customer_email, customer_name, total_amount")
+        .eq("tx_ref", tx_ref)
+        .single();
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: "Payment verified and order updated",
-      }),
-      { status: 200 }
-    );
+      if (order) {
+        // Send payment confirmation email
+        await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-payment-confirmation`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: order.customer_email,
+              customerName: order.customer_name,
+              orderId: tx_ref,
+              amount: `${order.total_amount.toLocaleString()}`,
+              transactionId: data.data.id,
+              paymentDate: new Date().toLocaleDateString(),
+              paymentMethod: data.data.payment_method,
+            }),
+          }
+        );
+      }
+    }
   } catch (err) {
     console.error("Payment verification error:", err);
     return new Response(

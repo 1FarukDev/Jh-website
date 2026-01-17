@@ -32,7 +32,18 @@ function Contact() {
 
   const { mutate: sendMessage, isPending } = useMutation({
     mutationFn: sendContactMessage,
-    onSuccess: () => {
+    onSuccess: async (data) => {
+      await fetch("/api/send-contact-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${data.first_name} ${data.last_name}`,
+          email: data.email,
+          phone: data.phone_number,
+          subject: data.message_header,
+          message: data.message,
+        }),
+      });
       toast.success("Message sent successfully");
       methods.reset();
     },
