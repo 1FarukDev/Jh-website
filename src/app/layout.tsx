@@ -50,30 +50,47 @@ const satoshi = localFont({
   variable: "--nexa-font",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "JH Textiles - Premium Textile Prints & Patterns",
-  description: "Browse exclusive textile prints and surface patterns for fashion brands and interior designers.",
-  keywords: ["textile prints", "surface patterns", "fashion design", "interior design"],
+  title: {
+    default: "JH Textiles – Premium Textile Prints & Patterns",
+    template: "%s | JH Textiles",
+  },
+  description:
+    "Browse exclusive textile prints and surface patterns for fashion brands and interior designers.",
+
+  alternates: {
+    canonical: "https://jh-website-lime.vercel.app",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+
   verification: {
     google: "m4OAvGdSeX6k23CpINBPHp8hxTFlU2ECsQyfVkOj0Ok",
   },
+
   openGraph: {
-    title: "JH Textiles",
-    description: "Premium Textile Prints & Patterns",
-    url: "https://jh-website-lime.vercel.app/",
+    title: "JH Textiles – Premium Textile Prints & Patterns",
+    description:
+      "Premium textile prints and surface patterns for fashion brands and interior designers.",
+    url: "https://jh-website-lime.vercel.app",
     siteName: "JH Textiles",
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "JH Textiles",
-    description: "Premium Textile Prints & Patterns",
+    description:
+      "Premium textile prints and surface patterns for fashion brands and interior designers.",
   },
 };
 

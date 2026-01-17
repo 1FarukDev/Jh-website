@@ -16,7 +16,7 @@ export const getProducts = async () => {
   return data;
 };
 
-export const getProductById = async (id: number) => {
+export const getProductById = async (id: string) => {
   const { data, error } = await supabase
     .from("products")
     .select("*")

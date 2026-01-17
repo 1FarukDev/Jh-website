@@ -1,4 +1,46 @@
+import { Metadata } from 'next';
 import React from 'react';
+
+
+export const metadata: Metadata = {
+  title: "Legal Information – Terms, Privacy & Refund Policy | JH Textiles",
+  description:
+    "Read the Terms and Conditions, Privacy Policy, and Refund Policy for JH Textiles. Stay informed about our legal and privacy practices.",
+  alternates: {
+    canonical: "https://jh-website-lime.vercel.app/legal",
+  },
+  openGraph: {
+    title: "Legal Information – JH Textiles",
+    description:
+      "Explore the Terms and Conditions, Privacy Policy, and Refund Policy of JH Textiles.",
+    url: "https://jh-website-lime.vercel.app/legal",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legal Information – JH Textiles",
+    description:
+      "Explore the Terms and Conditions, Privacy Policy, and Refund Policy of JH Textiles.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  other: {
+    "application/ld+json": JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Legal Information – JH Textiles",
+      description:
+        "Read the Terms and Conditions, Privacy Policy, and Refund Policy for JH Textiles.",
+      url: "https://jh-website-lime.vercel.app/legal",
+    }),
+  },
+};
 
 const PolicyPage: React.FC = () => {
   const lastUpdated = "October 2023";
