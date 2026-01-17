@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "J.H. Textiles <noreply@jhtextiles.com>",
+      from: "J.H. Textiles <noreply@jesudarahinmikaiye.com>",
       to: email,
       subject: "Welcome to J.H. Textiles Newsletter!",
       react: NewsletterWelcomeEmail({ email, firstName }),

@@ -44,17 +44,39 @@ export default function OrderConfirmationEmail({
 }: OrderConfirmationEmailProps) {
   return (
     <Html>
-      <Head />
+      <Head>
+        <style>{`
+          @media (prefers-color-scheme: dark) {
+            .light-logo { display: none !important; }
+            .dark-logo { display: block !important; }
+          }
+          @media (prefers-color-scheme: light) {
+            .light-logo { display: block !important; }
+            .dark-logo { display: none !important; }
+          }
+        `}</style>
+      </Head>
       <Preview>Your J.H. Textiles order {orderId} is confirmed</Preview>
 
       <Body style={main}>
         <Container style={container}>
           <Section style={logoSection}>
-            <Link href="jesudarahinmikaiye.com">
+            <Link href="https://jesudarahinmikaiye.com">
+              {/* Light Mode Logo (Dark text on light background) */}
               <Img
                 src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768515835/PNG_f5mj7o.png"
                 width="100"
+                alt="J.H Textiles"
+                className="light-logo"
                 style={logo}
+              />
+              {/* Dark Mode Logo (White text) - Upload your white logo to Cloudinary */}
+              <Img
+                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768681123/Asset_1_10x_vcfotp.png"
+                width="100"
+                alt="J.H Textiles"
+                className="dark-logo"
+                style={{ ...logo, display: "none" }}
               />
             </Link>
           </Section>

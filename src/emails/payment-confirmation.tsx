@@ -11,6 +11,7 @@ import {
   Row,
   Column,
   Link,
+  Img,
 } from "@react-email/components";
 
 type PaymentConfirmationEmailProps = {
@@ -32,11 +33,42 @@ export default function PaymentConfirmationEmail({
 }: PaymentConfirmationEmailProps) {
   return (
     <Html>
-      <Head />
+      <Head>
+        <style>{`
+          @media (prefers-color-scheme: dark) {
+            .light-logo { display: none !important; }
+            .dark-logo { display: block !important; }
+          }
+          @media (prefers-color-scheme: light) {
+            .light-logo { display: block !important; }
+            .dark-logo { display: none !important; }
+          }
+        `}</style>
+      </Head>
       <Preview>Payment received for order #{orderId}</Preview>
 
       <Body style={main}>
         <Container style={container}>
+          <Section style={logoSection}>
+            <Link href="https://jesudarahinmikaiye.com">
+              {/* Light Mode Logo (Dark text on light background) */}
+              <Img
+                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768515835/PNG_f5mj7o.png"
+                width="100"
+                alt="J.H Textiles"
+                className="light-logo"
+                style={logo}
+              />
+              {/* Dark Mode Logo (White text) - Upload your white logo to Cloudinary */}
+              <Img
+                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768681123/Asset_1_10x_vcfotp.png"
+                width="100"
+                alt="J.H Textiles"
+                className="dark-logo"
+                style={{ ...logo, display: "none" }}
+              />
+            </Link>
+          </Section>
           <Section style={successBadge}>
             <Text style={successIcon}>✓</Text>
           </Section>
@@ -141,6 +173,16 @@ const h2 = {
   fontSize: "18px",
   fontWeight: "600",
   margin: "0 0 15px",
+};
+
+const logoSection = {
+  textAlign: "center" as const,
+  marginBottom: "24px",
+};
+
+const logo = {
+  margin: "0 auto",
+  display: "block",
 };
 
 const text = {

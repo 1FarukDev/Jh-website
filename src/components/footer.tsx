@@ -34,7 +34,21 @@ export default function Footer() {
 
   const createNewsletterSubscriptionMutation = useMutation({
     mutationFn: createNewsletterSubscription,
-    onSuccess: () => {
+    onSuccess: async () => {
+      // Send welcome newsletter email
+      try {
+        await fetch("/api/send-newsletter-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            firstName: "Subscriber",
+          }),
+        });
+      } catch (error) {
+        console.error("Failed to send welcome email:", error);
+      }
+
       toast.success("Newsletter subscription created successfully");
       setEmail("");
     },
@@ -44,15 +58,15 @@ export default function Footer() {
   });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-  
-    if (!email || !email.includes('@')) {
-      toast.error('Please enter a valid email address')
-      return
+    e.preventDefault();
+
+    if (!email || !email.includes("@")) {
+      toast.error("Please enter a valid email address");
+      return;
     }
 
-    createNewsletterSubscriptionMutation.mutate({ email })
-  }
+    createNewsletterSubscriptionMutation.mutate({ email });
+  };
 
   return (
     <footer className="bg-[#1C1B0B] text-white font-satoshi">
@@ -228,11 +242,17 @@ export default function Footer() {
                   <Input
                     type="email"
                     placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
-                <Button className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center">
-                  Subscribe
+                <Button 
+                  className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
+                  onClick={handleSubmit}
+                  disabled={createNewsletterSubscriptionMutation.isPending}
+                >
+                  {createNewsletterSubscriptionMutation.isPending ? "Subscribing..." : "Subscribe"}
                   <Image src={ArrowRight} alt="arrow right" />
                 </Button>
               </div>
@@ -351,11 +371,17 @@ export default function Footer() {
             <Input
               type="email"
               placeholder="Enter your email"
-              className="pl-10 py-3 !bg-transparent border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
             />
           </div>
-          <Button className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center">
-            Subscribe
+          <Button
+            className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
+            onClick={handleSubmit}
+            disabled={createNewsletterSubscriptionMutation.isPending}
+          >
+            {createNewsletterSubscriptionMutation.isPending ? "Subscribing..." : "Subscribe"}
             <Image src={ArrowRight} alt="arrow right" />
           </Button>
         </div>
@@ -365,7 +391,12 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <Image src={FooterIcon} alt="Footer icon" width={200} height={200}/>
+              <Image
+                src={FooterIcon}
+                alt="Footer icon"
+                width={200}
+                height={200}
+              />
               {/* <span className="text-xl font-light tracking-wider font-rose">
                 J.H TEXTILES
               </span> */}
