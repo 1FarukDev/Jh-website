@@ -3,11 +3,12 @@ import { getClientById } from "@/services/api/client";
 import Details from "./details";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const client = await getClientById(params.slug);
+  const { slug } = await params;
+  const client = await getClientById(slug);
 
   if (!client) {
     return {
