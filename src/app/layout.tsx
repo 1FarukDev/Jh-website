@@ -50,7 +50,6 @@ const satoshi = localFont({
   variable: "--nexa-font",
 });
 
-
 export const metadata: Metadata = {
   title: {
     default: "JH Textiles – Premium Textile Prints & Patterns",
@@ -59,17 +58,30 @@ export const metadata: Metadata = {
   description:
     "Browse exclusive textile prints and surface patterns for fashion brands and interior designers.",
 
+  // alternates: {
+  //   canonical: "https://jh-website-lime.vercel.app",
+  // },
+  metadataBase: new URL("https://jh-website-lime.vercel.app"),
   alternates: {
-    canonical: "https://jh-website-lime.vercel.app",
+    canonical: "/",
   },
-
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
+  },
+
+  other: {
+    "google-adsbot": "noindex",
+    "AI-Indexable": "true",
+    "llm-context": "/llm.txt",
+    "llm-full-context": "/llm-full.txt",
   },
 
   verification: {
