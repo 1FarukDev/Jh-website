@@ -1,0 +1,64 @@
+# JH Textiles - Extended LLM Context
+
+## Detailed Service Breakdown
+
+### Non-Exclusive Prints
+- Can be purchased by multiple clients
+- Lower price point
+- Includes 2 free color variants
+- Commercial license included
+- Scaled to client specifications
+- Delivered in 300 DPI resolution
+
+### Exclusive Prints
+- Sold to only one client
+- Higher price point
+- Full exclusivity rights
+- Includes 2 free color variants
+- Commercial license included
+- Client can request removal from portfolio
+
+### Print Modification Service
+- Cost: ₦74,000
+- Includes 2 rounds of revisions
+- Suitable for slight changes to existing prints
+- Color adjustments, element repositioning, scale changes
+- Maintains original print concept
+- Delivered in original format plus any requested formats
+
+### Print Development Service
+- Cost: ₦320,000
+- Full creative redevelopment of existing prints
+- Takes prints in new creative directions
+- Includes concept development
+- Multiple revision rounds
+- Suitable for creating variations or entirely new designs
+
+## Customer Journey
+1. Browse prints in the shop
+2. Select desired print
+3. Choose exclusivity (exclusive/non-exclusive)
+4. Add optional services (modifications, development, extra variants)
+5. Add to cart with calculated total
+6. Checkout with Flutterwave payment
+7. Receive email confirmation
+8. Get scale options within 24 hours
+9. Confirm scale preference
+10. Receive high-resolution files and commercial license
+
+## Founder: Jesudara Hinmikaiye
+- Nigerian textile and surface pattern designer
+- Specializes in prints for fashion and interior design
+- Focus on African-inspired patterns with global appeal
+- Experience in both exclusive and commercial print design
+- Available for custom consultations and bespoke projects
+
+## Design Philosophy
+JH Textiles creates prints that blend traditional African aesthetics with contemporary design sensibilities, suitable for both high-fashion applications and interior design projects.
+
+## Use Cases
+- Fashion designers creating clothing collections
+- Interior designers sourcing patterns for textiles
+- Furniture manufacturers seeking upholstery prints
+- Home decor brands developing product lines
+- Textile manufacturers looking for production-ready designs
