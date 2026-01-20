@@ -44,7 +44,6 @@ export const FormCheckbox: React.FC<FormCheckboxProps> = ({
           checked={!!value}
           onCheckedChange={handleChange}
           aria-invalid={!!error}
-          {...register(name)}
           {...props}
         />
         {label && <span>{label}</span>}
