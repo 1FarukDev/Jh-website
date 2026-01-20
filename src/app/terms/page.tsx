@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 const PolicyPage: React.FC = () => {
-  const lastUpdated = "October 2023";
+  const lastUpdated = "January 19, 2026";
 
   return (
     <div className="bg-white min-h-screen py-16 px-4 sm:px-8 lg:px-16 text-slate-800 pt-30 font-satoshi" >
@@ -64,7 +64,7 @@ const PolicyPage: React.FC = () => {
               <h3 className="font-bold text-lg mb-2">1. Intellectual Property</h3>
               <p>
                 All content on this Website, including images, text, artworks, graphics, and designs, 
-                is the intellectual property of <strong>Jesudara Hinmikaiye</strong>, unless otherwise stated. 
+                is the intellectual property of <strong>Jesudara Hinmikaiye</strong> operating under <strong>JH textiles</strong>, unless otherwise stated. 
                 You may not reproduce, distribute, or use any content without prior written permission.
               </p>
             </div>
@@ -125,14 +125,9 @@ const PolicyPage: React.FC = () => {
           <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide border-l-4 border-red-500 pl-4">
             Refund Policy
           </h2>
-          <p className="text-slate-700 leading-relaxed mb-4">
-            Our goal is your complete satisfaction with your artwork. Please review our refund terms:
+          <p className="text-slate-700 leading-relaxed">
+            We offer no refunds, however we do our utmost best to ensure our prints are to your satisfaction.
           </p>
-          <ul className="list-disc pl-5 space-y-2 text-slate-700">
-            <li>Refund requests must be made within 14 days of receipt.</li>
-            <li>Customized or commissioned artworks are generally non-refundable unless damaged during transit.</li>
-            <li>Returned items must be in their original packaging and condition.</li>
-          </ul>
         </section>
 
         
