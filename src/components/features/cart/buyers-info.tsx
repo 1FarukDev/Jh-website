@@ -35,9 +35,11 @@ function BuyersInfo({
     },
   });
 
+  // Calculations
   const subtotal = getCartTotal();
-  const shipping = 0;
-  const total = subtotal + shipping;
+  const vatRate = 0.075; // 7.5%
+  const vatAmount = subtotal * vatRate;
+  const total = subtotal + vatAmount;
 
   const onSubmit = (data: BuyersInfoFormData) => {
     updateCheckoutData({
@@ -155,8 +157,8 @@ function BuyersInfo({
           </div>
 
           <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
-            <p className="font-light">Shipping</p>
-            <p>{shipping === 0 ? "FREE" : formatPrice(shipping)}</p>
+            <p className="font-light">VAT (7.5%)</p>
+            <p>{formatPrice(vatAmount)}</p>
           </div>
         </div>
 

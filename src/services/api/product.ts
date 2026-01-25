@@ -57,6 +57,7 @@ export const getFilteredProducts = async (filters: {
   category?: string;
   minPrice?: string;
   maxPrice?: string;
+  type?: string;
 }) => {
   let query = supabase.from("products").select("*");
 
@@ -64,7 +65,9 @@ export const getFilteredProducts = async (filters: {
     query = query.ilike("tag", `%${filters.category}%`);
   }
 
-
+  if (filters.type === "new-arrivals") {
+    query = query.order("created_at", { ascending: false });
+  }
   if (filters.minPrice) {
     query = query.gte("price", parseFloat(filters.minPrice));
   }

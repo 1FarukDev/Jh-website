@@ -153,7 +153,7 @@ const FAQ = ({ handleConsultation }: { handleConsultation: () => void }) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-16 min-h-screen">
+    <div className="max-w-5xl mx-auto px-6 py-16 min-h-screen" id="faqs">
       <section>
         <h1 className="text-[32px] md:text-[60px] text-center">FAQS</h1>
         <p className="md:text-lg text-sm text-[#4E5157] max-w-3xl mx-auto text-center mb-12">
@@ -178,7 +178,7 @@ const FAQ = ({ handleConsultation }: { handleConsultation: () => void }) => {
               className="w-full py-8 text-left flex items-start justify-between group transition-colors duration-200 px-4"
               whileHover={{ x: 4 }}
             >
-              <h3 className="text-lg md:text-xl font-normal text-gray-900 tracking-wide uppercase leading-relaxed pr-8">
+              <h3 className="text-sm md:text-xl font-normal text-gray-900 tracking-wide uppercase leading-relaxed pr-8">
                 {faq.question}
               </h3>
 

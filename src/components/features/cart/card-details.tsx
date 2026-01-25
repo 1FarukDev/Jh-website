@@ -29,6 +29,12 @@ function CardDetails({
   const { checkoutData, clearCheckoutData } = useCheckout();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Logic for calculations
+  const subtotal = getCartTotal();
+  const vatRate = 0.075; // 7.5%
+  const vatAmount = subtotal * vatRate;
+  const total = subtotal + vatAmount;
+
   const createOrderMutation = useMutation({
     mutationFn: createOrder,
     onSuccess: async (order) => {
@@ -79,10 +85,6 @@ function CardDetails({
       setIsSubmitting(false);
     },
   });
-
-  const subtotal = getCartTotal();
-  const shipping = 0;
-  const total = subtotal + shipping;
 
   /* Commented out card form handling
   const methods = useForm<CardDetailsFormData>({
@@ -143,11 +145,10 @@ function CardDetails({
 
     createOrderMutation.mutate(orderPayload as CreateOrderPayload);
   };
-  console.log(cart);
+  
   return (
     <section className="flex flex-col gap-4 items-start mt-10 md:mt-20">
-      {/* 
-      Commented out card details form
+      {/* Commented out card details form
       <div className='md:w-[60%] md:border-r border-black md:pr-6'>
         <FormProvider {...methods}>
           <section className='md:p-6 pt-0 w-full'>
@@ -155,149 +156,7 @@ function CardDetails({
               onSubmit={methods.handleSubmit(onSubmit)}
               className='flex flex-col justify-center items-start mt-[30px] gap-6'
             >
-              <p className='font-satoshi text-black text-lg md:text-[24px]'>
-                Credit card details
-              </p>
-              <div className='w-full flex flex-col gap-4'>
-                <div className='w-full'>
-                  <FormInput
-                    name='card_number'
-                    type='text'
-                    placeholder='Enter your card number'
-                    className='h-[52px]'
-                    onChange={(e) => {
-                      const formatted = formatCardNumber(e.target.value)
-                      methods.setValue('card_number', formatted.replace(/\s/g, ''))
-                    }}
-                  />
-                  {methods.formState.errors.card_number && (
-                    <p className='text-red-500 text-sm mt-1'>
-                      {methods.formState.errors.card_number.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className='w-full'>
-                  <FormInput
-                    name='card_holder'
-                    type='text'
-                    placeholder='Enter cardholder name'
-                    className='h-[52px]'
-                  />
-                  {methods.formState.errors.card_holder && (
-                    <p className='text-red-500 text-sm mt-1'>
-                      {methods.formState.errors.card_holder.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className='flex gap-3 items-center'>
-                  <div className='w-full'>
-                    <FormInput
-                      name='expiry_date'
-                      type='text'
-                      placeholder='MM/YY'
-                      className='h-[52px]'
-                      maxLength={5}
-                      onChange={(e) => {
-                        const formatted = formatExpiryDate(e.target.value)
-                        methods.setValue('expiry_date', formatted)
-                      }}
-                    />
-                    {methods.formState.errors.expiry_date && (
-                      <p className='text-red-500 text-sm mt-1'>
-                        {methods.formState.errors.expiry_date.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className='w-full'>
-                    <FormInput
-                      name='cvv'
-                      type='text'
-                      placeholder='CVV'
-                      className='h-[52px]'
-                      maxLength={4}
-                    />
-                    {methods.formState.errors.cvv && (
-                      <p className='text-red-500 text-sm mt-1'>
-                        {methods.formState.errors.cvv.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className='w-full h-px bg-gray-300' />
-
-              <p className='font-satoshi text-black text-lg md:text-[24px]'>
-                Billing address
-              </p>
-              <div className='w-full flex flex-col gap-4'>
-                <div className='flex gap-3 items-center'>
-                  <div className='w-full'>
-                    <FormInput
-                      name='billing_country'
-                      type='text'
-                      placeholder='Enter your country'
-                      className='h-[52px]'
-                    />
-                  </div>
-                  <div className='w-full'>
-                    <FormInput
-                      name='billing_state'
-                      type='text'
-                      placeholder='Enter your state'
-                      className='h-[52px]'
-                    />
-                  </div>
-                </div>
-
-                <div className='flex gap-3 items-center'>
-                  <div className='w-full'>
-                    <FormInput
-                      name='billing_city'
-                      type='text'
-                      placeholder='Enter your city'
-                      className='h-[52px]'
-                    />
-                  </div>
-                  <div className='w-full'>
-                    <FormInput
-                      name='billing_postal_code'
-                      type='text'
-                      placeholder='Enter your postal code'
-                      className='h-[52px]'
-                    />
-                  </div>
-                </div>
-
-                <div className='w-full'>
-                  <FormInput
-                    name='billing_address'
-                    type='text'
-                    placeholder='Enter your home address'
-                    className='h-[52px]'
-                  />
-                </div>
-              </div>
-
-              <div className='md:flex hidden gap-4 items-center w-full'>
-                <button
-                  type='button'
-                  className='mt-4 bg-white text-black border border-black h-16 px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal'
-                  onClick={handlePrevious}
-                  disabled={isSubmitting}
-                >
-                  Previous
-                </button>
-                <button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className='mt-4 bg-black text-white px-6 py-3 h-16 text-sm w-full rounded-none font-satoshi font-normal disabled:opacity-50'
-                >
-                  {isSubmitting ? 'Processing...' : 'Complete Order'}
-                </button>
-              </div>
+              ... (form content)
             </form>
           </section>
         </FormProvider>
@@ -329,6 +188,12 @@ function CardDetails({
           <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
             <p className="font-light">Subtotal</p>
             <p>{formatPrice(subtotal)}</p>
+          </div>
+          
+          {/* VAT Row Added */}
+          <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
+            <p className="font-light">VAT (7.5%)</p>
+            <p>{formatPrice(vatAmount)}</p>
           </div>
         </div>
 

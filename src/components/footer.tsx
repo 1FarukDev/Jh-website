@@ -3,10 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Facebook,
   Instagram,
-  Linkedin,
-  PinIcon as Pinterest,
   Mail,
 } from "lucide-react";
 import Image from "next/image";
@@ -35,7 +32,6 @@ export default function Footer() {
   const createNewsletterSubscriptionMutation = useMutation({
     mutationFn: createNewsletterSubscription,
     onSuccess: async () => {
-      // Send welcome newsletter email
       try {
         await fetch("/api/send-newsletter-email", {
           method: "POST",
@@ -77,50 +73,26 @@ export default function Footer() {
             <ul className="space-y-1">
               <li>
                 <Link
-                  href="/new-arrivals"
+                  href="/shop?type=new-arrivals"
                   className="text-xs hover:text-white transition-colors"
                 >
                   New Arrivals
                 </Link>
               </li>
               <li>
-                {/* <Link
-                  href="/best-sellers"
-                  className="text-xs hover:text-white transition-colors"
-                >
-                  Best Sellers
-                </Link> */}
-              </li>
-              <li>
                 <Link
-                  href="/shop-all"
+                  href="/shop"
                   className="text-xs hover:text-white transition-colors"
                 >
                   Shop All Prints
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  href="/limited-editions"
-                  className="text-xs hover:text-white transition-colors"
-                >
-                  Limited Editions
-                </Link>
-              </li> */}
               <li>
                 <Link
-                  href="/shipping"
+                  href="/delivery"
                   className="text-xs hover:text-white transition-colors"
                 >
-                  Shipping & Delivery
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/returns"
-                  className="text-xs hover:text-white transition-colors"
-                >
-                  Returns & Exchanges
+                  Delivery
                 </Link>
               </li>
             </ul>
@@ -149,15 +121,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/testimonials"
-                  className="text-xs hover:text-white transition-colors"
-                >
-                  Testimonials
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/faqs"
+                  href="/about#faqs"
                   className="text-xs hover:text-white transition-colors"
                 >
                   FAQs
@@ -179,14 +143,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/help"
-                  className="text-xs hover:text-white transition-colors"
-                >
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/terms"
                   className="text-xs hover:text-white transition-colors"
                 >
@@ -200,6 +156,10 @@ export default function Footer() {
                 >
                   Privacy Policy
                 </Link>
+              </li>
+              {/* VAT Disclaimer Desktop */}
+              <li className="pt-2 text-[10px] text-[#BDC2CA] italic leading-tight uppercase tracking-tighter">
+                All prices are exclusive of VAT
               </li>
             </ul>
           </div>
@@ -217,14 +177,6 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  href="/newsletter"
-                  className="text-xs hover:text-white transition-colors"
-                >
-                  Join the Collectors List (Newsletter Signup)
-                </Link>
-              </li> */}
             </ul>
           </div>
 
@@ -247,7 +199,7 @@ export default function Footer() {
                     className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
-                <Button 
+                <Button
                   className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
                   onClick={handleSubmit}
                   disabled={createNewsletterSubscriptionMutation.isPending}
@@ -266,9 +218,11 @@ export default function Footer() {
                 Fill out the form to receive information on product availability
                 and prices.
               </p>
-              <Button className="border-gray-500 mt-4 border rounded-none text-xs font-light px-8 text-white hover:bg-white hover:text-black bg-transparent">
-                Contact Us
-              </Button>
+              <Link href="/contact">
+                <Button className="border-gray-500 mt-4 border rounded-none text-xs font-light px-8 text-white hover:bg-white hover:text-black bg-transparent">
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -279,24 +233,9 @@ export default function Footer() {
               <AccordionTrigger>Shop & Explore</AccordionTrigger>
               <AccordionContent>
                 <ul className="space-y-1">
-                  <li>
-                    <Link href="/new-arrivals">New Arrivals</Link>
-                  </li>
-                  {/* <li>
-                    <Link href="/best-sellers">Best Sellers</Link>
-                  </li> */}
-                  <li>
-                    <Link href="/shop-all">Shop All Prints</Link>
-                  </li>
-                  {/* <li>
-                    <Link href="/limited-editions">Limited Editions</Link>
-                  </li> */}
-                  <li>
-                    <Link href="/delivery-guide">Delivery Guide</Link>
-                  </li>
-                  <li>
-                    <Link href="/returns">Returns & Exchanges</Link>
-                  </li>
+                  <li><Link href="/shop?type=new-arrivals">New Arrivals</Link></li>
+                  <li><Link href="/shop">Shop All Prints</Link></li>
+                  <li><Link href="/delivery">Delivery</Link></li>
                 </ul>
               </AccordionContent>
             </AccordionItem>
@@ -305,18 +244,9 @@ export default function Footer() {
               <AccordionTrigger>The Artist & Studio</AccordionTrigger>
               <AccordionContent>
                 <ul className="space-y-1">
-                  <li>
-                    <Link href="/about">About J.H Textiles</Link>
-                  </li>
-                  <li>
-                    <Link href="/client">Client Work</Link>
-                  </li>
-                  <li>
-                    <Link href="/testimonials">Testimonials</Link>
-                  </li>
-                  <li>
-                    <Link href="/faqs">FAQs</Link>
-                  </li>
+                  <li><Link href="/about">About J.H Textiles</Link></li>
+                  <li><Link href="/client">Client Work</Link></li>
+                  <li><Link href="/about#faqs">FAQs</Link></li>
                 </ul>
               </AccordionContent>
             </AccordionItem>
@@ -325,17 +255,12 @@ export default function Footer() {
               <AccordionTrigger>Support & Legal</AccordionTrigger>
               <AccordionContent>
                 <ul className="space-y-1">
-                  <li>
-                    <Link href="/contact">Contact</Link>
-                  </li>
-                  <li>
-                    <Link href="/help">Help Center</Link>
-                  </li>
-                  <li>
-                    <Link href="/terms">Terms of Service</Link>
-                  </li>
-                  <li>
-                    <Link href="/privacy">Privacy Policy</Link>
+                  <li><Link href="/contact">Contact</Link></li>
+                  <li><Link href="/terms">Terms of Service</Link></li>
+                  <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                  {/* VAT Disclaimer Mobile Accordion */}
+                  <li className="pt-4 text-[10px] italic text-[#BDC2CA]">
+                    All prices are exclusive of VAT
                   </li>
                 </ul>
               </AccordionContent>
@@ -345,12 +270,7 @@ export default function Footer() {
               <AccordionTrigger>Stay Connected</AccordionTrigger>
               <AccordionContent>
                 <ul className="space-y-1">
-                  <li>
-                    <Link href="/blog">Blog</Link>
-                  </li>
-                  {/* <li>
-                    <Link href="/newsletter">Join the Collectors List</Link>
-                  </li> */}
+                  <li><Link href="/blog">Blog</Link></li>
                 </ul>
               </AccordionContent>
             </AccordionItem>
@@ -397,41 +317,25 @@ export default function Footer() {
                 width={200}
                 height={200}
               />
-              {/* <span className="text-xl font-light tracking-wider font-rose">
-                J.H TEXTILES
-              </span> */}
             </div>
 
             <div className="text-center">
               <p className="text-white text-base">
                 © 2025 J.H Textiles — All rights reserved
               </p>
+              {/* VAT Disclaimer Global Footer */}
+              <p className="text-[10px] text-[#BDC2CA] mt-1 uppercase tracking-widest">
+                All prices are exclusive of VAT
+              </p>
             </div>
 
             <div className="flex items-center gap-4">
               <Link
-                href="#"
-                className="text-white hover:text-white transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
+                href="https://www.instagram.com/printsby_dara?igsh=MW1iMm02eWppYXJxcg=="
+                target="_blank"
                 className="text-white hover:text-white transition-colors"
               >
                 <Instagram className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-white hover:text-white transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-white hover:text-white transition-colors"
-              >
-                <Pinterest className="h-5 w-5" />
               </Link>
             </div>
           </div>
