@@ -29,11 +29,9 @@ const CartCard: React.FC<CartCardProps> = ({
   image,
   title,
   exclusivity,
-  colorLabel,
-  colorCode,
+
   size,
   price,
-  quantity = 1,
   onRemove,
   onUpdateQuantity,
   color_variant,
@@ -41,26 +39,8 @@ const CartCard: React.FC<CartCardProps> = ({
   print_modification,
   images,
 }) => {
-  const { updateQuantity } = useCart();
+
   const { formatPrice } = useCurrency();
-
-  // const handleIncrease = () => {
-  //   const newQuantity = quantity + 1
-  //   if (id && !onUpdateQuantity) {
-  //     updateQuantity(id, newQuantity)
-  //   } else if (onUpdateQuantity) {
-  //     onUpdateQuantity(newQuantity)
-  //   }
-  // }
-
-  // const handleDecrease = () => {
-  //   const newQuantity = Math.max(1, quantity - 1)
-  //   if (id && !onUpdateQuantity) {
-  //     updateQuantity(id, newQuantity)
-  //   } else if (onUpdateQuantity) {
-  //     onUpdateQuantity(newQuantity)
-  //   }
-  // }
 
   return (
     <section className="relative items-start border-b pb-4 md:pb-8 w-full bg-white">
@@ -132,24 +112,29 @@ const CartCard: React.FC<CartCardProps> = ({
                 {size}
               </p>
             </div>
-            {print_modification && (
+
+            {(print_modification || print_development || color_variant) && (
               <div className="font-satoshi">
                 <p className="font-light mb-1 md:mb-2 text-xs md:text-sm">
                   Add-on
                 </p>
-                <p className="font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base">
-                  Print Modification
-                </p>
-              </div>
-            )}
-            {print_development && (
-              <div className="font-satoshi">
-                <p className="font-light mb-1 md:mb-2 text-xs md:text-sm">
-                  Add-on
-                </p>
-                <p className="font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base">
-                  Print Development
-                </p>
+                <div className="flex flex-wrap gap-2">
+                  {print_modification && (
+                    <p className="font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base">
+                      Print Modification
+                    </p>
+                  )}
+                  {print_development && (
+                    <p className="font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base">
+                      Print Development
+                    </p>
+                  )}
+                  {color_variant && (
+                    <p className="font-normal w-max border border-black px-2 md:px-4 py-1 md:py-2 text-center text-xs md:text-base">
+                      Color Variant ({color_variant})
+                    </p>
+                  )}
+                </div>
               </div>
             )}
           </div>

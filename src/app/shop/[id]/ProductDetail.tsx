@@ -191,7 +191,7 @@ function Page() {
                     selected comes with 2 free color variants.
                   </p>
                   <p>
-                    Need changes before purchase? Use the drop-down buttons
+                    Need changes before purchase? Select the options
                     below to request custom colorways or print modifications.
                   </p>
                   <ul className="mt-4 flex flex-col gap-2">

@@ -18,14 +18,16 @@ function ShopPage() {
   const category = searchParams.get("category") || "all";
   const minPrice = searchParams.get("minPrice") || "";
   const maxPrice = searchParams.get("maxPrice") || "";
+  const type = searchParams.get("type") || "";
+
 
   const {
     data: productData = [],
     isLoading,
     isError,
   } = useQuery<any[]>({
-    queryKey: ["products", category, minPrice, maxPrice],
-    queryFn: () => getFilteredProducts({ category, minPrice, maxPrice }),
+    queryKey: ["products", category, minPrice, maxPrice, type],
+    queryFn: () => getFilteredProducts({ category, minPrice, maxPrice, type }),
   });
 
   return (

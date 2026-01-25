@@ -70,9 +70,10 @@ function OrderSummaryCard({
               Color variants
             </p>
             <div className="flex gap-1 items-center">
-              {images?.map((image) => (
+              {images?.map((img, index) => (
                 <Image
-                  src={image}
+                  key={index}
+                  src={img}
                   alt="Print Image"
                   width={32}
                   height={32}
@@ -81,10 +82,6 @@ function OrderSummaryCard({
               ))}
             </div>
           </div>
-          {/* <div>
-            <p className="text-[#686D75] mb-1">Quantity</p>
-            <p className="text-[#1C1B0B] font-semibold">{quantity}</p>
-          </div> */}
           <div>
             <p className="text-[#686D75] mb-1">Size</p>
             <p className="text-[#1C1B0B]">{size}</p>
@@ -103,8 +100,13 @@ function OrderSummaryList({ onClick }: OrderSummaryListProps) {
   const { formatPrice } = useCurrency();
   const { cart, getCartTotal, getCartCount } = useCart();
 
-  const total = getCartTotal();
+  const subtotal = getCartTotal();
   const itemCount = getCartCount();
+  
+  // Calculate VAT (7.5%)
+  const vatRate = 0.075;
+  const vatAmount = subtotal * vatRate;
+  const totalWithVat = subtotal + vatAmount;
 
   return (
     <section className="bg-[#E8E7D7] md:p-8 p-4 pt-8 mx-auto">
@@ -138,11 +140,18 @@ function OrderSummaryList({ onClick }: OrderSummaryListProps) {
       <div className="border-t border-[#1C1B0B] mt-6 pt-6">
         <div className="flex justify-between text-[16px] font-satoshi text-[#686D75] mb-2">
           <p>Subtotal</p>
-          <p>{formatPrice(total)}</p>
+          <p>{formatPrice(subtotal)}</p>
         </div>
+        
+        {/* VAT Amount Row */}
+        <div className="flex justify-between text-[16px] font-satoshi text-[#686D75] mb-4">
+          <p>VAT (7.5%)</p>
+          <p>{formatPrice(vatAmount)}</p>
+        </div>
+
         <div className="flex justify-between text-[20px] md:text-[24px] font-bold text-[#1C1B0B]">
           <p>Total</p>
-          <p>{formatPrice(total)}</p>
+          <p>{formatPrice(totalWithVat)}</p>
         </div>
       </div>
 
