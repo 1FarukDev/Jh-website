@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
     <div className="bg-gray-50 min-h-screen py-12 px-6 sm:px-12 lg:px-24 pt-30 font-satoshi">
       <div className="max-w-4xl mx-auto bg-white p-8 md:p-12 shadow-sm rounded-lg">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-        <p className="text-sm text-gray-500 mb-8">Last Updated: October 2023</p>
+        <p className="text-sm text-gray-500 mb-8">Last Updated: January 19, 2026</p>
 
         <p className="text-gray-700 mb-6 leading-relaxed">
           Your privacy is important to us. This Privacy Policy describes how information is collected, 
