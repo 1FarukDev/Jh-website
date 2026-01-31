@@ -47,8 +47,6 @@ const FulfillmentPage: React.FC = () => {
             </div>
           </div>
         </section>
-
-        {/* Licensing & Extras */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide border-l-4 border-black pl-4">
             Licensing & Customization
@@ -56,7 +54,7 @@ const FulfillmentPage: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="border border-slate-200 p-6 rounded-lg">
-              <h3 className="font-bold mb-2">Commercial License</h3>
+              <h3 className="font-bold mb-2">Exclusive Commercial License </h3>
               <p className="text-sm text-slate-600">
                 All confirmed prints include a full commercial license for your business needs.
               </p>

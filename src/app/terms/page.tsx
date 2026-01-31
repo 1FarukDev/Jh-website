@@ -64,7 +64,7 @@ const PolicyPage: React.FC = () => {
               <h3 className="font-bold text-lg mb-2">1. Intellectual Property</h3>
               <p>
                 All content on this Website, including images, text, artworks, graphics, and designs, 
-                is the intellectual property of <strong>Jesudara Hinmikaiye</strong> operating under <strong>JH textiles</strong>, unless otherwise stated. 
+                is the intellectual property of <strong>Jesudara Hinmikaiye</strong> operating under <strong>J.H textiles</strong>, unless otherwise stated. 
                 You may not reproduce, distribute, or use any content without prior written permission.
               </p>
             </div>
@@ -80,8 +80,8 @@ const PolicyPage: React.FC = () => {
             <div>
               <h3 className="font-bold text-lg mb-2">3. Products and Orders</h3>
               <p>
-                All artworks and products listed are subject to availability. Colors and textures may vary 
-                slightly due to screen settings or the handmade nature of products. We reserve the right 
+                All prints design listed are subject to availability. Colors and textures may vary 
+                slightly due to screen settings. We reserve the right 
                 to refuse or cancel any order.
               </p>
             </div>
@@ -90,7 +90,7 @@ const PolicyPage: React.FC = () => {
               <h3 className="font-bold text-lg mb-2">4. Pricing</h3>
               <p>
                 Prices are listed in Naira (₦) and are subject to change without notice. You are responsible 
-                for any applicable customs duties or taxes for international orders.
+                for taxes on international orders.
               </p>
             </div>
 
@@ -136,12 +136,20 @@ const PolicyPage: React.FC = () => {
           <p className="text-slate-600">
             For questions regarding our Terms, Privacy, or Refunds, please contact:
           </p>
-          <a 
+        <div className="flex items-center gap-2">
+        <a 
             href="mailto:jhtextiles@icloud.com" 
             className="inline-block mt-4 text-lg font-medium text-black underline underline-offset-4 hover:text-slate-600 transition-colors"
           >
             jhtextiles@icloud.com
           </a>
+          <a 
+            href="mailto:jhtextilesng@gmail.com" 
+            className="inline-block mt-4 text-lg font-medium text-black underline underline-offset-4 hover:text-slate-600 transition-colors"
+          >
+            jhtextilesng@gmail.com
+          </a>
+        </div>
         </footer>
       </div>
     </div>

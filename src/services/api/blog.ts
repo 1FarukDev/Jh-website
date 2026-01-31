@@ -6,7 +6,7 @@ export const getBlogs = async () => {
   try {
     const { data, error } = await supabase
       .from("blogs")
-      .select("*")
+      .select("id, title, slug, image")
       .order("created_at", { ascending: false });
 
     if (error) throw error;
