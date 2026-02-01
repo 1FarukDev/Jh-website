@@ -32,11 +32,7 @@ function BlogComponent() {
                 Custom Prints to Define Your Vision
               </h1>
               <p className=" text-sm  font-satoshi leading-relaxed mb-4">
-                We are a Nigerian textile print design studio specializing in
-                exclusive surface patterns. Our services range from bold digital aesthetics and hand-painted watercolour motifs.
-                Each print is designed for versatile applications, including
-                digital printing, screen printing, jacquard, adire, batik, and
-                more. Whatever your medium, our designs can adapt seamlessly.
+                We are a Nigerian textile print design studio specializing in exclusive surface patterns. We merge bold digital aesthetics with traditional art. Each print is designed for versatile applications, and fabric design methods such as digital printing, screen printing, jacquard, adire, batik, and more. Whatever your medium, our designs can adapt seamlessly.
               </p>
               <Button
                 onClick={() => setShowConsultationModal(true)}
