@@ -158,9 +158,9 @@ export default function Footer() {
                 </Link>
               </li>
               {/* VAT Disclaimer Desktop */}
-              <li className="pt-2 text-[10px] text-[#BDC2CA] italic leading-tight uppercase tracking-tighter">
+              {/* <li className="pt-2 text-[10px] text-[#BDC2CA] italic leading-tight uppercase tracking-tighter">
                 All prices are exclusive of VAT
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -259,9 +259,9 @@ export default function Footer() {
                   <li><Link href="/terms">Terms of Service</Link></li>
                   <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                   {/* VAT Disclaimer Mobile Accordion */}
-                  <li className="pt-4 text-[10px] italic text-[#BDC2CA]">
+                  {/* <li className="pt-4 text-[10px] italic text-[#BDC2CA]">
                     All prices are exclusive of VAT
-                  </li>
+                  </li> */}
                 </ul>
               </AccordionContent>
             </AccordionItem>
@@ -324,9 +324,9 @@ export default function Footer() {
                 © 2025 J.H Textiles — All rights reserved
               </p>
               {/* VAT Disclaimer Global Footer */}
-              <p className="text-[10px] text-[#BDC2CA] mt-1 uppercase tracking-widest">
+              {/* <p className="text-[10px] text-[#BDC2CA] mt-1 uppercase tracking-widest">
                 All prices are exclusive of VAT
-              </p>
+              </p> */}
             </div>
 
             <div className="flex items-center gap-4">

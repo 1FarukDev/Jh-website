@@ -89,8 +89,8 @@ const PolicyPage: React.FC = () => {
             <div>
               <h3 className="font-bold text-lg mb-2">4. Pricing</h3>
               <p>
-                Prices are listed in Naira (₦) and are subject to change without notice. You are responsible 
-                for taxes on international orders.
+                Prices are listed in Naira (₦) and are subject to change without notice.
+                {/* You are responsible for taxes on international orders. */}
               </p>
             </div>
 

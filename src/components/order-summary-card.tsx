@@ -104,9 +104,9 @@ function OrderSummaryList({ onClick }: OrderSummaryListProps) {
   const itemCount = getCartCount();
   
   // Calculate VAT (7.5%)
-  const vatRate = 0.075;
-  const vatAmount = subtotal * vatRate;
-  const totalWithVat = subtotal + vatAmount;
+  // const vatRate = 0.075;
+  // const vatAmount = subtotal * vatRate;
+  const totalWithVat = subtotal; // + vatAmount;
 
   return (
     <section className="bg-[#E8E7D7] md:p-8 p-4 pt-8 mx-auto">
@@ -144,10 +144,10 @@ function OrderSummaryList({ onClick }: OrderSummaryListProps) {
         </div>
         
         {/* VAT Amount Row */}
-        <div className="flex justify-between text-[16px] font-satoshi text-[#686D75] mb-4">
+        {/* <div className="flex justify-between text-[16px] font-satoshi text-[#686D75] mb-4">
           <p>VAT (7.5%)</p>
           <p>{formatPrice(vatAmount)}</p>
-        </div>
+        </div> */}
 
         <div className="flex justify-between text-[20px] md:text-[24px] font-bold text-[#1C1B0B]">
           <p>Total</p>
