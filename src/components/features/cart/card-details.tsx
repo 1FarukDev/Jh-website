@@ -31,9 +31,9 @@ function CardDetails({
 
   // Logic for calculations
   const subtotal = getCartTotal();
-  const vatRate = 0.075; // 7.5%
-  const vatAmount = subtotal * vatRate;
-  const total = subtotal + vatAmount;
+  // const vatRate = 0.075; // 7.5%
+  // const vatAmount = subtotal * vatRate;
+  const total = subtotal; // + vatAmount;
 
   const createOrderMutation = useMutation({
     mutationFn: createOrder,
@@ -191,10 +191,10 @@ function CardDetails({
           </div>
           
           {/* VAT Row Added */}
-          <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
+          {/* <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
             <p className="font-light">VAT (7.5%)</p>
             <p>{formatPrice(vatAmount)}</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="bg-gray-400 w-full h-px" />
