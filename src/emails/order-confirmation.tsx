@@ -158,7 +158,7 @@ export default function OrderConfirmationEmail({
           </Text>
 
           <Text style={footer}>
-            <Link href="https://yourwebsite.com/orders" style={link}>
+            <Link href="https://jesudarahinmikaiye.com/orders" style={link}>
               View Order Status
             </Link>
           </Text>

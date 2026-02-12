@@ -92,7 +92,7 @@ export default function WelcomeEmail({ firstName, email }: WelcomeEmailProps) {
           </Section>
 
           <Section style={buttonSection}>
-            <Button style={button} href="https://yourwebsite.com/shop">
+            <Button style={button} href="https://jesudarahinmikaiye.com/shop">
               Explore Our Prints
             </Button>
           </Section>
@@ -101,11 +101,11 @@ export default function WelcomeEmail({ firstName, email }: WelcomeEmailProps) {
 
           <Text style={footer}>
             Need help getting started?{" "}
-            <Link href="https://yourwebsite.com/contact" style={link}>
+            <Link href="https://jesudarahinmikaiye.com/contact" style={link}>
               Contact us
             </Link>{" "}
             or{" "}
-            <Link href="https://yourwebsite.com/about" style={link}>
+            <Link href="https://jesudarahinmikaiye.com/about" style={link}>
               book a consultation
             </Link>
             .

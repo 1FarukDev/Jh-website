@@ -89,7 +89,7 @@ export default function NewsletterWelcomeEmail({
           </Section>
 
           <Section style={buttonSection}>
-            <Button style={button} href="https://yourwebsite.com/shop">
+            <Button style={button} href="https://jesudarahinmikaiye.com/shop">
               Explore Latest Prints
             </Button>
           </Section>
@@ -101,15 +101,15 @@ export default function NewsletterWelcomeEmail({
             newsletter with {email}.
           </Text>
 
-          <Text style={footer}>
-            <Link href="https://yourwebsite.com/unsubscribe" style={link}>
+          {/* <Text style={footer}>
+            <Link href="https://jesudarahinmikaiye.com/unsubscribe" style={link}>
               Unsubscribe
             </Link>{" "}
             |{" "}
-            <Link href="https://yourwebsite.com/preferences" style={link}>
+            <Link href="https://jesudarahinmikaiye.com/preferences" style={link}>
               Update Preferences
             </Link>
-          </Text>
+          </Text> */}
         </Container>
       </Body>
     </Html>

@@ -114,11 +114,11 @@ export default function ConsultationEmail({
 
           <Text style={footer}>
             In the meantime, feel free to explore{" "}
-            <Link href="https://yourwebsite.com/shop" style={link}>
+            <Link href="https://jesudarahinmikaiye.com/shop" style={link}>
               our portfolio
             </Link>{" "}
             or check out{" "}
-            <Link href="https://yourwebsite.com/about" style={link}>
+            <Link href="https://jesudarahinmikaiye.com/about" style={link}>
               our services
             </Link>
             .
