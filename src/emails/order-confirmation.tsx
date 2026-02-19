@@ -46,15 +46,14 @@ export default function OrderConfirmationEmail({
     <Html>
       <Head>
         <style>{`
-          @media (prefers-color-scheme: dark) {
-            .light-logo { display: none !important; }
-            .dark-logo { display: block !important; }
-          }
-          @media (prefers-color-scheme: light) {
-            .light-logo { display: block !important; }
-            .dark-logo { display: none !important; }
-          }
-        `}</style>
+  .light-logo { display: block !important; }
+  .dark-logo { display: none !important; }
+
+  @media (prefers-color-scheme: dark) {
+    .light-logo { display: none !important; }
+    .dark-logo { display: block !important; }
+  }
+`}</style>
       </Head>
       <Preview>Your J.H. Textiles order {orderId} is confirmed</Preview>
 
@@ -62,7 +61,6 @@ export default function OrderConfirmationEmail({
         <Container style={container}>
           <Section style={logoSection}>
             <Link href="https://jesudarahinmikaiye.com">
-              {/* Light Mode Logo (Dark text on light background) */}
               <Img
                 src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768515835/PNG_f5mj7o.png"
                 width="100"
@@ -70,13 +68,13 @@ export default function OrderConfirmationEmail({
                 className="light-logo"
                 style={logo}
               />
-              {/* Dark Mode Logo (White text) - Upload your white logo to Cloudinary */}
+
               <Img
                 src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768681123/Asset_1_10x_vcfotp.png"
                 width="100"
                 alt="J.H Textiles"
                 className="dark-logo"
-                style={{ ...logo, display: "none" }}
+                style={logo}
               />
             </Link>
           </Section>
@@ -86,8 +84,9 @@ export default function OrderConfirmationEmail({
           <Text style={text}>Hi {customerName},</Text>
 
           <Text style={text}>
-            We've received your order and will notify you when it ships. Your
-            order number is <strong>{orderId}</strong>.
+            We've received your order and you'll receive print scale options via
+            email within 24 hours. Your order number is{" "}
+            <strong>{orderId}</strong>.
           </Text>
 
           <Section style={orderInfoSection}>

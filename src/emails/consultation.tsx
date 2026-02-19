@@ -26,16 +26,15 @@ export default function ConsultationEmail({
   return (
     <Html>
       <Head>
-        <style>{`
-          @media (prefers-color-scheme: dark) {
-            .light-logo { display: none !important; }
-            .dark-logo { display: block !important; }
-          }
-          @media (prefers-color-scheme: light) {
-            .light-logo { display: block !important; }
-            .dark-logo { display: none !important; }
-          }
-        `}</style>
+       <style>{`
+  .light-logo { display: block !important; }
+  .dark-logo { display: none !important; }
+
+  @media (prefers-color-scheme: dark) {
+    .light-logo { display: none !important; }
+    .dark-logo { display: block !important; }
+  }
+`}</style>
       </Head>
       <Preview>Consultation request received - J.H. Textiles</Preview>
 
@@ -43,7 +42,6 @@ export default function ConsultationEmail({
         <Container style={container}>
           <Section style={logoSection}>
             <Link href="https://jesudarahinmikaiye.com">
-              {/* Light Mode Logo (Dark text on light background) */}
               <Img
                 src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768515835/PNG_f5mj7o.png"
                 width="100"
@@ -51,13 +49,12 @@ export default function ConsultationEmail({
                 className="light-logo"
                 style={logo}
               />
-              {/* Dark Mode Logo (White text) - Upload your white logo to Cloudinary */}
               <Img
                 src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768681123/Asset_1_10x_vcfotp.png"
                 width="100"
                 alt="J.H Textiles"
                 className="dark-logo"
-                style={{ ...logo, display: "none" }}
+                style={logo }
               />
             </Link>
           </Section>

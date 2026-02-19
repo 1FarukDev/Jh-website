@@ -3,12 +3,13 @@ import ProductDetail from "./ProductDetail";
 import { getProductById } from "@/services/api/product";
 
 type Props = {
-  params: Promise<{ id: string }>; // Next.js 15 - params is a Promise
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params; // Await params before using
-  const product = await getProductById(id); // Pass as string (UUID)
+  const { id } = await params;
+  const product = await getProductById(id);
+  console.log(product);
 
   if (!product) {
     return {
@@ -17,13 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  // Clean description (strip HTML tags if present)
   const cleanDescription = product.description
     ? product.description.replace(/<[^>]*>/g, "").slice(0, 160)
     : "Premium textile print available for purchase from JH Textiles.";
 
   return {
-    title: `${product.name} – ${product.category} | JH Textiles`,
+    title: `${product.name} - ${product.tag && product.tag} | JH Textiles`,
     description: cleanDescription,
     alternates: {
       canonical: `https://jh-website-lime.vercel.app/shop/${product.id}`,
@@ -33,9 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: cleanDescription,
       url: `https://jh-website-lime.vercel.app/shop/${product.id}`,
       type: "website",
-      images: product.images?.length > 0
-        ? product.images.slice(0, 5).map((img: string) => ({ url: img }))
-        : [],
+      images:
+        product.images?.length > 0
+          ? product.images.slice(0, 5).map((img: string) => ({ url: img }))
+          : [],
     },
     twitter: {
       card: "summary_large_image",
