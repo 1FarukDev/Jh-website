@@ -29,15 +29,14 @@ export default function ContactReceiptEmail({
     <Html>
       <Head>
         <style>{`
-          @media (prefers-color-scheme: dark) {
-            .light-logo { display: none !important; }
-            .dark-logo { display: block !important; }
-          }
-          @media (prefers-color-scheme: light) {
-            .light-logo { display: block !important; }
-            .dark-logo { display: none !important; }
-          }
-        `}</style>
+  .light-logo { display: block !important; }
+  .dark-logo { display: none !important; }
+
+  @media (prefers-color-scheme: dark) {
+    .light-logo { display: none !important; }
+    .dark-logo { display: block !important; }
+  }
+`}</style>
       </Head>
       <Preview>We received your message - J.H. Textiles</Preview>
 
@@ -59,7 +58,7 @@ export default function ContactReceiptEmail({
                 width="100"
                 alt="J.H Textiles"
                 className="dark-logo"
-                style={{ ...logo, display: "none" }}
+                style={logo}
               />
             </Link>
           </Section>

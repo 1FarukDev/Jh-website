@@ -23,15 +23,14 @@ export default function WelcomeEmail({ firstName, email }: WelcomeEmailProps) {
     <Html>
       <Head>
         <style>{`
-          @media (prefers-color-scheme: dark) {
-            .light-logo { display: none !important; }
-            .dark-logo { display: block !important; }
-          }
-          @media (prefers-color-scheme: light) {
-            .light-logo { display: block !important; }
-            .dark-logo { display: none !important; }
-          }
-        `}</style>
+  .light-logo { display: block !important; }
+  .dark-logo { display: none !important; }
+
+  @media (prefers-color-scheme: dark) {
+    .light-logo { display: none !important; }
+    .dark-logo { display: block !important; }
+  }
+`}</style>
       </Head>
       <Preview>Welcome to J.H. Textiles - Your Creative Journey Begins</Preview>
 
@@ -53,7 +52,7 @@ export default function WelcomeEmail({ firstName, email }: WelcomeEmailProps) {
                 width="100"
                 alt="J.H Textiles"
                 className="dark-logo"
-                style={{ ...logo, display: "none" }}
+                style={logo}
               />
             </Link>
           </Section>

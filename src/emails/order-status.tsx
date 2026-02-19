@@ -54,16 +54,15 @@ export default function OrderStatusEmail({
   return (
     <Html>
       <Head>
-        <style>{`
-          @media (prefers-color-scheme: dark) {
-            .light-logo { display: none !important; }
-            .dark-logo { display: block !important; }
-          }
-          @media (prefers-color-scheme: light) {
-            .light-logo { display: block !important; }
-            .dark-logo { display: none !important; }
-          }
-        `}</style>
+       <style>{`
+  .light-logo { display: block !important; }
+  .dark-logo { display: none !important; }
+
+  @media (prefers-color-scheme: dark) {
+    .light-logo { display: none !important; }
+    .dark-logo { display: block !important; }
+  }
+`}</style>
       </Head>
       <Preview>
         Order #{orderId} update: {config.title}
@@ -88,7 +87,7 @@ export default function OrderStatusEmail({
                 width="100"
                 alt="J.H Textiles"
                 className="dark-logo"
-                style={{ ...logo, display: "none" }}
+                style={logo}
               />
             </Link>
           </Section>
