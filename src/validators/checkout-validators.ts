@@ -27,6 +27,8 @@ export const buyersInfoSchema = z.object({
       /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/,
       "Please enter a valid phone number"
     ),
+
+  company_name: z.string().optional(),
 });
 
 export type BuyersInfoFormData = z.infer<typeof buyersInfoSchema>;

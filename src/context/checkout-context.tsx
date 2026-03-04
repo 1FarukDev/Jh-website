@@ -14,7 +14,7 @@ export interface CheckoutData {
   lastName: string;
   email: string;
   phoneNumber: string;
-
+  companyName: string;
   deliveryCountry: string;
   deliveryState: string;
   deliveryCity: string;

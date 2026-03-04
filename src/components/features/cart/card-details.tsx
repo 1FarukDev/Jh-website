@@ -118,6 +118,7 @@ function CardDetails({
       customer_name: `${checkoutData.firstName} ${checkoutData.lastName}`,
       customer_email: checkoutData.email,
       customer_phone: checkoutData.phoneNumber,
+      customer_company: checkoutData.companyName,
       total_amount: convertPrice(total),
       currency: currency.code,
       product_id: cart.map((item) => item.productId),
