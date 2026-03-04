@@ -32,6 +32,7 @@ function BuyersInfo({
       last_name: checkoutData.lastName || "",
       email: checkoutData.email || "",
       phone_number: checkoutData.phoneNumber || "",
+      company_name: checkoutData.companyName || "",
     },
   });
 
@@ -47,6 +48,7 @@ function BuyersInfo({
       lastName: data.last_name,
       email: data.email,
       phoneNumber: data.phone_number,
+      companyName: data.company_name || "",
     });
 
     handleNext();
@@ -86,7 +88,14 @@ function BuyersInfo({
                     />
                   </div>
                 </div>
-
+                <div className="w-full">
+                  <FormInput
+                    name="company_name"
+                    type="text"
+                    placeholder="Enter your company name"
+                    className="h-[52px]"
+                  />
+                </div>
                 <div className="w-full">
                   <FormInput
                     name="email"

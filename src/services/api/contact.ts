@@ -7,13 +7,14 @@ export type ContactFormData = {
   last_name: string;
   email: string;
   phone_number?: string;
+  company_name?: string;
   message_header: string;
   message: string;
   terms: boolean;
 };
 
 export const sendContactMessage = async (data: ContactFormData) => {
-  const { first_name, last_name, email, phone_number, message_header, message } = data;
+  const { first_name, last_name, email, phone_number, company_name, message_header, message } = data;
 
   const { data: inserted, error } = await supabase
     .from("messages")
@@ -21,7 +22,7 @@ export const sendContactMessage = async (data: ContactFormData) => {
       name: `${first_name} ${last_name}`,
       email,
       subject: message_header,
-      body: `Phone: ${phone_number || "N/A"}\n\n${message}`,
+      body: `Phone: ${phone_number || "N/A"}\nCompany: ${company_name || "N/A"}\n\n${message}`,
       status: "pending",
     })
     .select()
