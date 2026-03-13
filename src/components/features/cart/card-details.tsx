@@ -1,8 +1,9 @@
 "use client";
 
-import { FormInput } from "@/components/input";
 import { OrderSummaryCard } from "@/components/order-summary-card";
+import { Checkbox } from "@/components/ui/checkbox";
 import React, { useState } from "react";
+import Link from "next/link";
 // import { useForm, FormProvider } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import {
@@ -28,6 +29,7 @@ function CardDetails({
   const { formatPrice, currency, convertPrice } = useCurrency();
   const { checkoutData, clearCheckoutData } = useCheckout();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [acceptedLicencePolicy, setAcceptedLicencePolicy] = useState(false);
 
   // Logic for calculations
   const subtotal = getCartTotal();
@@ -146,7 +148,7 @@ function CardDetails({
 
     createOrderMutation.mutate(orderPayload as CreateOrderPayload);
   };
-  
+
   return (
     <section className="flex flex-col gap-4 items-start mt-10 md:mt-20">
       {/* Commented out card details form
@@ -190,7 +192,7 @@ function CardDetails({
             <p className="font-light">Subtotal</p>
             <p>{formatPrice(subtotal)}</p>
           </div>
-          
+
           {/* VAT Row Added */}
           {/* <div className="flex justify-between text-[20px] font-medium text-[#1C1B0B]">
             <p className="font-light">VAT (7.5%)</p>
@@ -203,8 +205,29 @@ function CardDetails({
           <p>Total</p>
           <p>{formatPrice(total)}</p>
         </div>
-      </section>
 
+
+      </section>
+      <label className="flex items-center justify-center md:mx-auto gap-3 cursor-pointer mt-6 font-satoshi text-sm text-[#1C1B0B]">
+        <Checkbox
+          checked={acceptedLicencePolicy}
+          onCheckedChange={(checked) =>
+            setAcceptedLicencePolicy(checked === true)
+          }
+          aria-label="Accept licence policy"
+        />
+        <span>
+          I accept the{" "}
+          <Link
+            href="/license"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-[#8A8635] transition-colors"
+          >
+            Licence Agreement
+          </Link>
+        </span>
+      </label>
       <div className="md:flex hidden gap-4 items-center lg:w-[60%] md:w-[80%] mx-auto">
         <button
           type="button"
@@ -216,7 +239,7 @@ function CardDetails({
         </button>
         <button
           type="button"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !acceptedLicencePolicy}
           className="mt-4 bg-black text-white px-6 py-3 h-16 text-sm w-full rounded-none font-satoshi font-normal disabled:opacity-50"
           onClick={handlePayment}
         >
@@ -235,7 +258,7 @@ function CardDetails({
         </button>
         <button
           type="button"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !acceptedLicencePolicy}
           className="mt-4 bg-black text-white px-6 py-3 h-13 text-sm w-full rounded-none font-satoshi font-normal disabled:opacity-50"
           onClick={handlePayment}
         >
