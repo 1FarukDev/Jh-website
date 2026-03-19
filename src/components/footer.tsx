@@ -157,6 +157,14 @@ export default function Footer() {
                   Privacy Policy
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/license"
+                  className="text-xs hover:text-white transition-colors"
+                >
+                  License Agreement
+                </Link>
+              </li>
               {/* VAT Disclaimer Desktop */}
               {/* <li className="pt-2 text-[10px] text-[#BDC2CA] italic leading-tight uppercase tracking-tighter">
                 All prices are exclusive of VAT

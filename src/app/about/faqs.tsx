@@ -245,6 +245,16 @@ bg-white text-black hover:bg-black hover:text-white transition-colors border"
                           Shop exclusive prints
                         </Button>
                       )}
+                      {(faq.question === "What are exclusive prints?" ||
+                        faq.question === "What are non-exclusive prints?") && (
+                        <Button
+                          onClick={() => router.push("/license")}
+                          className="mt-4 w-fit rounded-none px-6 py-2 font-satoshi text-sm
+bg-white text-black hover:bg-black hover:text-white transition-colors border"
+                        >
+                          View licence agreement
+                        </Button>
+                      )}
                     </div>
                   </motion.div>
                 </motion.div>

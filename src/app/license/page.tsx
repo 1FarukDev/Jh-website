@@ -357,7 +357,51 @@ const nonExclusiveSections = [
     },
 ];
 
+const comparisonRows = [
+    {
+        feature: "Exclusivity",
+        exclusive: "Sole rights — only you can use the Design within the Field of Use",
+        nonExclusive: "Shared rights — Licensor may license the Design to multiple parties",
+    },
+    {
+        feature: "Term",
+        exclusive: "Perpetual (no expiry)",
+        nonExclusive: "3 years initial term, renewable by written agreement",
+    },
+    {
+        feature: "Design removal from website",
+        exclusive: "Yes — removed within 3 business days of download",
+        nonExclusive: "No — Design remains available for others to license",
+    },
+    {
+        feature: "Licensor can license to others",
+        exclusive: "No — Licensor will not license to any other person",
+        nonExclusive: "Yes — including competitors of the Licensee",
+    },
+    {
+        feature: "Competitor / market protection",
+        exclusive: "Full — no other licensee can use the Design",
+        nonExclusive: "None — no territorial, industry, or competitive protection",
+    },
+    {
+        feature: "Option of Assignment",
+        exclusive: "Yes — IP rights assignment can be negotiated separately",
+        nonExclusive: "No — not included in non-exclusive licence",
+    },
+    {
+        feature: "Transfer / sub-license",
+        exclusive: "No — non-transferable, non-sublicensable",
+        nonExclusive: "No — non-transferable, non-sublicensable",
+    },
+    {
+        feature: "Field of Use",
+        exclusive: "Limited to selected application or textiles/apparel",
+        nonExclusive: "Limited to selected application or textiles/apparel",
+    },
+];
+
 const Badge = ({ type }: { type: string }) => {
+    if (type === "summary") return null;
     const isExclusive = type === "exclusive";
     return (
         <span
@@ -375,12 +419,12 @@ const Badge = ({ type }: { type: string }) => {
 };
 
 export default function LicensePage() {
-    const [activeTab, setActiveTab] = useState("exclusive");
+    const [activeTab, setActiveTab] = useState("summary");
     const sections = activeTab === "exclusive" ? exclusiveSections : nonExclusiveSections;
 
     return (
         <div className="bg-gray-50 min-h-screen py-12 px-6 sm:px-12 lg:px-24 font-sans font-satoshi pt-30">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="bg-white p-8 md:p-12 shadow-sm rounded-lg mb-6">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
@@ -413,6 +457,15 @@ export default function LicensePage() {
 
                 <div className="bg-white shadow-sm rounded-lg mb-6 p-1.5 flex gap-1.5">
                     <button
+                        onClick={() => setActiveTab("summary")}
+                        className={`flex-1 py-3 px-6 rounded-md text-sm font-semibold transition-all duration-200 ${activeTab === "summary"
+                            ? "bg-gray-900 text-white shadow-sm"
+                            : "text-gray-500 hover:text-gray-800 hover:bg-gray-50"
+                            }`}
+                    >
+                        Summary
+                    </button>
+                    <button
                         onClick={() => setActiveTab("exclusive")}
                         className={`flex-1 py-3 px-6 rounded-md text-sm font-semibold transition-all duration-200 ${activeTab === "exclusive"
                             ? "bg-gray-900 text-white shadow-sm"
@@ -433,24 +486,70 @@ export default function LicensePage() {
                 </div>
 
                 {/* Tab Description */}
-                <div
-                    className={`rounded-lg p-5 mb-6 border text-sm leading-relaxed ${activeTab === "exclusive"
-                        ? "bg-amber-50 border-amber-100 text-amber-900"
-                        : "bg-blue-50 border-blue-100 text-blue-900"
-                        }`}
-                >
-                    {activeTab === "exclusive" ? (
-                        <p>
-                            <strong>Exclusive Licence:</strong> This licence grants you sole and exclusive rights to use the Design within the Field of Use. The Design will be removed from the website and will not be licensed to any other party. Assignment of intellectual property rights may be negotiated separately.
+                {activeTab !== "summary" && (
+                    <div
+                        className={`rounded-lg p-5 mb-6 border text-sm leading-relaxed ${activeTab === "exclusive"
+                            ? "bg-amber-50 border-amber-100 text-amber-900"
+                            : "bg-blue-50 border-blue-100 text-blue-900"
+                            }`}
+                    >
+                        {activeTab === "exclusive" ? (
+                            <p>
+                                <strong>Exclusive Licence:</strong> This licence grants you sole and exclusive rights to use the Design within the Field of Use. The Design will be removed from the website and will not be licensed to any other party. Assignment of intellectual property rights may be negotiated separately.
+                            </p>
+                        ) : (
+                            <p>
+                                <strong>Non-Exclusive Licence:</strong> This licence grants you rights to use the Design within the Field of Use. The Licensor retains the right to license the same Design to other parties. The Design will remain available for purchase by others on the website.
+                            </p>
+                        )}
+                    </div>
+                )}
+
+                {/* Summary: Comparison Table */}
+                {activeTab === "summary" && (
+                    <div className="bg-white p-8 md:p-12 shadow-sm rounded-lg mb-6">
+                        <h2 className="text-xl font-semibold text-gray-800 mb-6">Exclusive vs Non-Exclusive Rights — At a Glance</h2>
+                        <div className="overflow-x-auto rounded-lg border border-gray-200">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="bg-gray-50 border-b border-gray-200">
+                                        <th className="text-left py-4 px-4 font-semibold text-gray-900">Feature</th>
+                                        <th className="text-left py-4 px-4 font-semibold text-amber-800 bg-amber-50/50">Exclusive Rights</th>
+                                        <th className="text-left py-4 px-4 font-semibold text-blue-800 bg-blue-50/50">Non-Exclusive Rights</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {comparisonRows.map((row, i) => (
+                                        <tr key={i} className="border-b border-gray-100 last:border-0 hover:bg-gray-50/50">
+                                            <td className="py-4 px-4 font-medium text-gray-800">{row.feature}</td>
+                                            <td className="py-4 px-4 text-gray-700 bg-amber-50/30">{row.exclusive}</td>
+                                            <td className="py-4 px-4 text-gray-700 bg-blue-50/30">{row.nonExclusive}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p className="mt-6 text-xs text-gray-500 italic">
+                            This summary is for quick reference only. Please read the full licence terms above for complete details.
                         </p>
-                    ) : (
-                        <p>
-                            <strong>Non-Exclusive Licence:</strong> This licence grants you rights to use the Design within the Field of Use. The Licensor retains the right to license the same Design to other parties. The Design will remain available for purchase by others on the website.
-                        </p>
-                    )}
-                </div>
+                        <hr className="my-8 border-gray-200" />
+                        <div className="bg-blue-50 p-6 rounded-md">
+                            <h2 className="text-xl font-semibold text-blue-900 mb-2">Contact Us</h2>
+                            <p className="text-blue-800 text-sm">
+                                If you have questions about this licence, please reach out:
+                            </p>
+                            <p className="mt-2 font-medium text-blue-900">
+                                Email:{" "}
+                                <a href="mailto:jhtextiles@icloud.com" className="underline">
+                                    jhtextiles@icloud.com
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                )}
 
                 {/* Sections */}
+                {activeTab !== "summary" && (
                 <div className="bg-white p-8 md:p-12 shadow-sm rounded-lg">
                     <div className="space-y-8">
                         {sections.map((section, index) => (
@@ -480,6 +579,7 @@ export default function LicensePage() {
                         </p>
                     </div>
                 </div>
+                )}
             </div>
         </div>
     );
