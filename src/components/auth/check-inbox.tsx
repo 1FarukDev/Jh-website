@@ -35,7 +35,7 @@ function CheckInbox({
             quality={100}
             className="w-[200px] object-contain"
           />
-          <h2 className="font-rose text-black">J.H TEXTILES</h2>
+          {/* <h2 className="font-rose text-black">J.H TEXTILES</h2> */}
         </div>
 
         <DialogClose asChild>
