@@ -13,6 +13,7 @@ import { useCart } from "@/context/cart-context";
 import { CustomSelect } from "@/components/select";
 import { FormCheckbox } from "@/components/checkbox";
 import { useForm, FormProvider } from "react-hook-form";
+import Link from "next/link";
 
 interface Color {
   text: string;
@@ -262,6 +263,7 @@ function Page() {
                         }
                       />
                     </li>
+                    <li className="flex items-center gap-2 "> Learn more about the <Link href="/license" className="text-blue-500 underline">License Agreement</Link></li>
                   </ul>
                 </div>
 
@@ -328,7 +330,7 @@ function Page() {
                             +
                             {formatPrice(
                               ADDITIONAL_COSTS.ADDITIONAL_VARIANTS *
-                                calculatedPrice.variantCount
+                              calculatedPrice.variantCount
                             )}
                           </span>
                         </div>

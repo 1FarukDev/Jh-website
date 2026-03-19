@@ -262,7 +262,7 @@ const PrivacyPolicy = () => {
               </ul>
             </div>
             <p className="text-gray-700 leading-relaxed mt-3">
-              If you wish to exercise any of the rights set out above, please contact me at [INSERT EMAIL ADDRESS].
+              If you wish to exercise any of the rights set out above, please contact me at jhtextiles@icloud.com.
             </p>
           </section>
 
@@ -290,7 +290,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-xl font-semibold text-gray-800 mb-3">Contact Details</h2>
             <p className="text-gray-700 leading-relaxed">
-              If you have any questions about this privacy policy or about the use of your personal data or you want to exercise your privacy rights, please contact me by sending an email to: [INSERT EMAIL ADDRESS]
+              If you have any questions about this privacy policy or about the use of your personal data or you want to exercise your privacy rights, please contact me by sending an email to: jhtextiles@icloud.com
             </p>
           </section>
 
