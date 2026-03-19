@@ -85,9 +85,9 @@ function Login({ onForgotPassword, onSuccess }: LoginProps) {
                 quality={100}
                 className="w-[200px] object-contain"
               />
-              <h2 className="font-rose text-black md:text-base text-sm">
+              {/* <h2 className="font-rose text-black md:text-base text-sm">
                 J.H TEXTILES
-              </h2>
+              </h2> */}
             </div>
 
             <DialogClose asChild>
@@ -145,7 +145,7 @@ function Login({ onForgotPassword, onSuccess }: LoginProps) {
               {loading ? "Logging in..." : "Login"}
             </Button>
 
-            <div className="w-full flex gap-3 items-center">
+            {/* <div className="w-full flex gap-3 items-center">
               <div className="w-1/2 h-px bg-gray-200"></div>
               <p className="font-satoshi text-xs font-normal">Or</p>
               <div className="w-1/2 h-[.5px] bg-gray-200"></div>
@@ -164,7 +164,7 @@ function Login({ onForgotPassword, onSuccess }: LoginProps) {
                   Sign up with Facebook
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <p className="font-satoshi font-light text-xs">

@@ -8,11 +8,12 @@ import { useMutation } from "@tanstack/react-query";
 import CloeIcon from "@/app/assets/svg/close.svg";
 import NavLogo from "@/app/assets/svg/nav-logo.png";
 import { FormInput } from "../input";
-import { LockKeyhole, Mail, UserRound } from "lucide-react";
+import {  LockKeyhole, Mail, UserRound } from "lucide-react";
 import { FormCheckbox } from "../checkbox";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 type FormData = {
   firstName: string;
@@ -112,9 +113,9 @@ function SignUp({
               quality={100}
               className="w-[200px] object-contain"
             />
-            <h2 className="font-rose text-black md:text-base text-sm">
+            {/* <h2 className="font-rose text-black md:text-base text-sm">
               J.H TEXTILES
-            </h2>
+            </h2> */}
           </div>
 
           <div
@@ -184,7 +185,7 @@ function SignUp({
             />
             <FormCheckbox
               name="terms"
-              label="I agree to the Terms and Conditions"
+              label=<span> I agree to the <Link href="/terms-and-conditions" className="text-blue-500 underline">Terms and Conditions</Link></span>
             />
           </div>
 
@@ -199,13 +200,13 @@ function SignUp({
               : "Create Account"}
           </Button>
 
-          <div className="w-full flex gap-3 items-center">
+          {/* <div className="w-full flex gap-3 items-center">
             <div className="w-1/2 h-[1px] bg-gray-200"></div>
             <p className="font-satoshi text-xs font-normal">Or</p>
             <div className="w-1/2 h-[.5px] bg-gray-200"></div>
-          </div>
+          </div> */}
 
-          <div className="flex gap-4 items-center w-full">
+          {/* <div className="flex gap-4 items-center w-full">
             <div className="flex items-center gap-2 border border-[#DEE0E4] justify-center py-[16px] w-1/2">
               <Icon icon="flat-color-icons:google" width="20" height="20" />
               <p className="font-satoshi md:text-base text-[10px] font-normal text-olive">
@@ -218,7 +219,7 @@ function SignUp({
                 Sign up with Facebook
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div>
             <p className="font-satoshi font-light text-xs">
