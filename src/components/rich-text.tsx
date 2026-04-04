@@ -284,7 +284,7 @@ const CustomRichTextEditor: React.FC<RichTextEditorProps> = ({
         ref={editorRef}
         contentEditable
         className={`min-h-[300px] p-4 outline-none ${
-          isFocused ? "ring-2 ring-blue-500 ring-inset" : ""
+          isFocused ? "ring-2 ring-[#1C1B0B] ring-inset" : ""
         }`}
         onInput={handleInput}
         onPaste={handlePaste}
@@ -314,13 +314,13 @@ const CustomRichTextEditor: React.FC<RichTextEditorProps> = ({
                   setShowLinkDialog(false);
                   setLinkUrl("");
                 }}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                className="px-4 py-2 text-[#1C1B0B] hover:bg-[#D4F8D4]/60 rounded"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmLink}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-4 py-2 bg-[#1C1B0B] text-black rounded hover:bg-[#D4F8D4]/60"
               >
                 Insert Link
               </button>

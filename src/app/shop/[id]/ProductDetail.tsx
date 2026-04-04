@@ -93,12 +93,6 @@ function Page() {
     printDevelopment,
   ]);
 
-  const colors: Color[] = [
-    { text: "Blue", value: "Blue", code: "#3570E0" },
-    { text: "Red", value: "Red", code: "#992626" },
-    { text: "Green", value: "Green", code: "#8A8635" },
-    { text: "Dark Blue", value: "Dark Blue", code: "#141B34" },
-  ];
 
   const handleAddToCart = () => {
     if (!productData) return;
@@ -263,7 +257,7 @@ function Page() {
                         }
                       />
                     </li>
-                    <li className="flex items-center gap-2 "> Learn more about the <Link href="/license" className="text-blue-500 underline">License Agreement</Link></li>
+                    <li className="flex items-center gap-2 "> Learn more about the <Link href="/license" className="text-[#1C1B0B] underline">License Agreement</Link></li>
                   </ul>
                 </div>
 

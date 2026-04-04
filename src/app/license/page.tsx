@@ -393,11 +393,11 @@ const comparisonRows = [
         exclusive: "No — non-transferable, non-sublicensable",
         nonExclusive: "No — non-transferable, non-sublicensable",
     },
-    {
-        feature: "Field of Use",
-        exclusive: "Limited to selected application or textiles/apparel",
-        nonExclusive: "Limited to selected application or textiles/apparel",
-    },
+    // {
+    //     feature: "Field of Use",
+    //     exclusive: "Limited to selected application or textiles/apparel",
+    //     nonExclusive: "Limited to selected application or textiles/apparel",
+    // },
 ];
 
 const Badge = ({ type }: { type: string }) => {
@@ -407,11 +407,11 @@ const Badge = ({ type }: { type: string }) => {
         <span
             className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full tracking-wide ${isExclusive
                 ? "bg-amber-50 text-amber-700 border border-amber-200"
-                : "bg-blue-50 text-blue-700 border border-blue-200"
+                : "bg-[#D4F8D4]/60 text-black border border-[#D4F8D4]"
                 }`}
         >
             <span
-                className={`w-1.5 h-1.5 rounded-full ${isExclusive ? "bg-amber-500" : "bg-blue-500"}`}
+                className={`w-1.5 h-1.5 rounded-full ${isExclusive ? "bg-amber-500" : "bg-[#1C1B0B]/20"}`}
             />
             {isExclusive ? "Exclusive Rights" : "Non-Exclusive Rights"}
         </span>
@@ -478,7 +478,7 @@ export default function LicensePage() {
                         onClick={() => setActiveTab("non-exclusive")}
                         className={`flex-1 py-3 px-6 rounded-md text-sm font-semibold transition-all duration-200 ${activeTab === "non-exclusive"
                             ? "bg-gray-900 text-white shadow-sm"
-                            : "text-gray-500 hover:text-gray-800 hover:bg-gray-50"
+                            : "text-black hover:text-gray-800 hover:bg-gray-50"
                             }`}
                     >
                         Non-Exclusive Licence
@@ -490,7 +490,7 @@ export default function LicensePage() {
                     <div
                         className={`rounded-lg p-5 mb-6 border text-sm leading-relaxed ${activeTab === "exclusive"
                             ? "bg-amber-50 border-amber-100 text-amber-900"
-                            : "bg-blue-50 border-blue-100 text-blue-900"
+                            : "bg-[#D4F8D4]/60 border-[#D4F8D4] text-black"
                             }`}
                     >
                         {activeTab === "exclusive" ? (
@@ -514,8 +514,8 @@ export default function LicensePage() {
                                 <thead>
                                     <tr className="bg-gray-50 border-b border-gray-200">
                                         <th className="text-left py-4 px-4 font-semibold text-gray-900">Feature</th>
-                                        <th className="text-left py-4 px-4 font-semibold text-amber-800 bg-amber-50/50">Exclusive Rights</th>
-                                        <th className="text-left py-4 px-4 font-semibold text-blue-800 bg-blue-50/50">Non-Exclusive Rights</th>
+                                        <th className="text-left py-4 px-4 font-semibold text-amber-800 bg-white/60">Exclusive Rights</th>
+                                        <th className="text-left py-4 px-4 font-semibold text-[#1C1B0B] bg-white/60">Non-Exclusive Rights</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -523,7 +523,7 @@ export default function LicensePage() {
                                         <tr key={i} className="border-b border-gray-100 last:border-0 hover:bg-gray-50/50">
                                             <td className="py-4 px-4 font-medium text-gray-800">{row.feature}</td>
                                             <td className="py-4 px-4 text-gray-700 bg-amber-50/30">{row.exclusive}</td>
-                                            <td className="py-4 px-4 text-gray-700 bg-blue-50/30">{row.nonExclusive}</td>
+                                            <td className="py-4 px-4 text-gray-700 bg-[#D4F8D4]/60">{row.nonExclusive}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -533,12 +533,12 @@ export default function LicensePage() {
                             This summary is for quick reference only. Please read the full licence terms above for complete details.
                         </p>
                         <hr className="my-8 border-gray-200" />
-                        <div className="bg-blue-50 p-6 rounded-md">
-                            <h2 className="text-xl font-semibold text-blue-900 mb-2">Contact Us</h2>
-                            <p className="text-blue-800 text-sm">
+                        <div className="bg-[#1C1B0B]/10 p-6 rounded-md">
+                            <h2 className="text-xl font-semibold text-[#1C1B0B] mb-2">Contact Us</h2>
+                            <p className="text-[#1C1B0B] text-sm">
                                 If you have questions about this licence, please reach out:
                             </p>
-                            <p className="mt-2 font-medium text-blue-900">
+                            <p className="mt-2 font-medium text-[#1C1B0B]">
                                 Email:{" "}
                                 <a href="mailto:jhtextiles@icloud.com" className="underline">
                                     jhtextiles@icloud.com
@@ -566,12 +566,12 @@ export default function LicensePage() {
                     <hr className="my-8 border-gray-200" />
 
                     {/* Contact */}
-                    <div className="bg-blue-50 p-6 rounded-md">
-                        <h2 className="text-xl font-semibold text-blue-900 mb-2">Contact Us</h2>
-                        <p className="text-blue-800 text-sm">
+                    <div className="bg-[#D4F8D4]/60 p-6 rounded-md">
+                        <h2 className="text-xl font-semibold text-black mb-2">Contact Us</h2>
+                        <p className="text-black text-sm">
                             If you have questions about this licence, please reach out:
                         </p>
-                        <p className="mt-2 font-medium text-blue-900">
+                        <p className="mt-2 font-medium text-black">
                             Email:{" "}
                             <a href="mailto:jhtextiles@icloud.com" className="underline">
                                 jhtextiles@icloud.com
