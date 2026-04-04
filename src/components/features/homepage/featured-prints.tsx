@@ -8,6 +8,7 @@ import { getProducts } from "@/services/api/product";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import PrintCardSkeleton from "@/components/print-card-skeleton";
 
 function FeaturedPrints() {
   const router = useRouter();
@@ -35,10 +36,15 @@ function FeaturedPrints() {
         minimalist designs.
       </p>
 
+
       <div className="mt-[25px] grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 gap-y-4 md:gap-4">
-        {productData.slice(0, 6).map((item, index) => (
-          <div key={item.id}>
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, i) => (
+            <PrintCardSkeleton key={i} />
+          ))
+          : productData.slice(0, 6).map((item) => (
             <PrintCard
+              key={item.id}
               productId={item.id}
               image={item.images[0]}
               images={item.images}
@@ -48,10 +54,8 @@ function FeaturedPrints() {
               category={item.category}
               hoverImage={item.images[1]}
               onViewDetails={`/shop/${item.id}`}
-              loading={isLoading}
             />
-          </div>
-        ))}
+          ))}
       </div>
       <Button
         onClick={() => router.push("/shop")}

@@ -16,6 +16,44 @@ interface ClientWorkProps {
   id: string;
 }
 
+function ClientWorkSkeleton() {
+  return (
+    <div className="mt-8 overflow-x-hidden">
+      <div className="flex gap-4">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
+            key={i}
+            className="relative flex-shrink-0 w-[85%] md:w-[40%] min-h-[400px] md:min-h-[600px] bg-gray-200 animate-pulse"
+          >
+            {/* Overlay content skeleton */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-4">
+              <div className="h-6 w-2/3 bg-gray-300 rounded animate-pulse" />
+              <div className="h-4 w-1/2 bg-gray-300 rounded animate-pulse" />
+              <div className="h-9 w-28 bg-gray-300 rounded animate-pulse" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Nav skeleton */}
+      <div className="flex items-center justify-between mt-6 px-4">
+        <div className="w-11 h-11 rounded-full bg-gray-200 animate-pulse" />
+        <div className="flex items-center gap-2">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div
+              key={i}
+              className={`h-1 rounded-full bg-gray-200 animate-pulse ${
+                i === 0 ? "w-[50px]" : "w-[10px]"
+              }`}
+            />
+          ))}
+        </div>
+        <div className="w-11 h-11 rounded-full bg-gray-200 animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
 function ClientWork() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -38,20 +76,13 @@ function ClientWork() {
   };
 
   const handlePrev = () => {
-    scrollRef.current?.scrollBy({
-      left: -scrollByAmount(),
-      behavior: "smooth",
-    });
+    scrollRef.current?.scrollBy({ left: -scrollByAmount(), behavior: "smooth" });
   };
 
   const handleNext = () => {
-    scrollRef.current?.scrollBy({
-      left: scrollByAmount(),
-      behavior: "smooth",
-    });
+    scrollRef.current?.scrollBy({ left: scrollByAmount(), behavior: "smooth" });
   };
 
-  // Track scroll position → step counter
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -60,7 +91,6 @@ function ClientWork() {
       const maxScroll = el.scrollWidth - el.clientWidth;
       const steps = Math.ceil(el.scrollWidth / el.clientWidth);
       const current = Math.round((el.scrollLeft / maxScroll) * (steps - 1));
-
       setTotalSteps(steps);
       setCurrentStep(isNaN(current) ? 0 : current);
     };
@@ -81,11 +111,12 @@ function ClientWork() {
         Clients / Collaborations
       </p>
       <p className="md:text-lg text-sm text-center text-[#4E5157]">
-        Explore our portfolio of prints designed with care for forward-thinking
-        brands.
+        Explore our portfolio of prints designed with care for forward-thinking brands.
       </p>
 
-      {!isLoading && clientWorks.length > 0 && (
+      {isLoading ? (
+        <ClientWorkSkeleton />
+      ) : clientWorks.length > 0 ? (
         <>
           <div ref={scrollRef} className="mt-8 overflow-x-auto no-scrollbar">
             <div className="flex gap-4 snap-x snap-mandatory">
@@ -100,7 +131,6 @@ function ClientWork() {
                     fill
                     className="object-cover"
                   />
-
                   <div className="absolute inset-0 bg-[#07070737] flex flex-col items-center justify-center gap-4 text-white p-4 text-center">
                     <p className="text-[20px] md:text-[30px]">{work.name}</p>
                     <p className="text-sm md:text-base">{work.subText}</p>
@@ -145,7 +175,7 @@ function ClientWork() {
             </button>
           </div>
         </>
-      )}
+      ) : null}
     </section>
   );
 }

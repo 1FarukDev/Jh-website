@@ -523,7 +523,7 @@ export default function LicensePage() {
                                         <tr key={i} className="border-b border-gray-100 last:border-0 hover:bg-gray-50/50">
                                             <td className="py-4 px-4 font-medium text-gray-800">{row.feature}</td>
                                             <td className="py-4 px-4 text-gray-700 bg-amber-50/30">{row.exclusive}</td>
-                                            <td className="py-4 px-4 text-gray-700 bg-[#D4F8D4]/60">{row.nonExclusive}</td>
+                                            <td className="py-4 px-4 text-gray-700 bg-[#D4F8D4]/30">{row.nonExclusive}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -533,7 +533,7 @@ export default function LicensePage() {
                             This summary is for quick reference only. Please read the full licence terms above for complete details.
                         </p>
                         <hr className="my-8 border-gray-200" />
-                        <div className="bg-[#1C1B0B]/10 p-6 rounded-md">
+                        <div className="bg-[#f4fcf0] p-6 rounded-md">
                             <h2 className="text-xl font-semibold text-[#1C1B0B] mb-2">Contact Us</h2>
                             <p className="text-[#1C1B0B] text-sm">
                                 If you have questions about this licence, please reach out:
@@ -565,8 +565,8 @@ export default function LicensePage() {
 
                     <hr className="my-8 border-gray-200" />
 
-                    {/* Contact */}
-                    <div className="bg-[#D4F8D4]/60 p-6 rounded-md">
+        
+                    <div className="bg-[#f4fcf0] p-6 rounded-md">
                         <h2 className="text-xl font-semibold text-black mb-2">Contact Us</h2>
                         <p className="text-black text-sm">
                             If you have questions about this licence, please reach out:
