@@ -39,7 +39,7 @@ const FulfillmentPage: React.FC = () => {
                 Once you confirm your choice, we&apos;ll deliver the high-resolution final file 
                 <span className="font-semibold"> (300 DPI)</span> in the following formats:
               </p>
-              <ul className="flex gap-4 mt-3 font-medium text-blue-900">
+              <ul className="flex gap-4 mt-3 font-medium text-[#1C1B0B]">
                 <li>• JPG</li>
                 <li>• PDF</li>
                 <li>• PNG</li>
@@ -68,7 +68,7 @@ const FulfillmentPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-8 p-4 bg-blue-50 text-blue-800 rounded-lg text-sm italic">
+          <div className="mt-8 p-4 bg-[#D4F8D4]/60 text-[#1C1B0B] rounded-lg text-sm italic">
             Note: Specialized file types (AI, PSD, TIFF) are available upon request for an additional fee.
           </div>
         </section>

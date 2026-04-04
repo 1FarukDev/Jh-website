@@ -185,7 +185,7 @@ function SignUp({
             />
             <FormCheckbox
               name="terms"
-              label=<span> I agree to the <Link href="/terms-and-conditions" className="text-blue-500 underline">Terms and Conditions</Link></span>
+              label=<span> I agree to the <Link href="/terms-and-conditions" className="text-[#1C1B0B] underline">Terms and Conditions</Link></span>
             />
           </div>
 

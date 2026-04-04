@@ -23,19 +23,19 @@ function ClientHero() {
 
       <div className="absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 text-center text-white w-full px-4">
         <div className="max-w-5xl mx-auto">
-          <p
+          {/* <p
             data-aos="fade-up"
             data-aos-duration="1200"
-            className="text-[32px] leading-[40px] md:text-[70px] md:leading-[100px] font-extralight font-rose "
+            className="text-[32px] leading-[40px] md:text-[60px] md:leading-[80px] font-extralight font-rose "
           >
-            Collaborations Trusted to interpret ideas into print.
-          </p>
+            Trusted to interpret ideas into print.
+          </p> */}
 
-          <p className="mt-4 font-satoshi md:text-base text-sm">
-            Trusted to interpret ideas into print, we’ve spent over 5 years
+          <p className="mt-4 font-satoshi md:text-lg text-base">
+            We’ve spent over 5 years
             collaborating with brands to translate creative visions into
             standout surface designs. From paintings to digital renderings, and
-            employing experimental techniques, we ensure each print has a unique
+            employing experimental techniques, We ensure each print has a unique
             identity. Our work spans apparel and packaging, with each design
             carefully developed to ensure originality, brand recognition, and
             market distinction.

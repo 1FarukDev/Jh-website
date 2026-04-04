@@ -247,7 +247,7 @@ const PolicyPage: React.FC = () => {
 
         
         <section className="mb-16 bg-slate-50 p-8 rounded-xl">
-          <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide border-l-4 border-blue-600 pl-4 text-blue-900">
+          <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide border-l-4 border-[#1C1B0B] pl-4 text-[#1C1B0B]">
             Privacy Policy
           </h2>
           <div className="space-y-4 text-slate-700">
