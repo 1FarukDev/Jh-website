@@ -1,0 +1,10 @@
+{
+    "redirects": [
+      {
+        "source": "/(.*)",
+        "has": [{ "type": "host", "value": "jh-website-lime.vercel.app" }],
+        "destination": "https://jesudarahinmikaiye.com/$1",
+        "statusCode": 301
+      }
+    ]
+  }
