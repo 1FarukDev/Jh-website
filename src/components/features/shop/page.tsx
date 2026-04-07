@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import Filters from "./filters";
 import PrintCard from "@/components/print-card";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
 import ShopImage from "@/app/assets/png/2-shop-prints-jh-textiles.jpg";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getFilteredProducts } from "@/services/api/product";
 
-function ShopPage() {
-  const router = useRouter();
+type ShopPageProps = {
+  initialProducts: any[];
+};
+
+function ShopPage({ initialProducts }: ShopPageProps) {
   const searchParams = useSearchParams();
 
   const category = searchParams.get("category") || "all";
@@ -20,20 +23,25 @@ function ShopPage() {
   const maxPrice = searchParams.get("maxPrice") || "";
   const type = searchParams.get("type") || "";
 
-
   const {
-    data: productData = [],
+    data: productData = initialProducts,
     isLoading,
     isError,
   } = useQuery<any[]>({
     queryKey: ["products", category, minPrice, maxPrice, type],
     queryFn: () => getFilteredProducts({ category, minPrice, maxPrice, type }),
+    initialData: initialProducts,
+    placeholderData: keepPreviousData,
   });
 
   return (
     <section>
       <div className="pt-15" data-aos="fade-down" data-aos-duration="1000">
-        <Image src={ShopImage} alt="shop" className="md:h-[700px] h-[35vh]" />
+        <Image
+          src={ShopImage}
+          alt="Curated textile prints and surface patterns from JH Textiles shop — fashion and interior print designs"
+          className="md:h-[700px] h-[35vh]"
+        />
       </div>
 
       <div
@@ -163,7 +171,7 @@ function ShopPage() {
       </section>
 
       {/* Show filter summary */}
-      {(category !== "all" || minPrice || maxPrice) && !isLoading && (
+      {/* {(category !== "all" || minPrice || maxPrice) && !isLoading && (
         <div className="mx-10 mt-4 flex items-center gap-2 text-sm text-gray-600">
           <span>Active filters:</span>
           {category !== "all" && (
@@ -182,7 +190,7 @@ function ShopPage() {
             </span>
           )}
         </div>
-      )}
+      )} */}
 
       {/* Pagination */}
       <div

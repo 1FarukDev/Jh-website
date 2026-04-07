@@ -1,4 +1,22 @@
 import React from 'react';
+import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How J.H Textiles collects, uses, and protects your personal data when you use our website and services.",
+  alternates: {
+    canonical: absoluteUrl("/privacy-policy"),
+  },
+  openGraph: {
+    title: "Privacy Policy | JH Textiles",
+    description:
+      "Privacy practices for Jesudara Hinmikaiye (J.H Textiles) and this website.",
+    url: absoluteUrl("/privacy-policy"),
+    type: "website",
+  },
+};
 
 const PrivacyPolicy = () => {
   return (

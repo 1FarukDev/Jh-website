@@ -12,7 +12,7 @@ function ClientHero() {
     <div className="w-full relative h-[80vh] md:h-[90vh] overflow-hidden">
       <Image
         src={ClientBg}
-        alt="Hero"
+        alt="JH Textiles client collaborations — fashion and interior textile print projects"
         width={1920}
         height={200}
         className="w-full object-cover mx-auto h-full"

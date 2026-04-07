@@ -1,22 +1,23 @@
-"use client";
+import type { Metadata } from "next";
+import HomePageClient from "./home-page-client";
+import { absoluteUrl } from "@/lib/site";
 
-import Image from "next/image";
-import Hero from "../components/features/homepage/hero-section";
-import ClientWork from "../components/features/homepage/client-works";
-import FeaturedPrints from "../components/features/homepage/featured-prints";
-import Studio from "../components/features/homepage/studio";
-import BentoSection from "../components/features/homepage/bento-section";
-import ClientMessage from "@/components/features/client/client-message";
+export const metadata: Metadata = {
+  title: "JH Textiles – Premium Textile Prints & Surface Patterns",
+  description:
+    "Browse exclusive surface pattern designs for fashion, interiors, and lifestyle. Nigerian print design studio specialising in production-ready textile files for digital, screen, and jacquard printing.",
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    title: "JH Textiles – Premium Textile Prints & Patterns",
+    description:
+      "Premium textile prints and surface patterns for fashion brands and interior designers.",
+    url: absoluteUrl("/"),
+    type: "website",
+  },
+};
 
 export default function Home() {
-    return (
-        <section className="pb-15">
-            <Hero />
-            <BentoSection />
-            <FeaturedPrints />
-            <ClientWork />
-            <Studio />
-            <ClientMessage />
-        </section>
-    );
+  return <HomePageClient />;
 }

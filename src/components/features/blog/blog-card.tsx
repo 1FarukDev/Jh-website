@@ -18,7 +18,7 @@ function BlogCard ({ title, description, image, onClick }: BlogCardProps) {
       <div className='relative w-full'>
         <Image
           src={image}
-          alt='Blog image'
+          alt={`${title} — JH Textiles blog`}
           className='w-full h-[700px] md:h-auto object-cover'
         />
         <div className='absolute inset-0 bg-gradient-to-b from-[#2A140700] to-[#2A1407]' />

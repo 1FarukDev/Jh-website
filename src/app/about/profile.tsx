@@ -9,7 +9,7 @@ function Profile() {
         <div className="relative w-[80%] h-[80%] border ">
           <Image
             src={Dara}
-            alt="Dara image"
+            alt="Jesudara Hinmikaiye, creative director of JH Textiles — Nigerian textile and surface pattern designer"
             fill
             priority
             className="object-contain"

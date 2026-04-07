@@ -18,6 +18,7 @@ import { SearchProvider } from "@/context/search-context";
 import CookieConsent from "@/components/cookie-banner";
 import ScrollToTop from "@/components/scroll-to-top";
 import GoogleAnalytics from "@/components/google-analytics";
+import { siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,10 +59,7 @@ export const metadata: Metadata = {
   description:
     "Browse exclusive textile prints and surface patterns for fashion brands and interior designers.",
 
-  // alternates: {
-  //   canonical: "https://jh-website-lime.vercel.app",
-  // },
-  metadataBase: new URL("https://jh-website-lime.vercel.app"),
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
   },
@@ -92,7 +90,7 @@ export const metadata: Metadata = {
     title: "JH Textiles – Premium Textile Prints & Patterns",
     description:
       "Premium textile prints and surface patterns for fashion brands and interior designers.",
-    url: "https://jh-website-lime.vercel.app",
+    url: siteUrl,
     siteName: "JH Textiles",
     locale: "en_US",
     type: "website",

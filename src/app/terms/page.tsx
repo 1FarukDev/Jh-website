@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
+import { absoluteUrl } from "@/lib/site";
 
 
 export const metadata: Metadata = {
@@ -8,13 +9,13 @@ export const metadata: Metadata = {
   description:
     "Read the Terms and Conditions, Privacy Policy, and Refund Policy for JH Textiles. Stay informed about our legal and privacy practices.",
   alternates: {
-    canonical: "https://jh-website-lime.vercel.app/legal",
+    canonical: absoluteUrl("/terms"),
   },
   openGraph: {
     title: "Legal Information – JH Textiles",
     description:
       "Explore the Terms and Conditions, Privacy Policy, and Refund Policy of JH Textiles.",
-    url: "https://jh-website-lime.vercel.app/legal",
+    url: absoluteUrl("/terms"),
     type: "website",
   },
   twitter: {
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
       name: "Legal Information – JH Textiles",
       description:
         "Read the Terms and Conditions, Privacy Policy, and Refund Policy for JH Textiles.",
-      url: "https://jh-website-lime.vercel.app/legal",
+      url: absoluteUrl("/terms"),
     }),
   },
 };

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getClientById } from "@/services/api/client";
 import Details from "./details";
+import { absoluteUrl } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -23,14 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       client.description ||
       "Discover this textile project by JH Textiles, showcasing our collaboration with clients and our creative process.",
     alternates: {
-      canonical: `https://jh-website-lime.vercel.app/client/${client.slug}`,
+      canonical: absoluteUrl(`/client/${client.slug}`),
     },
     openGraph: {
       title: client.name,
       description:
         client.description ||
         "Explore the textile project and client collaboration by JH Textiles.",
-      url: `https://jh-website-lime.vercel.app/client/${client.slug}`,
+      url: absoluteUrl(`/client/${client.slug}`),
       type: "article",
       images:
         client.images?.length > 0

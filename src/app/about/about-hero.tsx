@@ -17,7 +17,7 @@ function AboutHero() {
     <div className="w-full relative h-[90vh] overflow-hidden">
       <Image
         src={AboutImage}
-        alt="About Hero"
+        alt="JH Textiles studio — about our textile print design and surface pattern work"
         width={1920}
         height={200}
         className="w-full object-cover mx-auto h-full"

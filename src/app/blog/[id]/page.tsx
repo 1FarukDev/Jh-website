@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BlogDetail from "./BlogDetail";
 import { getBlogBySlug } from "@/services/api/blog";
+import { absoluteUrl } from "@/lib/site";
 
 type Props = {
   params: Promise<{ id: string }>; 
@@ -25,14 +26,14 @@ export async function generateMetadata(
       blog.excerpt ||
       "Read insights on textile prints, surface pattern design, and creative inspiration from JH Textiles.",
     alternates: {
-      canonical: `https://jh-website-lime.vercel.app/blog/${blog.slug}`,
+      canonical: absoluteUrl(`/blog/${blog.slug}`),
     },
     openGraph: {
       title: blog.title,
       description:
         blog.excerpt ||
         "Insights and inspiration from JH Textiles on textile design.",
-      url: `https://jh-website-lime.vercel.app/blog/${blog.slug}`,
+      url: absoluteUrl(`/blog/${blog.slug}`),
       type: "article",
       publishedTime: blog.created_at,
       authors: ["Jesudara Hinmikaiye"],

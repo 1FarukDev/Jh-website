@@ -17,7 +17,7 @@ function Hero() {
       <div>
         <Image
           src={HeroImage}
-          alt="Hero"
+          alt="JH Textiles — premium textile prints and surface pattern design for fashion and interiors"
           width={1920}
           height={700}
           className=" w-full h-[600px] md:h-[750px] object-cover mx-auto"

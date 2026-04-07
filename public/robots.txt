@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://jh-website-lime.vercel.app/
-
-# Sitemaps
-Sitemap: https://jh-website-lime.vercel.app/sitemap.xml

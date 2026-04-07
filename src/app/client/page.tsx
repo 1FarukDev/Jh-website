@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import Client from "./Client";
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Our Clients – Premium Textile Projects | JH Textiles",
   description:
     "Explore the projects, products, and collaborations of JH Textiles with fashion brands and interior designers.",
   alternates: {
-    canonical: "https://jh-website-lime.vercel.app/client",
+    canonical: absoluteUrl("/client"),
   },
   openGraph: {
     title: "JH Textiles Clients & Projects",
     description:
       "Discover the portfolio, client collaborations, and textile products by JH Textiles.",
-    url: "https://jh-website-lime.vercel.app/client",
+    url: absoluteUrl("/client"),
     type: "website",
   },
   twitter: {

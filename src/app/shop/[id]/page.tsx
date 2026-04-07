@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProductDetail from "./ProductDetail";
-import { getProductById } from "@/services/api/product";
+import { getProductByIdServer } from "@/services/api/product-server";
+import { absoluteUrl } from "@/lib/site";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -8,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const product = await getProductById(id);
+  const product = await getProductByIdServer(id);
 
   if (!product) {
     return {
@@ -25,12 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${product.name} - ${product.tag && product.tag} | JH Textiles`,
     description: cleanDescription,
     alternates: {
-      canonical: `https://jh-website-lime.vercel.app/shop/${product.id}`,
+      canonical: absoluteUrl(`/shop/${product.id}`),
     },
     openGraph: {
       title: product.name,
       description: cleanDescription,
-      url: `https://jh-website-lime.vercel.app/shop/${product.id}`,
+      url: absoluteUrl(`/shop/${product.id}`),
       type: "website",
       images:
         product.images?.length > 0
@@ -62,7 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         brand: {
           "@type": "Organization",
           name: "JH Textiles",
-          url: "https://jh-website-lime.vercel.app",
+          url: absoluteUrl("/"),
         },
         offers: {
           "@type": "Offer",

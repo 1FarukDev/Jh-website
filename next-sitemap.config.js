@@ -1,5 +1,5 @@
 module.exports = {
-    siteUrl: "https://jh-website-lime.vercel.app/",
+    siteUrl: "https://jesudarahinmikaiye.com/",
     generateRobotsTxt: true,
     sitemapSize: 7000,
   };

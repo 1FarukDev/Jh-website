@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
 import React from 'react';
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Order Process & Licensing | JH Textiles",
   description:
     "Learn about our print selection process, file delivery formats, and commercial licensing at JH Textiles.",
   alternates: {
-    canonical: "https://jh-website-lime.vercel.app/fulfillment",
+    canonical: absoluteUrl("/delivery"),
   },
 };
 

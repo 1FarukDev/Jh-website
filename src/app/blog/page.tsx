@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import BlogPage from "@/components/features/blog/page";
 import React from "react";
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog – Textile Design Insights & Print Inspiration",
   description:
     "Explore articles on textile design, surface patterns, fashion prints, and creative insights from JH Textiles.",
   alternates: {
-    canonical: "https://jh-website-lime.vercel.app/blog",
+    canonical: absoluteUrl("/blog"),
   },
   openGraph: {
     title: "JH Textiles Blog",
     description:
       "Insights, stories, and inspiration on textile prints and surface pattern design.",
-    url: "https://jh-website-lime.vercel.app/blog",
+    url: absoluteUrl("/blog"),
     type: "website",
   },
   twitter: {

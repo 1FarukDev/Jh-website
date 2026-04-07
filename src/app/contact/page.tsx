@@ -65,13 +65,13 @@ function Contact() {
       <section className="relative w-full md:h-[1100px] h-[900px] md:pt-0 pt-45">
         <Image
           src={ConnectImage}
-          alt="Story Image"
+          alt="Contact JH Textiles — textile print design studio background"
           className="absolute inset-0 w-full hidden md:block h-[50%] object-cover"
           priority
         />
         <Image
           src={contact}
-          alt="Contact Image"
+          alt="Contact JH Textiles — enquiry form and studio imagery on mobile"
           className="absolute inset-0 w-full md:hidden h-[50%] object-cover"
           priority
         />

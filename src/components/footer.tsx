@@ -329,7 +329,7 @@ export default function Footer() {
 
             <div className="text-center">
               <p className="text-white text-base">
-                © 2025 J.H Textiles — All rights reserved
+                © 2026 J.H Textiles — All rights reserved
               </p>
               {/* VAT Disclaimer Global Footer */}
               {/* <p className="text-[10px] text-[#BDC2CA] mt-1 uppercase tracking-widest">

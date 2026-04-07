@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import ShopPage from "@/components/features/shop/page";
 import React, { Suspense } from "react";
+import { absoluteUrl } from "@/lib/site";
+import { getFilteredProductsServer } from "@/services/api/product-server";
 
 export const metadata: Metadata = {
   title: "Shop – Premium Textile Prints & Patterns | JH Textiles",
   description:
     "Explore and purchase premium textile prints, patterns, and designs from JH Textiles for fashion brands and interior designers.",
   alternates: {
-    canonical: "https://jh-website-lime.vercel.app/shop",
+    canonical: absoluteUrl("/shop"),
   },
   openGraph: {
     title: "Shop – JH Textiles",
     description:
       "Browse and purchase premium textile prints and surface patterns from JH Textiles.",
-    url: "https://jh-website-lime.vercel.app/shop",
+    url: absoluteUrl("/shop"),
     type: "website",
   },
   twitter: {
@@ -34,13 +36,31 @@ export const metadata: Metadata = {
     "application/ld+json": JSON.stringify({
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      "name": "JH Textiles Shop",
-      "url": "https://jh-website-lime.vercel.app/shop",
+      name: "JH Textiles Shop",
+      url: absoluteUrl("/shop"),
     }),
   },
 };
 
-export default function Page() {
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function Page({ searchParams }: PageProps) {
+  const sp = await searchParams;
+  const category =
+    typeof sp.category === "string" ? sp.category : "all";
+  const minPrice = typeof sp.minPrice === "string" ? sp.minPrice : "";
+  const maxPrice = typeof sp.maxPrice === "string" ? sp.maxPrice : "";
+  const type = typeof sp.type === "string" ? sp.type : "";
+
+  const initialProducts = await getFilteredProductsServer({
+    category,
+    minPrice,
+    maxPrice,
+    type,
+  });
+
   return (
     <Suspense
       fallback={
@@ -49,7 +69,7 @@ export default function Page() {
         </div>
       }
     >
-      <ShopPage />
+      <ShopPage initialProducts={initialProducts} />
     </Suspense>
   );
 }
