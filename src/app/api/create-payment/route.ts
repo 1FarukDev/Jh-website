@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         currency: currency || "NGN",
         redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-status`,
         customer: { email, name },
-        payment_options: "card,ussd,banktransfer,qr",
+        // payment_options: "card,ussd,banktransfer,qr",
       }),
     });
 

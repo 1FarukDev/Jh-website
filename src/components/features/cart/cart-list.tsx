@@ -13,7 +13,6 @@ function CartList ({ handleNext }: { handleNext: () => void }) {
     return <EmptyCart />
   }
 
-  console.log(cart);
 
   return (
     <div className='flex flex-col md:flex-row items-start gap-4 w-full mt-6 md:mt-20 px-2 md:px-0'>
