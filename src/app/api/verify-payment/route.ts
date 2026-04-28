@@ -90,7 +90,7 @@ export async function GET(req: Request) {
         console.warn("Payment confirmation email failed to send");
       }
     }
-
+  
     return new Response(
       JSON.stringify({
         success: true,
