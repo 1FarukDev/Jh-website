@@ -101,12 +101,12 @@ function SignUp({
             <div className="flex justify-center items-center gap-1">
               <Image
                 src={NavLogo}
-                alt="Nav Logo"
+                alt="Nav Logo" 
                 width={400}
                 height={400}
                 priority
                 quality={100}
-                className="w-[200px] object-contain"
+                className="w-[200px]  object-contain"
               />
             </div>
             <div

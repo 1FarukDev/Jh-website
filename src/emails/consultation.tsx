@@ -53,7 +53,7 @@ export default function ConsultationEmail({
                 src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768681123/Asset_1_10x_vcfotp.png"
                 width="100"
                 alt="J.H Textiles"
-                className="dark-logo"
+                className="dark-logo" 
                 style={logo }
               />
             </Link>
