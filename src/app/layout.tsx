@@ -122,7 +122,9 @@ export default function RootLayout({
                     <NavDropdownProviderWrapper>
                       <AOS_INIT />
                       <Toaster position="bottom-right" richColors closeButton />
-                      <NavBar />
+                      <Suspense fallback={null}>
+                        <NavBar />
+                      </Suspense>
                       <Suspense fallback={null}>
                         <TopLoader />
                       </Suspense>
