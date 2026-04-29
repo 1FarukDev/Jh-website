@@ -1,6 +1,18 @@
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(req: Request) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return new Response(
+      JSON.stringify({ success: false, message: "Unauthorized" }),
+      { status: 401 }
+    );
+  }
+
   const { searchParams } = new URL(req.url);
   const tx_ref = searchParams.get("tx_ref");
 
@@ -40,8 +52,6 @@ export async function GET(req: Request) {
         { status: 400 }
       );
     }
-
-    const supabase = await createClient();
 
     const { error } = await supabase
       .from("orders")

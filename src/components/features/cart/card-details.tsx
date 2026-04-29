@@ -16,7 +16,7 @@ import { useCart } from "@/context/cart-context";
 import { useCurrency } from "@/context/currency-context";
 import { useCheckout } from "@/context/checkout-context";
 import { useMutation } from "@tanstack/react-query";
-import { createOrder, CreateOrderPayload } from "@/services/api/order";
+import { CreateOrderPayload } from "@/services/api/order";
 
 function CardDetails({
   handleNext,
@@ -38,7 +38,21 @@ function CardDetails({
   const total = subtotal; // + vatAmount;
 
   const createOrderMutation = useMutation({
-    mutationFn: createOrder,
+    mutationFn: async (payload: CreateOrderPayload) => {
+      const res = await fetch("/api/orders/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.message || "Order creation failed");
+      }
+
+      return data.order;
+    },
     onSuccess: async (order) => {
       try {
         // await fetch("/api/send-order-confirmation", {

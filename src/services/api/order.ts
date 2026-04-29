@@ -134,9 +134,18 @@ export const getOrderItems = async (tx_ref: string) => {
 };
 
 export const getOrders = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user?.email) {
+    throw new Error("Not authenticated");
+  }
+
   const { data, error } = await supabase
     .from("orders")
     .select("*")
+    .eq("customer_email", user.email)
     .order("created_at", { ascending: false });
 
   if (error) throw error;

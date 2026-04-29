@@ -117,16 +117,21 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
         className="w-[90vw]! md:max-w-[40vw]! no-scrollbar rounded-md! shadow-sm!"
         trigger={""}
         open={open}
-        onOpenChange={setOpen}
+        onOpenChange={(isOpen) => {
+          setOpen(isOpen);
+          if (!isOpen) {
+            setSelectedOrder(null);
+          }
+        }}
       >
         {selectedOrder && (
           <OrderDetails
             onCloseButton={() => setOpen(false)}
             orderId={selectedOrder.order_number}
             orderStatus={
-              selectedOrder.status === "Delivered"
+              selectedOrder.status === "confirmed"
                 ? "Completed"
-                : selectedOrder.status === "Processing"
+                : selectedOrder.status === "pending"
                   ? "Pending"
                   : "Failed"
             }

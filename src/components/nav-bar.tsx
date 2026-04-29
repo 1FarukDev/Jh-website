@@ -16,7 +16,7 @@ import ForgotPassword from "./auth/forgot-password";
 import Link from "next/link";
 import SearchDropdown from "./search-dropdown";
 import { AnimatePresence, motion } from "framer-motion";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { createClient } from "@/lib/supabase/client";
 import ResetPassword from "./auth/reset-password";
@@ -28,6 +28,7 @@ import NavLogoWhite from "@/app/assets/png/J.H TEXTILES LOGO -WHITE.png";
 function NavBar() {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const isHomePage =
     pathname === "/" || pathname === "/client" || pathname === "/about";
@@ -47,6 +48,7 @@ function NavBar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signupModalOpen, setSignupModalOpen] = useState(false);
   const [authView, setAuthView] = useState<"login" | "forgot">("login");
+  const [pendingRedirect, setPendingRedirect] = useState<string | null>(null);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
@@ -102,6 +104,43 @@ function NavBar() {
   useEffect(() => {
     if (!loginModalOpen) setAuthView("login");
   }, [loginModalOpen]);
+
+  useEffect(() => {
+    const isAuthRequired = searchParams.get("auth") === "required";
+    if (!isAuthRequired) return;
+
+    if (user) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("auth");
+      params.delete("returnTo");
+      const next = params.toString();
+      router.replace(next ? `${pathname}?${next}` : pathname);
+      return;
+    }
+
+    const returnTo = searchParams.get("returnTo");
+    if (returnTo && returnTo.startsWith("/")) {
+      setPendingRedirect(returnTo);
+    }
+
+    setLoginModalOpen(true);
+    setAuthView("login");
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("auth");
+    params.delete("returnTo");
+    const next = params.toString();
+    router.replace(next ? `${pathname}?${next}` : pathname);
+  }, [searchParams, pathname, router, user]);
+
+  const handleLoginSuccess = () => {
+    setLoginModalOpen(false);
+
+    if (pendingRedirect) {
+      router.push(pendingRedirect);
+      setPendingRedirect(null);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -364,7 +403,7 @@ function NavBar() {
             {authView === "login" ? (
               <Login
                 onForgotPassword={() => setAuthView("forgot")}
-                onSuccess={() => setLoginModalOpen(false)}
+                onSuccess={handleLoginSuccess}
               />
             ) : (
               <ForgotPassword onBackToLogin={() => setAuthView("login")} />

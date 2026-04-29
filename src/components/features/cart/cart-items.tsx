@@ -4,6 +4,10 @@ import React, { useState } from 'react'
 import CartList from './cart-list'
 import BuyersInfo from './buyers-info'
 import CardDetails from './card-details'
+import { useSupabaseAuth } from '@/hooks/useSupabaseAuth'
+import Modal from '@/components/modal'
+import Login from '@/components/auth/login'
+import ForgotPassword from '@/components/auth/forgot-password'
 
 function CartItems () {
   const steps = [
@@ -13,8 +17,17 @@ function CartItems () {
   ]
 
   const [currentStep, setCurrentStep] = useState(1)
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const [authView, setAuthView] = useState<"login" | "forgot">("login")
+  const { user, loading } = useSupabaseAuth();
 
   const handleNext = () => {
+    if (currentStep === 1 && !loading && !user) {
+      setLoginModalOpen(true);
+      setAuthView("login");
+      return;
+    }
+
     if (currentStep < steps.length) {
       setCurrentStep(prev => prev + 1)
     }
@@ -95,6 +108,22 @@ function CartItems () {
       </div>
 
       {renderContent()}
+
+      <Modal
+        className="w-[90%]! md:max-w-[50vw]! no-scrollbar"
+        trigger={""}
+        open={loginModalOpen}
+        onOpenChange={setLoginModalOpen}
+      >
+        {authView === "login" ? (
+          <Login
+            onForgotPassword={() => setAuthView("forgot")}
+            onSuccess={() => setLoginModalOpen(false)}
+          />
+        ) : (
+          <ForgotPassword onBackToLogin={() => setAuthView("login")} />
+        )}
+      </Modal>
     </section>
   )
 }
