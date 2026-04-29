@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "sonner";
-import { useMutation } from "@tanstack/react-query";
 import CloeIcon from "@/app/assets/svg/close.svg";
 import NavLogo from "@/app/assets/svg/nav-logo.png";
+import EmailIcon from "@/app/assets/svg/envelope.svg";
 import { FormInput } from "../input";
 import {  LockKeyhole, Mail, UserRound } from "lucide-react";
 import { FormCheckbox } from "../checkbox";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -33,6 +32,9 @@ function SignUp({
   goBackToLogin?: () => void;
 }) {
   const supabase = createClient();
+  const [showVerifyEmail, setShowVerifyEmail] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const methods = useForm<FormData>({
     defaultValues: {
@@ -48,8 +50,10 @@ function SignUp({
 
   const { handleSubmit } = methods;
 
-  const signUpMutation = useMutation({
-    mutationFn: async (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsSubmitting(true);
+
       if (data.password !== data.confirmPassword) {
         throw new Error("Passwords don't match");
       }
@@ -67,38 +71,75 @@ function SignUp({
 
       const user = authData.user;
 
-      if (!user) {
-        toast.info("Please check your email to confirm your account.");
-        return;
+      if (user) {
+        const { error: updateError } = await supabase
+          .from("users")
+          .update({
+            first_name: data.firstName,
+            last_name: data.lastName,
+          })
+          .eq("id", user.id);
+
+        if (updateError) throw new Error(updateError.message);
       }
 
-      const { error: updateError } = await supabase
-        .from("users")
-        .update({
-          first_name: data.firstName,
-          last_name: data.lastName,
-        })
-        .eq("id", user.id);
-
-      if (updateError) throw new Error(updateError.message);
-
-      return user.id;
-    },
-    onSuccess: () => {
-      toast.success("Account created successfully!");
-      onClose();
-    },
-    onError: (error: any) => {
-      toast.error(error.message || "Something went wrong");
-    },
-  });
-
-  const onSubmit = (data: FormData) => {
-    signUpMutation.mutate(data);
+      setSubmittedEmail(data.email);
+      setShowVerifyEmail(true);
+    } catch (error: any) {
+      toast.error(error?.message || "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <FormProvider {...methods}>
+      {showVerifyEmail ? (
+        <section className="p-6 pt-6 w-full ">
+          <div className="flex justify-between items-start">
+            <div></div>
+            <div className="flex justify-center items-center gap-1">
+              <Image
+                src={NavLogo}
+                alt="Nav Logo"
+                width={400}
+                height={400}
+                priority
+                quality={100}
+                className="w-[200px] object-contain"
+              />
+            </div>
+            <div
+              className="w-7 h-7 rounded-full border border-[#9CA3AF] flex items-center justify-center cursor-pointer"
+              onClick={onClose}
+            >
+              <Image src={CloeIcon} alt="Close icon" width={12} height={12} />
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center items-center mt-[35px] gap-6">
+            <div className="w-[80px] md:w-[130px]">
+              <Image src={EmailIcon} alt="Email icon" />
+            </div>
+            <div className="text-center">
+              <h1 className="text-[28px] md:text-[40px] text-[#1C1B0B]">
+                VERIFY YOUR EMAIL
+              </h1>
+              <p className="text-[#4E5157] font-satoshi text-sm font-normal">
+                We sent a verification link to{" "}
+                <span className="font-bold">{submittedEmail}</span>. Please
+                verify your email before logging in.
+              </p>
+            </div>
+            <button
+              onClick={() => goBackToLogin?.()}
+              className="w-full bg-black text-white px-6 py-3 text-sm rounded-none font-satoshi font-normal"
+            >
+              Back to login
+            </button>
+          </div>
+        </section>
+      ) : (
       <section className="md:p-6 p-3 pt-0 w-full">
         <div className="flex justify-between items-start">
           <div></div>
@@ -191,11 +232,11 @@ function SignUp({
 
           <Button
             type="submit"
-            disabled={signUpMutation.isPending}
-            loading={signUpMutation.isPending}
+            disabled={isSubmitting}
+            loading={isSubmitting}
             className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none font-satoshi font-normal"
           >
-            {signUpMutation.isPending
+            {isSubmitting
               ? "Creating Account..."
               : "Create Account"}
           </Button>
@@ -234,6 +275,7 @@ function SignUp({
           </div>
         </form>
       </section>
+      )}
     </FormProvider>
   );
 }

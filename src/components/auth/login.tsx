@@ -24,9 +24,10 @@ type FormData = {
 interface LoginProps {
   onForgotPassword: () => void;
   onSuccess?: () => void;
+  onCreateAccount?: () => void;
 }
 
-function Login({ onForgotPassword, onSuccess }: LoginProps) {
+function Login({ onForgotPassword, onSuccess, onCreateAccount }: LoginProps) {
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
   const methods = useForm<FormData>({
@@ -169,7 +170,10 @@ function Login({ onForgotPassword, onSuccess }: LoginProps) {
             <div>
               <p className="font-satoshi font-light text-xs">
                 Don't have an account?{" "}
-                <span className="font-medium text-xm cursor-pointer">
+                <span
+                  className="font-medium text-xm cursor-pointer"
+                  onClick={onCreateAccount}
+                >
                   Create an account
                 </span>
               </p>

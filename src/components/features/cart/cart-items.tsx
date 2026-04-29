@@ -8,6 +8,7 @@ import { useSupabaseAuth } from '@/hooks/useSupabaseAuth'
 import Modal from '@/components/modal'
 import Login from '@/components/auth/login'
 import ForgotPassword from '@/components/auth/forgot-password'
+import SignUp from '@/components/auth/sign-up'
 
 function CartItems () {
   const steps = [
@@ -18,7 +19,7 @@ function CartItems () {
 
   const [currentStep, setCurrentStep] = useState(1)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
-  const [authView, setAuthView] = useState<"login" | "forgot">("login")
+  const [authView, setAuthView] = useState<"login" | "forgot" | "signup">("login")
   const { user, loading } = useSupabaseAuth();
 
   const handleNext = () => {
@@ -119,6 +120,12 @@ function CartItems () {
           <Login
             onForgotPassword={() => setAuthView("forgot")}
             onSuccess={() => setLoginModalOpen(false)}
+            onCreateAccount={() => setAuthView("signup")}
+          />
+        ) : authView === "signup" ? (
+          <SignUp
+            onClose={() => setLoginModalOpen(false)}
+            goBackToLogin={() => setAuthView("login")}
           />
         ) : (
           <ForgotPassword onBackToLogin={() => setAuthView("login")} />

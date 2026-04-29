@@ -404,6 +404,10 @@ function NavBar() {
               <Login
                 onForgotPassword={() => setAuthView("forgot")}
                 onSuccess={handleLoginSuccess}
+                onCreateAccount={() => {
+                  setLoginModalOpen(false);
+                  setSignupModalOpen(true);
+                }}
               />
             ) : (
               <ForgotPassword onBackToLogin={() => setAuthView("login")} />
