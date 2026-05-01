@@ -23,7 +23,7 @@ import ResetPassword from "./auth/reset-password";
 import PasswordSuccess from "./auth/password-success";
 import CountryDropdown from "./country-dropdown";
 import { useCart } from "@/context/cart-context";
-import NavLogoWhite from "@/app/assets/png/J.H TEXTILES LOGO -WHITE.png";
+import NavLogoWhite from "@/app/assets/png/JH TEXTILES PNG.png";
 
 function NavBar() {
   const pathname = usePathname();
@@ -126,6 +126,8 @@ function NavBar() {
     setLoginModalOpen(true);
     setAuthView("login");
 
+
+
     const params = new URLSearchParams(searchParams.toString());
     params.delete("auth");
     params.delete("returnTo");
@@ -180,6 +182,8 @@ function NavBar() {
     return "";
   };
 
+  const usingWhiteLogo = isOpen || (isHomePage && !scrolled);
+
   return (
     <>
       <NavDropdown
@@ -193,15 +197,14 @@ function NavBar() {
         }}
       />
       <section
-        className={`py-4 md:py-2 font-satoshi fixed w-full transition-colors duration-300 ${
-          isOpen
-            ? "bg-[#1C1B0B] z-[100]"
-            : isHomePage
-              ? scrolled
-                ? "bg-white shadow-sm z-[100]"
-                : "bg-transparent z-[100]"
-              : "bg-white shadow-sm z-[100]"
-        }`}
+        className={`py-4 md:py-2 font-satoshi fixed w-full transition-colors duration-300 ${isOpen
+          ? "bg-[#1C1B0B] z-[100]"
+          : isHomePage
+            ? scrolled
+              ? "bg-white shadow-sm z-[100]"
+              : "bg-transparent z-[100]"
+            : "bg-white shadow-sm z-[100]"
+          }`}
       >
         <div className="md:grid flex justify-between md:grid-cols-3 items-center px-3">
           <div className="flex items-center gap-2 justify-start">
@@ -213,22 +216,20 @@ function NavBar() {
               }}
             >
               <div
-                className={`w-[48px] h-[2px] transition-all duration-300 ${
-                  isOpen
-                    ? "bg-white rotate-45 translate-y-1.5"
-                    : getTextColorClass()
-                      ? getTextColorClass().replace("text-", "bg-")
-                      : "bg-white"
-                }`}
+                className={`w-[48px] h-[2px] transition-all duration-300 ${isOpen
+                  ? "bg-white rotate-45 translate-y-1.5"
+                  : getTextColorClass()
+                    ? getTextColorClass().replace("text-", "bg-")
+                    : "bg-white"
+                  }`}
               ></div>
               <div
-                className={`w-[48px] h-[2px] transition-all duration-300 ${
-                  isOpen
-                    ? "bg-white -rotate-45 -translate-y-1.5"
-                    : getTextColorClass()
-                      ? getTextColorClass().replace("text-", "bg-")
-                      : "bg-white"
-                }`}
+                className={`w-[48px] h-[2px] transition-all duration-300 ${isOpen
+                  ? "bg-white -rotate-45 -translate-y-1.5"
+                  : getTextColorClass()
+                    ? getTextColorClass().replace("text-", "bg-")
+                    : "bg-white"
+                  }`}
               ></div>
             </div>
             <h1 className={`text-lg hidden md:block ${getTextColorClass()}`}>
@@ -240,26 +241,28 @@ function NavBar() {
             <Image
               src={getLogoSrc()}
               alt="Nav Logo"
-              width={400}
-              height={400}
+              width={usingWhiteLogo ? 960 : 480}
+              height={usingWhiteLogo ? 400 : 480}
               priority
               quality={100}
-              className="md:w-[200px] w-[120px] object-contain transition-opacity duration-300"
+              className={
+                usingWhiteLogo
+                                    ? "md:w-[320px] w-[280px] md:h-[54px] h-[80px] object-contain object-center transition-opacity duration-300"
+                  : "md:w-[140px] w-[190px] md:h-[50px] h-[78px] object-contain object-center transition-opacity duration-300"
+              }
             />
           </Link>
 
           <div
-            className={`items-center md:gap-4 gap-2 justify-end ${
-              isOpen ? "hidden md:flex" : "flex"
-            } md:flex`}
+            className={`items-center md:gap-4 gap-2 justify-end ${isOpen ? "hidden md:flex" : "flex"
+              } md:flex`}
             style={{ display: "flex" }}
           >
             <CountryDropdown textColor={getTextColorClass()} isOpen={isOpen} />
 
             <div
-              className={`flex items-center gap-1 cursor-pointer${
-                isOpen ? " hidden md:flex" : ""
-              }`}
+              className={`flex items-center gap-1 cursor-pointer${isOpen ? " hidden md:flex" : ""
+                }`}
               onClick={() => setShowSearch(true)}
             >
               <Search
@@ -275,9 +278,8 @@ function NavBar() {
 
             <Link
               href="/cart"
-              className={`flex items-center gap-1 cursor-pointer relative${
-                isOpen ? " hidden md:flex" : ""
-              }`}
+              className={`flex items-center gap-1 cursor-pointer relative${isOpen ? " hidden md:flex" : ""
+                }`}
             >
               <div className="relative">
                 {isOpen ? (
@@ -336,18 +338,16 @@ function NavBar() {
                   }}
                 >
                   <p
-                    className={`${
-                      isOpen ? "bg-white text-black" : "bg-black text-white"
-                    } p-2 px-[9px] rounded-full text-xs font-normal`}
+                    className={`${isOpen ? "bg-white text-black" : "bg-black text-white"
+                      } p-2 px-[9px] rounded-full text-xs font-normal`}
                   >
                     {user?.first_name?.[0]?.toUpperCase()}
                     {user?.last_name?.[0]?.toUpperCase()}
                   </p>
 
                   <div
-                    className={`items-center gap-1 md:flex hidden ${
-                      isOpen ? "text-white" : "text-black"
-                    } md:flex`}
+                    className={`items-center gap-1 md:flex hidden ${isOpen ? "text-white" : "text-black"
+                      } md:flex`}
                   >
                     <p className="text-xs font-normal">
                       {user?.first_name + " " + user?.last_name}

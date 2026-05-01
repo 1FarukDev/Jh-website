@@ -46,7 +46,7 @@ export default function ContactReceiptEmail({
             <Link href="https://jesudarahinmikaiye.com">
               {/* Light Mode Logo (Dark text on light background) */}
               <Img
-                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768515835/PNG_f5mj7o.png"
+                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1777624437/JH_TEXTILES-COLOR_EMAIL_l2dm0p.jpg"
                 width="100"
                 alt="J.H Textiles"
                 className="light-logo"
@@ -54,7 +54,7 @@ export default function ContactReceiptEmail({
               />
               {/* Dark Mode Logo (White text) - Upload your white logo to Cloudinary */}
               <Img
-                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1768681123/Asset_1_10x_vcfotp.png"
+                src="https://res.cloudinary.com/dzspn2gi7/image/upload/v1777624437/JH_TEXTILES-COLOR_EMAIL_l2dm0p.jpg"
                 width="100"
                 alt="J.H Textiles"
                 className="dark-logo"
