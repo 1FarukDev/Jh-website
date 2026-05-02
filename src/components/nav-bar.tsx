@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import NavLogo from "@/app/assets/svg/nav-logo.png";
-import { ChevronDown, CircleUserRound, LogOut, Search } from "lucide-react";
+import { ChevronDown, CircleUserRound, LogOut, Search, ShoppingBag } from "lucide-react";
 import cart from "@/app/assets/svg/cart.svg";
 import cartwhite from "@/app/assets/svg/shopping-cart-white.svg";
 import { Button } from "@/components/ui/button";
@@ -372,6 +372,15 @@ function NavBar() {
                           >
                             <CircleUserRound size={20} strokeWidth={1.5} />
                             Profile
+                          </li>
+                        </Link>
+                        <Link href={"/orders"}>
+                          <li
+                            className="px-4 py-2 cursor-pointer flex items-center gap-2 text-white border-b"
+                            onClick={() => setUserDropdownOpen(false)}
+                          >
+                            <ShoppingBag size={20} strokeWidth={1.5} />
+                            Orders
                           </li>
                         </Link>
 
