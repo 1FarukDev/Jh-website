@@ -7,7 +7,7 @@ export async function getFilteredProductsServer(filters: {
   type?: string;
 }) {
   const supabase = await createClient();
-  let query = supabase.from("products").select("*");
+  let query = supabase.from("products").select("*").eq("status", "published");
 
   if (filters.category && filters.category !== "all") {
     query = query.ilike("tag", `%${filters.category}%`);
@@ -41,6 +41,7 @@ export async function getProductByIdServer(id: string) {
     .from("products")
     .select("*")
     .eq("id", id)
+    .eq("status", "published")
     .single();
 
   if (error) {

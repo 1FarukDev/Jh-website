@@ -6,6 +6,7 @@ export const getProducts = async () => {
   const { data, error } = await supabase
     .from("products")
     .select("*")
+    .eq("status", "published")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -21,6 +22,7 @@ export const getProductById = async (id: string) => {
     .from("products")
     .select("*")
     .eq("id", id)
+    .eq("status", "published")
     .single();
 
   if (error) {
@@ -42,6 +44,7 @@ export const searchProducts = async (query: string) => {
   const { data, error } = await supabase
     .from("products")
     .select("*")
+    .eq("status", "published")
     .or(`name.ilike.${searchTerm},category.ilike.${searchTerm},description.ilike.${searchTerm}`)
     .order("created_at", { ascending: false });
 
@@ -59,7 +62,7 @@ export const getFilteredProducts = async (filters: {
   maxPrice?: string;
   type?: string;
 }) => {
-  let query = supabase.from("products").select("*");
+  let query = supabase.from("products").select("*").eq("status", "published");
 
   if (filters.category && filters.category !== "all") {
     query = query.ilike("tag", `%${filters.category}%`);
