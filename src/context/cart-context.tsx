@@ -16,7 +16,7 @@ const supabase = createClient();
 
 export interface CartItem {
   id: number;
-  productId: number;
+  productId: string;
   name: string;
   title: string;
   price: number;
@@ -41,7 +41,7 @@ interface CartContextProps {
   clearCart: () => void;
   getCartTotal: () => number;
   getCartCount: () => number;
-  isInCart: (productId: number) => boolean;
+  isInCart: (productId: string) => boolean;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -173,7 +173,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     cart.reduce((total, item) => total + item.price * item.quantity, 0);
   const getCartCount = () =>
     cart.reduce((count, item) => count + item.quantity, 0);
-  const isInCart = (productId: number) =>
+  const isInCart = (productId: string) =>
     cart.some((item) => item.productId === productId);
 
   return (

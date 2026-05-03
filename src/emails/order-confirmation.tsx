@@ -17,7 +17,8 @@ import {
 type OrderItem = {
   name: string;
   quantity: number;
-  price: number;
+  /** Pre-formatted line total in the customer's checkout currency */
+  lineTotal: string;
   image?: string;
   color?: string;
   size?: string;
@@ -27,10 +28,10 @@ type OrderConfirmationEmailProps = {
   customerName: string;
   orderId: string;
   orderDate: string;
+  /** Pre-formatted order total in the customer's checkout currency */
   total: string;
   items: OrderItem[];
   shippingAddress?: string;
-  currency: string;
 };
 
 export default function OrderConfirmationEmail({
@@ -40,7 +41,6 @@ export default function OrderConfirmationEmail({
   total,
   items,
   shippingAddress,
-  currency,
 }: OrderConfirmationEmailProps) {
   return (
     <Html>
@@ -125,13 +125,7 @@ export default function OrderConfirmationEmail({
                   <Text style={itemDetails}>Qty: {item.quantity}</Text>
                 </Column>
                 <Column style={{ width: "30%", textAlign: "right" }}>
-                  <Text style={itemPrice}>
-                    {currency}
-                    {(item.price * item.quantity).toLocaleString("en-US", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </Text>
+                  <Text style={itemPrice}>{item.lineTotal}</Text>
                 </Column>
               </Row>
             </Section>

@@ -55,24 +55,6 @@ function CardDetails({
     },
     onSuccess: async (order) => {
       try {
-        await fetch("/api/send-order-confirmation", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: checkoutData.email,
-            customerName: `${checkoutData.firstName} ${checkoutData.lastName}`,
-            orderId: order.order_number,
-            orderDate: new Date().toLocaleDateString(),
-            total: formatPrice(total),
-            currency: currency.symbol,
-            items: cart.map((item) => ({
-              name: item.name,
-              quantity: item.quantity,
-              price: item.price,
-              image: item.image,
-            })),
-          }),
-        });
         const paymentRes = await fetch("/api/create-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,23 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { resend } from "@/lib/resend";
-import OrderConfirmationEmail from "@/emails/order-confirmation";
+import { sendOrderConfirmationEmail } from "@/lib/send-checkout-emails";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, customerName, orderId, orderDate, total, items, currency } = await req.json();
+    const { email, customerName, orderId, orderDate, total, items } = await req.json();
 
-    const { data, error } = await resend.emails.send({
-      from: "J.H. Textiles <orders@jesudarahinmikaiye.com>",
-      to: email,
-      subject: `Order Confirmation #${orderId}`,
-      react: OrderConfirmationEmail({
-        customerName,
-        orderId,
-        orderDate,
-        total,
-        items,
-        currency,
-      }),
+    const { data, error } = await sendOrderConfirmationEmail({
+      email,
+      customerName,
+      orderId,
+      orderDate,
+      total,
+      items,
     });
 
     if (error) {

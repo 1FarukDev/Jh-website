@@ -1,24 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { resend } from "@/lib/resend";
-import PaymentConfirmationEmail from "@/emails/payment-confirmation";
+import { sendPaymentConfirmationEmail } from "@/lib/send-checkout-emails";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, customerName, orderId, paymentAmount, transactionId,paymentDate } = await req.json();
+    const body = await req.json();
+    const {
+      email,
+      customerName,
+      orderId,
+      transactionId,
+      paymentDate,
+      paymentMethod,
+      currency,
+    } = body;
+    const rawAmount = body.paymentAmount ?? body.amount;
 
-    const { data, error } = await resend.emails.send({
-      from: "J.H. Textiles <payments@jhtextiles.com>",
-      to: email,
-      subject: `Payment Confirmed - Order #${orderId}`,
-      react: PaymentConfirmationEmail({
-        customerName,
-        orderId,
-        paymentAmount,
-        transactionId,
-        paymentDate,
-        // paymentMethod,
-        
-      }),
+    const amount =
+      typeof rawAmount === "number"
+        ? rawAmount
+        : Number.parseFloat(String(rawAmount ?? ""));
+
+    const { data, error } = await sendPaymentConfirmationEmail({
+      email,
+      customerName,
+      orderId,
+      amount: Number.isFinite(amount) ? amount : 0,
+      currency: currency || "NGN",
+      transactionId,
+      paymentDate,
+      paymentMethod,
     });
 
     if (error) {

@@ -17,7 +17,8 @@ import {
 type PaymentConfirmationEmailProps = {
   customerName: string;
   orderId: string;
-  paymentAmount: string;
+  /** Full amount string in the currency the customer was charged (e.g. from Intl) */
+  paymentAmountDisplay: string;
   paymentMethod?: string;
   transactionId: string;
   paymentDate: string;
@@ -26,7 +27,7 @@ type PaymentConfirmationEmailProps = {
 export default function PaymentConfirmationEmail({
   customerName,
   orderId,
-  paymentAmount,
+  paymentAmountDisplay,
   paymentMethod,
   transactionId,
   paymentDate,
@@ -93,7 +94,7 @@ export default function PaymentConfirmationEmail({
 
             <Row style={detailRow}>
               <Column style={detailLabel}>Amount Paid:</Column>
-              <Column style={detailValue}>${paymentAmount}</Column>
+              <Column style={detailValue}>{paymentAmountDisplay}</Column>
             </Row>
 
             {paymentMethod && (

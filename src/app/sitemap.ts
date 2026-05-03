@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [{ data: products }, { data: blogs }, clientRes] = await Promise.all([
       supabase
         .from("products")
-        .select("id, updated_at")
+        .select("id, created_at")
         .eq("status", "published"),
       supabase.from("blogs").select("slug"),
       supabase.from("clients").select("slug"),
@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const productEntries: MetadataRoute.Sitemap = (products ?? []).map((p) => ({
       url: `${siteUrl}/shop/${p.id}`,
-      lastModified: p.updated_at ? new Date(p.updated_at as string) : now,
+      lastModified: p.created_at ? new Date(p.created_at as string) : now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     }));

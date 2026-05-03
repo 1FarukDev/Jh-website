@@ -44,7 +44,7 @@ export default function EmailPreviewPage() {
           { 
             name: "Floral Print Pattern", 
             quantity: 1, 
-            price: 150000, 
+            lineTotal: "₦150,000",
             image: "/assets/png/print.png",
             color: "Blue",
             size: "Standard"
@@ -52,7 +52,7 @@ export default function EmailPreviewPage() {
           { 
             name: "Abstract Design", 
             quantity: 2, 
-            price: 200000,
+            lineTotal: "₦400,000",
             color: "Red",
             size: "Large"
           },
@@ -72,9 +72,11 @@ export default function EmailPreviewPage() {
     } else if (selectedTemplate === "Payment Confirmation") {
       props = {
         customerName: "John Doe",
-        amount: "₦550,000",
+        orderId: "ORD-12345",
+        paymentAmountDisplay: "£1,234.56",
         transactionId: "TXN-12345",
         paymentMethod: "Card",
+        paymentDate: new Date().toLocaleDateString(),
       };
     } else if (selectedTemplate === "Order Status") {
       props = {

@@ -1,4 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
+import { formatOrderMoney } from "@/lib/format-money";
+import { buildOrderConfirmationItemsFromOrderItems } from "@/lib/build-order-confirmation-items";
+import { draftExclusiveProductsAfterPurchase } from "@/lib/draft-exclusive-products-after-purchase";
 
 export async function GET(req: Request) {
   const supabase = await createClient();
@@ -53,33 +56,63 @@ export async function GET(req: Request) {
       );
     }
 
-    const { error } = await supabase
+    const { data: confirmedOrders, error } = await supabase
       .from("orders")
       .update({
         payment_status: "paid",
         status: "confirmed",
-        updated_at: new Date(),
+        updated_at: new Date().toISOString(),
       })
-      .eq("tx_ref", tx_ref);
+      .eq("tx_ref", tx_ref)
+      .eq("payment_status", "pending")
+      .select(
+        "id, order_number, customer_email, customer_name, total_amount, currency"
+      );
 
     if (error) {
-      console.error("Order update error:", error);
       return new Response(
         JSON.stringify({ success: false, message: "Failed to update order" }),
         { status: 500 }
       );
     }
 
-    // Get order details to send email
-    const { data: order } = await supabase
-      .from("orders")
-      .select("customer_email, customer_name, total_amount")
-      .eq("tx_ref", tx_ref)
-      .single();
+    const order = confirmedOrders?.[0];
 
     if (order) {
-      // Non-blocking email failure should not fail payment verification response
-      const emailRes = await fetch(
+      const displayOrderId = order.order_number ?? tx_ref;
+      const { data: orderItems } = await supabase
+        .from("order_items")
+        .select(
+          "product_id, product_name, quantity, line_total, image, color, size"
+        )
+        .eq("order_id", order.id);
+
+      const currency = order.currency || "NGN";
+      const itemsPayload = buildOrderConfirmationItemsFromOrderItems(
+        orderItems ?? [],
+        Number(order.total_amount),
+        currency
+      );
+
+      await draftExclusiveProductsAfterPurchase(String(order.id));
+
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-order-confirmation`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: order.customer_email,
+            customerName: order.customer_name,
+            orderId: displayOrderId,
+            orderDate: new Date().toLocaleDateString(),
+            total: formatOrderMoney(Number(order.total_amount), currency),
+            items: itemsPayload,
+          }),
+        }
+      );
+
+      await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-payment-confirmation`,
         {
           method: "POST",
@@ -87,18 +120,17 @@ export async function GET(req: Request) {
           body: JSON.stringify({
             email: order.customer_email,
             customerName: order.customer_name,
-            orderId: tx_ref,
-            amount: `${order.total_amount.toLocaleString()}`,
-            transactionId: data?.data?.id,
+            orderId: displayOrderId,
+            amount: Number(order.total_amount),
+            currency,
+            transactionId: String(data?.data?.id ?? ""),
             paymentDate: new Date().toLocaleDateString(),
-            paymentMethod: data?.data?.payment_method,
+            paymentMethod:
+              data?.data?.payment_type || data?.data?.payment_method,
           }),
         }
       );
 
-      if (!emailRes.ok) {
-        console.warn("Payment confirmation email failed to send");
-      }
     }
   
     return new Response(

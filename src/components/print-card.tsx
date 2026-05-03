@@ -8,7 +8,7 @@ import { useCurrency } from "@/context/currency-context";
 import { useCart } from "@/context/cart-context";
 
 type PrintCardProps = {
-  productId?: number;
+  productId?: string;
   image: StaticImageData | string;
   hoverImage?: StaticImageData | string;
   images?: string[];

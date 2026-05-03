@@ -10,7 +10,7 @@ export type CreateOrderPayload = {
   product_id: any;
   customer_company: string;
   product_data: {
-    productId: number;
+    productId: string;
     name: string;
     quantity: number;
     price: number;
