@@ -45,8 +45,6 @@ export function Orders({ orders: initialOrders }: OrdersProps) {
     enabled: !!selectedOrder?.id,
   });
 
-  console.log("orderItems", orderItems);
-
   if (!orders.length) {
     return <div className="text-center py-8">You have no orders yet.</div>;
   }

@@ -19,7 +19,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { useMutation } from "@tanstack/react-query";
-import { createNewsletterSubscription } from "@/services/api/user";
+import { subscribeNewsletterAction } from "@/app/actions/public-forms";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -30,21 +30,16 @@ export default function Footer() {
   const [email, setEmail] = useState("");
 
   const createNewsletterSubscriptionMutation = useMutation({
-    mutationFn: createNewsletterSubscription,
-    onSuccess: async () => {
-      try {
-        await fetch("/api/send-newsletter-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: email,
-            firstName: "Subscriber",
-          }),
-        });
-      } catch (error) {
-        console.error("Failed to send welcome email:", error);
+    mutationFn: (vars: { email: string }) =>
+      subscribeNewsletterAction({
+        email: vars.email,
+        firstName: "Subscriber",
+      }),
+    onSuccess: async (result) => {
+      if (!result.ok) {
+        toast.error(result.message || "Failed to subscribe");
+        return;
       }
-
       toast.success("Newsletter subscription created successfully");
       setEmail("");
     },

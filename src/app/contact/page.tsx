@@ -14,7 +14,8 @@ import FloralImage from "@/app/assets/png/floral1.png";
 import { FormPhoneInput } from "@/components/phone-input";
 import { FormTextarea } from "@/components/textarea";
 import { useMutation } from "@tanstack/react-query";
-import { sendContactMessage, ContactFormData } from "@/services/api/contact";
+import type { ContactFormData } from "@/services/api/contact";
+import { submitContactFormAction } from "@/app/actions/public-forms";
 import { toast } from "sonner";
 
 function Contact() {
@@ -31,19 +32,12 @@ function Contact() {
   });
 
   const { mutate: sendMessage, isPending } = useMutation({
-    mutationFn: sendContactMessage,
-    onSuccess: async (data) => {
-      await fetch("/api/send-contact-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: `${data.first_name} ${data.last_name}`,
-          email: data.email,
-          phone: data.phone_number,
-          subject: data.message_header,
-          message: data.message,
-        }),
-      });
+    mutationFn: submitContactFormAction,
+    onSuccess: async (result) => {
+      if (!result.ok) {
+        toast.error(result.message || "Failed to send message");
+        return;
+      }
       toast.success("Message sent successfully");
       methods.reset();
     },
@@ -57,7 +51,15 @@ function Contact() {
       toast.error("You must accept the terms and conditions");
       return;
     }
-    sendMessage(data);
+    sendMessage({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      phone_number: data.phone_number,
+      company_name: data.company_name,
+      message_header: data.message_header,
+      message: data.message,
+    });
   };
 
   return (

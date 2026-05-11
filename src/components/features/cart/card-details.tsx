@@ -26,7 +26,7 @@ function CardDetails({
   handlePrevious: () => void;
 }) {
   const { cart, getCartTotal, clearCart } = useCart();
-  const { formatPrice, currency, convertPrice } = useCurrency();
+  const { formatPrice, currency, convertPrice, selectedCountry } = useCurrency();
   const { checkoutData, clearCheckoutData } = useCheckout();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [acceptedLicencePolicy, setAcceptedLicencePolicy] = useState(false);
@@ -108,16 +108,14 @@ function CardDetails({
   const handlePayment = () => {
     setIsSubmitting(true);
 
-    const tx_ref = `tx-${Date.now()}`;
-
     const orderPayload = {
-      tx_ref,
       customer_name: `${checkoutData.firstName} ${checkoutData.lastName}`,
       customer_email: checkoutData.email,
       customer_phone: checkoutData.phoneNumber,
       customer_company: checkoutData.companyName,
       total_amount: convertPrice(total),
       currency: currency.code,
+      pricing_country: selectedCountry,
       product_id: cart.map((item) => item.productId),
       product_data: cart.map((item) => ({
         productId: item.productId,
@@ -128,6 +126,9 @@ function CardDetails({
         size: item.size,
         exclusivity: item.exclusivity,
         image: item.image,
+        print_development: item.print_development,
+        print_modification: item.print_modification,
+        color_variant: item.color_variant ?? null,
       })),
 
       /*

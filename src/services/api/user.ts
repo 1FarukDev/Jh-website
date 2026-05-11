@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
+import { subscribeNewsletterAction } from "@/app/actions/public-forms";
+
 const supabase = createClient();
 
 export const getUserDetails = async (id: number | string) => {
@@ -16,32 +18,16 @@ export const getUserDetails = async (id: number | string) => {
   return data;
 };
 
-export const createConsultation = async (data: any) => {
-  const { data: consultationData, error } = await supabase
-    .from("consultations")
-    .insert(data);
-
-  if (error) {
-    console.error(`Error creating consultation:`, error.message);
-    throw new Error(error.message);
+export const createNewsletterSubscription = async (data: {
+  email: string;
+  firstName?: string;
+}) => {
+  const result = await subscribeNewsletterAction({
+    email: data.email,
+    firstName: data.firstName,
+  });
+  if (!result.ok) {
+    throw new Error(result.message || "Newsletter subscription failed");
   }
-
-  return consultationData;
-};
-
-export const createNewsletterSubscription = async (data: any) => {
-  const { data: newsletterData, error } = await supabase
-    .from("newsletter")
-    .insert(data);
-
-  if (error) {
-    console.error(`Error creating newsletter subscription:`, error.message);
-    throw new Error(error.message);
-  }
-  await fetch('/api/send-newsletter-email', {
-    method: 'POST',
-    body: JSON.stringify(data),
-  })
-
-  return newsletterData;
+  return { email: data.email };
 };

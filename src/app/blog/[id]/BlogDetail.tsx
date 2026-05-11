@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getBlogBySlug, getAdjacentBlogs } from "@/services/api/blog";
 import { formatDate } from "@/services/helpers/formatDate";
 import BlogImage from "@/app/assets/png/blog.png";
+import { sanitizeRichTextHtml } from "@/lib/sanitize-html";
 
 function BlogDetail() {
   const { id } = useParams<{ id: string }>();
@@ -94,7 +95,9 @@ function BlogDetail() {
         {blogDetails.body && (
           <div
             className="prose prose-lg font-satoshi prose-satoshi mx-auto text-[#4E5157]"
-            dangerouslySetInnerHTML={{ __html: blogDetails.body }}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeRichTextHtml(blogDetails.body),
+            }}
           />
         )}
 

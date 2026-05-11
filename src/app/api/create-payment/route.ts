@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { totalsMatchWithinTolerance } from "@/lib/checkout-pricing-server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,14 +9,63 @@ export async function POST(req: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) {
+    if (!user?.id) {
       return NextResponse.json(
         { success: false, message: "Unauthorized" },
         { status: 401 }
       );
     }
 
-    const { amount, currency, email, name, tx_ref } = await req.json();
+    const body = await req.json();
+    const amount = Number(body.amount);
+    const currency = String(body.currency || "NGN").toUpperCase();
+    const email = body.email as string;
+    const name = body.name as string;
+    const tx_ref = body.tx_ref as string;
+
+    if (!tx_ref || !Number.isFinite(amount) || !email || !name) {
+      return NextResponse.json(
+        { success: false, message: "Invalid payment request" },
+        { status: 400 }
+      );
+    }
+
+    const { data: order, error: orderError } = await supabase
+      .from("orders")
+      .select("id, total_amount, currency, customer_id, tx_ref")
+      .eq("tx_ref", tx_ref)
+      .maybeSingle();
+
+    if (orderError || !order) {
+      return NextResponse.json(
+        { success: false, message: "Order not found" },
+        { status: 404 }
+      );
+    }
+
+    if (order.customer_id !== user.id) {
+      return NextResponse.json(
+        { success: false, message: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
+    const orderCurrency = String(order.currency || "NGN").toUpperCase();
+    if (orderCurrency !== currency) {
+      return NextResponse.json(
+        { success: false, message: "Currency mismatch" },
+        { status: 400 }
+      );
+    }
+
+    if (
+      !totalsMatchWithinTolerance(amount, Number(order.total_amount))
+    ) {
+      return NextResponse.json(
+        { success: false, message: "Amount does not match order" },
+        { status: 400 }
+      );
+    }
 
     const response = await fetch("https://api.flutterwave.com/v3/payments", {
       method: "POST",
@@ -29,7 +79,6 @@ export async function POST(req: NextRequest) {
         currency: currency || "NGN",
         redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-status`,
         customer: { email, name },
-        // payment_options: "card,ussd,banktransfer,qr",
       }),
     });
 

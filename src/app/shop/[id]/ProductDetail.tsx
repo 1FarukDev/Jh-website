@@ -14,6 +14,7 @@ import { CustomSelect } from "@/components/select";
 import { FormCheckbox } from "@/components/checkbox";
 import { useForm, FormProvider } from "react-hook-form";
 import Link from "next/link";
+import { sanitizeRichTextHtml } from "@/lib/sanitize-html";
 
 interface Color {
   text: string;
@@ -169,7 +170,7 @@ function Page() {
                     <div
                       className="prose prose-lg font-satoshi prose-satoshi mx-auto"
                       dangerouslySetInnerHTML={{
-                        __html: productData.description,
+                        __html: sanitizeRichTextHtml(productData.description),
                       }}
                     />
                   </div>

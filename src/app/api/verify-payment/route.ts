@@ -2,6 +2,11 @@ import { createClient } from "@/lib/supabase/server";
 import { formatOrderMoney } from "@/lib/format-money";
 import { buildOrderConfirmationItemsFromOrderItems } from "@/lib/build-order-confirmation-items";
 import { draftExclusiveProductsAfterPurchase } from "@/lib/draft-exclusive-products-after-purchase";
+import {
+  sendOrderConfirmationEmail,
+  sendPaymentConfirmationEmail,
+} from "@/lib/send-checkout-emails";
+import { totalsMatchWithinTolerance } from "@/lib/checkout-pricing-server";
 
 export async function GET(req: Request) {
   const supabase = await createClient();
@@ -9,7 +14,7 @@ export async function GET(req: Request) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user?.id) {
     return new Response(
       JSON.stringify({ success: false, message: "Unauthorized" }),
       { status: 401 }
@@ -36,8 +41,30 @@ export async function GET(req: Request) {
       );
     }
 
+    const { data: existingOrder, error: loadError } = await supabase
+      .from("orders")
+      .select(
+        "id, order_number, customer_email, customer_name, total_amount, currency, customer_id, payment_status"
+      )
+      .eq("tx_ref", tx_ref)
+      .maybeSingle();
+
+    if (loadError || !existingOrder) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Order not found" }),
+        { status: 404 }
+      );
+    }
+
+    if (existingOrder.customer_id !== user.id) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Forbidden" }),
+        { status: 403 }
+      );
+    }
+
     const verifyRes = await fetch(
-      `https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref=${tx_ref}`,
+      `https://api.flutterwave.com/v3/transactions/verify_by_reference?tx_ref=${encodeURIComponent(tx_ref)}`,
       {
         method: "GET",
         headers: {
@@ -47,12 +74,43 @@ export async function GET(req: Request) {
       }
     );
 
-    const data = await verifyRes.json();
+    const fwJson = await verifyRes.json();
 
-    if (!verifyRes.ok || !data?.status || data.status !== "success") {
+    if (!verifyRes.ok || !fwJson?.status || fwJson.status !== "success") {
       return new Response(
         JSON.stringify({ success: false, message: "Payment not successful" }),
         { status: 400 }
+      );
+    }
+
+    const charged = Number(fwJson?.data?.amount);
+    const chargedCurrency = String(fwJson?.data?.currency || "").toUpperCase();
+    const orderCurrency = String(existingOrder.currency || "NGN").toUpperCase();
+
+    if (
+      !Number.isFinite(charged) ||
+      !totalsMatchWithinTolerance(
+        charged,
+        Number(existingOrder.total_amount)
+      ) ||
+      (chargedCurrency && chargedCurrency !== orderCurrency)
+    ) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Payment amount or currency does not match order",
+        }),
+        { status: 400 }
+      );
+    }
+
+    if (existingOrder.payment_status !== "pending") {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: "Payment already recorded",
+        }),
+        { status: 200 }
       );
     }
 
@@ -64,6 +122,7 @@ export async function GET(req: Request) {
         updated_at: new Date().toISOString(),
       })
       .eq("tx_ref", tx_ref)
+      .eq("customer_id", user.id)
       .eq("payment_status", "pending")
       .select(
         "id, order_number, customer_email, customer_name, total_amount, currency"
@@ -77,62 +136,62 @@ export async function GET(req: Request) {
     }
 
     const order = confirmedOrders?.[0];
-
-    if (order) {
-      const displayOrderId = order.order_number ?? tx_ref;
-      const { data: orderItems } = await supabase
-        .from("order_items")
-        .select(
-          "product_id, product_name, quantity, line_total, image, color, size"
-        )
-        .eq("order_id", order.id);
-
-      const currency = order.currency || "NGN";
-      const itemsPayload = buildOrderConfirmationItemsFromOrderItems(
-        orderItems ?? [],
-        Number(order.total_amount),
-        currency
+    if (!order) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Order could not be confirmed",
+        }),
+        { status: 409 }
       );
-
-      await draftExclusiveProductsAfterPurchase(String(order.id));
-
-      await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-order-confirmation`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: order.customer_email,
-            customerName: order.customer_name,
-            orderId: displayOrderId,
-            orderDate: new Date().toLocaleDateString(),
-            total: formatOrderMoney(Number(order.total_amount), currency),
-            items: itemsPayload,
-          }),
-        }
-      );
-
-      await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-payment-confirmation`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: order.customer_email,
-            customerName: order.customer_name,
-            orderId: displayOrderId,
-            amount: Number(order.total_amount),
-            currency,
-            transactionId: String(data?.data?.id ?? ""),
-            paymentDate: new Date().toLocaleDateString(),
-            paymentMethod:
-              data?.data?.payment_type || data?.data?.payment_method,
-          }),
-        }
-      );
-
     }
-  
+
+    const displayOrderId = order.order_number ?? tx_ref;
+    const { data: orderItems } = await supabase
+      .from("order_items")
+      .select(
+        "product_id, product_name, quantity, line_total, image, color, size"
+      )
+      .eq("order_id", order.id);
+
+    const currency = order.currency || "NGN";
+    const itemsPayload = buildOrderConfirmationItemsFromOrderItems(
+      orderItems ?? [],
+      Number(order.total_amount),
+      currency
+    );
+
+    await draftExclusiveProductsAfterPurchase(String(order.id));
+
+    const { error: orderMailError } = await sendOrderConfirmationEmail({
+      email: order.customer_email,
+      customerName: order.customer_name,
+      orderId: displayOrderId,
+      orderDate: new Date().toLocaleDateString(),
+      total: formatOrderMoney(Number(order.total_amount), currency),
+      items: itemsPayload,
+    });
+
+    if (orderMailError) {
+      console.error("Order confirmation email failed:", orderMailError);
+    }
+
+    const { error: payMailError } = await sendPaymentConfirmationEmail({
+      email: order.customer_email,
+      customerName: order.customer_name,
+      orderId: displayOrderId,
+      amount: Number(order.total_amount),
+      currency,
+      transactionId: String(fwJson?.data?.id ?? ""),
+      paymentDate: new Date().toLocaleDateString(),
+      paymentMethod:
+        fwJson?.data?.payment_type || fwJson?.data?.payment_method,
+    });
+
+    if (payMailError) {
+      console.error("Payment confirmation email failed:", payMailError);
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -141,7 +200,6 @@ export async function GET(req: Request) {
       { status: 200 }
     );
   } catch (err) {
-
     const message =
       err instanceof Error ? err.message : "Internal server error";
 

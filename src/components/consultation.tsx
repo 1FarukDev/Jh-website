@@ -4,7 +4,7 @@ import { FormTextarea } from "./textarea";
 import { Mail, User } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import { createConsultation } from "@/services/api/user";
+import { submitConsultationAction } from "@/app/actions/public-forms";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -29,17 +29,13 @@ function Consultation({ onClose }: { onClose: () => void }) {
   const { handleSubmit, register, reset } = methods;
 
   const createConsultationMutation = useMutation({
-    mutationFn: createConsultation,
-    onSuccess: async (data) => {
-      await fetch("/api/send-consultation-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-        }),
-      });
+    mutationFn: submitConsultationAction,
+    onSuccess: async (result) => {
+      if (!result.ok) {
+        toast.error(result.message || "Something went wrong");
+        setLoading(false);
+        return;
+      }
       toast.success("Consultation created successfully");
       setSubmitted(true);
       reset();
@@ -51,8 +47,10 @@ function Consultation({ onClose }: { onClose: () => void }) {
 
       setLoading(false);
     },
-    onError: (error: any) => {
-      toast.error(error.message || "Something went wrong");
+    onError: (error: unknown) => {
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong"
+      );
       setLoading(false);
     },
   });
