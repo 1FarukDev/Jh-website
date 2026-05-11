@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-import { createServiceRoleClient } from "@/lib/supabase/admin";
+import { requireServiceRoleClient } from "@/lib/supabase/admin";
 import {
   approximateCheckoutTotalFromNgn,
   fetchConversionRatesFromNgn,
@@ -77,11 +77,26 @@ export async function POST(req: NextRequest) {
       })
     );
 
+    let admin;
+    try {
+      admin = requireServiceRoleClient();
+    } catch {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Checkout is temporarily unavailable (server configuration).",
+        },
+        { status: 503 }
+      );
+    }
+
     const ids = [...new Set(linesForPricing.map((l) => l.productId))];
-    const { data: products, error: productsError } = await supabase
+    const { data: products, error: productsError } = await admin
       .from("products")
       .select("id, price")
-      .in("id", ids);
+      .in("id", ids)
+      .eq("status", "published");
 
     if (productsError || !products?.length) {
       return NextResponse.json(
@@ -126,10 +141,7 @@ export async function POST(req: NextRequest) {
 
     const totalQty = payload.product_data.reduce((a, i) => a + i.quantity, 0);
 
-    /** Prefer service role so RLS on `order_items` / joins to `users` cannot block trusted server writes. */
-    const db = createServiceRoleClient() ?? supabase;
-
-    const { data: order, error: orderError } = await db
+    const { data: order, error: orderError } = await admin
       .from("orders")
       .insert({
         tx_ref,
@@ -179,11 +191,13 @@ export async function POST(req: NextRequest) {
       };
     });
 
-    const { error: itemsError } = await db.from("order_items").insert(orderItems);
+    const { error: itemsError } = await admin
+      .from("order_items")
+      .insert(orderItems);
 
     if (itemsError) {
       console.error("Create order items error:", itemsError);
-      await db.from("orders").delete().eq("id", order.id);
+      await admin.from("orders").delete().eq("id", order.id);
       return NextResponse.json(
         { success: false, message: "Failed to create order items" },
         { status: 500 }

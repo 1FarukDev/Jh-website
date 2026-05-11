@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PaymentSuccessful from "@/components/payment-successful/page";
 import PaymentFailed from "@/components/payment-failed/page";
+import type { VerifiedOrderSummary } from "@/types/verified-order";
 
 type Status = "loading" | "successful" | "failed";
 
@@ -12,6 +13,8 @@ export default function PaymentCallbackClient() {
   const tx_ref = searchParams.get("tx_ref");
 
   const [status, setStatus] = useState<Status>("loading");
+  const [verifiedOrder, setVerifiedOrder] =
+    useState<VerifiedOrderSummary | null>(null);
 
   useEffect(() => {
     if (!tx_ref) {
@@ -25,6 +28,9 @@ export default function PaymentCallbackClient() {
         const data = await res.json();
 
         if (data?.success) {
+          if (data.order) {
+            setVerifiedOrder(data.order as VerifiedOrderSummary);
+          }
           setStatus("successful");
         } else {
           setStatus("failed");
@@ -47,7 +53,7 @@ export default function PaymentCallbackClient() {
   }
 
   return status === "successful" ? (
-    <PaymentSuccessful tx_ref={tx_ref!} />
+    <PaymentSuccessful tx_ref={tx_ref!} verifiedOrder={verifiedOrder} />
   ) : (
     <PaymentFailed />
   );

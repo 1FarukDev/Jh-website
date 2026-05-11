@@ -1,11 +1,25 @@
 "use server";
 
 import { z } from "zod";
-import { createClient } from "@/lib/supabase/server";
+import { requireServiceRoleClient } from "@/lib/supabase/admin";
 import { resend } from "@/lib/resend";
 import ContactReceiptEmail from "@/emails/contact-form";
 import ConsultationEmail from "@/emails/consultation";
 import NewsletterWelcomeEmail from "@/emails/news-letter";
+
+function dbOrConfigError():
+  | { ok: true; db: ReturnType<typeof requireServiceRoleClient> }
+  | { ok: false; message: string } {
+  try {
+    return { ok: true, db: requireServiceRoleClient() };
+  } catch {
+    return {
+      ok: false,
+      message:
+        "Server is not configured for this action. Ask the admin to set SUPABASE_SERVICE_ROLE_KEY.",
+    };
+  }
+}
 
 const contactSchema = z.object({
   first_name: z.string().min(1).max(200),
@@ -19,9 +33,12 @@ const contactSchema = z.object({
 
 export async function submitContactFormAction(input: z.infer<typeof contactSchema>) {
   const data = contactSchema.parse(input);
-  const supabase = await createClient();
+  const gate = dbOrConfigError();
+  if (!gate.ok) {
+    return { ok: false as const, message: gate.message };
+  }
 
-  const { error: insertError } = await supabase.from("messages").insert({
+  const { error: insertError } = await gate.db.from("messages").insert({
     name: `${data.first_name} ${data.last_name}`,
     email: data.email,
     subject: data.message_header,
@@ -62,9 +79,12 @@ export async function subscribeNewsletterAction(
   input: z.infer<typeof newsletterSchema>
 ) {
   const data = newsletterSchema.parse(input);
-  const supabase = await createClient();
+  const gate = dbOrConfigError();
+  if (!gate.ok) {
+    return { ok: false as const, message: gate.message };
+  }
 
-  const { error: insertError } = await supabase.from("newsletter").insert({
+  const { error: insertError } = await gate.db.from("newsletter").insert({
     email: data.email,
   });
 
@@ -99,9 +119,12 @@ export async function submitConsultationAction(
   input: z.infer<typeof consultationSchema>
 ) {
   const data = consultationSchema.parse(input);
-  const supabase = await createClient();
+  const gate = dbOrConfigError();
+  if (!gate.ok) {
+    return { ok: false as const, message: gate.message };
+  }
 
-  const { error: insertError } = await supabase.from("consultations").insert({
+  const { error: insertError } = await gate.db.from("consultations").insert({
     name: data.name,
     email: data.email,
     message: data.message,

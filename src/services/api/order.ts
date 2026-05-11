@@ -30,7 +30,41 @@ export type CreateOrderPayload = {
 
 const supabase = createClient();
 
-export const getOrderItems = async (tx_ref: string) => {
+async function parseJsonResponse<T>(res: Response): Promise<T> {
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(
+      (data as { error?: string }).error || `Request failed (${res.status})`
+    );
+  }
+  return data as T;
+}
+
+/** Line item shape for order details modal (matches `/api/order-items?order_id=`). */
+export type OrderSummaryLine = {
+  id: number;
+  product_name: string;
+  quantity: number;
+  unit_price: number;
+  line_total: number;
+  color: string | null;
+  size: string | null;
+  image: string | null;
+};
+
+export type CheckoutOrderLine = OrderSummaryLine & {
+  order_id?: string | number;
+  product_id?: string;
+  product?: {
+    id: string;
+    name: string | null;
+    price: string | null;
+    images: string[] | null;
+  } | null;
+};
+
+/** Uses server route so PostgREST RLS on `order_items` cannot 42501 on `users`. */
+export const getOrderItems = async (tx_ref: string): Promise<CheckoutOrderLine[]> => {
   if (!tx_ref) throw new Error("Missing tx_ref");
 
   const {
@@ -38,66 +72,12 @@ export const getOrderItems = async (tx_ref: string) => {
   } = await supabase.auth.getUser();
   if (!user?.id) throw new Error("Not authenticated");
 
-  const { data: order, error: orderError } = await supabase
-    .from("orders")
-    .select("id")
-    .eq("tx_ref", tx_ref)
-    .eq("customer_id", user.id)
-    .maybeSingle();
+  const res = await fetch(
+    `/api/order-items?tx_ref=${encodeURIComponent(tx_ref)}`,
+    { credentials: "same-origin" }
+  );
 
-  if (orderError || !order) {
-    throw new Error("Order not found");
-  }
-
-  const { data: items, error: itemsError } = await supabase
-    .from("order_items")
-    .select(
-      `
-      id,
-      order_id,
-      product_id,
-      product_name,
-      quantity,
-      unit_price,
-      line_total,
-      color,
-      size,
-      image
-    `
-    )
-    .eq("order_id", order.id);
-
-  if (itemsError) {
-    throw itemsError;
-  }
-
-  if (!items || items.length === 0) return [];
-
-  const productIds = items.map((item: { product_id: string }) => item.product_id);
-
-  const { data: products, error: productsError } = await supabase
-    .from("products")
-    .select(
-      `
-      id,
-      name,
-      price,
-      images
-    `
-    )
-    .in("id", productIds);
-
-  if (productsError) {
-    throw productsError;
-  }
-
-  const mergedItems = items.map((item: Record<string, unknown>) => ({
-    ...item,
-    product:
-      products?.find((p: { id: string }) => p.id === item.product_id) || null,
-  }));
-
-  return mergedItems;
+  return parseJsonResponse<CheckoutOrderLine[]>(res);
 };
 
 export const getOrders = async () => {
@@ -120,39 +100,19 @@ export const getOrders = async () => {
   return data;
 };
 
-export const getOrderItemsByOrderId = async (orderId: number | string) => {
+/** Uses server route so PostgREST RLS on `order_items` cannot 42501 on `users`. */
+export const getOrderItemsByOrderId = async (
+  orderId: number | string
+): Promise<OrderSummaryLine[]> => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user?.id) throw new Error("Not authenticated");
 
-  const { data: order, error: orderError } = await supabase
-    .from("orders")
-    .select("id")
-    .eq("id", orderId)
-    .eq("customer_id", user.id)
-    .maybeSingle();
+  const res = await fetch(
+    `/api/order-items?order_id=${encodeURIComponent(String(orderId))}`,
+    { credentials: "same-origin" }
+  );
 
-  if (orderError || !order) {
-    throw new Error("Order not found");
-  }
-
-  const { data, error } = await supabase
-    .from("order_items")
-    .select(
-      `
-      id,
-      product_name,
-      quantity,
-      unit_price,
-      line_total,
-      color,
-      size,
-      image
-    `
-    )
-    .eq("order_id", order.id);
-
-  if (error) throw error;
-  return data;
+  return parseJsonResponse<OrderSummaryLine[]>(res);
 };

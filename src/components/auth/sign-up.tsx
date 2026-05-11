@@ -65,23 +65,15 @@ function SignUp({
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
+        options: {
+          data: {
+            first_name: data.firstName,
+            last_name: data.lastName,
+          },
+        },
       });
 
       if (authError) throw new Error(authError.message);
-
-      const user = authData.user;
-
-      if (user) {
-        const { error: updateError } = await supabase
-          .from("users")
-          .update({
-            first_name: data.firstName,
-            last_name: data.lastName,
-          })
-          .eq("id", user.id);
-
-        if (updateError) throw new Error(updateError.message);
-      }
 
       setSubmittedEmail(data.email);
       setShowVerifyEmail(true);

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { requireServiceRoleClient } from "@/lib/supabase/admin";
 import { totalsMatchWithinTolerance } from "@/lib/checkout-pricing-server";
 
 export async function POST(req: NextRequest) {
@@ -13,6 +14,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { success: false, message: "Unauthorized" },
         { status: 401 }
+      );
+    }
+
+    let admin;
+    try {
+      admin = requireServiceRoleClient();
+    } catch {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Checkout is temporarily unavailable (server configuration).",
+        },
+        { status: 503 }
       );
     }
 
@@ -30,7 +44,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await admin
       .from("orders")
       .select("id, total_amount, currency, customer_id, tx_ref")
       .eq("tx_ref", tx_ref)

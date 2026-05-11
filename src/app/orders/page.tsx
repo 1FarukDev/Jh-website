@@ -1,32 +1,31 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { useQuery } from '@tanstack/react-query'
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import EmptyOrder from '@/components/features/orders/empty-order'
-import { Orders } from '@/components/features/orders/orders-list'
-import { getOrders } from '@/services/api/order'
+import EmptyOrder from "@/components/features/orders/empty-order";
+import { OrdersPageSkeleton } from "@/components/features/orders/orders-page-skeleton";
+import { Orders } from "@/components/features/orders/orders-list";
+import { getOrders } from "@/services/api/order";
 
 function OrderPage() {
-  const { data: orders, isLoading, error } = useQuery({
-    queryKey: ['orders'],
+  const { data: orders, isPending, isFetching, error } = useQuery({
+    queryKey: ["orders"],
     queryFn: getOrders,
-  })
+  });
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-[80vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
-      </div>
-    )
+  const showSkeleton = isPending || (isFetching && !orders);
+
+  if (showSkeleton) {
+    return <OrdersPageSkeleton />;
   }
 
   if (error) {
     return (
-      <div className="text-center p-8">
+      <div className="text-center p-8 font-satoshi text-[#4E5157]">
         Failed to load orders. Please try again.
       </div>
-    )
+    );
   }
 
   return (
@@ -45,7 +44,7 @@ function OrderPage() {
         )}
       </div>
     </section>
-  )
+  );
 }
 
-export default OrderPage
+export default OrderPage;

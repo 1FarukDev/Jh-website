@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireServiceRoleClient } from "@/lib/supabase/admin";
 import { formatOrderMoney } from "@/lib/format-money";
 import { buildOrderConfirmationItemsFromOrderItems } from "@/lib/build-order-confirmation-items";
 import { draftExclusiveProductsAfterPurchase } from "@/lib/draft-exclusive-products-after-purchase";
@@ -32,6 +33,19 @@ export async function GET(req: Request) {
   }
 
   try {
+    let admin;
+    try {
+      admin = requireServiceRoleClient();
+    } catch {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Server configuration error",
+        }),
+        { status: 503 }
+      );
+    }
+
     const flutterwaveSecretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
     if (!flutterwaveSecretKey) {
@@ -41,10 +55,10 @@ export async function GET(req: Request) {
       );
     }
 
-    const { data: existingOrder, error: loadError } = await supabase
+    const { data: existingOrder, error: loadError } = await admin
       .from("orders")
       .select(
-        "id, order_number, customer_email, customer_name, total_amount, currency, customer_id, payment_status"
+        "id, order_number, customer_email, customer_name, total_amount, currency, customer_id, payment_status, status"
       )
       .eq("tx_ref", tx_ref)
       .maybeSingle();
@@ -109,12 +123,21 @@ export async function GET(req: Request) {
         JSON.stringify({
           success: true,
           message: "Payment already recorded",
+          order: {
+            id: existingOrder.id,
+            tx_ref,
+            order_number: existingOrder.order_number,
+            status: existingOrder.status,
+            payment_status: existingOrder.payment_status,
+            total_amount: Number(existingOrder.total_amount),
+            currency: String(existingOrder.currency || "NGN"),
+          },
         }),
         { status: 200 }
       );
     }
 
-    const { data: confirmedOrders, error } = await supabase
+    const { data: confirmedOrders, error } = await admin
       .from("orders")
       .update({
         payment_status: "paid",
@@ -125,7 +148,7 @@ export async function GET(req: Request) {
       .eq("customer_id", user.id)
       .eq("payment_status", "pending")
       .select(
-        "id, order_number, customer_email, customer_name, total_amount, currency"
+        "id, order_number, customer_email, customer_name, total_amount, currency, status, payment_status"
       );
 
     if (error) {
@@ -147,7 +170,7 @@ export async function GET(req: Request) {
     }
 
     const displayOrderId = order.order_number ?? tx_ref;
-    const { data: orderItems } = await supabase
+    const { data: orderItems } = await admin
       .from("order_items")
       .select(
         "product_id, product_name, quantity, line_total, image, color, size"
@@ -196,6 +219,15 @@ export async function GET(req: Request) {
       JSON.stringify({
         success: true,
         message: "Payment verified successfully",
+        order: {
+          id: order.id,
+          tx_ref,
+          order_number: order.order_number,
+          status: order.status,
+          payment_status: order.payment_status,
+          total_amount: Number(order.total_amount),
+          currency: String(order.currency || "NGN"),
+        },
       }),
       { status: 200 }
     );

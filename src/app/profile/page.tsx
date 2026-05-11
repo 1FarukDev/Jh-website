@@ -59,24 +59,19 @@ function Profile() {
     if (!user) return;
 
     try {
-      const { error } = await supabase
-        .from("users")
-        .update({
+      const { error } = await supabase.auth.updateUser({
+        ...(data.email !== user.email ? { email: data.email } : {}),
+        data: {
           first_name: data.first_name,
           last_name: data.last_name,
           receive_updates: data.receive_updates,
           receive_notifications: data.receive_notifications,
-        })
-        .eq("id", user.id);
+        },
+      });
 
       if (error) throw error;
 
       if (data.email !== user.email) {
-        const { error: emailError } = await supabase.auth.updateUser({
-          email: data.email,
-        });
-        if (emailError) throw emailError;
-
         toast.success(
           "Profile updated! Check your email to confirm the new address."
         );
