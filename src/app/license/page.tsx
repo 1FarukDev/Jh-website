@@ -385,7 +385,7 @@ const comparisonRows = [
     },
     {
         feature: "Option of Assignment",
-        exclusive: "Yes — IP rights assignment can be negotiated separately",
+        exclusive: "No -- not included",
         nonExclusive: "No — not included in non-exclusive licence",
     },
     {
@@ -508,7 +508,7 @@ export default function LicensePage() {
                 {/* Summary: Comparison Table */}
                 {activeTab === "summary" && (
                     <div className="bg-white p-8 md:p-12 shadow-sm rounded-lg mb-6">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-6">Exclusive vs Non-Exclusive Rights — At a Glance</h2>
+                        <h2 className="text-xl font-semibold text-gray-800 mb-6">Exclusive vs Non- Exclusive License — At a Glance</h2>
                         <div className="overflow-x-auto rounded-lg border border-gray-200">
                             <table className="w-full text-sm">
                                 <thead>

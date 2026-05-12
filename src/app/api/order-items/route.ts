@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { requireServiceRoleClient } from "@/lib/supabase/admin";
 
-/**
- * Loads `order_items` for the signed-in user without exposing the browser to
- * PostgREST RLS that may reference `public.users` (42501).
- */
+
 export async function GET(req: NextRequest) {
   const supabase = await createClient();
   const {
