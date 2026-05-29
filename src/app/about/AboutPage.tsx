@@ -24,9 +24,9 @@ function AboutPage() {
       >
         <h1 className="text-[32px] md:text-[60px] text-center">Our Story</h1>
         <span className="italic text-center block my-2">
-          From the Creative Director - Jesudara Hinmikaiye
+          From the Textile Designer - Jesudara Hinmikaiye
         </span>
-        <p className="text-justify text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">Creating print designs had always been a passion of mine. J.H.
+        <p className="text-start md:text-justify text-lg md:text-[20px] font-satoshi font-normal leading-[24px] md:leading-[25px] text-[#4E5157]">Creating print designs had always been a passion of mine. J.H.
           Textiles was born out of a lifelong fascination with patterns.
           Inspired by the intricate ankara fabrics and lace worn by women in
           Nigeria, I developed an early interest in understanding how prints
