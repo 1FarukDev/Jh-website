@@ -58,7 +58,7 @@ export default async function Page({ searchParams }: PageProps) {
     category,
     minPrice,
     maxPrice,
-    type,
+    type, 
   });
 
   return (
