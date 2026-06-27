@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Info, MoveLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter, useParams } from "next/navigation";
@@ -15,6 +15,7 @@ import { FormCheckbox } from "@/components/checkbox";
 import { useForm, FormProvider } from "react-hook-form";
 import Link from "next/link";
 import { sanitizeRichTextHtml } from "@/lib/sanitize-html";
+import { recordProductViewAction } from "@/app/actions/product-views";
 
 interface Color {
   text: string;
@@ -46,6 +47,19 @@ function Page() {
     queryFn: () => getProductById(id as string),
     enabled: id !== null,
   });
+
+  useEffect(() => {
+    if (!productData?.id || !productData?.name) return;
+
+    const storageKey = `product-view-${productData.id}`;
+    if (sessionStorage.getItem(storageKey)) return;
+
+    sessionStorage.setItem(storageKey, "1");
+    void recordProductViewAction({
+      productId: String(productData.id),
+      productName: productData.name,
+    });
+  }, [productData?.id, productData?.name]);
 
   const form = useForm({
     defaultValues: {
