@@ -21,30 +21,51 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { subscribeNewsletterAction } from "@/app/actions/public-forms";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { TurnstileField } from "@/components/turnstile-field";
 
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const [email, setEmail] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
+  const [isMdUp, setIsMdUp] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsMdUp(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  const resetTurnstile = () => {
+    setTurnstileToken(null);
+    setTurnstileResetKey((k) => k + 1);
+  };
 
   const createNewsletterSubscriptionMutation = useMutation({
-    mutationFn: (vars: { email: string }) =>
+    mutationFn: (vars: { email: string; turnstileToken: string }) =>
       subscribeNewsletterAction({
         email: vars.email,
         firstName: "Subscriber",
+        turnstileToken: vars.turnstileToken,
       }),
     onSuccess: async (result) => {
       if (!result.ok) {
         toast.error(result.message || "Failed to subscribe");
+        resetTurnstile();
         return;
       }
       toast.success("Newsletter subscription created successfully");
       setEmail("");
+      resetTurnstile();
     },
     onError: () => {
       toast.error("Failed to create newsletter subscription");
+      resetTurnstile();
     },
   });
 
@@ -55,8 +76,15 @@ export default function Footer() {
       toast.error("Please enter a valid email address");
       return;
     }
+    if (!turnstileToken) {
+      toast.error("Please complete the verification");
+      return;
+    }
 
-    createNewsletterSubscriptionMutation.mutate({ email });
+    createNewsletterSubscriptionMutation.mutate({
+      email,
+      turnstileToken,
+    });
   };
 
   return (
@@ -191,25 +219,39 @@ export default function Footer() {
               <p className="text-xs mb-4">
                 Information about products, events, stores and news await you!
               </p>
-              <div className="flex flex-row gap-3 mb-15 border p-1">
-                <div className="relative flex-1">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
-                  />
+              <div className="flex flex-col gap-3 mb-15">
+                <div className="flex flex-row gap-3 border p-1">
+                  <div className="relative flex-1">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
+                    />
+                  </div>
+                  <Button
+                    className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
+                    onClick={handleSubmit}
+                    disabled={
+                      createNewsletterSubscriptionMutation.isPending ||
+                      !turnstileToken
+                    }
+                  >
+                    {createNewsletterSubscriptionMutation.isPending
+                      ? "Subscribing..."
+                      : "Subscribe"}
+                    <Image src={ArrowRight} alt="arrow right" />
+                  </Button>
                 </div>
-                <Button
-                  className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
-                  onClick={handleSubmit}
-                  disabled={createNewsletterSubscriptionMutation.isPending}
-                >
-                  {createNewsletterSubscriptionMutation.isPending ? "Subscribing..." : "Subscribe"}
-                  <Image src={ArrowRight} alt="arrow right" />
-                </Button>
+                {isMdUp && (
+                  <TurnstileField
+                    onToken={setTurnstileToken}
+                    resetKey={turnstileResetKey}
+                    theme="dark"
+                  />
+                )}
               </div>
             </div>
 
@@ -288,25 +330,38 @@ export default function Footer() {
         <p className="text-xs mb-4">
           Information about products, events, stores and news await you!
         </p>
-        <div className="flex flex-row gap-3 mb-15 border p-1">
-          <div className="relative flex-1">
-            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
-            />
+        <div className="flex flex-col gap-3 mb-15">
+          <div className="flex flex-row gap-3 border p-1">
+            <div className="relative flex-1">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="pl-10 py-3 !bg-white border-0 font-satoshi placeholder:font-satoshi rounded-none text-gray-900 placeholder:text-gray-500"
+              />
+            </div>
+            <Button
+              className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
+              onClick={handleSubmit}
+              disabled={
+                createNewsletterSubscriptionMutation.isPending || !turnstileToken
+              }
+            >
+              {createNewsletterSubscriptionMutation.isPending
+                ? "Subscribing..."
+                : "Subscribe"}
+              <Image src={ArrowRight} alt="arrow right" />
+            </Button>
           </div>
-          <Button
-            className="bg-white text-black font-satoshi hover:bg-gray-100 px-4 py-3 rounded-none font-medium flex gap-2 items-center"
-            onClick={handleSubmit}
-            disabled={createNewsletterSubscriptionMutation.isPending}
-          >
-            {createNewsletterSubscriptionMutation.isPending ? "Subscribing..." : "Subscribe"}
-            <Image src={ArrowRight} alt="arrow right" />
-          </Button>
+          {!isMdUp && (
+            <TurnstileField
+              onToken={setTurnstileToken}
+              resetKey={turnstileResetKey}
+              theme="dark"
+            />
+          )}
         </div>
       </div>
 

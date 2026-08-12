@@ -21,10 +21,12 @@ export const getUserDetails = async (id: number | string) => {
 export const createNewsletterSubscription = async (data: {
   email: string;
   firstName?: string;
+  turnstileToken: string;
 }) => {
   const result = await subscribeNewsletterAction({
     email: data.email,
     firstName: data.firstName,
+    turnstileToken: data.turnstileToken,
   });
   if (!result.ok) {
     throw new Error(result.message || "Newsletter subscription failed");

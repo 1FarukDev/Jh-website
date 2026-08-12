@@ -6,6 +6,7 @@ import { resend } from "@/lib/resend";
 import ContactReceiptEmail from "@/emails/contact-form";
 import ConsultationEmail from "@/emails/consultation";
 import NewsletterWelcomeEmail from "@/emails/news-letter";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 function dbOrConfigError():
   | { ok: true; db: ReturnType<typeof requireServiceRoleClient> }
@@ -21,6 +22,18 @@ function dbOrConfigError():
   }
 }
 
+const turnstileTokenSchema = z.string().min(1, "Bot check required");
+
+async function requireHuman(token: string | undefined) {
+  if (!token || !(await verifyTurnstileToken(token))) {
+    return {
+      ok: false as const,
+      message: "Bot check failed. Please try again.",
+    };
+  }
+  return { ok: true as const };
+}
+
 const contactSchema = z.object({
   first_name: z.string().min(1).max(200),
   last_name: z.string().min(1).max(200),
@@ -29,10 +42,20 @@ const contactSchema = z.object({
   company_name: z.string().max(200).optional(),
   message_header: z.string().min(1).max(300),
   message: z.string().min(1).max(20_000),
+  turnstileToken: turnstileTokenSchema,
 });
 
-export async function submitContactFormAction(input: z.infer<typeof contactSchema>) {
-  const data = contactSchema.parse(input);
+export async function submitContactFormAction(
+  input: z.infer<typeof contactSchema>
+) {
+  const parsed = contactSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false as const, message: "Invalid form data" };
+  }
+  const data = parsed.data;
+  const human = await requireHuman(data.turnstileToken);
+  if (!human.ok) return human;
+
   const gate = dbOrConfigError();
   if (!gate.ok) {
     return { ok: false as const, message: gate.message };
@@ -73,12 +96,20 @@ export async function submitContactFormAction(input: z.infer<typeof contactSchem
 const newsletterSchema = z.object({
   email: z.string().email().max(320),
   firstName: z.string().max(200).optional(),
+  turnstileToken: turnstileTokenSchema,
 });
 
 export async function subscribeNewsletterAction(
   input: z.infer<typeof newsletterSchema>
 ) {
-  const data = newsletterSchema.parse(input);
+  const parsed = newsletterSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false as const, message: "Invalid email" };
+  }
+  const data = parsed.data;
+  const human = await requireHuman(data.turnstileToken);
+  if (!human.ok) return human;
+
   const gate = dbOrConfigError();
   if (!gate.ok) {
     return { ok: false as const, message: gate.message };
@@ -113,12 +144,20 @@ const consultationSchema = z.object({
   name: z.string().min(1).max(200),
   email: z.string().email().max(320),
   message: z.string().min(1).max(20_000),
+  turnstileToken: turnstileTokenSchema,
 });
 
 export async function submitConsultationAction(
   input: z.infer<typeof consultationSchema>
 ) {
-  const data = consultationSchema.parse(input);
+  const parsed = consultationSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false as const, message: "Invalid form data" };
+  }
+  const data = parsed.data;
+  const human = await requireHuman(data.turnstileToken);
+  if (!human.ok) return human;
+
   const gate = dbOrConfigError();
   if (!gate.ok) {
     return { ok: false as const, message: gate.message };

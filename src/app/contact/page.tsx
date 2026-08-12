@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import NewsletterSignup from "../../components/features/homepage/news-letter";
 import ConnectImage from "@/app/assets/png/contact.png";
 import contact from "@/app/assets/png/contact-mobile.png";
@@ -17,8 +17,12 @@ import { useMutation } from "@tanstack/react-query";
 import type { ContactFormData } from "@/services/api/contact";
 import { submitContactFormAction } from "@/app/actions/public-forms";
 import { toast } from "sonner";
+import { TurnstileField } from "@/components/turnstile-field";
 
 function Contact() {
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
+
   const methods = useForm<ContactFormData>({
     defaultValues: {
       first_name: "",
@@ -31,24 +35,36 @@ function Contact() {
     },
   });
 
+  const resetTurnstile = () => {
+    setTurnstileToken(null);
+    setTurnstileResetKey((k) => k + 1);
+  };
+
   const { mutate: sendMessage, isPending } = useMutation({
     mutationFn: submitContactFormAction,
     onSuccess: async (result) => {
       if (!result.ok) {
         toast.error(result.message || "Failed to send message");
+        resetTurnstile();
         return;
       }
       toast.success("Message sent successfully");
       methods.reset();
+      resetTurnstile();
     },
     onError: () => {
       toast.error("Failed to send message");
+      resetTurnstile();
     },
   });
 
   const onSubmit = (data: ContactFormData) => {
     if (!data.terms) {
       toast.error("You must accept the terms and conditions");
+      return;
+    }
+    if (!turnstileToken) {
+      toast.error("Please complete the verification");
       return;
     }
     sendMessage({
@@ -59,6 +75,7 @@ function Contact() {
       company_name: data.company_name,
       message_header: data.message_header,
       message: data.message,
+      turnstileToken,
     });
   };
 
@@ -150,10 +167,16 @@ function Contact() {
                   }
                 />
 
+                <TurnstileField
+                  onToken={setTurnstileToken}
+                  resetKey={turnstileResetKey}
+                  theme="light"
+                />
+
                 <Button
                   type="submit"
                   className="mt-4 bg-black text-white px-6 py-3 text-sm w-full rounded-none"
-                  disabled={isPending}
+                  disabled={isPending || !turnstileToken}
                 >
                   {isPending ? "Sending..." : "Send"}
                 </Button>

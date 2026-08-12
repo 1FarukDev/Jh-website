@@ -11,6 +11,7 @@ export type ContactFormData = {
   message_header: string;
   message: string;
   terms: boolean;
+  turnstileToken?: string;
 };
 
 export const sendContactMessage = async (data: ContactFormData) => {

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { FormInput } from "./input";
 import { FormTextarea } from "./textarea";
@@ -7,6 +9,7 @@ import { Button } from "./ui/button";
 import { submitConsultationAction } from "@/app/actions/public-forms";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { TurnstileField } from "@/components/turnstile-field";
 
 type FormData = {
   name: string;
@@ -17,6 +20,8 @@ type FormData = {
 function Consultation({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   const methods = useForm<FormData>({
     defaultValues: {
@@ -28,17 +33,24 @@ function Consultation({ onClose }: { onClose: () => void }) {
 
   const { handleSubmit, register, reset } = methods;
 
+  const resetTurnstile = () => {
+    setTurnstileToken(null);
+    setTurnstileResetKey((k) => k + 1);
+  };
+
   const createConsultationMutation = useMutation({
     mutationFn: submitConsultationAction,
     onSuccess: async (result) => {
       if (!result.ok) {
         toast.error(result.message || "Something went wrong");
         setLoading(false);
+        resetTurnstile();
         return;
       }
       toast.success("Consultation created successfully");
       setSubmitted(true);
       reset();
+      resetTurnstile();
 
       setTimeout(() => {
         setSubmitted(false);
@@ -52,12 +64,20 @@ function Consultation({ onClose }: { onClose: () => void }) {
         error instanceof Error ? error.message : "Something went wrong"
       );
       setLoading(false);
+      resetTurnstile();
     },
   });
 
   const onSubmit = (data: FormData) => {
+    if (!turnstileToken) {
+      toast.error("Please complete the verification");
+      return;
+    }
     setLoading(true);
-    createConsultationMutation.mutate(data);
+    createConsultationMutation.mutate({
+      ...data,
+      turnstileToken,
+    });
   };
 
   return (
@@ -91,9 +111,14 @@ function Consultation({ onClose }: { onClose: () => void }) {
                 {...register("message", { required: "Message is required" })}
                 placeholder="Enter your message"
               />
+              <TurnstileField
+                onToken={setTurnstileToken}
+                resetKey={turnstileResetKey}
+                theme="light"
+              />
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !turnstileToken}
                 className="mt-4 bg-black text-white px-6 py-3 h-10 text-sm w-full rounded-none font-satoshi font-normal disabled:opacity-60"
               >
                 {loading ? "Submitting..." : submitted ? "Submitted" : "Submit"}
