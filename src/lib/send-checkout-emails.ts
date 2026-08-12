@@ -48,9 +48,9 @@ export async function sendPaymentConfirmationEmail(payload: {
     payload.amount,
     payload.currency || "NGN"
   );
-
+  
   return resend.emails.send({
-    from: "J.H. Textiles <payments@jhtextiles.com>",
+    from: "J.H. Textiles <payments@jesudarahinmikaiye.com>",
     to: payload.email,
     subject: `Payment Confirmed - Order #${payload.orderId}`,
     react: PaymentConfirmationEmail({
