@@ -7,6 +7,7 @@ import ContactReceiptEmail from "@/emails/contact-form";
 import ConsultationEmail from "@/emails/consultation";
 import NewsletterWelcomeEmail from "@/emails/news-letter";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { subscribeToKit } from "@/lib/kit";
 
 function dbOrConfigError():
   | { ok: true; db: ReturnType<typeof requireServiceRoleClient> }
@@ -110,6 +111,14 @@ export async function subscribeNewsletterAction(
   const human = await requireHuman(data.turnstileToken);
   if (!human.ok) return human;
 
+  const kit = await subscribeToKit({
+    email: data.email,
+    firstName: data.firstName,
+  });
+  if (!kit.ok) {
+    return { ok: false as const, message: kit.message };
+  }
+
   const gate = dbOrConfigError();
   if (!gate.ok) {
     return { ok: false as const, message: gate.message };
@@ -119,7 +128,9 @@ export async function subscribeNewsletterAction(
     email: data.email,
   });
 
-  if (insertError) {
+  // Unique/duplicate emails in Supabase shouldn't fail the Kit subscribe
+  if (insertError && insertError.code !== "23505") {
+    console.error("Newsletter Supabase insert failed:", insertError);
     return { ok: false as const, message: "Failed to subscribe" };
   }
 
@@ -134,7 +145,8 @@ export async function subscribeNewsletterAction(
   });
 
   if (emailError) {
-    return { ok: false as const, message: "Subscribed but welcome email failed" };
+    // Already in Kit + Supabase — don't fail the whole signup
+    console.error("Newsletter welcome email failed:", emailError);
   }
 
   return { ok: true as const };

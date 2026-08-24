@@ -16,6 +16,7 @@ import { CheckoutProvider } from "@/context/checkout-context";
 import "react-phone-number-input/style.css";
 import { SearchProvider } from "@/context/search-context";
 import CookieConsent from "@/components/cookie-banner";
+import NewsletterPopup from "@/components/newsletter-popup";
 import ScrollToTop from "@/components/scroll-to-top";
 import GoogleAnalytics from "@/components/google-analytics";
 import { siteUrl } from "@/lib/site";
@@ -136,6 +137,9 @@ export default function RootLayout({
               </CheckoutProvider>
             </CartProvider>
             <CookieConsent />
+            <Suspense fallback={null}>
+              <NewsletterPopup />
+            </Suspense>
           </CurrencyProvider>
         </Providers>
       </body>
