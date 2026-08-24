@@ -21,6 +21,7 @@ function Hero() {
           width={1920}
           height={700}
           className=" w-full h-[600px] md:h-[750px] object-cover mx-auto"
+          placeholder="blur"
           priority
         />
         <div className="absolute inset-0 bg-black/50" />
