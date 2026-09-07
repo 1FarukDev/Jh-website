@@ -540,8 +540,8 @@ export default function LicensePage() {
                             </p>
                             <p className="mt-2 font-medium text-[#1C1B0B]">
                                 Email:{" "}
-                                <a href="mailto:jhtextiles@icloud.com" className="underline">
-                                    jhtextiles@icloud.com
+                                <a href="mailto:info@jesudarahinmikaiye.com" className="underline">
+                                    info@jesudarahinmikaiye.com
                                 </a>
                             </p>
                         </div>
@@ -573,8 +573,8 @@ export default function LicensePage() {
                         </p>
                         <p className="mt-2 font-medium text-black">
                             Email:{" "}
-                            <a href="mailto:jhtextiles@icloud.com" className="underline">
-                                jhtextiles@icloud.com
+                            <a href="mailto:info@jesudarahinmikaiye.com" className="underline">
+                                info@jesudarahinmikaiye.com
                             </a>
                         </p>
                     </div>

@@ -113,8 +113,8 @@ export default function WelcomeEmail({ firstName, email }: WelcomeEmailProps) {
           <Text style={footer}>
             Email: {email}
             <br />
-            <Link href="mailto:jhtextiles@icloud.com" style={link}>
-              jhtextiles@icloud.com
+            <Link href="mailto:info@jesudarahinmikaiye.com" style={link}>
+              info@jesudarahinmikaiye.com
             </Link>
           </Text>
         </Container>

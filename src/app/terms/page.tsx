@@ -96,7 +96,7 @@ const PolicyPage: React.FC = () => {
                 jesudarahinmikaiye.com is a site operated by Jesudara Hinmikaiye (Trading under the name and style of J.H Textiles) ("I", "me", "my"). J.H Textiles registered in Nigeria under RN 6888603.
               </p>
               <p className="text-slate-700">
-                To contact us, please email <a href="mailto:jhtextiles@icloud.com" className="underline underline-offset-2 hover:text-slate-500 transition-colors">jhtextiles@icloud.com</a> or telephone +234 806 567 8901.
+                To contact us, please email <a href="mailto:info@jesudarahinmikaiye.com" className="underline underline-offset-2 hover:text-slate-500 transition-colors">info@jesudarahinmikaiye.com</a> or telephone +234 806 567 8901.
               </p>
             </div>
 
@@ -195,7 +195,7 @@ const PolicyPage: React.FC = () => {
                 We reserve the right to withdraw linking permission without notice.
               </p>
               <p className="text-slate-700">
-                If you wish to link to or make any use of content on our site other than that set out above, please contact <a href="mailto:jhtextiles@icloud.com" className="underline underline-offset-2 hover:text-slate-500 transition-colors">jhtextiles@icloud.com</a>.
+                If you wish to link to or make any use of content on our site other than that set out above, please contact <a href="mailto:info@jesudarahinmikaiye.com" className="underline underline-offset-2 hover:text-slate-500 transition-colors">info@jesudarahinmikaiye.com</a>.
               </p>
             </div>
 
@@ -280,10 +280,10 @@ const PolicyPage: React.FC = () => {
           </p>
         <div className="flex items-center gap-2">
         <a 
-            href="mailto:jhtextiles@icloud.com" 
+            href="mailto:info@jesudarahinmikaiye.com" 
             className="inline-block mt-4 text-lg font-medium text-black underline underline-offset-4 hover:text-slate-600 transition-colors"
           >
-            jhtextiles@icloud.com
+            info@jesudarahinmikaiye.com
           </a>
           <a 
             href="mailto:jhtextilesng@gmail.com" 

@@ -80,10 +80,10 @@ const FulfillmentPage: React.FC = () => {
             If you have specific file requirements or questions about licensing, please contact:
           </p>
           <a 
-            href="mailto:jhtextiles@icloud.com" 
+            href="mailto:info@jesudarahinmikaiye.com" 
             className="inline-block mt-4 text-lg font-medium text-black underline underline-offset-4 hover:text-slate-600 transition-colors"
           >
-            jhtextiles@icloud.com
+            info@jesudarahinmikaiye.com
           </a>
         </footer>
       </div>

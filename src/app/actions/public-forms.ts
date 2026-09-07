@@ -76,7 +76,7 @@ export async function submitContactFormAction(
 
   const { error: emailError } = await resend.emails.send({
     from: "J.H. Textiles <contact@jesudarahinmikaiye.com>",
-    to: "jhtextiles@icloud.com",
+    to: "info@jesudarahinmikaiye.com",
     replyTo: data.email,
     subject: `New Contact Form: ${data.message_header}`,
     react: ContactReceiptEmail({
@@ -187,7 +187,7 @@ export async function submitConsultationAction(
 
   const { error: emailError } = await resend.emails.send({
     from: "J.H. Textiles <consultations@jesudarahinmikaiye.com>",
-    to: "jhtextiles@icloud.com", 
+    to: "info@jesudarahinmikaiye.com", 
     replyTo: data.email,
     subject: "Consultation Request Received",
     react: ConsultationEmail({

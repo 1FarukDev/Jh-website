@@ -145,8 +145,8 @@ export default function OrderConfirmationEmail({
           </Section>
           <Text style={footer}>
             Questions about your order? Contact us at{" "}
-            <Link href="mailto:jhtextiles@icloud.com" style={link}>
-              jhtextiles@icloud.com
+            <Link href="mailto:info@jesudarahinmikaiye.com" style={link}>
+              info@jesudarahinmikaiye.com
             </Link>
           </Text>
 

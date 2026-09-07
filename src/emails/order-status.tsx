@@ -133,8 +133,8 @@ export default function OrderStatusEmail({
 
           <Text style={footer}>
             Questions? Contact us at{" "}
-            <Link href="mailto:jhtextiles@icloud.com" style={link}>
-              jhtextiles@icloud.com
+            <Link href="mailto:info@jesudarahinmikaiye.com" style={link}>
+              info@jesudarahinmikaiye.com
             </Link>
           </Text>
         </Container>
