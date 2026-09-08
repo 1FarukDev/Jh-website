@@ -107,7 +107,7 @@ export default function NewsletterPopup() {
           type="button"
           onClick={() => dismiss("dismissed")}
           className="absolute top-3 right-3 z-10 flex size-9 items-center justify-center bg-white/90 text-[#1C1B0B] transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C1B0B]"
-          aria-label="Close newsletter signup"
+          aria-label="Close newsletter signup" 
         >
           <X className="size-4" />
         </button>
