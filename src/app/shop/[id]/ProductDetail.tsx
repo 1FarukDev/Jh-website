@@ -164,6 +164,7 @@ function Page() {
                 images={productData.images}
                 scale={scale}
                 onScaleChange={setScale}
+                name={productData?.name}
               />
             </div>
 
@@ -309,7 +310,7 @@ function Page() {
 
                 {/* Base Price */}
                 <div className="flex items-baseline gap-2">
-                  <p className="text-[40px] font-bold">
+                  <p className="text-[22px] md:text-[26px] font-bold">
                     {formatPrice(calculatedPrice.total)}
                   </p>
                   {calculatedPrice.additional > 0 && (

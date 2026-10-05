@@ -11,6 +11,7 @@ interface PrintMockupProps {
   images: string[];
   scale: number;
   onScaleChange: (scale: number) => void;
+  name?: string;
 }
 
 function PrintMockup({
@@ -18,6 +19,7 @@ function PrintMockup({
   images,
   scale,
   onScaleChange,
+  name = "Print",
 }: PrintMockupProps) {
   const [selectedPatternIndex, setSelectedPatternIndex] = useState(
     Math.max(0, images.indexOf(print))
@@ -56,7 +58,7 @@ function PrintMockup({
             >
               <Image
                 src={selectedPattern}
-                alt="Pattern preview"
+                alt={`${name} image`}
                 fill
                 priority
                 className="transition-transform duration-200"
@@ -80,7 +82,7 @@ function PrintMockup({
         ) : (
           <Image
             src={selectedPattern}
-            alt="Pattern preview"
+            alt={`${name} image`}
             fill
             priority
             className="transition-transform duration-200"
@@ -158,7 +160,7 @@ function PrintMockup({
           >
             <Image
               src={img}
-              alt={`Variant ${index + 1}`}
+              alt={`${name} image`}
               fill
               className="object-cover"
             />
@@ -188,7 +190,7 @@ function PrintMockup({
           >
             <Image
               src={selectedPattern}
-              alt="On Model"
+              alt={`${name} image`}
               fill
               className="object-cover"
             />
@@ -224,7 +226,7 @@ function PrintMockup({
           >
             <Image
               src={selectedPattern}
-              alt="On Shirt"
+              alt={`${name} image`}
               fill
               className="object-cover"
             />

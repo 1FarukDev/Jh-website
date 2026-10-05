@@ -54,7 +54,7 @@ function PrintCard({
       <div className="relative w-full aspect-square overflow-hidden">
         <Image
           src={image}
-          alt={`${label} Image`}
+          alt={`${title} image`}
           fill
           onLoadingComplete={() => setIsImageLoaded(true)}
           className={`object-cover transition-opacity duration-500 ${
@@ -66,7 +66,7 @@ function PrintCard({
         {hoverImage && (
           <Image
             src={hoverImage}
-            alt={`${label} Hover Image`}
+            alt={`${title} image`}
             fill
             className={`object-cover absolute top-0 left-0 transition-opacity duration-500 ${
               isHovered ? "opacity-100" : "opacity-0"
@@ -88,7 +88,7 @@ function PrintCard({
             <p className="font-satoshi text-sm md:text-base">{label}</p>
             <div className="flex justify-between items-center">
               <p className="text-sm md:text-lg">{title}</p>
-              <p className="font-satoshi text-medium text-[#2A1407]">
+              <p className="font-satoshi text-[11px] md:text-xs font-medium text-[#2A1407]">
                 {typeof price === "number" || !isNaN(Number(price))
                   ? formatPrice(Number(price))
                   : price}

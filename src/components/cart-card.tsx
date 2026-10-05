@@ -55,7 +55,7 @@ const CartCard: React.FC<CartCardProps> = ({
       <div className="flex flex-col  md:flex-row gap-3 md:gap-4 items-start w-full">
         <Image
           src={image}
-          alt="Print Image"
+          alt={`${title} image`}
           width={320}
           height={240}
           className="w-full md:w-[200px] h-auto border object-cover  mb-2 md:mb-0"
@@ -95,10 +95,11 @@ const CartCard: React.FC<CartCardProps> = ({
                 Color variants
               </p>
               <div className="flex gap-1 items-center">
-                {images?.map((image) => (
+                {images?.map((image, index) => (
                   <Image
+                    key={index}
                     src={image}
-                    alt="Print Image"
+                    alt={`${title} image`}
                     width={32}
                     height={32}
                     className="w-8 h-8 md:w-10 md:h-10 border object-cover rounded"
@@ -143,7 +144,7 @@ const CartCard: React.FC<CartCardProps> = ({
             <p className="font-satoshi mt-2 md:mt-4 text-xs md:text-base">
               Price
             </p>
-            <p className="font-bold text-lg md:text-[30px]">
+            <p className="font-bold text-sm md:text-lg">
               {typeof price === "number" || !isNaN(Number(price))
                 ? formatPrice(Number(price))
                 : price}

@@ -91,7 +91,7 @@ function PrintCard({
       <div className="relative w-full aspect-square">
         <Image
           src={isHovered && hoverImage ? hoverImage : image}
-          alt={`${label} Image`}
+          alt={`${title} image`}
           fill
           className="object-cover transition-transform duration-300"
         />
@@ -106,7 +106,7 @@ function PrintCard({
             <h3 className="text-sm sm:text-base md:text-lg font-medium text-black line-clamp-2 leading-tight">
               {title}
             </h3>
-            <p className="font-satoshi text-sm sm:text-base md:text-lg font-medium text-[#2A1407]">
+            <p className="font-satoshi text-xs sm:text-sm font-medium text-[#2A1407]">
               {typeof price === "number" || !isNaN(Number(price))
                 ? formatPrice(Number(price))
                 : price}

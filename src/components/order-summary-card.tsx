@@ -34,7 +34,7 @@ function OrderSummaryCard({
     <div className="flex flex-row items-start gap-3 md:gap-5 py-4 md:py-6">
       <Image
         src={image}
-        alt={title}
+        alt={`${title} image`}
         width={100}
         height={150}
         className="object-cover mx-auto md:mx-0"
@@ -74,7 +74,7 @@ function OrderSummaryCard({
                 <Image
                   key={index}
                   src={img}
-                  alt="Print Image"
+                  alt={`${title} image`}
                   width={32}
                   height={32}
                   className="w-8 h-8 md:w-10 md:h-10 border object-cover rounded"
