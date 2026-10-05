@@ -87,7 +87,7 @@ function PrintMockup({
             priority
             className="transition-transform duration-200"
             style={{
-              transform: `scale(${scale})`,
+              transform: `scale(${scale})`, 
               transformOrigin: "top left",
               objectFit: "cover",
             }}
